@@ -274,131 +274,33 @@
                 <img src="images/divider.png" alt="" />
             </div>
             <div class="row">
-                  <div class="col-lg-12 col-md-12">
-                    <div class="property shadow-hover">
-                      <a href="#" class="property-img">
-                        <div class="img-fade"></div>
-                        <div class="property-tag lable-sale featured">Sale</div>
-                        <div class="property-price">$150,000</div>
-                        <div class="property-color-bar"></div>
-                        <div>
-                            <img src="/realstate/images/1837x1206.png" alt="" />
+                @for($i = 0; $i < 5; $i++)
+                    <div class="col-lg-12 col-md-12">
+                        <div class="property shadow-hover">
+                        <a href="#" class="property-img">
+                            <div class="img-fade"></div>
+                            <div class="property-tag lable-sale featured">Sale</div>
+                            <div class="property-price">$150,000</div>
+                            <div class="property-color-bar"></div>
+                            <div>
+                                <img src="/realstate/images/1837x1206.png" alt="" />
+                            </div>
+                        </a>
+                        <div class="property-content">
+                            <div class="property-title">
+                            <h4><a href="#">Modern Family Home</a></h4>
+                            <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
+                            </div>
+                            <table class="property-details">
+                            <tr>
+                                <td><i class="fa fa-bed"></i> 3 Beds</td>
+                                <td><i class="fa fa-expand"></i>Type</td>
+                            </tr>
+                            </table>
                         </div>
-                      </a>
-                      <div class="property-content">
-                        <div class="property-title">
-                        <h4><a href="#">Modern Family Home</a></h4>
-                          <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
                         </div>
-                        <table class="property-details">
-                          <tr>
-                            <td><i class="fa fa-bed"></i> 3 Beds</td>
-                            <td><i class="fa fa-expand"></i>Type</td>
-                          </tr>
-                        </table>
-                      </div>
                     </div>
-                  </div>
-                  <div class="col-lg-12 col-md-12">
-                    <div class="property shadow-hover">
-                      <a href="#" class="property-img">
-                        <div class="img-fade"></div>
-                        <div class="property-tag lable-sale featured">Sale</div>
-                        <div class="property-price">$150,000</div>
-                        <div class="property-color-bar"></div>
-                        <div>
-                            <img src="/realstate/images/1837x1206.png" alt="" />
-                        </div>
-                      </a>
-                      <div class="property-content">
-                        <div class="property-title">
-                        <h4><a href="#">Modern Family Home</a></h4>
-                          <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                        </div>
-                        <table class="property-details">
-                          <tr>
-                            <td><i class="fa fa-bed"></i> 3 Beds</td>
-                            <td><i class="fa fa-expand"></i>Type</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-12 col-md-12">
-                    <div class="property shadow-hover">
-                      <a href="#" class="property-img">
-                        <div class="img-fade"></div>
-                        <div class="property-tag lable-sale featured">Sale</div>
-                        <div class="property-price">$150,000</div>
-                        <div class="property-color-bar"></div>
-                        <div>
-                            <img src="/realstate/images/1837x1206.png" alt="" />
-                        </div>
-                      </a>
-                      <div class="property-content">
-                        <div class="property-title">
-                        <h4><a href="#">Modern Family Home</a></h4>
-                          <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                        </div>
-                        <table class="property-details">
-                          <tr>
-                            <td><i class="fa fa-bed"></i> 3 Beds</td>
-                            <td><i class="fa fa-expand"></i>Type</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-12 col-md-12">
-                    <div class="property shadow-hover">
-                      <a href="#" class="property-img">
-                        <div class="img-fade"></div>
-                        <div class="property-tag lable-sale featured">Sale</div>
-                        <div class="property-price">$150,000</div>
-                        <div class="property-color-bar"></div>
-                        <div>
-                            <img src="/realstate/images/1837x1206.png" alt="" />
-                        </div>
-                      </a>
-                      <div class="property-content">
-                        <div class="property-title">
-                        <h4><a href="#">Modern Family Home</a></h4>
-                          <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                        </div>
-                        <table class="property-details">
-                          <tr>
-                            <td><i class="fa fa-bed"></i> 3 Beds</td>
-                            <td><i class="fa fa-expand"></i>Type</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-12 col-md-12">
-                    <div class="property shadow-hover">
-                      <a href="#" class="property-img">
-                        <div class="img-fade"></div>
-                        <div class="property-tag lable-sale featured">Sale</div>
-                        <div class="property-price">$150,000</div>
-                        <div class="property-color-bar"></div>
-                        <div>
-                            <img src="/realstate/images/1837x1206.png" alt="" />
-                        </div>
-                      </a>
-                      <div class="property-content">
-                        <div class="property-title">
-                        <h4><a href="#">Modern Family Home</a></h4>
-                          <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                        </div>
-                        <table class="property-details">
-                          <tr>
-                            <td><i class="fa fa-bed"></i> 3 Beds</td>
-                            <td><i class="fa fa-expand"></i>Type</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
+                @endfor
             </div>
             <div class="center"><a href="#" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Sales</a></div>
         </div>
@@ -409,36 +311,10 @@
                 <img src="images/divider.png" alt="" />
             </div>
             <div class="row">
-
-                <div class="col-lg-12 col-md-12">
-                  <div class="property shadow-hover">
-                    <a href="#" class="property-img">
-                      <div class="img-fade"></div>
-                      <div class="property-tag lable-rent featured">Rent</div>
-                      <div class="property-price">$150,000</div>
-                      <div class="property-color-bar"></div>
-                      <div>
-                          <img src="/realstate/images/1837x1206.png" alt="" />
-                      </div>
-                    </a>
-                    <div class="property-content">
-                      <div class="property-title">
-                      <h4><a href="#">Modern Family Home</a></h4>
-                        <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                      </div>
-                      <table class="property-details">
-                        <tr>
-                          <td><i class="fa fa-bed"></i> 3 Beds</td>
-                            <td><i class="fa fa-expand"></i>Type</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
+            @for($i = 0; $i < 5; $i++)
                 <div class="col-lg-12 col-md-12">
                     <div class="property shadow-hover">
-                      <a href="#" class="property-img">
+                        <a href="#" class="property-img">
                         <div class="img-fade"></div>
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">$150,000</div>
@@ -446,100 +322,24 @@
                         <div>
                             <img src="/realstate/images/1837x1206.png" alt="" />
                         </div>
-                      </a>
-                      <div class="property-content">
-                        <div class="property-title">
-                        <h4><a href="#">Modern Family Home</a></h4>
-                          <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                        </div>
-                        <table class="property-details">
-                          <tr>
-                            <td><i class="fa fa-bed"></i> 3 Beds</td>
-                            <td><i class="fa fa-expand"></i>Type</td>
-                          </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-12 col-md-12">
-                      <div class="property shadow-hover">
-                        <a href="#" class="property-img">
-                          <div class="img-fade"></div>
-                          <div class="property-tag lable-rent featured">Rent</div>
-                          <div class="property-price">$150,000</div>
-                          <div class="property-color-bar"></div>
-                          <div>
-                              <img src="/realstate/images/1837x1206.png" alt="" />
-                          </div>
                         </a>
                         <div class="property-content">
-                          <div class="property-title">
-                          <h4><a href="#">Modern Family Home</a></h4>
+                        <div class="property-title">
+                        <h4><a href="#">Modern Family Home</a></h4>
                             <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                          </div>
-                          <table class="property-details">
+                        </div>
+                        <table class="property-details">
                             <tr>
-                              <td><i class="fa fa-bed"></i> 3 Beds</td>
-                              <td><i class="fa fa-expand"></i>Type</td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12">
-                        <div class="property shadow-hover">
-                          <a href="#" class="property-img">
-                            <div class="img-fade"></div>
-                            <div class="property-tag lable-rent featured">Rent</div>
-                            <div class="property-price">$150,000</div>
-                            <div class="property-color-bar"></div>
-                            <div>
-                                <img src="/realstate/images/1837x1206.png" alt="" />
-                            </div>
-                          </a>
-                          <div class="property-content">
-                            <div class="property-title">
-                            <h4><a href="#">Modern Family Home Modern Family Home Modern Family Home</a></h4>
-                              <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                            </div>
-                            <table class="property-details">
-                              <tr>
-                                <td><i class="fa fa-bed"></i> 3 Beds</td>
+                            <td><i class="fa fa-bed"></i> 3 Beds</td>
                                 <td><i class="fa fa-expand"></i>Type</td>
-                              </tr>
-                            </table>
-                          </div>
+                            </tr>
+                        </table>
                         </div>
-                      </div>
-
-                      <div class="col-lg-12 col-md-12">
-                          <div class="property shadow-hover">
-                            <a href="#" class="property-img">
-                              <div class="img-fade"></div>
-                              <div class="property-tag lable-rent featured">Rent</div>
-                              <div class="property-price">$150,000</div>
-                              <div class="property-color-bar"></div>
-                              <div>
-                                  <img src="/realstate/images/1837x1206.png" alt="" />
-                              </div>
-                            </a>
-                            <div class="property-content">
-                              <div class="property-title">
-                              <h4><a href="#">Modern Family Home</a></h4>
-                                <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
-                              </div>
-                              <table class="property-details">
-                                <tr>
-                                  <td><i class="fa fa-bed"></i> 3 Beds</td>
-                                  <td><i class="fa fa-expand"></i>Type</td>
-                                </tr>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                  <div class="center"><a href="#" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Rentals</a></div>
+                    </div>
+                 </div>
+            @endfor
+            
+            <div class="center"><a href="#" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Rentals</a></div>
             </div><!-- end row -->
         </div>
       </div> 
