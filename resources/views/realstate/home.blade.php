@@ -22,8 +22,10 @@
             <p class="slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet est augue malesuada dictum. Nullam elementum dictum.</p>
             <table>
               <tr>
-                <td><i class="fa fa-bed"></i><br/>3 Beds</td>
-                <td><i class="fa fa-expand"></i><br/>Type</td>
+                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
+                <td><i class="fa fa-bed"></i> Rooms</td>
+                <td><i class="fa fa-expand"></i>Size</td>
+                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
               </tr>
             </table>
             <span class="lable-rent right mobile-lable-flout">Rent</span>
@@ -42,8 +44,10 @@
             <p class="slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet est augue malesuada dictum. Nullam elementum dictum.</p>
             <table>
               <tr>
-                <td><i class="fa fa-bed"></i><br/>3 Beds</td>
-                <td><i class="fa fa-expand"></i><br/>Type</td>
+                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
+                <td><i class="fa fa-bed"></i> Rooms</td>
+                <td><i class="fa fa-expand"></i>Size</td>
+                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
               </tr>
             </table>
             <span class="lable-sale right mobile-lable-flout">For Sale</span>
@@ -62,8 +66,10 @@
             <p class="slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet est augue malesuada dictum. Nullam elementum dictum.</p>
             <table>
               <tr>
-                <td><i class="fa fa-bed"></i><br/>3 Beds</td>
-                <td><i class="fa fa-expand"></i><br/>Type</td>
+                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
+                <td><i class="fa fa-bed"></i> Rooms</td>
+                <td><i class="fa fa-expand"></i>Size</td>
+                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
               </tr>
             </table>
             <span class="lable-sale right mobile-lable-flout">For Sale</span>
@@ -82,8 +88,10 @@
             <p class="slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet est augue malesuada dictum. Nullam elementum dictum.</p>
             <table>
               <tr>
-                <td><i class="fa fa-bed"></i><br/>3 Beds</td>
-                <td><i class="fa fa-expand"></i><br/>Type</td>
+                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
+                <td><i class="fa fa-bed"></i> Rooms</td>
+                <td><i class="fa fa-expand"></i>Size</td>
+                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
               </tr>
             </table>
             <span class="lable-sale right mobile-lable-flout">For Sale</span>
@@ -293,8 +301,10 @@
                             </div>
                             <table class="property-details">
                             <tr>
-                                <td><i class="fa fa-bed"></i> 3 Beds</td>
-                                <td><i class="fa fa-expand"></i>Type</td>
+                                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
+                                <td><i class="fa fa-bed"></i> Rooms</td>
+                                <td><i class="fa fa-expand"></i>Size</td>
+                                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
                             </tr>
                             </table>
                         </div>
@@ -330,8 +340,10 @@
                         </div>
                         <table class="property-details">
                             <tr>
-                            <td><i class="fa fa-bed"></i> 3 Beds</td>
-                                <td><i class="fa fa-expand"></i>Type</td>
+                                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
+                                <td><i class="fa fa-bed"></i> Rooms</td>
+                                <td><i class="fa fa-expand"></i>Size</td>
+                                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
                             </tr>
                         </table>
                         </div>
