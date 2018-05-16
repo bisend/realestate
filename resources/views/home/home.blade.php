@@ -40,6 +40,7 @@
     <div class="container-fluid header-container" @if($static_data['design_settings']['slider_background']) style="background-image: url('{{URL::asset('/assets/images/home/').'/'.$static_data['design_settings']['slider_background']}}')" @endif>
         <div id="top" class="row">
             <div class="container">
+            
                 <div class="row">
                     <div class="col-md-12 col-lg-6">
                         <span class="top-text">{{$static_data['strings']['opt_welcome_text']}} @if($static_data['user'] ){{$static_data['user']->username}}@else{{$static_data['strings']['guest']}}@endif</span>

@@ -48,7 +48,7 @@ class HomeController extends Controller
         }])->where('status', 1)->orderBy('created_at', 'desc')->take(3)->get();
 
         // Returning the View
-        return view('home.home', compact('posts', 'default_language',
+        return view('realstate.home', compact('posts', 'default_language',
             'properties', 'static_data', 'f_locations'));
     }
 
