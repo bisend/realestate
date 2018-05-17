@@ -448,9 +448,9 @@
                     callback: function (result) {
                         if(result){
                             $.ajax({
-                                url: '{{ url('/admin/property/makefeatured/') }}/'+id,
+                                url: '{{ url('/admin/property/slider/') }}/'+id,
                                 type: 'post',
-                                data: {_token :token},
+                                data: {value: value},
                                 success:function(msg) {
                                     thisBtn.children('.make-featured-button').addClass('hidden');
                                     thisBtn.children('.make-default-button').removeClass('hidden');

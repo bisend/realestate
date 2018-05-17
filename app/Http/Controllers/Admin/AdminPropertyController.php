@@ -523,4 +523,18 @@ class AdminPropertyController extends Controller
         $property_dates->update($data);
         return redirect('admin/property');
     }
+
+    public function slider(Request $request, $id)
+    {
+        dd($request->value);
+        if($request->ajax()) {
+            $property = Property::findOrFail($id);
+            $property->slider = $request->value;
+            $property->touch();
+            $property->save();
+            return response()->json(get_string('success_service_featured'), 200);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
+    }
 }
