@@ -7,8 +7,8 @@
 
     $( document ).ready(function() {
         $('.show-register').on('click', function () {
-            $('.Register-Interest').toggleClass('form-active');
-            $('.Register-Interest').toggleClass('form-active-mob');
+            $('.Register-Interest').toggleClass('form-active-registr');
+            $('.Register-Interest').toggleClass('form-active-mob-reg');
         })
     
         $('.show-collback').on('click', function () {
@@ -20,6 +20,19 @@
     if(window.innerWidth < 991){
         $('.Register-Interest').removeClass('form-active');
         $('.Call-Back-wrap').removeClass('form-active');
+
+
+        $('.show-register').on('click', function () {
+            $('.Call-Back-wrap').removeClass('form-active');
+            $('.Call-Back-wrap').removeClass('form-active-mob');
+            
+        })
+    
+        $('.show-collback').on('click', function () {
+            $('.Register-Interest').removeClass('form-active-registr');
+            $('.Register-Interest').removeClass('form-active-mob-reg');
+        })
+
 
         // $('.Register-Interest').addClass('form-active-mob');
         // $('.Call-Back-wrap').addClass('form-active-mob');

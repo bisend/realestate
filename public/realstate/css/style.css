@@ -727,7 +727,7 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 .subheader.subheader-slider .slider-advanced .slide .fa { color:#48a0dc; }
 .subheader.subheader-slider .slider-advanced .slide p.slide-text { font-weight:300; font-size:15px; }
 .subheader.subheader-slider .slider-advanced .slide table { font-size:13px; margin-bottom:25px; margin-top:20px; font-weight:600; width:100%; text-align:center; }
-.subheader.subheader-slider .slider-advanced .slide table td { border-right:1px solid rgba(0, 0, 0, 0.07); width:25%; text-align: left; }
+.subheader.subheader-slider .slider-advanced .slide table td {  width:25%; text-align: left; }
 .subheader.subheader-slider .slider-advanced .slide table td:last-child { border:none; }
 .subheader.subheader-slider .slider-advanced .slide table .fa { margin-bottom:7px; font-size:30px; margin-right: 7px; }
 .subheader.subheader-slider .slider-advanced .slide .button-icon .fa { color:white; }
@@ -1930,8 +1930,8 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
     padding: 10px;
     position: fixed;
     z-index: 99999;
-    right: -300px;
-	top: 29%;
+    left: -300px;
+	top: 35%;
 	
 	-webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
@@ -1939,13 +1939,47 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
     transition: all 0.4s;
 }
 
+.form-active-registr{
+	left: 0;
+
+	-webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.contact-form-fix .show-register{
+	position: absolute;
+    right: -60px;
+    z-index: 99999;
+    width: 50px;
+    height: 50px;
+	top: -10px;
+	background-color: #4fba6f;
+	color: #fff;
+	border: 1px solid #4fba6f;
+	outline: none;
+	font-size: 20px;
+
+	-webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+
+
+
+
+
+
 .Call-Back-wrap{
 	background-color: #323746;
     width: 300px;
     padding: 10px;
     position: fixed;
     z-index: 99999;
-	top: 65%;
+	top: 35%;
 	right: -300px;
 	
 	-webkit-transition: all 0.4s;
@@ -1993,8 +2027,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	position: relative;
 }
 
-.contact-form-fix .show-collback,
-.contact-form-fix .show-register{
+.contact-form-fix .show-collback{
 	position: absolute;
     left: -60px;
     z-index: 99999;
