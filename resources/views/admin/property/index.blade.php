@@ -62,7 +62,7 @@
                         <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td>
                         <td class="page-featured">{{$property->featured ? get_string('yes') : get_string('no')}}</td>
                         <td>
-                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
+                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
                             <label for="slider{{$property->id}}"></label>
                         </td>
                         <td>
@@ -426,6 +426,45 @@
                         .append( "<a href='#'>" + item.name + "</a>" )
                         .appendTo( ul );
             };
+
+            $('.slider-checkbox').on('change', function () {
+                var value = $(this).is(':checked');
+                var id = $(this).data('id');
+                bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: '{{get_string('make_featured_confirm')}}',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/property/makefeatured/') }}/'+id,
+                                type: 'post',
+                                data: {_token :token},
+                                success:function(msg) {
+                                    thisBtn.children('.make-featured-button').addClass('hidden');
+                                    thisBtn.children('.make-default-button').removeClass('hidden');
+                                    status.html('{{get_string('yes')}}');
+                                    toastr.success(msg);
+                                },
+                                error:function(msg){
+                                    toastr.error(msg.responseJSON);
+                                }
+                            });
+                        }
+                    }
+                });
+            });
         });
     </script>
 @endsection
