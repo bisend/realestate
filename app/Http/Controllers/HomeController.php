@@ -42,11 +42,11 @@ class HomeController extends Controller
 
         $sales_properties = Property::with(['images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
-        }])->where('sales', 1)->where('featured', 1)->take(5)->get();
+        }])->where('sales', 1)->where('featured_sale', 1)->take(5)->get();
 
         $rentals_properties = Property::with(['images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
-        }])->where('rentals', 1)->where('featured', 1)->take(5)->get();
+        }])->where('rentals', 1)->where('featured_rent', 1)->take(5)->get();
 
         $f_locations = Location::with('contentload')->where('featured', 1)->orderBy('order', 'asc')->get();
 

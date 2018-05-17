@@ -331,10 +331,10 @@
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
                           <div>
-                            ${{ $rentals_property->price_per_night }} <span>weekly</span>
+                          ${{ $rentals_property->prices['d_5'] }} <span>weekly</span>
                           </div>
                           <div>
-                            ${{ $rentals_property->price_per_night }} <span>monthly</span>
+                            ${{ $rentals_property->prices['d_30'] }} <span>monthly</span>
                           </div>
                         </div>
                         <div class="property-color-bar"></div>

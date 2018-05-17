@@ -12,7 +12,7 @@ class Property extends Model
         'user_id', 'status', 'images', 'category_id', 'location', 'contact',
         'social', 'business_hours', 'featured', 'video', 'features', 'type_id', 'location_id',
         'property_info', 'fees', 'prices', 'alias', 'rooms', 'guest_number', 'price_per_night', 'meta_keywords', 'meta_description', 'meta_title',
-        'sales', 'rentals',
+        'sales', 'rentals', 'slider', 'position',
     ];
 
     // Storing arrays in base
