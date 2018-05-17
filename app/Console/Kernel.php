@@ -28,39 +28,39 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->call(function () {
-            $today = Carbon::today()->format('Y-m-d');
-            $activities = Activity::whereDate('end_date', '<=', $today)->get();
-            foreach($activities as $activity){
-                if($activity->property){
-                    $activity->property->featured = 0;
-                    $activity->property->save();
-                }
-            }
-        })->daily();
+    // protected function schedule(Schedule $schedule)
+    // {
+    //     $schedule->call(function () {
+    //         $today = Carbon::today()->format('Y-m-d');
+    //         $activities = Activity::whereDate('end_date', '<=', $today)->get();
+    //         foreach($activities as $activity){
+    //             if($activity->property){
+    //                 $activity->property->featured = 0;
+    //                 $activity->property->save();
+    //             }
+    //         }
+    //     })->daily();
 
-        $schedule->call(function () {
-            $days = get_setting('days_after_check_in', 'payment');
-            $today = Carbon::today()->subdays($days);
-            $bookings = Booking::whereDate('start_date', '<=', $today)->get();
-            foreach($bookings as $booking){
-                if(!$booking->status){
-                    $owner = Owner::where('user_id', $booking->owner_id)->first();
-                    if($owner){
-                        $owner->pending_balance -= $booking->total;
-                        $owner->active_balance += $booking->total;
-                        $owner->save();
-                        $booking->status = 1;
-                        $booking->save();
-                    }
-                 }
+    //     $schedule->call(function () {
+    //         $days = get_setting('days_after_check_in', 'payment');
+    //         $today = Carbon::today()->subdays($days);
+    //         $bookings = Booking::whereDate('start_date', '<=', $today)->get();
+    //         foreach($bookings as $booking){
+    //             if(!$booking->status){
+    //                 $owner = Owner::where('user_id', $booking->owner_id)->first();
+    //                 if($owner){
+    //                     $owner->pending_balance -= $booking->total;
+    //                     $owner->active_balance += $booking->total;
+    //                     $owner->save();
+    //                     $booking->status = 1;
+    //                     $booking->save();
+    //                 }
+    //              }
 
-            }
-        })->daily();
+    //         }
+    //     })->daily();
 
-    }
+    // }
 
     /**
      * Register the Closure based commands for the application.
