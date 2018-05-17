@@ -903,12 +903,21 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 	bottom:10px;
 	left:15px;
 	z-index:20;
+	display: flex;
 }
+
+.property-price div{
+	margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
 .property-price span {  
-	font-size:12px;
+	font-size:13px;
 	font-style:italic;
 	font-weight:200;
 	display:block;
+	margin-left: 5px;
 }
 
 .property-tag {
