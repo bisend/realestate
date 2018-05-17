@@ -54,8 +54,8 @@
       padding: 10px;
       position: fixed;
       z-index: 99999;
-      right: -240px;
-      top: 30%;
+      left: -241px;
+      top: 35%;
     
     -webkit-transition: all 0.4s;
       -o-transition: all 0.4s;
@@ -63,14 +63,35 @@
       transition: all 0.4s;
   }
   
+  .contact-form-fix .show-register{
+    position: absolute;
+      right: -60px;
+      z-index: 99999;
+      width: 50px;
+      height: 50px;
+      top: -10px;
+  }
+
+  .form-active-mob-reg{
+    left: 0;
+  
+    -webkit-transition: all 0.4s;
+      -o-transition: all 0.4s;
+      -moz-transition: all 0.4s;
+      transition: all 0.4s;
+  }
+
+
+
+
   .Call-Back-wrap{
     background-color: #323746;
       width: 240px;
       padding: 10px;
       position: fixed;
       z-index: 99999;
-      right: -240px;
-      top: 65%;
+      right: -241px;
+      top: 35%;
     
     -webkit-transition: all 0.4s;
       -o-transition: all 0.4s;
@@ -78,8 +99,7 @@
       transition: all 0.4s;
   }
 
-  .contact-form-fix .show-collback,
-.contact-form-fix .show-register{
+  .contact-form-fix .show-collback{
 	position: absolute;
     left: -60px;
     z-index: 99999;

@@ -28,7 +28,7 @@
 </head>
 <body>
 
-    <div class="contact-form-fix Register-Interest form-active">
+    <div class="contact-form-fix Register-Interest form-active-registr">
         <div class="show-btn-wrapper">
             <button class="show-register"><i class="fa fa-envelope" aria-hidden="true"></i></button>
         </div>
