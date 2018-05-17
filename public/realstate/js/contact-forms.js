@@ -57,15 +57,17 @@
     $('#send-register-form').on('click', function (e) {
         e.preventDefault();
 
-        $('.incorectEmail').on('focus', function () {
-            $('.incorectEmail').val(saveEmail);
-        })
 
         var name = $('#register-name').val();
         var email = $('#register-email').val();
 
         var saveEmail = $('#register-email').val();
         var registrError = false;
+
+        $('#register-email').on('focus', function () {
+            $('#register-email').attr('placeholder', '');
+            $('#register-email').val(saveEmail);
+        })
 
         if(name == ''){
             $('#register-name').val('');
