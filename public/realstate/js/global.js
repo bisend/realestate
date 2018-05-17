@@ -319,52 +319,65 @@ jQuery(document).ready(function($) {
 
 $( document ).ready(function() {
    
-var win = $(this);
-if (win.width() < 991) { 
-  $('.mobile-phone').on('click', function () {
-	  $('.mail-phone-text').hide();
-	  $('.mobile-phone-text').toggle();
-  });
-
-  $('.mobile-mail').on('click', function () {
-	  $('.mobile-phone-text').hide();
-	  $('.mail-phone-text').toggle();
-  })
-
-}
-
-$(window).on('resize', function(){
-	var win = $(this);
-		if (win.width() > 991) { 
-				$('.mail-phone-text').show();
-				$('.mobile-phone-text').show();
+	var win = $(window);
+	var mobileBtn =  $('.mobile-phone');
+	var mailBtn =  $('.mobile-mail');
+	var mobileText = $('.mobile-phone-text');
+	var mailText = $('.mail-phone-text');
+	
+	var added = false;
+	
+	
+	function addMMEvents(){
+		if (!added){
+			mobileBtn.on('click', toggleMobile);
+			mailBtn.on('click', toggleMail);
+			added = true;
 		}
-		if (win.width() < 991) { 
-			$('.mail-phone-text').hide();
-			$('.mobile-phone-text').hide();
+	}
+	
+	function removeMMEvents(){
+		if (added){
+			mobileBtn.off('click', toggleMobile, false);
+			mailBtn.off('click', toggleMail, false);
+			added = false;
 		}
-	});
-
-});
-
-
-// 	$(window).on('resize', function(){
-// 		var win = $(this);
-// 		if (win.width() < 991) { 
-// 			$('.mobile-phone').on('click', function () {
-// 				$('.mail-phone-text').hide();
-// 				$('.mobile-phone-text').toggle();
-// 				console.log('1')
-// 			});
-
-// 			$('.mobile-mail').on('click', function () {
-// 				$('.mobile-phone-text').hide();
-// 				$('.mail-phone-text').toggle();
-// 				console.log('2')
-// 			})
-
-// 		 }
-//   });
+	
+	}
+	function checkWidth(){
+		if (window.innerWidth > 991){
+			removeMMEvents();
+			showAll();
+		}else{
+	
+			addMMEvents();
+			hideAll();
+		}
+	}
+	
+	function hideAll(){
+		mobileText.hide();
+		mailText.hide();
+	}
+	
+	function showAll(){
+		mobileText.show();
+		mailText.show();
+	}
+	
+	function toggleMobile(){
+		mailText.hide();
+		mobileText.toggle();
+	}
+	
+	function toggleMail(){
+		mobileText.hide();
+		mailText.toggle();
+	}
+	
+	checkWidth();
+	win.on('resize', checkWidth);
+	})
   
 
 

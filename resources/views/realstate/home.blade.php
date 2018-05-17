@@ -290,7 +290,7 @@
                             <div class="property-tag lable-sale featured">Sale</div>
                             <div class="property-price">$150,000</div>
                             <div class="property-color-bar"></div>
-                            <div>
+                            <div class="prop-img-home">
                                 <img src="/realstate/images/1837x1206.png" alt="" />
                             </div>
                         </a>
@@ -329,7 +329,7 @@
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">$150,000</div>
                         <div class="property-color-bar"></div>
-                        <div>
+                        <div class="prop-img-home">
                             <img src="/realstate/images/1837x1206.png" alt="" />
                         </div>
                         </a>

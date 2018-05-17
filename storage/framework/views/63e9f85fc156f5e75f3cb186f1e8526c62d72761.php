@@ -4,7 +4,7 @@
     <div class="container">
         <div class="top-bar-left left">
             <ul class="top-bar-item right social-icons">
-            <li><a href="/<?php echo e($static_data['site_settings']['social_facebook']); ?>"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="<?php echo e($static_data['site_settings']['social_facebook']); ?>"><i class="fa fa-facebook"></i></a></li>
             <li><a href="<?php echo e($static_data['site_settings']['social_twitter']); ?>"><i class="fa fa-twitter"></i></a></li>
             <li><a href="<?php echo e($static_data['site_settings']['social_google_plus']); ?>"><i class="fa fa-google-plus"></i></a></li>
             </ul>
