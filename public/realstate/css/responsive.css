@@ -25,6 +25,19 @@
 
 }
 
+@media only screen and (max-width: 1200px) {
+  .prop-img-home{
+    width: 100%;
+    height: 300px;
+  }
+  
+  .prop-img-home img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 @media screen and (min-width: 767px) and (max-width: 990px) {
 	.navbar-collapse.collapse { 
 	  	background:transparent !important;
@@ -120,6 +133,21 @@
   /** FOOTER **/
   .footer-widget { margin-bottom:50px; }
   footer h4 { margin-bottom:20px; }
+
+
+/* HOME PROP IMG */
+
+.prop-img-home{
+	width: 100%;
+	height: 473px;
+}
+
+.prop-img-home img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 
 }
 
@@ -346,6 +374,17 @@
     margin-bottom: 15px;
   }
 
+  .prop-img-home{
+	width: 100%;
+	height: 374px;
+}
+
+.prop-img-home img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 }
 
 @media only screen and (max-width: 480px) {
@@ -377,12 +416,51 @@
     width: 100%;
     text-align: center;
   }
+.prop-img-home{
+	width: 100%;
+	height: 295px;
+}
 
+.prop-img-home img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 }
 
 @media only screen and (max-width: 375px) {
   .property-details td {
     width: 50%;
   }
+
+  .prop-img-home{
+	width: 100%;
+	height: 225px;
+}
+
+.prop-img-home img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+}
+
+
+@media only screen and (max-width: 330px) {
+  .property-details td {
+    width: 50%;
+  }
+
+  .prop-img-home{
+	width: 100%;
+	height: 197px;
+}
+
+.prop-img-home img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 
 }
