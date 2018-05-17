@@ -329,7 +329,14 @@
                         <a href="#" class="property-img">
                         <div class="img-fade"></div>
                         <div class="property-tag lable-rent featured">Rent</div>
-                        <div class="property-price">${{ $rentals_property->price_per_night }}/night</div>
+                        <div class="property-price">
+                          <div>
+                            ${{ $rentals_property->price_per_night }} <span>weekly</span>
+                          </div>
+                          <div>
+                            ${{ $rentals_property->price_per_night }} <span>monthly</span>
+                          </div>
+                        </div>
                         <div class="property-color-bar"></div>
                         <div class="prop-img-home">
                             <img src="{{ url('/').$rentals_property->image }}" alt="" />
