@@ -23,8 +23,15 @@
     <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a>
 </div>
 <div class="col s12">
-    <?php if($properties->count()): ?>
-        <div class="table-responsive">
+    <div class="panel-heading">
+        <ul class="nav nav-tabs">
+            <li class="tab active"><a href="#sale-body" data-toggle="tab">Sale</a></li>
+            <li class="tab"><a href="#rent-body" data-toggle="tab">Rent</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+    <?php if($sale_properties->count()): ?>
+        <div id="sale-body" class="table-responsive tab-pane active">
             <table class="table bordered striped">
                 <thead class="thead-inverse">
                 <tr>
@@ -33,27 +40,32 @@
                         <label for="select-all"></label>
                     </th>
                     <th><?php echo e(get_string('property')); ?></th>
-                    <th><?php echo e(get_string('user')); ?></th>
+                    <!-- <th><?php echo e(get_string('user')); ?></th> -->
                     <th><?php echo e(get_string('category')); ?></th>
                     <th><?php echo e(get_string('location')); ?></th>
-                    <th><?php echo e(get_string('status')); ?></th>
+                    <th>Type</th>
                     <th><?php echo e(get_string('featured')); ?></th>
+                    <th>Slider</th>
                     <th class="icon-options"><?php echo e(get_string('options')); ?></th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                <?php $__currentLoopData = $sale_properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                     <tr>
                         <td>
                             <input type="checkbox" class="filled-in primary-color" id="<?php echo e($property->id); ?>" />
                             <label for="<?php echo e($property->id); ?>"></label>
                         </td>
                         <td><?php echo e($property->contentDefault->name); ?></td>
-                        <td><?php if($property->user): ?><?php echo e($property->user->username); ?><?php else: ?> <i class="small material-icons color-red">clear</i> <?php endif; ?></td>
+                        <!-- <td><?php if($property->user): ?><?php echo e($property->user->username); ?><?php else: ?> <i class="small material-icons color-red">clear</i> <?php endif; ?></td> -->
                         <td><?php echo e($property->category->contentDefault->name); ?></td>
                         <td><?php echo e($property->prop_location->contentDefault->location); ?></td>
-                        <td class="page-status"><?php echo e($property->status ? get_string('active') : get_string('pending')); ?></td>
+                        <td class="page-status"><?php echo e($property->sales == 1 ? 'Sales' : ''); ?> <?php echo e($property->rentals == 1 ? 'Rentals' : ''); ?></td>
                         <td class="page-featured"><?php echo e($property->featured ? get_string('yes') : get_string('no')); ?></td>
+                        <td>
+                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider<?php echo e($property->id); ?>" <?php echo e($property->slider == 1 ? 'checked' : ''); ?>>
+                            <label for="slider<?php echo e($property->id); ?>"></label>
+                        </td>
                         <td>
                             <div class="icon-options">
                                 <a href="<?php echo e(url('property').'/'.$property->alias); ?>" title="<?php echo e(get_string('view_property')); ?>"><i class="small material-icons color-primary">visibility</i></a>
@@ -70,12 +82,74 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
                 </tbody>
             </table>
-        </div>
-        <?php echo e($properties->links()); ?>
+            <?php echo e($sale_properties->links()); ?>
 
-    <?php else: ?>
-        <strong class="center-align"><?php echo e(get_string('no_results')); ?></strong>
-    <?php endif; ?>
+        </div>
+        
+        <?php else: ?>
+            <strong class="center-align"><?php echo e(get_string('no_results')); ?></strong>
+        <?php endif; ?>
+        <?php if($rent_properties->count()): ?>
+        <div id="rent-body" class="table-responsive tab-pane">
+            <table class="table bordered striped">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        <input type="checkbox" class="filled-in primary-color" id="select-all" />
+                        <label for="select-all"></label>
+                    </th>
+                    <th><?php echo e(get_string('property')); ?></th>
+                    <!-- <th><?php echo e(get_string('user')); ?></th> -->
+                    <th><?php echo e(get_string('category')); ?></th>
+                    <th><?php echo e(get_string('location')); ?></th>
+                    <th>Type</th>
+                    <th><?php echo e(get_string('featured')); ?></th>
+                    <th>Slider</th>
+                    <th class="icon-options"><?php echo e(get_string('options')); ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php $__currentLoopData = $rent_properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="filled-in primary-color" id="<?php echo e($property->id); ?>" />
+                            <label for="<?php echo e($property->id); ?>"></label>
+                        </td>
+                        <td><?php echo e($property->contentDefault->name); ?></td>
+                        <!-- <td><?php if($property->user): ?><?php echo e($property->user->username); ?><?php else: ?> <i class="small material-icons color-red">clear</i> <?php endif; ?></td> -->
+                        <td><?php echo e($property->category->contentDefault->name); ?></td>
+                        <td><?php echo e($property->prop_location->contentDefault->location); ?></td>
+                        <td class="page-status"><?php echo e($property->sales == 1 ? 'Sales' : ''); ?> <?php echo e($property->rentals == 1 ? 'Rentals' : ''); ?></td>
+                        <td class="page-featured"><?php echo e($property->featured ? get_string('yes') : get_string('no')); ?></td>
+                        <td>
+                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider<?php echo e($property->id); ?>" <?php echo e($property->slider == 1 ? 'checked' : ''); ?>>
+                            <label for="slider<?php echo e($property->id); ?>"></label>
+                        </td>
+                        <td>
+                            <div class="icon-options">
+                                <a href="<?php echo e(url('property').'/'.$property->alias); ?>" title="<?php echo e(get_string('view_property')); ?>"><i class="small material-icons color-primary">visibility</i></a>
+                                <a href="<?php echo e(route('admin.property.edit', $property->id)); ?>" title="<?php echo e(get_string('edit_property')); ?>"><i class="small material-icons color-primary">mode_edit</i></a>
+                                <a href="<?php echo e(route('admin_property_date', $property->id)); ?>" title="<?php echo e(get_string('property_availability')); ?>"><i class="small material-icons color-blue">date_range</i></a>
+                                <a href="#" class="delete-button" data-id="<?php echo e($property->id); ?>" title="<?php echo e(get_string('delete_property')); ?>"><i class="small material-icons color-red">delete</i></a>
+                                <a href="#" class="activate-button <?php echo e($property->status ? 'hidden': ''); ?>" data-id="<?php echo e($property->id); ?>" title="<?php echo e(get_string('activate_property')); ?>"><i class="small material-icons color-primary">done</i></a>
+                                <a href="#" class="deactivate-button <?php echo e($property->status ? '': 'hidden'); ?>" data-id="<?php echo e($property->id); ?>" title="<?php echo e(get_string('deactivate_property')); ?>"><i class="small material-icons color-primary">close</i></a>
+                                <a href="#" class="make-featured-button <?php echo e($property->featured ? 'hidden': ''); ?>" data-id="<?php echo e($property->id); ?>" title="<?php echo e(get_string('make_featured')); ?>"><i class="small material-icons color-primary">grade</i></a>
+                                <a href="#" class="make-default-button <?php echo e($property->featured ? '': 'hidden'); ?>" data-id="<?php echo e($property->id); ?>" title="<?php echo e(get_string('make_default')); ?>"><i class="small material-icons color-yellow">grade</i></a>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                </tbody>
+            </table>
+            <?php echo e($rent_properties->links()); ?>
+
+        </div>
+        
+        <?php else: ?>
+            <strong class="center-align"><?php echo e(get_string('no_results')); ?></strong>
+        <?php endif; ?>
+    </div>
+
 </div>
 <?php $__env->stopSection(); ?>
 

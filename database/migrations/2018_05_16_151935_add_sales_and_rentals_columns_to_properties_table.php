@@ -16,6 +16,8 @@ class AddSalesAndRentalsColumnsToPropertiesTable extends Migration
         Schema::table('properties', function (Blueprint $table) {
             $table->boolean('sales')->after('alias')->default(0);
             $table->boolean('rentals')->after('sales')->default(0);
+            $table->integer('position')->after('rentals')->default(0);
+            $table->boolean('slider')->after('position')->default(0);
         });
     }
 
@@ -29,6 +31,8 @@ class AddSalesAndRentalsColumnsToPropertiesTable extends Migration
         Schema::table('properties', function (Blueprint $table) {
             $table->dropColumn('sales');
             $table->dropColumn('rentals');
+            $table->dropColumn('position');
+            $table->dropColumn('slider');
         });
     }
 }

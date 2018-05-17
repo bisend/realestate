@@ -421,16 +421,26 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col l6 m6 s12">
-                        <div class="form-group  {{$errors->has('fees.cleaning_fee') ? 'has-error' : ''}}">
-                            <form action="" >
-                                <input type="radio" id="contactChoice1" name="sale_rent" value="sales">
-                                <label for="contactChoice1">Sales</label>
-
-                                <input type="radio" id="contactChoice2" name="sale_rent" value="rentals">
-                                <label for="contactChoice2">Rentals</label>
+                    <div class="col s12 clearfix">
+                        <h5 class="section-title">Sales or Rentals</h5>
+                    </div>
+                    <div class="col l6 m6 s12 clearfix">
+                        <div class="form-group  {{$errors->has('sale_rent') ? 'has-error' : ''}}">
+                            <form action="" class="form-control">
+                                <div class="form-group">
+                                    <div>
+                                        <input type="checkbox" class="filled-in primary-color" id="contactChoice1" name="sale_rent[]" value="sales">
+                                        <label for="contactChoice1"></label>
+                                        <span class="checkbox-label">Sales</span>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox"  class="filled-in primary-color" id="contactChoice2" name="sale_rent[]" value="rentals">
+                                        <label for="contactChoice2"></label>
+                                        <span class="checkbox-label">Rentals</span>
+                                    </div>
+                                </div>
                             </form>
-                            @if($errors->has('fees.cleaning_fee'))
+                            @if($errors->has('sale_rent'))
                                 <span class="wrong-error">* Choose one of the options</span>
                             @endif
                         </div>

@@ -35,22 +35,22 @@ class AdminPropertyController extends Controller
             'location.country'        => 'required',
             // 'location.geo_lon'        => 'required',
             // 'location.geo_lat'        => 'required',
-            // 'contact.tel1'            => 'phone_number',
-            // 'contact.tel2'            => 'phone_number',
-            // 'contact.fax'             => 'phone_number',
-            // 'contact.email'           => 'email',
-            // 'contact.web'             => 'website',
-            // 'rooms'                   => 'required|integer',
-            // 'guest_number'            => 'required|integer',
-            // 'price_per_night'         => 'required|integer',
-            // 'property_info.size'      => 'integer',
-            // 'property_info.bedrooms'  => 'integer',
-            // 'property_info.bathrooms' => 'integer',
-            // 'prices.d_5'              => 'integer|required',
-            // 'prices.d_15'             => 'integer|required',
-            // 'prices.d_30'             => 'integer|required',
-            // 'fees.city_fee'           => 'integer',
-            // 'fees.cleaning_fee'       => 'integer',
+            'contact.tel1'            => 'phone_number',
+            'contact.tel2'            => 'phone_number',
+            'contact.fax'             => 'phone_number',
+            'contact.email'           => 'email',
+            'contact.web'             => 'website',
+            'rooms'                   => 'required|integer',
+            'guest_number'            => 'required|integer',
+            'price_per_night'         => 'required|integer',
+            'property_info.size'      => 'integer',
+            'property_info.bedrooms'  => 'integer',
+            'property_info.bathrooms' => 'integer',
+            'prices.d_5'              => 'integer|required',
+            'prices.d_15'             => 'integer|required',
+            'prices.d_30'             => 'integer|required',
+            'fees.city_fee'           => 'integer',
+            'fees.cleaning_fee'       => 'integer',
         ];
 
         $this->validation_messages = [
@@ -86,8 +86,10 @@ class AdminPropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::orderBy('created_at','desc')->paginate(10);
-        return view('admin.property.index', compact('properties'));
+        $properties = Property::orderBy('featured','desc')->orderBy('created_at','desc')->paginate(10);
+        $sale_properties = Property::where('sales', 1)->orderBy('featured','desc')->orderBy('created_at','desc')->paginate(10);
+        $rent_properties = Property::where('rentals', 1)->orderBy('featured','desc')->orderBy('created_at','desc')->paginate(10);
+        return view('admin.property.index', compact('properties', 'sale_properties', 'rent_properties'));
     }
 
     /**
@@ -125,11 +127,15 @@ class AdminPropertyController extends Controller
         $data['featured'] = isset($request->featured) ? 1 : 0;
         $default_language = Language::where('default', 1)->first();
         $data['alias'] = Utility::alias($request->name[$default_language->id], [], 'property');
-        if($data['sal_rent'] == 'sales') {
+        if(in_array('sales', $data['sale_rent']) && in_array('rentals', $data['sale_rent'])) {
             $data['sales'] = 1;
-        } else {
+            $data['rentals'] = 1;
+        } else if (in_array('sales', $data['sale_rent'])) {
+            $data['sales'] = 1;
+        } else if (in_array('rentals', $data['sale_rent'])) {
             $data['rentals'] = 1;
         }
+
         $property = Property::create($data);
 
         if(isset($request->images)){
@@ -225,6 +231,20 @@ class AdminPropertyController extends Controller
                 }
             }
         }
+
+        if (isset($data['sale_rent'])) {
+           if(in_array('sales', $data['sale_rent']) && in_array('rentals', $data['sale_rent'])) {
+                $data['sales'] = 1;
+                $data['rentals'] = 1;
+            } else if (in_array('sales', $data['sale_rent'])) {
+                $data['sales'] = 1;
+                $data['rentals'] = 0;
+            } else if (in_array('rentals', $data['sale_rent'])) {
+                $data['sales'] = 0;
+                $data['rentals'] = 1;
+            } 
+        }
+        
 
         $property->update($data);
         $old_images = $property->images;

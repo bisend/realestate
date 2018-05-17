@@ -9,30 +9,32 @@
     </div>
 
     <div class="slider slider-simple slider-advanced">
-     
-      <div class="slide" style="background-image: url('/realstate/images/testimg/test1.jpg')">
+
+    <?php $__currentLoopData = $slider; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slide): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>     
+      <div class="slide" style="background-image: url('<?php echo e(url('/').$slide->image); ?>')">
         <div class="img-overlay black"></div>
         <div class="container">
           <div class="slide-price">$250,000</div>
           <div class="slide-content">
-            <h1>Mordern Family Home</h1>
-            <p><i class="fa fa-map-marker icon"></i>432 Smith Dr. Balitmore, MD</p>
-            <p class="slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet est augue malesuada dictum. Nullam elementum dictum.</p>
+            <h1><?php echo e($slide->contentload->name); ?></h1>
+            <p><i class="fa fa-map-marker icon"></i><?php echo e($slide->location['address']); ?>, <?php echo e($slide->location['city']); ?>, <?php echo e($slide->location['state']); ?>, <?php echo e($slide->location['country']); ?></p>
+            <p class="slide-text"><?php echo e(str_limit($slide->contentload->description, 200, ' ...')); ?></p>
             <table>
               <tr>
-                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
-                <td><i class="fa fa-bed"></i> Rooms</td>
-                <td><i class="fa fa-expand"></i>Size</td>
-                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
+                <td><i class="fa fa-home" aria-hidden="true"></i></i><?php echo e($slide->category->contentDefault->name); ?></td>
+                <td><i class="fa fa-bed"></i><?php echo e($slide->rooms); ?></td>
+                <td><i class="fa fa-expand"></i><?php echo e($slide->property_info['size']); ?></td>
+                <td><i class="fa fa-user" aria-hidden="true"></i><?php echo e($slide->guest_number); ?></td>
               </tr>
             </table>
-            <span class="lable-rent right mobile-lable-flout">Rent</span>
+            <span class="lable-rent right mobile-lable-flout"><?php echo e($slide->sales == 1 ? 'Sale' : ''); ?> <?php echo e($slide->rentals == 1 ? 'Rent' : ''); ?></span>
             <a href="#" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
           </div>
         </div>
       </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
       
-      <div class="slide" style="background-image: url('/realstate/images/testimg/test2.jpg')">
+      <!-- <div class="slide" style="background-image: url('/realstate/images/testimg/test2.jpg')">
         <div class="img-overlay black"></div>
         <div class="container">
           <div class="slide-price">$8,000</div>
@@ -96,7 +98,7 @@
             <a href="#" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
           </div>
         </div>
-      </div>
+      </div> -->
     
     </div><!-- end slider -->
   </div><!-- end slider wrap -->
@@ -280,7 +282,7 @@
                 <img src="images/divider.png" alt="" />
             </div>
             <div class="row">
-                <?php for($i = 0; $i < 5; $i++): ?>
+                <?php $__currentLoopData = $sales_properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sales_property): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                     <div class="col-lg-12 col-md-12">
                         <div class="property shadow-hover">
                         <a href="#" class="property-img">
@@ -289,26 +291,26 @@
                             <div class="property-price">$150,000</div>
                             <div class="property-color-bar"></div>
                             <div class="prop-img-home">
-                                <img src="/realstate/images/1837x1206.png" alt="" />
+                                <img src="<?php echo e(url('/').$sales_property->image); ?>" alt="" />
                             </div>
                         </a>
                         <div class="property-content">
                             <div class="property-title">
-                            <h4><a href="#">Modern Family Home</a></h4>
-                            <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
+                            <h4><a href="#"><?php echo e($sales_property->contentload->name); ?></a></h4>
+                            <p class="property-address"><i class="fa fa-map-marker icon"></i><?php echo e($sales_property->location['address']); ?>, <?php echo e($sales_property->location['city']); ?>, <?php echo e($sales_property->location['state']); ?>, <?php echo e($sales_property->location['country']); ?></p>
                             </div>
                             <table class="property-details">
                             <tr>
-                                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
-                                <td><i class="fa fa-bed"></i> Rooms</td>
-                                <td><i class="fa fa-expand"></i>Size</td>
-                                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
+                                <td><i class="fa fa-home" aria-hidden="true"></i></i><?php echo e($sales_property->category->contentDefault->name); ?></td>
+                                <td><i class="fa fa-bed"></i><?php echo e($sales_property->rooms); ?></td>
+                                <td><i class="fa fa-expand"></i><?php echo e($sales_property->property_info['size']); ?></td>
+                                <td><i class="fa fa-user" aria-hidden="true"></i><?php echo e($sales_property->guest_number); ?></td>
                             </tr>
                             </table>
                         </div>
                         </div>
                     </div>
-                <?php endfor; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
             </div>
             <div class="center"><a href="#" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Sales</a></div>
         </div>
@@ -319,35 +321,35 @@
                 <img src="images/divider.png" alt="" />
             </div>
             <div class="row">
-            <?php for($i = 0; $i < 5; $i++): ?>
+            <?php $__currentLoopData = $rentals_properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rentals_property): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
                 <div class="col-lg-12 col-md-12">
                     <div class="property shadow-hover">
                         <a href="#" class="property-img">
                         <div class="img-fade"></div>
                         <div class="property-tag lable-rent featured">Rent</div>
-                        <div class="property-price">$150,000</div>
+                        <div class="property-price">$<?php echo e($rentals_property->price_per_night); ?>/night</div>
                         <div class="property-color-bar"></div>
                         <div class="prop-img-home">
-                            <img src="/realstate/images/1837x1206.png" alt="" />
+                            <img src="<?php echo e(url('/').$rentals_property->image); ?>" alt="" />
                         </div>
                         </a>
                         <div class="property-content">
                         <div class="property-title">
-                        <h4><a href="#">Modern Family Home</a></h4>
-                            <p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
+                        <h4><a href="#"><?php echo e($rentals_property->contentload->name); ?></a></h4>
+                            <p class="property-address"><i class="fa fa-map-marker icon"></i><?php echo e($rentals_property->location['address']); ?>, <?php echo e($rentals_property->location['city']); ?>, <?php echo e($rentals_property->location['state']); ?>, <?php echo e($rentals_property->location['country']); ?></p>
                         </div>
                         <table class="property-details">
                             <tr>
-                                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
-                                <td><i class="fa fa-bed"></i> Rooms</td>
-                                <td><i class="fa fa-expand"></i>Size</td>
-                                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
+                                <td><i class="fa fa-home" aria-hidden="true"></i></i><?php echo e($rentals_property->category->contentDefault->name); ?></td>
+                                <td><i class="fa fa-bed"></i><?php echo e($rentals_property->rooms); ?></td>
+                                <td><i class="fa fa-expand"></i><?php echo e($rentals_property->property_info['size']); ?></td>
+                                <td><i class="fa fa-user" aria-hidden="true"></i><?php echo e($rentals_property->guest_number); ?></td>
                             </tr>
                         </table>
                         </div>
                     </div>
                  </div>
-            <?php endfor; ?>
+                 <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
             
             <div class="center"><a href="#" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Rentals</a></div>
             </div><!-- end row -->

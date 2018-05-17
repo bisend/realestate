@@ -22,8 +22,15 @@
     <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a>
 </div>
 <div class="col s12">
-    @if($properties->count())
-        <div class="table-responsive">
+    <div class="panel-heading">
+        <ul class="nav nav-tabs">
+            <li class="tab active"><a href="#sale-body" data-toggle="tab">Sale</a></li>
+            <li class="tab"><a href="#rent-body" data-toggle="tab">Rent</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+    @if($sale_properties->count())
+        <div id="sale-body" class="table-responsive tab-pane active">
             <table class="table bordered striped">
                 <thead class="thead-inverse">
                 <tr>
@@ -32,27 +39,32 @@
                         <label for="select-all"></label>
                     </th>
                     <th>{{get_string('property')}}</th>
-                    <th>{{get_string('user')}}</th>
+                    <!-- <th>{{get_string('user')}}</th> -->
                     <th>{{get_string('category')}}</th>
                     <th>{{get_string('location')}}</th>
-                    <th>{{get_string('status')}}</th>
+                    <th>Type</th>
                     <th>{{get_string('featured')}}</th>
+                    <th>Slider</th>
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($properties as $property)
+                @foreach($sale_properties as $property)
                     <tr>
                         <td>
                             <input type="checkbox" class="filled-in primary-color" id="{{$property->id}}" />
                             <label for="{{$property->id}}"></label>
                         </td>
                         <td>{{$property->contentDefault->name}}</td>
-                        <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td>
+                        <!-- <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td> -->
                         <td>{{$property->category->contentDefault->name}}</td>
                         <td>{{$property->prop_location->contentDefault->location}}</td>
-                        <td class="page-status">{{$property->status ? get_string('active') : get_string('pending')}}</td>
+                        <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td>
                         <td class="page-featured">{{$property->featured ? get_string('yes') : get_string('no')}}</td>
+                        <td>
+                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
+                            <label for="slider{{$property->id}}"></label>
+                        </td>
                         <td>
                             <div class="icon-options">
                                 <a href="{{url('property').'/'.$property->alias}}" title="{{get_string('view_property')}}"><i class="small material-icons color-primary">visibility</i></a>
@@ -69,11 +81,72 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$sale_properties->links()}}
         </div>
-        {{$properties->links()}}
-    @else
-        <strong class="center-align">{{get_string('no_results')}}</strong>
-    @endif
+        
+        @else
+            <strong class="center-align">{{get_string('no_results')}}</strong>
+        @endif
+        @if($rent_properties->count())
+        <div id="rent-body" class="table-responsive tab-pane">
+            <table class="table bordered striped">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        <input type="checkbox" class="filled-in primary-color" id="select-all" />
+                        <label for="select-all"></label>
+                    </th>
+                    <th>{{get_string('property')}}</th>
+                    <!-- <th>{{get_string('user')}}</th> -->
+                    <th>{{get_string('category')}}</th>
+                    <th>{{get_string('location')}}</th>
+                    <th>Type</th>
+                    <th>{{get_string('featured')}}</th>
+                    <th>Slider</th>
+                    <th class="icon-options">{{get_string('options')}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($rent_properties as $property)
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="filled-in primary-color" id="{{$property->id}}" />
+                            <label for="{{$property->id}}"></label>
+                        </td>
+                        <td>{{$property->contentDefault->name}}</td>
+                        <!-- <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td> -->
+                        <td>{{$property->category->contentDefault->name}}</td>
+                        <td>{{$property->prop_location->contentDefault->location}}</td>
+                        <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td>
+                        <td class="page-featured">{{$property->featured ? get_string('yes') : get_string('no')}}</td>
+                        <td>
+                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
+                            <label for="slider{{$property->id}}"></label>
+                        </td>
+                        <td>
+                            <div class="icon-options">
+                                <a href="{{url('property').'/'.$property->alias}}" title="{{get_string('view_property')}}"><i class="small material-icons color-primary">visibility</i></a>
+                                <a href="{{route('admin.property.edit', $property->id)}}" title="{{get_string('edit_property')}}"><i class="small material-icons color-primary">mode_edit</i></a>
+                                <a href="{{route('admin_property_date', $property->id)}}" title="{{get_string('property_availability')}}"><i class="small material-icons color-blue">date_range</i></a>
+                                <a href="#" class="delete-button" data-id="{{$property->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>
+                                <a href="#" class="activate-button {{$property->status ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('activate_property')}}"><i class="small material-icons color-primary">done</i></a>
+                                <a href="#" class="deactivate-button {{$property->status ? '': 'hidden'}}" data-id="{{$property->id}}" title="{{get_string('deactivate_property')}}"><i class="small material-icons color-primary">close</i></a>
+                                <a href="#" class="make-featured-button {{$property->featured ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('make_featured')}}"><i class="small material-icons color-primary">grade</i></a>
+                                <a href="#" class="make-default-button {{$property->featured ? '': 'hidden'}}" data-id="{{$property->id}}" title="{{get_string('make_default')}}"><i class="small material-icons color-yellow">grade</i></a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            {{$rent_properties->links()}}
+        </div>
+        
+        @else
+            <strong class="center-align">{{get_string('no_results')}}</strong>
+        @endif
+    </div>
+
 </div>
 @endsection
 

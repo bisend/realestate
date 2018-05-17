@@ -40,6 +40,14 @@ class HomeController extends Controller
             }])->where('status', 1)->inRandomOrder()->take($number_of_properties)->get();
         }
 
+        $sales_properties = Property::with(['images', 'contentload' => function($query) use($default_language){
+            $query->where('language_id', $default_language->id);
+        }])->where('sales', 1)->where('featured', 1)->take(5)->get();
+
+        $rentals_properties = Property::with(['images', 'contentload' => function($query) use($default_language){
+            $query->where('language_id', $default_language->id);
+        }])->where('rentals', 1)->where('featured', 1)->take(5)->get();
+
         $f_locations = Location::with('contentload')->where('featured', 1)->orderBy('order', 'asc')->get();
 
         // Get the blog (Eager Load)
@@ -47,9 +55,13 @@ class HomeController extends Controller
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->orderBy('created_at', 'desc')->take(3)->get();
 
+        $slider = Property::with(['images', 'contentload' => function($query) use($default_language){
+            $query->where('language_id', $default_language->id);
+        }])->where('slider', 1)->take(5)->get();
+
         // Returning the View
         return view('realstate.home', compact('posts', 'default_language',
-            'properties', 'static_data', 'f_locations'));
+            'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider'));
     }
 
     // Contact page
