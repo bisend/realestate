@@ -330,11 +330,11 @@ class AdminPropertyController extends Controller
     }
 
     // Making Featured
-    public function makeFeatured(Request $request, $id){
+    public function makeFeaturedSale(Request $request, $id){
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
-            $property->featured = 1;
+            $property->featured_sale = 1;
             $property->touch();
             $property->save();
             return response()->json(get_string('success_service_featured'), 200);
@@ -344,11 +344,39 @@ class AdminPropertyController extends Controller
     }
 
     // Make Default
-    public function makeDefault(Request $request, $id){
+    public function makeDefaultSale(Request $request, $id){
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
-            $property->featured = 0;
+            $property->featured_sale = 0;
+            $property->touch();
+            $property->save();
+            return response()->json(get_string('success_service_default'), 200);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
+    }
+
+    // Making Featured
+    public function makeFeaturedRent(Request $request, $id){
+
+        if($request->ajax()) {
+            $property = Property::findOrFail($id);
+            $property->featured_rent = 1;
+            $property->touch();
+            $property->save();
+            return response()->json(get_string('success_service_featured'), 200);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
+    }
+
+    // Make Default
+    public function makeDefaultRent(Request $request, $id){
+
+        if($request->ajax()) {
+            $property = Property::findOrFail($id);
+            $property->featured_rent = 0;
             $property->touch();
             $property->save();
             return response()->json(get_string('success_service_default'), 200);
@@ -526,13 +554,15 @@ class AdminPropertyController extends Controller
 
     public function slider(Request $request, $id)
     {
-        dd($request->value);
         if($request->ajax()) {
             $property = Property::findOrFail($id);
             $property->slider = $request->value;
             $property->touch();
             $property->save();
-            return response()->json(get_string('success_service_featured'), 200);
+            if ($request->value) {
+                return response()->json('Added to slider', 200);
+            }
+            return response()->json('Removed from slider', 200);
         }else{
             return response()->json(get_string('something_happened'), 400);
         }

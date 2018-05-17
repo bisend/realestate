@@ -27,7 +27,7 @@
                 <div id="header-left" class="col l10 m12 s12 header-col">
                     <div id="logo" class="col s6 m6">
                         <p class="date-text">{{date('l, jS \of F Y')}}</p>
-                        <a href="{{route('admin_dashboard')}}" class="brand-logo">{{get_string('booksi')}}<span>{{get_string('cms')}}</span></a>
+                        <a href="{{route('admin_dashboard')}}" class="brand-logo">Adminpanel<span></span></a>
                     </div>
                     <div id="navigation">
                         <ul class="hide-on-med-and-down clearfix">
@@ -42,25 +42,25 @@
                                     <li><a href="{{route('admin_taxonomy_feature')}}">{{get_string('features')}}</a></li>
                                 </ul>
                             </li>
-                            <li  class="{{ setActive('admin/booking') }} {{ setActive('admin/payment') }}">
+                            <!-- <li  class="{{ setActive('admin/booking') }} {{ setActive('admin/payment') }}">
                                 <a href="#">{{get_string('bookings')}}<i class="material-icons tiny">arrow_drop_down</i></a>
                                 <ul class="sub-menu">
                                     <li><a href="{{route('admin_booking')}}">{{get_string('bookings')}}</a></li>
                                     <li><a href="{{route('admin_payment')}}">{{get_string('payments')}}</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <li  class="{{ setActive('admin/review') }}"><a href="{{route('admin_review')}}">{{get_string('reviews')}}</a></li>
                             <li class="{{ setActive('admin/page') }}"><a href="{{route('admin.page.index')}}">{{get_string('pages')}}</a></li>
                             <li class="{{ setActive('admin/blog') }}"><a href="{{route('admin.blog.index')}}">{{get_string('blog')}}</a></li>
-                            <li class="{{ setActive('admin/user') }}">
+                            <!-- <li class="{{ setActive('admin/user') }}">
                                 <a href="#">{{get_string('users')}}<i class="material-icons tiny">arrow_drop_down</i>
                                 </a>
                                 <ul class="sub-menu">
                                     <li><a href="{{route('admin_users')}}">{{get_string('users')}}</a></li>
                                     <li><a href="{{route('admin_users_request')}}">{{get_string('requests')}}</a></li>
                                 </ul>
-                            </li>
-                            <li class="{{ setActive('admin/owner') }} {{ setActive('admin/faq') }}">
+                            </li> -->
+                            <!-- <li class="{{ setActive('admin/owner') }} {{ setActive('admin/faq') }}">
                                 <a href="#">{{get_string('owners')}}<i class="material-icons tiny">arrow_drop_down</i>
                                 </a>
                                 <ul class="sub-menu">
@@ -70,11 +70,11 @@
                                     <li><a href="{{ route('admin_user_withdrawals') }}">{{get_string('withdrawals')}}</a></li>
                                     <li><a href="{{ route('admin.faq.index') }}">{{get_string('faq')}}</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <li class="{{ setActive('admin/request') }}"><a href="{{route('admin_requests')}}">{{get_string('requests')}}</a></li>
-                            @if(get_setting('enable_messages', 'user'))
+                            <!-- @if(get_setting('enable_messages', 'user'))
                                 <li class="{{ setActive('admin/message') }}"><a href="{{route('admin_message')}}">{{get_string('messages')}}</a></li>
-                            @endif
+                            @endif -->
                             <li class="{{ setActive('admin/settings') }}">
                                 <a href="#">{{get_string('settings')}}<i class="material-icons tiny">arrow_drop_down</i>
                                 </a>
@@ -92,7 +92,6 @@
                                     <li><a href="{{route('admin_currency')}}">{{get_string('currencies')}}</a></li>
                                 </ul>
                             </li>
-                            <li class="{{ setActive('admin/booksi') }}"><a href="{{route('admin_booksi')}}">Booksi</a></li>
                         </ul>
                     </div>
                     <div class="col s6 show-on-small">
@@ -198,8 +197,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="{{ setActive('admin/booksi') }}"><a href="{{route('admin_booksi')}}">Booksi</a></li>
-                            <li><a href="#">{{get_string('my_website')}}</a></li>
+                            
                         </ul>
                         <a href="#" data-activates="slide-out" class="button-collapse menu-button"><i class="material-icons">menu</i></a>
                     </div>
@@ -234,7 +232,7 @@
     <div class="container footer-container">
         <div class="row">
             <div class="col s12">
-                <p> {{ get_string('copyright') . date('Y') . ' ' . get_string('rights_reserved') . get_setting('site_name', 'site')}} | {!! get_string('powered_by')  !!}</p>
+                <p> {{ get_string('copyright') . date('Y') . ' ' . get_string('rights_reserved') . get_setting('site_name', 'site')}}</p>
             </div>
         </div>
     </div>

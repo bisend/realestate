@@ -52,8 +52,10 @@ Route::group(['middleware' => 'admin'], function(){
     // Additional Property Routes
     Route::post('/admin/property/activate/{id}', 'Admin\AdminPropertyController@activate');
     Route::post('/admin/property/deactivate/{id}', 'Admin\AdminPropertyController@deactivate');
-    Route::post('/admin/property/makefeatured/{id}', 'Admin\AdminPropertyController@makeFeatured');
-    Route::post('/admin/property/makedefault/{id}', 'Admin\AdminPropertyController@makeDefault');
+    Route::post('/admin/property/makefeaturedsale/{id}', 'Admin\AdminPropertyController@makeFeaturedSale');
+    Route::post('/admin/property/makedefaultsale/{id}', 'Admin\AdminPropertyController@makeDefaultSale');
+    Route::post('/admin/property/makefeaturedrent/{id}', 'Admin\AdminPropertyController@makeFeaturedRent');
+    Route::post('/admin/property/makedefaultrent/{id}', 'Admin\AdminPropertyController@makeDefaultRent');
     Route::get('/admin/property/autocomplete/', 'Admin\AdminPropertyController@autocomplete');
     Route::post('/admin/property/search/', 'Admin\AdminPropertyController@search')->name('admin_property_search');
     Route::post('/admin/property/massdestroy', 'Admin\AdminPropertyController@massDestroy');
