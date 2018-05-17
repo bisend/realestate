@@ -378,7 +378,10 @@ $( document ).ready(function() {
 	checkWidth();
 	win.on('resize', checkWidth);
 	})
-  
+
+
+
+
 
 
 

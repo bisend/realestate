@@ -1479,7 +1479,10 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 	text-align:center;
 	color:white;
 	font-size:50px;
-	padding-top:40px;
+	padding-top:0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .img-overlay.black { background:rgba(0, 0, 0, 0.25);} 
 .img-overlay.blacker { background:rgba(0, 0, 0, 0.5);} 
@@ -1908,4 +1911,132 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+
+/*Contact form*/
+.Register-Interest{
+	background-color: #323746;
+    width: 300px;
+    padding: 10px;
+    position: fixed;
+    z-index: 99999;
+    right: -300px;
+	top: 29%;
+	
+	-webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.Call-Back-wrap{
+	background-color: #323746;
+    width: 300px;
+    padding: 10px;
+    position: fixed;
+    z-index: 99999;
+	top: 65%;
+	right: -300px;
+	
+	-webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.fix-form-header{
+	color: #fff;
+	margin-bottom: 0;
+}
+
+.Call-Back-wrap .button,
+.Register-Interest .button{
+	width: 100%;
+	margin-top: 10px;
+	outline: none;
+}
+
+.Call-Back-wrap .button:focus,
+.Register-Interest .button:focus{
+	outline: none;
+}
+
+.Call-Back-wrap .button:active,
+.Register-Interest .button:active{
+	outline: none;
+}
+
+.Call-Back-wrap input,
+.Register-Interest input{
+	margin-bottom: 4px;
+	padding: 4px 9px;
+	border: 1px solid #fff;
+	font-size: 11px;
+}
+
+.Call-Back-wrap input:focus,
+.Register-Interest input:focus{
+	outline: none;
+}
+
+.contact-form-fix .show-btn-wrapper{
+	position: relative;
+}
+
+.contact-form-fix .show-collback,
+.contact-form-fix .show-register{
+	position: absolute;
+    left: -60px;
+    z-index: 99999;
+    width: 50px;
+    height: 50px;
+	top: -10px;
+	background-color: #4fba6f;
+	color: #fff;
+	border: 1px solid #4fba6f;
+	outline: none;
+	font-size: 20px;
+
+	-webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.contact-form-fix  label{
+	color: #fff;
+    font-size: 10px;
+    font-weight: 100;
+    margin-bottom: 3px;
+}
+
+.contact-form-fix .show-collback:hover,
+.contact-form-fix .show-register:hover{
+	background-color: #5fc97e;
+
+	-webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.form-active{
+	right: 0;
+
+	-webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.incorect-input{
+	border: 1px solid #d25151!important;
+}
+
+
+
+/* BLOGS-LIST */
+.content.blog-post-content .button{
+	cursor: pointer;
 }
