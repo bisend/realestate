@@ -460,6 +460,9 @@
 }
 
 @media only screen and (max-width: 480px) {
+  .Register-Interest{
+      top: 45%;
+  }
   /** PROPERTIES **/
   .property-count { display:block; float:none; width:100%; margin-bottom:20px; }
   .property-layout-toggle { float:left; }
