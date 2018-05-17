@@ -421,6 +421,20 @@
                             @endif
                         </div>
                     </div>
+                    <div class="col l6 m6 s12">
+                        <div class="form-group  {{$errors->has('fees.cleaning_fee') ? 'has-error' : ''}}">
+                            <form action="" >
+                                <input type="radio" id="contactChoice1" name="sale_rent" value="sales">
+                                <label for="contactChoice1">Sales</label>
+
+                                <input type="radio" id="contactChoice2" name="sale_rent" value="rentals">
+                                <label for="contactChoice2">Rentals</label>
+                            </form>
+                            @if($errors->has('fees.cleaning_fee'))
+                                <span class="wrong-error">* Choose one of the options</span>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div id="meta-panel" class="tab-pane">
                     <div class="col s12 clearfix">

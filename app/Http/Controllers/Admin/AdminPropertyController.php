@@ -23,33 +23,34 @@ class AdminPropertyController extends Controller
     protected $languages;
     public function __construct(){
         $this->validation_rules = [
-            'business_hours.sat'      => 'business_hours',
-            'business_hours.week'     => 'business_hours',
-            'business_hours.sun'      => 'business_hours',
+            // 'business_hours.sat'      => 'business_hours',
+            // 'business_hours.week'     => 'business_hours',
+            // 'business_hours.sun'      => 'business_hours',
             'category_id'             => 'required',
+            'sale_rent'             => 'required',
             // 'type_id'              => 'required',
-            'location_id'             => 'required',
+            //'location_id'             => 'required',
             'location.address'        => 'required',
             'location.city'           => 'required',
             'location.country'        => 'required',
-            'location.geo_lon'        => 'required',
-            'location.geo_lat'        => 'required',
-            'contact.tel1'            => 'phone_number',
-            'contact.tel2'            => 'phone_number',
-            'contact.fax'             => 'phone_number',
-            'contact.email'           => 'email',
-            'contact.web'             => 'website',
-            'rooms'                   => 'required|integer',
-            'guest_number'            => 'required|integer',
-            'price_per_night'         => 'required|integer',
-            'property_info.size'      => 'integer',
-            'property_info.bedrooms'  => 'integer',
-            'property_info.bathrooms' => 'integer',
-            'prices.d_5'              => 'integer|required',
-            'prices.d_15'             => 'integer|required',
-            'prices.d_30'             => 'integer|required',
-            'fees.city_fee'           => 'integer',
-            'fees.cleaning_fee'       => 'integer',
+            // 'location.geo_lon'        => 'required',
+            // 'location.geo_lat'        => 'required',
+            // 'contact.tel1'            => 'phone_number',
+            // 'contact.tel2'            => 'phone_number',
+            // 'contact.fax'             => 'phone_number',
+            // 'contact.email'           => 'email',
+            // 'contact.web'             => 'website',
+            // 'rooms'                   => 'required|integer',
+            // 'guest_number'            => 'required|integer',
+            // 'price_per_night'         => 'required|integer',
+            // 'property_info.size'      => 'integer',
+            // 'property_info.bedrooms'  => 'integer',
+            // 'property_info.bathrooms' => 'integer',
+            // 'prices.d_5'              => 'integer|required',
+            // 'prices.d_15'             => 'integer|required',
+            // 'prices.d_30'             => 'integer|required',
+            // 'fees.city_fee'           => 'integer',
+            // 'fees.cleaning_fee'       => 'integer',
         ];
 
         $this->validation_messages = [
@@ -124,6 +125,11 @@ class AdminPropertyController extends Controller
         $data['featured'] = isset($request->featured) ? 1 : 0;
         $default_language = Language::where('default', 1)->first();
         $data['alias'] = Utility::alias($request->name[$default_language->id], [], 'property');
+        if($data['sal_rent'] == 'sales') {
+            $data['sales'] = 1;
+        } else {
+            $data['rentals'] = 1;
+        }
         $property = Property::create($data);
 
         if(isset($request->images)){

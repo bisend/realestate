@@ -4,9 +4,9 @@
     <div class="container">
         <div class="top-bar-left left">
             <ul class="top-bar-item right social-icons">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="/<?php echo e($static_data['site_settings']['social_facebook']); ?>"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="<?php echo e($static_data['site_settings']['social_twitter']); ?>"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="<?php echo e($static_data['site_settings']['social_google_plus']); ?>"><i class="fa fa-google-plus"></i></a></li>
             </ul>
             <div class="clear"></div>
         </div>
@@ -26,11 +26,11 @@
                 <td><i class="fa fa-phone"></i></td>
                 <td class="header-item-text mobile-phone-text">
                 Call us anytime<br/>
-                <span class="firs-phone">(+200) 123 456 5665</span>
-                <span>(+200) 123 456 5665</span>
-                <span>(+200) 123 456 5665</span>
-                <span>(+200) 123 456 5665</span>
-                <span>(+200) 123 456 5665</span>
+                <span class="firs-phone"><?php echo e($static_data['site_settings']['contact_tel1']); ?></span>
+                <span><?php echo e($static_data['site_settings']['contact_tel2']); ?></span>
+                <span><?php echo e($static_data['site_settings']['contact_tel1']); ?></span>
+                <span><?php echo e($static_data['site_settings']['contact_tel1']); ?></span>
+                <span><?php echo e($static_data['site_settings']['contact_tel1']); ?></span>
                 </td>
             </tr>
             </table>
@@ -41,7 +41,7 @@
                 <td><i class="fa fa-envelope"></i></td>
                 <td class="header-item-text mail-phone-text">
                 Drop us a line<br/>
-                <span class="header-mail">hello@homely.com</span>
+                <span class="header-mail"><?php echo e($static_data['site_settings']['contact_email']); ?></span>
                 </td>
             </tr>
             </table>
