@@ -28,6 +28,40 @@
 </head>
 <body>
 
+    <div class="contact-form-fix Register-Interest form-active">
+        <div class="show-btn-wrapper">
+            <button class="show-register"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+        </div>
+        <div class="fix-form-header">
+            Register Interest
+        </div>
+        <form action="" id="register-interest-form">
+        {{ csrf_field() }}
+            <label for="name">Name:</label>
+            <input type="text" placeholder="Name" name="name" id="register-name">
+            <label for="email">Email:</label>
+            <input type="text" placeholder="Email" name="email" id="register-email">
+            <button id="send-register-form" class="button button-icon alt small"><i class="fa fa-envelope" aria-hidden="true"></i>Send</button>
+        </form>
+    </div>
+
+    <div class="contact-form-fix Call-Back-wrap form-active">
+        <div class="show-btn-wrapper">
+            <button class="show-collback"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></button>
+        </div>
+        <div class="fix-form-header">
+            Call Back
+        </div>
+        <form action="" id="coll-back-form">
+        {{ csrf_field() }}
+            <label for="name">Name:</label>
+            <input id="call-back-name" type="text" placeholder="Name" name="name">
+            <label for="phone">Phone:</label>
+            <input id="call-back-phone" type="text" placeholder="Phone" name="phone">
+            <button id="send-coll-back" class="button button-icon alt small"><i class="fa fa-volume-control-phone" aria-hidden="true"></i>Send</button>
+        </form>
+    </div>
+
     @include('realstate.header')
 
     @yield('mainsection')
@@ -44,6 +78,8 @@
 <script src="/realstate/js/wNumb.js"></script> <!-- price formatting -->
 <script src="/realstate/js/nouislider.min.js"></script> <!-- price slider -->
 <script src="/realstate/js/global.js"></script>
+
+<script src="/realstate/js/contact-forms.js"></script>
 
 <!-- <script sec="js/jquery.matchHeight.js"></script> -->
 
