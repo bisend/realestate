@@ -2,7 +2,7 @@
 
 return [
 
-    'text_name'                 => 'Booksi ',
+    // 'text_name'                 => 'Booksi ',
     'text_cms'                  => 'script',
     'text_dashboard'            => 'Dashboard',
     'text_properties'           => 'Properties',

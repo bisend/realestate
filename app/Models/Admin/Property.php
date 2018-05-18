@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
 {
+    const FEATURED_COUNT = 5;
+    const SLIDER_COUNT = 5;
+
     // Allow columns to be filled with data
     protected $fillable = [
         'user_id', 'status', 'images', 'category_id', 'location', 'contact',

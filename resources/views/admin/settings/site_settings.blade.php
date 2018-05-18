@@ -168,6 +168,33 @@
                         </div>
                     </div>
                     <div class="col l4 m6 s12">
+                        <div class="form-group  {{$errors->has('contact_tel1') ? 'has-error' : ''}}">
+                            {{Form::text('contact_tel3', get_setting('contact_tel3', 'site'), ['class' => 'form-control', 'placeholder' => get_string('contact_tel3')])}}
+                            {{Form::label('contact_tel3', get_string('contact_tel3'))}}
+                            @if($errors->has('contact_tel3'))
+                                <span class="wrong-error">* {{$errors->first('contact_tel3')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col l4 m6 s12">
+                        <div class="form-group  {{$errors->has('contact_tel2') ? 'has-error' : ''}}">
+                            {{Form::text('contact_tel4', get_setting('contact_tel4', 'site'), ['class' => 'form-control', 'placeholder' => get_string('contact_tel4')])}}
+                            {{Form::label('contact_tel4', get_string('contact_tel4'))}}
+                            @if($errors->has('contact_tel4'))
+                                <span class="wrong-error">* {{$errors->first('contact_tel4')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col l4 m6 s12">
+                        <div class="form-group  {{$errors->has('contact_tel2') ? 'has-error' : ''}}">
+                            {{Form::text('contact_tel5', get_setting('contact_tel5', 'site'), ['class' => 'form-control', 'placeholder' => get_string('contact_tel5')])}}
+                            {{Form::label('contact_tel5', get_string('contact_tel5'))}}
+                            @if($errors->has('contact_tel5'))
+                                <span class="wrong-error">* {{$errors->first('contact_tel5')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col l4 m6 s12">
                         <div class="form-group  {{$errors->has('contact_fax') ? 'has-error' : ''}}">
                             {{Form::text('contact_fax', get_setting('contact_fax', 'site'), ['class' => 'form-control', 'placeholder' => get_string('fax')])}}
                             {{Form::label('contact_fax', get_string('fax'))}}

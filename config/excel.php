@@ -58,15 +58,15 @@ return array(
     ],
 
     'properties' => [
-        'creator'        => 'Booksi',
-        'lastModifiedBy' => 'Booksi',
+        // 'creator'        => 'Booksi',
+        // 'lastModifiedBy' => 'Booksi',
         'title'          => 'Spreadsheet',
         'description'    => 'Default spreadsheet export',
         'subject'        => 'Spreadsheet export',
-        'keywords'       => 'Booksi, excel, export',
+        'keywords'       => 'excel, export',
         'category'       => 'Excel',
-        'manager'        => 'Booksi',
-        'company'        => 'Booksi',
+        // 'manager'        => 'Booksi',
+        // 'company'        => 'Booksi',
     ],
 
     /*

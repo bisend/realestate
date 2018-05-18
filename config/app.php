@@ -11,7 +11,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Booksi CMS!',
+    'name' => 'Real Estate',
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://booksicms.com'),
+    'url' => env('APP_URL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -239,12 +239,4 @@ return [
         'Currency' => Torann\Currency\Facades\Currency::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
-
-    'version' => '1.27',
-    'author' => 'abxweb',
-    'contact' => 'info@booksicms.com',
-    'website' => 'http://booksicms.com/',
-    'documentation' => 'http://booksicms.com/documentation',
-    'support' => 'http://booksicms.com/support',
-    'market' => 'http://booksicms.com/shop',
 ];

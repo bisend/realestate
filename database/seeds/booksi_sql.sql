@@ -432,7 +432,10 @@ INSERT INTO `settings` (`id`, `key`, `value`, `type`) VALUES
 (216, 'allow_add_property_button', '1', 'design'),
 (217, 'register_owner_directly', '1', 'owner'),
 (218, 'enable_messages', '1', 'user'),
-(219, 'filter_by_features', '1', 'property');
+(219, 'filter_by_features', '1', 'property')
+(220, 'contact_tel3', '', 'site'),
+(221, 'contact_tel4', '', 'site'),
+(222, 'contact_tel5', '', 'site');
 
 -- --------------------------------------------------------
 INSERT INTO `strings` (`id`, `key`, `default`, `string`, `code`, `is_backend`) VALUES
@@ -1223,7 +1226,10 @@ INSERT INTO `strings` (`id`, `key`, `default`, `string`, `code`, `is_backend`) V
 (832, 'closed', 1, 'Closed', 'en', 0),
 (833, 'upgrade_completed_email', 1, 'Your account has been successfully upgraded to Owner. When you login on the website now you will be redirected to your own dashboard! Enjoy.', 'en', 0),
 (834, 'filter_by_features', 1, 'Filter by features', 'en', 0),
-(835, 'more_options', 1, 'More options', 'en', 0);
+(835, 'more_options', 1, 'More options', 'en', 0)
+(303, 'contact_tel3', 1, 'Contact phone #3', 'en', 1),
+(304, 'contact_tel4', 1, 'Contact phone #4', 'en', 1),
+(303, 'contact_tel5', 1, 'Contact phone #5', 'en', 1);
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

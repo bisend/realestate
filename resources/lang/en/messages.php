@@ -7,7 +7,7 @@ return [
      * Shared translations.
      *
      */
-    'title' => 'Booksi Installer',
+    'title' => 'Installer',
     'next' => 'Next Step',
     'finish' => 'Install',
 
@@ -18,7 +18,7 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'Welcome to Booksi Installer',
+        'title'   => 'Welcome to Installer',
         'message' => 'Welcome to the setup wizard.',
     ],
 
