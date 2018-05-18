@@ -66,7 +66,7 @@
         <div class="container-fixed">
         <ul class="nav navbar-nav right">
             <li>
-                <a href="#">Home</a>
+                <a href="/">Home</a>
             </li>
             <li>
                 <a href="#">Sale</a>

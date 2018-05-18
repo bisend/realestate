@@ -14,7 +14,7 @@ class BlogController extends Controller
         $static_data = static_home();
         $posts = Blog::with(['contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
-        }])->where('status', 1)->orderBy('created_at', 'desc')->paginate(10);
+        }])->where('status', 1)->orderBy('created_at', 'desc')->paginate(9);
 
         return view('realstate.blog.blog-list', compact('posts', 'static_data'));
     }
@@ -28,7 +28,7 @@ class BlogController extends Controller
             $query->where('language_id', $default_language->id);
         }])->where('alias', $alias)->first();
         if($post){
-            return view('realstate.blog.blog-single.blade', compact('post', 'static_data'));
+            return view('realstate.blog.blog-single', compact('post', 'static_data'));
         }else{
             abort(404);
         }
