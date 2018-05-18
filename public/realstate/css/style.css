@@ -1929,7 +1929,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
     width: 300px;
     padding: 10px;
     position: fixed;
-    z-index: 99999;
+	z-index: 9998;
     left: -300px;
 	top: 35%;
 	
@@ -1951,7 +1951,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 .contact-form-fix .show-register{
 	position: absolute;
     right: -60px;
-    z-index: 99999;
+	z-index: 9998;
     width: 50px;
     height: 50px;
 	top: -10px;
@@ -1978,7 +1978,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
     width: 300px;
     padding: 10px;
     position: fixed;
-    z-index: 99999;
+    z-index: 9998;
 	top: 35%;
 	right: -300px;
 	
@@ -2030,7 +2030,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 .contact-form-fix .show-collback{
 	position: absolute;
     left: -60px;
-    z-index: 99999;
+    z-index: 9998;
     width: 50px;
     height: 50px;
 	top: -10px;
@@ -2081,4 +2081,41 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 /* BLOGS-LIST */
 .content.blog-post-content .button{
 	cursor: pointer;
+}
+
+
+/*  --  MODALS -- */
+
+#successModal .modal-body{
+	text-align: center;
+	padding: 25px;
+}
+
+#successModal .modal-body p {
+	padding: 0;
+	margin: 0;
+}
+
+#successModal .modal-footer{
+	text-align: center;
+}
+
+#successModal .modal-footer .button{
+	outline: none;
+}
+
+#successModal .modal-body p i{
+	margin-right: 10px;
+	color: #4fba6f;
+}
+
+/* #successModal .modal-dialog{
+	z-index: 10000;
+} */
+
+.successModal{
+	z-index: 10000!important;
+}
+.fade.in{
+	z-index: 9999;
 }

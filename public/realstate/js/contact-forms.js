@@ -4,6 +4,9 @@
     //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     //     }
     // });
+    var onloadCallback = function() {
+        alert("grecaptcha is ready!");
+      };   
 
     $( document ).ready(function() {
         $('.show-register').on('click', function () {
@@ -96,6 +99,8 @@
             saveEmail = '';
 
             console.log('registr send')
+
+            $('#successModal').modal('show')
         }
         
     })
@@ -144,6 +149,8 @@
             $('#call-back-phone').removeClass('incorect-input');
             
             console.log('call back send')
+
+            $('#successModal').modal('show')
 
         }
         

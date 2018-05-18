@@ -20,6 +20,7 @@
   <link href="/realstate/css/responsive.css" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
 
+
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
@@ -27,6 +28,8 @@
   <![endif]-->
 </head>
 <body>
+
+@include('realstate.modals.success')
 
     <div class="contact-form-fix Register-Interest form-active-registr">
         <div class="show-btn-wrapper">
@@ -58,6 +61,9 @@
             <input id="call-back-name" type="text" placeholder="Name" name="name">
             <label for="phone">Phone:</label>
             <input id="call-back-phone" type="text" placeholder="Phone" name="phone">
+
+           
+
             <button id="send-coll-back" class="button button-icon alt small"><i class="fa fa-volume-control-phone" aria-hidden="true"></i>Send</button>
         </form>
     </div>
@@ -78,6 +84,7 @@
 <script src="/realstate/js/wNumb.js"></script> <!-- price formatting -->
 <script src="/realstate/js/nouislider.min.js"></script> <!-- price slider -->
 <script src="/realstate/js/global.js"></script>
+
 
 <script src="/realstate/js/contact-forms.js"></script>
 
