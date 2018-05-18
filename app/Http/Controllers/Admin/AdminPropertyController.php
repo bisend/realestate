@@ -87,9 +87,11 @@ class AdminPropertyController extends Controller
     public function index()
     {
         $properties = Property::orderBy('featured','desc')->orderBy('created_at','desc')->paginate(10);
-        $sale_properties = Property::where('sales', 1)->orderBy('featured','desc')->orderBy('created_at','desc')->paginate(10);
-        $rent_properties = Property::where('rentals', 1)->orderBy('featured','desc')->orderBy('created_at','desc')->paginate(10);
-        return view('admin.property.index', compact('properties', 'sale_properties', 'rent_properties'));
+        $sale_properties = Property::where('sales', 1)->orderBy('featured_sale','desc')->orderBy('created_at','desc')->paginate(10);
+        $sale_properties_count = Property::where('sales', 1)->where('featured_sale', 1)->count();
+        $rent_properties = Property::where('rentals', 1)->orderBy('featured_rent','desc')->orderBy('created_at','desc')->paginate(10);
+        $rent_properties_count = Property::where('rentals', 1)->where('featured_rent', 1)->count();
+        return view('admin.property.index', compact('properties', 'sale_properties', 'rent_properties', 'sale_properties_count', 'rent_properties_count'));
     }
 
     /**
@@ -333,6 +335,10 @@ class AdminPropertyController extends Controller
     public function makeFeaturedSale(Request $request, $id){
 
         if($request->ajax()) {
+            $properties = Property::where('featured_sale', 1)->get();
+            if ($properties->count() >= Property::FEATURED_COUNT) {
+                return response()->json('You can not add more '.Property::FEATURED_COUNT.' items', 400);
+            }
             $property = Property::findOrFail($id);
             $property->featured_sale = 1;
             $property->touch();
@@ -349,6 +355,7 @@ class AdminPropertyController extends Controller
         if($request->ajax()) {
             $property = Property::findOrFail($id);
             $property->featured_sale = 0;
+            $property->position = 0;
             $property->touch();
             $property->save();
             return response()->json(get_string('success_service_default'), 200);
@@ -361,6 +368,10 @@ class AdminPropertyController extends Controller
     public function makeFeaturedRent(Request $request, $id){
 
         if($request->ajax()) {
+            $properties = Property::where('featured_rent', 1)->get();
+            if ($properties->count() >= Property::FEATURED_COUNT) {
+                return response()->json('You can not add more '.Property::FEATURED_COUNT.' items', 400);
+            }
             $property = Property::findOrFail($id);
             $property->featured_rent = 1;
             $property->touch();
@@ -377,9 +388,36 @@ class AdminPropertyController extends Controller
         if($request->ajax()) {
             $property = Property::findOrFail($id);
             $property->featured_rent = 0;
+            $property->position = 0;
             $property->touch();
             $property->save();
             return response()->json(get_string('success_service_default'), 200);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
+    }
+
+    public function changePositionSale(Request $request, $id)
+    {
+        if($request->ajax()) {
+            $property = Property::findOrFail($id);
+            $property->position_sale = $request->value;
+            $property->touch();
+            $property->save();
+            return response()->json('Position successfuly changed', 200);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
+    }
+
+    public function changePositionRent(Request $request, $id)
+    {
+        if($request->ajax()) {
+            $property = Property::findOrFail($id);
+            $property->position_rent = $request->value;
+            $property->touch();
+            $property->save();
+            return response()->json('Position successfuly changed', 200);
         }else{
             return response()->json(get_string('something_happened'), 400);
         }
@@ -555,6 +593,10 @@ class AdminPropertyController extends Controller
     public function slider(Request $request, $id)
     {
         if($request->ajax()) {
+            $properties = Property::where('slider', 1)->get();
+            if ($properties->count() >= Property::SLIDER_COUNT) {
+                return response()->json('You can not add more '.Property::SLIDER_COUNT.' items', 400);
+            }
             $property = Property::findOrFail($id);
             $property->slider = $request->value;
             $property->touch();

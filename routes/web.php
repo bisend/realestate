@@ -62,6 +62,8 @@ Route::group(['middleware' => 'admin'], function(){
     Route::post('/admin/property/updateDates/', 'Admin\AdminPropertyController@updateDates')->name('admin_property_update_dates');
 
     Route::post('/admin/property/slider/{id}', 'Admin\AdminPropertyController@slider');
+    Route::post('/admin/property/positionsale/{id}', 'Admin\AdminPropertyController@changePositionSale');
+    Route::post('/admin/property/positionrent/{id}', 'Admin\AdminPropertyController@changePositionRent');
 
     // Additional Taxonomy Category Routes
     Route::post('/admin/taxonomy/category/search/', 'Admin\AdminCategoryController@search')->name('admin_taxonomy_category_search');

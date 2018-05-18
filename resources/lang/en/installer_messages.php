@@ -7,7 +7,7 @@ return [
      * Shared translations.
      *
      */
-    'title' => 'Booksi Installer',
+    'title' => 'Installer',
     'next' => 'Next Step',
     'finish' => 'Install',
 
@@ -18,7 +18,7 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'Welcome to Booksi Installer',
+        'title'   => 'Welcome to Installer',
         'message' => 'Welcome to the setup wizard.',
     ],
 
@@ -72,7 +72,7 @@ return [
      */
     'final' => [
         'title' => 'Finished',
-        'finished' => 'Booksi has been successfully installed.',
+        'finished' => 'Site has been successfully installed.',
         'exit' => 'Visit your site!',
     ],
     'checkPermissionAgain' => ' Check Permission Again'

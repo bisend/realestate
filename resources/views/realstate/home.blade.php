@@ -13,7 +13,7 @@
     <div class="slider slider-simple slider-advanced">
 
     @foreach($slider as $slide)     
-      <div class="slide" style="background-image: url('{{ url('/').$slide->image }}')">
+      <div class="slide" style="background-image: url('{{ URL::asset('images/data').'/'.$slide->images->first()->image }}')">
         <div class="img-overlay black"></div>
         <div class="container">
           <div class="slide-price">$250,000</div>
@@ -35,72 +35,6 @@
         </div>
       </div>
     @endforeach
-      
-      <!-- <div class="slide" style="background-image: url('/realstate/images/testimg/test2.jpg')">
-        <div class="img-overlay black"></div>
-        <div class="container">
-          <div class="slide-price">$8,000</div>
-          <div class="slide-content">
-            <h1>Beautiful Waterfront Home</h1>
-            <p><i class="fa fa-map-marker icon"></i>432 Smith Dr. Balitmore, MD</p>
-            <p class="slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet est augue malesuada dictum. Nullam elementum dictum.</p>
-            <table>
-              <tr>
-                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
-                <td><i class="fa fa-bed"></i> Rooms</td>
-                <td><i class="fa fa-expand"></i>Size</td>
-                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
-              </tr>
-            </table>
-            <span class="lable-sale right mobile-lable-flout">For Sale</span>
-            <a href="#" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="slide" style="background-image: url('/realstate/images/testimg/test3.jpg')">
-        <div class="img-overlay black"></div>
-        <div class="container">
-          <div class="slide-price">$8,000</div>
-          <div class="slide-content">
-            <h1>Beautiful Waterfront Home</h1>
-            <p><i class="fa fa-map-marker icon"></i>432 Smith Dr. Balitmore, MD</p>
-            <p class="slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet est augue malesuada dictum. Nullam elementum dictum.</p>
-            <table>
-              <tr>
-                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
-                <td><i class="fa fa-bed"></i> Rooms</td>
-                <td><i class="fa fa-expand"></i>Size</td>
-                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
-              </tr>
-            </table>
-            <span class="lable-sale right mobile-lable-flout">For Sale</span>
-            <a href="#" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="slide" style="background-image: url('/realstate/images/testimg/test4.jpg')">
-        <div class="img-overlay black"></div>
-        <div class="container">
-          <div class="slide-price">$8,000</div>
-          <div class="slide-content">
-            <h1>Beautiful Waterfront Home</h1>
-            <p><i class="fa fa-map-marker icon"></i>432 Smith Dr. Balitmore, MD</p>
-            <p class="slide-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam aliquet est augue malesuada dictum. Nullam elementum dictum.</p>
-            <table>
-              <tr>
-                <td><i class="fa fa-home" aria-hidden="true"></i></i>Type</td>
-                <td><i class="fa fa-bed"></i> Rooms</td>
-                <td><i class="fa fa-expand"></i>Size</td>
-                <td><i class="fa fa-user" aria-hidden="true"></i>Guests</td>
-              </tr>
-            </table>
-            <span class="lable-sale right mobile-lable-flout">For Sale</span>
-            <a href="#" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
-          </div>
-        </div>
-      </div> -->
     
     </div><!-- end slider -->
   </div><!-- end slider wrap -->
@@ -293,7 +227,7 @@
                             <div class="property-price">$150,000</div>
                             <div class="property-color-bar"></div>
                             <div class="prop-img-home">
-                                <img src="{{ url('/').$sales_property->image }}" alt="" />
+                                <img src="{{ URL::asset('images/data').'/'.$sales_property->images->first()->image }}" alt="" />
                             </div>
                         </a>
                         <div class="property-content">
@@ -339,7 +273,7 @@
                         </div>
                         <div class="property-color-bar"></div>
                         <div class="prop-img-home">
-                            <img src="{{ url('/').$rentals_property->image }}" alt="" />
+                            <img src="{{ URL::asset('images/data').'/'.$rentals_property->images->first()->image }}" alt="" />
                         </div>
                         </a>
                         <div class="property-content">

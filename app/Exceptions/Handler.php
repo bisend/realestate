@@ -55,10 +55,10 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'You have been inactive for a while, please go back to the previous page!'], 400);
         }
         if ($e instanceof ModelNotFoundException) {
-            return response()->json(['error' => 'Something happened, please contact our support at -> http://booksicms.com/support!'], 400);
+            return response()->json(['error' => 'Something happened'], 400);
         }  
         if($e instanceof \Symfony\Component\Debug\Exception\FatalErrorException) {
-            return response()->json(['error' => 'Something happened, please contact our support at -> http://booksicms.com/support!'], 400);
+            return response()->json(['error' => 'Something happened'], 400);
         }
         return parent::render($request, $e);
     }

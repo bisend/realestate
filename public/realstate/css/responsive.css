@@ -48,12 +48,24 @@
 
 @media screen and (max-width: 990px) {
 
+  .blog-img-bg{
+    width: 100%;
+    height: 340px;
+  }
+  
+  .blog-img-bg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
   .Register-Interest{
     background-color: #323746;
       width: 240px;
       padding: 10px;
       position: fixed;
-      z-index: 99999;
+      z-index: 99;
       left: -241px;
       top: 35%;
     
@@ -66,7 +78,7 @@
   .contact-form-fix .show-register{
     position: absolute;
       right: -60px;
-      z-index: 99999;
+      z-index: 99;
       width: 50px;
       height: 50px;
       top: -10px;
@@ -89,7 +101,7 @@
       width: 240px;
       padding: 10px;
       position: fixed;
-      z-index: 99999;
+      z-index: 99;
       right: -241px;
       top: 35%;
     
@@ -102,7 +114,7 @@
   .contact-form-fix .show-collback{
 	position: absolute;
     left: -60px;
-    z-index: 99999;
+    z-index: 99;
     width: 50px;
     height: 50px;
     top: -10px;
@@ -224,6 +236,19 @@
 }
 
 @media only screen and (max-width: 767px) {
+
+
+  .blog-img-bg{
+    width: 100%;
+    height: 340px;
+  }
+  
+  .blog-img-bg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   /** HEADER **/
   .navbar-header { margin-left:0px !important; }
   .nav.navbar-nav li.menu-item-has-children:after { color:rgba(255, 255, 255, 0.2); }
@@ -504,6 +529,19 @@
 }
 
 @media only screen and (max-width: 375px) {
+
+  .blog-img-bg{
+    width: 100%;
+    height: 250px;
+  }
+  
+  .blog-img-bg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
   .property-details td {
     width: 50%;
   }

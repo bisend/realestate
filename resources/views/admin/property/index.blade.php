@@ -42,8 +42,9 @@
                     <!-- <th>{{get_string('user')}}</th> -->
                     <th>{{get_string('category')}}</th>
                     <th>{{get_string('location')}}</th>
-                    <th>Type</th>
+                    <!-- <th>Type</th> -->
                     <th>{{get_string('featured')}}</th>
+                    <th>Position</th>
                     <th>Slider</th>
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
@@ -59,9 +60,30 @@
                         <!-- <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td> -->
                         <td>{{$property->category->contentDefault->name}}</td>
                         <td>{{$property->prop_location->contentDefault->location}}</td>
-                        <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td>
-                        <td class="page-featured">{{$property->featured ? get_string('yes') : get_string('no')}}</td>
+                        <!-- <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td> -->
+                        <td class="page-featured">{{$property->featured_sale ? get_string('yes') : get_string('no')}}</td>
                         <td>
+                            @if($property->featured_sale)
+                            <div id="position-checkboxes{{$property->id}}" class="checkbox-group-sale">
+                                @for($i = 1; $i <= 5; $i++)
+                                <input type="checkbox" id="{{ $i }}position-sale{{$property->id}}" class="filled-in primary-color change-position-sale" data-id="{{$property->id}}" name="first" value="{{ $i }}" {{ $property->position_sale == $i ? 'checked' : ''}}>
+                                <label for="{{ $i }}position-sale{{$property->id}}"></label>
+                                <span class="checkbox-label">{{ $i }}</span>
+                                <br>
+                                @endfor
+                            </div>
+                            @else
+                            <div id="position-checkboxes{{$property->id}}" class="checkbox-group-sale" style="display:none">
+                                @for($i = 1; $i <= 5; $i++)
+                                <input type="checkbox" id="{{ $i }}position-sale{{$property->id}}" class="filled-in primary-color change-position-sale" data-id="{{$property->id}}" name="first" value="{{ $i }}">
+                                <label for="{{ $i }}position-sale{{$property->id}}"></label>
+                                <span class="checkbox-label">{{ $i }}</span>
+                                <br>
+                                @endfor
+                            </div>
+                            @endif
+                        </td>
+                        <td class="icon-options">
                             <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
                             <label for="slider{{$property->id}}"></label>
                         </td>
@@ -100,8 +122,9 @@
                     <!-- <th>{{get_string('user')}}</th> -->
                     <th>{{get_string('category')}}</th>
                     <th>{{get_string('location')}}</th>
-                    <th>Type</th>
+                    <!-- <th>Type</th> -->
                     <th>{{get_string('featured')}}</th>
+                    <th>Position</th>
                     <th>Slider</th>
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
@@ -117,9 +140,30 @@
                         <!-- <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td> -->
                         <td>{{$property->category->contentDefault->name}}</td>
                         <td>{{$property->prop_location->contentDefault->location}}</td>
-                        <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td>
-                        <td class="page-featured">{{$property->featured ? get_string('yes') : get_string('no')}}</td>
+                        <!-- <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td> -->
+                        <td class="page-featured">{{$property->featured_rent ? get_string('yes') : get_string('no')}}</td>
                         <td>
+                            @if($property->featured_rent)
+                            <div id="position-checkboxes{{$property->id}}" class="checkbox-group-rent">
+                                @for($i = 1; $i <= 5; $i++)
+                                <input type="checkbox" id="{{ $i }}position-rent{{$property->id}}" class="filled-in primary-color change-position-rent" data-id="{{$property->id}}" name="first" value="{{ $i }}" {{ $property->position_rent == $i ? 'checked' : ''}}>
+                                <label for="{{ $i }}position-rent{{$property->id}}"></label>
+                                <span class="checkbox-label">{{ $i }}</span>
+                                <br>
+                                @endfor
+                            </div>
+                            @else
+                            <div id="position-checkboxes{{$property->id}}" class="checkbox-group-rent" style="display:none">
+                                @for($i = 1; $i <= 5; $i++)
+                                <input type="checkbox" id="{{ $i }}position-rent{{$property->id}}" class="filled-in primary-color change-position-rent" data-id="{{$property->id}}" name="first" value="{{ $i }}" >
+                                <label for="{{ $i }}position-rent{{$property->id}}"></label>
+                                <span class="checkbox-label">{{ $i }}</span>
+                                <br>
+                                @endfor
+                            </div>
+                            @endif
+                        </td>
+                        <td class="icon-options">
                             <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
                             <label for="slider{{$property->id}}"></label>
                         </td>
@@ -309,6 +353,7 @@
                                 success:function(msg) {
                                     thisBtn.children('.make-featured-sale-button').addClass('hidden');
                                     thisBtn.children('.make-default-sale-button').removeClass('hidden');
+                                    $('#position-checkboxes' + id).show();
                                     status.html('{{get_string('yes')}}');
                                     toastr.success(msg);
                                 },
@@ -330,7 +375,7 @@
                 var token = $('[name="_token"]').val();
                 bootbox.confirm({
                     title: '{{get_string('confirm_action')}}',
-                    message: '{{get_string('make_default_confirm')}}',
+                    message: 'Are you sure you want to remove this item from featured?',
                     onEscape: true,
                     backdrop: true,
                     buttons: {
@@ -352,6 +397,7 @@
                                 success:function(msg) {
                                     thisBtn.children('.make-default-sale-button').addClass('hidden');
                                     thisBtn.children('.make-featured-sale-button').removeClass('hidden');
+                                    $('#position-checkboxes' + id).hide();
                                     status.html('{{get_string('no')}}');
                                     toastr.success(msg);
                                 },
@@ -395,6 +441,7 @@
                                 success:function(msg) {
                                     thisBtn.children('.make-featured-rent-button').addClass('hidden');
                                     thisBtn.children('.make-default-rent-button').removeClass('hidden');
+                                    $('#position-checkboxes' + id).show();
                                     status.html('{{get_string('yes')}}');
                                     toastr.success(msg);
                                 },
@@ -416,7 +463,7 @@
                 var token = $('[name="_token"]').val();
                 bootbox.confirm({
                     title: '{{get_string('confirm_action')}}',
-                    message: '{{get_string('make_default_confirm')}}',
+                    message: 'Are you sure you want to remove this item from featured?',
                     onEscape: true,
                     backdrop: true,
                     buttons: {
@@ -438,6 +485,7 @@
                                 success:function(msg) {
                                     thisBtn.children('.make-default-rent-button').addClass('hidden');
                                     thisBtn.children('.make-featured-rent-button').removeClass('hidden');
+                                    $('#position-checkboxes' + id).hide();
                                     status.html('{{get_string('no')}}');
                                     toastr.success(msg);
                                 },
@@ -519,7 +567,7 @@
                 var token = $('[name="_token"]').val();
                 bootbox.confirm({
                     title: '{{get_string('confirm_action')}}',
-                    message: '{{get_string('make_featured_confirm')}}',
+                    message: value ? 'Are you sure you want to add this item to the slider?' : 'Are you sure you want to remove this item from the slider?',
                     onEscape: true,
                     backdrop: true,
                     buttons: {
@@ -549,6 +597,257 @@
                     }
                 });
             });
+
+            $(function () {
+                var groups = $('.checkbox-group-sale');
+                $('body').on('change', '.checkbox-group-sale input[type=checkbox]', function () {
+
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                    current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                            other.attr('disabled', true);
+                            other.addClass('disable-by-current');
+                        }else {
+                            other.removeClass('disable-by-current');
+                            if (other.hasClass('disable-by-others')){
+                                // can not disabled
+                            }else{
+                                other.attr('disabled', false);
+                            }
+                        }
+
+                    });
+
+                    $('.checkbox-group-sale input[type=checkbox]').each(function () {
+                        var tmpCurrent = $(this);
+                        var tmpParent = tmpCurrent.parent();
+                        var tmpIndex = tmpCurrent.index();
+                        var tmpChecked = tmpCurrent.prop('checked');
+
+                        // if not current div
+                        if (tmpParent.get(0) !== parent.get(0)) {
+                            // common in other div
+                            if (tmpIndex === index) {
+                                if (checked){
+                                    tmpCurrent.attr('disabled', true);
+                                    tmpCurrent.addClass('disable-by-others');
+                                }else{
+                                    tmpCurrent.removeClass('disable-by-others');
+                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                        // can not disable
+                                    }else {
+                                        tmpCurrent.attr('disabled', false);
+                                    }
+                                }
+                            }
+                        }
+
+                    })
+                })
+            });
+
+            $(function () {
+                var groups = $('.checkbox-group-rent');
+                $('body').on('change', '.checkbox-group-rent input[type=checkbox]', function () {
+
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                    current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                            other.attr('disabled', true);
+                            other.addClass('disable-by-current');
+                        }else {
+                            other.removeClass('disable-by-current');
+                            if (other.hasClass('disable-by-others')){
+                                // can not disabled
+                            }else{
+                                other.attr('disabled', false);
+                            }
+                        }
+
+                    });
+
+                    $('.checkbox-group-rent input[type=checkbox]').each(function () {
+                        var tmpCurrent = $(this);
+                        var tmpParent = tmpCurrent.parent();
+                        var tmpIndex = tmpCurrent.index();
+                        var tmpChecked = tmpCurrent.prop('checked');
+
+                        // if not current div
+                        if (tmpParent.get(0) !== parent.get(0)) {
+                            // common in other div
+                            if (tmpIndex === index) {
+                                if (checked){
+                                    tmpCurrent.attr('disabled', true);
+                                    tmpCurrent.addClass('disable-by-others');
+                                }else{
+                                    tmpCurrent.removeClass('disable-by-others');
+                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                        // can not disable
+                                    }else {
+                                        tmpCurrent.attr('disabled', false);
+                                    }
+                                }
+                            }
+                        }
+
+                    })
+                })
+            });
+
+            $('.change-position-sale').on('change', function(){
+                var id = $(this).data('id');
+                var value = $(this).is(':checked') ? $(this).val() : 0;
+                var token = $('[name="_token"]').val();
+                $.ajax({
+                    url: '{{ url('/admin/property/positionsale/') }}/'+id,
+                    type: 'post',
+                    data: {_token :token, value: value},
+                    success:function(msg) {
+                        toastr.success(msg);
+                    },
+                    error:function(msg){
+                        toastr.error(msg.responseJSON);
+                    }
+                });
+            });
+
+            $('.change-position-rent').on('change', function(){
+                var id = $(this).data('id');
+                var value = $(this).is(':checked') ? $(this).val() : 0;
+                var token = $('[name="_token"]').val();
+                $.ajax({
+                    url: '{{ url('/admin/property/positionrent/') }}/'+id,
+                    type: 'post',
+                    data: {_token :token, value: value},
+                    success:function(msg) {
+                        toastr.success(msg);
+                    },
+                    error:function(msg){
+                        toastr.error(msg.responseJSON);
+                    }
+                });
+            });
+
+            $( ".checkbox-group-sale input[type=checkbox]" ).each(function(  ) {
+                if(this.checked){
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                                other.attr('disabled', true);
+                                other.addClass('disable-by-current');
+                        }else {
+                                other.removeClass('disable-by-current');
+                                if (other.hasClass('disable-by-others')){
+                                        // can not disabled
+                                }else{
+                                        other.attr('disabled', false);
+                                }
+                        }
+
+                });
+
+                    $('.checkbox-group-sale input[type=checkbox]').each(function () {
+                            var tmpCurrent = $(this);
+                            var tmpParent = tmpCurrent.parent();
+                            var tmpIndex = tmpCurrent.index();
+                            var tmpChecked = tmpCurrent.prop('checked');
+
+                            // if not current div
+                            if (tmpParent.get(0) !== parent.get(0)) {
+                                    // common in other div
+                                    if (tmpIndex === index) {
+                                            if (checked){
+                                                    tmpCurrent.attr('disabled', true);
+                                                    tmpCurrent.addClass('disable-by-others');
+                                            }else{
+                                                    tmpCurrent.removeClass('disable-by-others');
+                                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                                            // can not disable
+                                                    }else {
+                                                            tmpCurrent.attr('disabled', false);
+                                                    }
+                                            }
+                                    }
+                            }
+
+                    });
+                }
+            });
+
+            $( ".checkbox-group-rent input[type=checkbox]" ).each(function(  ) {
+                if(this.checked){
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                                other.attr('disabled', true);
+                                other.addClass('disable-by-current');
+                        }else {
+                                other.removeClass('disable-by-current');
+                                if (other.hasClass('disable-by-others')){
+                                        // can not disabled
+                                }else{
+                                        other.attr('disabled', false);
+                                }
+                        }
+
+                });
+
+                    $('.checkbox-group-rent input[type=checkbox]').each(function () {
+                            var tmpCurrent = $(this);
+                            var tmpParent = tmpCurrent.parent();
+                            var tmpIndex = tmpCurrent.index();
+                            var tmpChecked = tmpCurrent.prop('checked');
+
+                            // if not current div
+                            if (tmpParent.get(0) !== parent.get(0)) {
+                                    // common in other div
+                                    if (tmpIndex === index) {
+                                            if (checked){
+                                                    tmpCurrent.attr('disabled', true);
+                                                    tmpCurrent.addClass('disable-by-others');
+                                            }else{
+                                                    tmpCurrent.removeClass('disable-by-others');
+                                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                                            // can not disable
+                                                    }else {
+                                                            tmpCurrent.attr('disabled', false);
+                                                    }
+                                            }
+                                    }
+                            }
+
+                    });
+                }
+            });
+            
         });
     </script>
 @endsection

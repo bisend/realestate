@@ -28,9 +28,9 @@
                 Call us anytime<br/>
                 <span class="firs-phone">{{ $static_data['site_settings']['contact_tel1'] }}</span>
                 <span>{{ $static_data['site_settings']['contact_tel2'] }}</span>
-                <span>{{ $static_data['site_settings']['contact_tel1'] }}</span>
-                <span>{{ $static_data['site_settings']['contact_tel1'] }}</span>
-                <span>{{ $static_data['site_settings']['contact_tel1'] }}</span>
+                <span>{{ $static_data['site_settings']['contact_tel3'] }}</span>
+                <span>{{ $static_data['site_settings']['contact_tel4'] }}</span>
+                <span>{{ $static_data['site_settings']['contact_tel5'] }}</span>
                 </td>
             </tr>
             </table>
@@ -66,7 +66,7 @@
         <div class="container-fixed">
         <ul class="nav navbar-nav right">
             <li>
-                <a href="#">Home</a>
+                <a href="/">Home</a>
             </li>
             <li>
                 <a href="#">Sale</a>
@@ -75,7 +75,7 @@
                 <a href="#">Rent</a>
             </li>
             <li>
-                <a href="#">Blogs</a>
+                <a href="{{ route('blog') }}">Blogs</a>
             </li>
         </ul>
         <div class="clear"></div>
