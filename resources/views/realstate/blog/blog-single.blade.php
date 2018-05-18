@@ -20,7 +20,11 @@
           <a href="#" class="blog-post-img">
             <div class="img-fade"></div>
             <div class="blog-post-date"><span>{{ \Carbon\Carbon::parse($post['created_at'])->format('j') }}</span>{{ \Carbon\Carbon::parse($post['created_at'])->format('M') }}</div>
-            <img src="{{ url('/').$post->image }}" alt="" />
+            
+            <div class="single-blog-img>
+                <img src="{{ url('/').$post->image }}" alt="" />
+            </div>
+            
           </a>
           <div class="content blog-post-content">
             <h3><a href="{{url('/blog/post').'/'.$post->alias}}">{{ $post->contentload->title }}</a></h3>
