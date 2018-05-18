@@ -27,8 +27,11 @@ class BlogController extends Controller
         $post = Blog::with(['contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('alias', $alias)->first();
+        $last_posts = Blog::with(['contentload' => function($query) use($default_language){
+            $query->where('language_id', $default_language->id);
+        }])->where('status', 1)->where('id', '!=', $post->id)->orderBy('created_at', 'desc')->take(3)->get();
         if($post){
-            return view('realstate.blog.blog-single', compact('post', 'static_data'));
+            return view('realstate.blog.blog-single', compact('post', 'last_posts', 'static_data'));
         }else{
             abort(404);
         }
