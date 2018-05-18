@@ -22,7 +22,9 @@
                 <div class="img-fade"></div>
                 <div class="img-overlay"><i class="fa fa-quote-left"></i></div>
                 <div class="blog-post-date"><span>{{ \Carbon\Carbon::parse($post['created_at'])->format('d') }}</span>{{ \Carbon\Carbon::parse($post['created_at'])->format('M') }}</div>
-                <img src="{{ url('/').$post->image }}" alt="" />
+                <div class="blog-img-bg">
+                    <img src="{{ url('/').$post->image }}" alt="" />
+                </div>
             </a>
             <div class="content blog-post-content">
                 <h3><a href="{{url('/blog/post').'/'.$post->alias}}">{{ $post->contentload->title }}</a></h3>
