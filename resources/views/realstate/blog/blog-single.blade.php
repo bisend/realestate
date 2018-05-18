@@ -21,7 +21,7 @@
             <div class="img-fade"></div>
             <div class="blog-post-date"><span>{{ \Carbon\Carbon::parse($post['created_at'])->format('j') }}</span>{{ \Carbon\Carbon::parse($post['created_at'])->format('M') }}</div>
             
-            <div class="single-blog-img>
+            <div class="single-blog-img">
                 <img src="{{ url('/').$post->image }}" alt="" />
             </div>
             
