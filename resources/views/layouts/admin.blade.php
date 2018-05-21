@@ -33,7 +33,6 @@
                         <ul class="hide-on-med-and-down clearfix">
                             <li class="{{ setActive('admin/dashboard') }}"><a href="{{route('admin_dashboard')}}">{{get_string('dashboard')}}</a></li>
                             <li class="{{ setActive('admin/property') }}"><a href="{{route('admin.property.index')}}">{{get_string('properties')}}</a></li>
-                            @if(get_setting('services_allowed', 'service'))<li class="{{ setActive('admin/service') }}"><a href="{{route('admin.service.index')}}">{{get_string('services')}}</a></li>@endif
                             <li class="{{ setActive('admin/taxonomy') }}">
                                 <a href="#">{{get_string('taxonomy')}}<i class="material-icons tiny">arrow_drop_down</i></a>
                                     <ul class="sub-menu">
@@ -42,39 +41,8 @@
                                     <li><a href="{{route('admin_taxonomy_feature')}}">{{get_string('features')}}</a></li>
                                 </ul>
                             </li>
-                            <!-- <li  class="{{ setActive('admin/booking') }} {{ setActive('admin/payment') }}">
-                                <a href="#">{{get_string('bookings')}}<i class="material-icons tiny">arrow_drop_down</i></a>
-                                <ul class="sub-menu">
-                                    <li><a href="{{route('admin_booking')}}">{{get_string('bookings')}}</a></li>
-                                    <li><a href="{{route('admin_payment')}}">{{get_string('payments')}}</a></li>
-                                </ul>
-                            </li> -->
-                            <li  class="{{ setActive('admin/review') }}"><a href="{{route('admin_review')}}">{{get_string('reviews')}}</a></li>
-                            <li class="{{ setActive('admin/page') }}"><a href="{{route('admin.page.index')}}">{{get_string('pages')}}</a></li>
                             <li class="{{ setActive('admin/blog') }}"><a href="{{route('admin.blog.index')}}">{{get_string('blog')}}</a></li>
-                            <!-- <li class="{{ setActive('admin/user') }}">
-                                <a href="#">{{get_string('users')}}<i class="material-icons tiny">arrow_drop_down</i>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li><a href="{{route('admin_users')}}">{{get_string('users')}}</a></li>
-                                    <li><a href="{{route('admin_users_request')}}">{{get_string('requests')}}</a></li>
-                                </ul>
-                            </li> -->
-                            <!-- <li class="{{ setActive('admin/owner') }} {{ setActive('admin/faq') }}">
-                                <a href="#">{{get_string('owners')}}<i class="material-icons tiny">arrow_drop_down</i>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li><a href="{{ route('admin_owner') }}">{{get_string('owners')}}</a></li>
-                                    <li><a href="{{ route('admin_owner_activity') }}">{{get_string('activities')}}</a></li>
-                                    <li><a href="{{ route('admin_owner_purchase') }}">{{get_string('purchases')}}</a></li>
-                                    <li><a href="{{ route('admin_user_withdrawals') }}">{{get_string('withdrawals')}}</a></li>
-                                    <li><a href="{{ route('admin.faq.index') }}">{{get_string('faq')}}</a></li>
-                                </ul>
-                            </li> -->
                             <li class="{{ setActive('admin/request') }}"><a href="{{route('admin_requests')}}">{{get_string('requests')}}</a></li>
-                            <!-- @if(get_setting('enable_messages', 'user'))
-                                <li class="{{ setActive('admin/message') }}"><a href="{{route('admin_message')}}">{{get_string('messages')}}</a></li>
-                            @endif -->
                             <li class="{{ setActive('admin/settings') }}">
                                 <a href="#">{{get_string('settings')}}<i class="material-icons tiny">arrow_drop_down</i>
                                 </a>
@@ -82,8 +50,6 @@
                                     <li><a href="{{route('admin_site_settings')}}">{{get_string('site_settings')}}</a></li>
                                     <li><a href="{{route('admin_property_settings')}}">{{get_string('properties_settings')}}</a></li>
                                     <li><a href="{{route('admin_service_settings')}}">{{get_string('services_settings')}}</a></li>
-                                    <li><a href="{{route('admin_user_settings')}}">{{get_string('user_settings')}}</a></li>
-                                    <li><a href="{{route('admin_owner_settings')}}">{{get_string('owners_settings')}}</a></li>
                                     <li><a href="{{route('admin_design_settings')}}">{{get_string('design_settings')}}</a></li>
                                     <li><a href="{{route('admin_style_settings')}}">{{get_string('style_settings')}}</a></li>
                                     <li><a href="{{route('admin_translator')}}">{{get_string('translator')}}</a></li>
