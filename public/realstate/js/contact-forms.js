@@ -84,14 +84,14 @@
     }
 
     $("#register-phone").keypress(function(e){
-        if (e.which != 46 && e.which != 45 && e.which != 46 &&
+        if (e.which != 43 && e.which != 41 && e.which != 40 && e.which != 46 && e.which != 45 && e.which != 46 &&
             !(e.which >= 48 && e.which <= 57)) {
           return false;
         }
       });
 
       $("#call-back-phone").keypress(function(e){
-        if (e.which != 46 && e.which != 45 && e.which != 46 &&
+        if (e.which != 43 && e.which != 41 && e.which != 40 && e.which != 46 && e.which != 45 && e.which != 46 &&
             !(e.which >= 48 && e.which <= 57)) {
           return false;
         }
