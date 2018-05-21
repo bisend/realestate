@@ -60,7 +60,7 @@
     $('#send-register-form').on('click', function (e) {
         e.preventDefault();
 
-
+        var regPage = window.location.href;
         var name = $('#register-name').val();
         var email = $('#register-email').val();
 
@@ -97,7 +97,8 @@
                 processData: false,
                 data: {
                     name: name,
-                    email: email
+                    email: email,
+                    regPage: regPage
                 },
                 success: function(data){
                     if (data.status == 'success')
@@ -144,6 +145,7 @@
 
         var name = $('#call-back-name').val();
         var phone = $('#call-back-phone').val();
+        var backPage = window.location.href;
 
         var registrError = false;
 
@@ -173,7 +175,8 @@
                 processData: false,
                 data: {
                     name: name,
-                    phone: phone
+                    phone: phone,
+                    backPage: backPage
                 },
                 success: function(data){
                     if (data.status == 'success')
