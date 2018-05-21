@@ -20,7 +20,9 @@
   <link href="/realstate/css/responsive.css" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
 
-
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+    </script>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
@@ -47,7 +49,7 @@
 
              <label for="phone">Phone Number:</label>
             <input type="text" placeholder="Phone Number" name="phone" id="register-phone">
-
+            <div id="reg-back-captcha"></div>
             <button id="send-register-form" class="button button-icon alt small"><i class="fa fa-envelope" aria-hidden="true"></i>Send</button>
         </form>
     </div>
@@ -66,7 +68,7 @@
             <label for="phone">Phone Number:</label>
             <input id="call-back-phone" type="text" placeholder="Phone" name="phone">
 
-           
+           <div id="call-back-captcha"></div>
 
             <button id="send-coll-back" class="button button-icon alt small"><i class="fa fa-volume-control-phone" aria-hidden="true"></i>Send</button>
         </form>
@@ -93,6 +95,10 @@
 <script src="/realstate/js/contact-forms.js"></script>
 
 <!-- <script sec="js/jquery.matchHeight.js"></script> -->
+
+
+
+    
 
 
 </body>

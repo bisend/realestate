@@ -4,9 +4,36 @@
     //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     //     }
     // });
-    var onloadCallback = function() {
-        alert("grecaptcha is ready!");
-      };   
+    // var onloadCallback = function() {
+    //     alert("grecaptcha is ready!");
+    //     grecaptcha.render('call-back-captcha', {
+    //       'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj'
+    //     });
+    //   };
+
+    //   var onloadReg = function() {
+    //     alert("grecaptcha is ready!");
+    //     grecaptcha.render('reg-back-captcha', {
+    //       'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj'
+    //     });
+    //   };
+
+    // var verifyCallback = function(response) {
+    //     alert(response);
+    //   };
+    //   var widgetId1;
+    //   var widgetId2;
+    //   var onloadCallback = function() {
+    //     // Renders the HTML element with id 'example1' as a reCAPTCHA widget.
+    //     // The id of the reCAPTCHA widget is assigned to 'widgetId1'.
+    //     widgetId1 = grecaptcha.render('call-back-captcha', {
+    //       'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj'
+    //     });
+    //     widgetId2 = grecaptcha.render(document.getElementById('reg-back-captcha'), {
+    //       'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj'
+    //     });
+    // };
+    
 
     $( document ).ready(function() {
         $('.show-register').on('click', function () {
@@ -56,6 +83,19 @@
         return re.test(email);
     }
 
+    $("#register-phone").keypress(function(e){
+        if (e.which != 46 && e.which != 45 && e.which != 46 &&
+            !(e.which >= 48 && e.which <= 57)) {
+          return false;
+        }
+      });
+
+      $("#call-back-phone").keypress(function(e){
+        if (e.which != 46 && e.which != 45 && e.which != 46 &&
+            !(e.which >= 48 && e.which <= 57)) {
+          return false;
+        }
+      });
 
     $('#send-register-form').on('click', function (e) {
         e.preventDefault();
@@ -68,7 +108,6 @@
         var saveEmail = $('#register-email').val();
         var registrError = false;
 
-        console.log(phone)
 
         $('#register-email').on('focus', function () {
             $('#register-email').attr('placeholder', '');
@@ -113,6 +152,7 @@
                     _token: token,
                     name: name,
                     email: email,
+                    phone: phone,
                     regPage: regPage
                 },
                 success: function(data){
@@ -125,6 +165,10 @@
                         $('#register-email').val('');
                         $('#register-email').attr('placeholder', 'Email');
                         $('#register-email').removeClass('incorect-input');
+
+                        $('#register-phone').val('');
+                        $('#register-phone').attr('placeholder', 'Phone Number');
+                        $('#register-phone').removeClass('incorect-input');
             
                         saveEmail = '';
             
