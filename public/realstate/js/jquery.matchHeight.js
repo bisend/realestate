@@ -3,7 +3,6 @@
 * http://brm.io/jquery-match-height/
 * License: MIT
 */
-
 ;(function(factory) { // eslint-disable-line no-extra-semi
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -388,11 +387,8 @@
 });
 
 
-$(function() {
-    $('.title').matchHeight();
-    $('.job-description').matchHeight();
-    $('.partner-name h3').matchHeight();
-    $('.partner-description p').matchHeight();
-    $('.faq-title h3').matchHeight();
-    $('.faq-description p').matchHeight();
+$( document ).ready(function() {
+    $(function() {
+        $('.property-address').matchHeight();
+    });
 });
