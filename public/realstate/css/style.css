@@ -2142,3 +2142,19 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	height: 100%;
 	object-fit: cover;
 }
+
+.pagination {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #59aee9;
+    border-color: #59aee9;
+}
