@@ -69,10 +69,10 @@
                 <a href="/">Home</a>
             </li>
             <li>
-                <a href="#">Sale</a>
+                <a href="{{ route('sale') }}">Sale</a>
             </li>
             <li>
-                <a href="#">Rent</a>
+                <a href="{{ route('rent') }}">Rent</a>
             </li>
             <li>
                 <a href="{{ route('blog') }}">Blogs</a>

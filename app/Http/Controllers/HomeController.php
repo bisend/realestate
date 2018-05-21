@@ -6,9 +6,11 @@ use App\Models\Admin\Blog;
 use App\Models\Admin\Property;
 use App\Models\Admin\Review;
 use App\Models\Admin\Location;
+use App\Mail\RequestMails;
 use App\Models\Request as RequestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -125,6 +127,7 @@ class HomeController extends Controller
                 }
             }
             if (RequestModel::create($data)) {
+                Mail::to(get_setting('contact_email', 'site'))->send(new RequestMails($data));
                 $response['status'] = 'success';
                 return $response;
             }
@@ -139,6 +142,7 @@ class HomeController extends Controller
             $data = $request->only(['name', 'phone']);
             $data['callback'] = 1;
             if (RequestModel::create($data)) {
+                Mail::to(get_setting('contact_email', 'site'))->send(new RequestMails($data));
                 $response['status'] = 'success';
                 return $response;
             }
