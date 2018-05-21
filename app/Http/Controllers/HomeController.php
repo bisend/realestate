@@ -6,6 +6,7 @@ use App\Models\Admin\Blog;
 use App\Models\Admin\Property;
 use App\Models\Admin\Review;
 use App\Models\Admin\Location;
+use App\Models\Request as RequestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -102,5 +103,47 @@ class HomeController extends Controller
         Review::create($data);
         Session::flash('reviewDone', true);
         return redirect()->back();
+    }
+
+    public function registerInterest(Request $request)
+    {
+
+        if($request->ajax()){
+            $data = $request->only(['name', 'email', 'regPage']);
+            $data['register_interest'] = 1;
+            $data['reference'] = $data['regPage'];
+            $property_alias = explode('/', $data['reference']);
+            $property_alias = end($property_alias);
+            $property = Property::where('alias',  $property_alias)->first();
+            if ($property) {
+                $data['reference_name'] = $property->contentDefault->name;
+            } else {
+                if ($property_alias == '') {
+                    $data['reference_name'] = 'home';
+                } else {
+                    $data['reference_name'] = $property_alias;
+                }
+            }
+            if (RequestModel::create($data)) {
+                $response['status'] = 'success';
+                return $response;
+            }
+            $response['status'] = 'error';
+            return $response;
+        }
+    }
+
+    public function callback(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->only(['name', 'phone']);
+            $data['callback'] = 1;
+            if (RequestModel::create($data)) {
+                $response['status'] = 'success';
+                return $response;
+            }
+            $response['status'] = 'error';
+            return $response;
+        }
     }
 }

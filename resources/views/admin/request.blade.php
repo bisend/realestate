@@ -8,9 +8,16 @@
     <h3 class="page-title mbot10">{{get_string('requests')}}</h3>
 @endsection
 <div class="col s12">
-    <h3 class="page-title">{{get_string('users')}}</h3>
-    @if($users->count())
-        <div class="table-responsive">
+<div class="panel-heading">
+        <ul class="nav nav-tabs">
+            <li class="tab active"><a href="#register-interests" data-toggle="tab">Register Interest</a></li>
+            <li class="tab"><a href="#callbacks" data-toggle="tab">Call Back</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+    
+        <div id="register-interests" class="table-responsive tab-pane active">
+        @if($register_interests->count())
             <table class="table bordered striped">
                 <thead class="thead-inverse">
                 <tr>
@@ -18,45 +25,47 @@
                         <input type="checkbox" class="filled-in primary-color" id="select-all" />
                         <label for="select-all"></label>
                     </th>
-                    <th>{{get_string('username')}}</th>
-                    <th>{{get_string('email')}}</th>
-                    <th>{{get_string('first_name')}}</th>
-                    <th>{{get_string('last_name')}}</th>
-                    <th>{{get_string('status')}}</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Reference</th>
+                    <th class="icon-options">Status</th>
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
-                    @if($user && $user->user)
+                @foreach($register_interests as $register_interest)
                     <tr>
                         <td>
-                            <input type="checkbox" class="filled-in primary-color" id="{{$user->id}}" />
-                            <label for="{{$user->id}}"></label>
+                            <input type="checkbox" class="filled-in primary-color" id="{{$register_interest->id}}" />
+                            <label for="{{$register_interest->id}}"></label>
                         </td>
-                        <td>{{$user->username}}</td>
-                        <td>{{$user->email}}</td>
-                        <td>@if($user->user){{$user->user->first_name}}@endif</td>
-                        <td>@if($user->user){{$user->user->last_name}}@endif</td>
-                        <td class="post-status">{{$user->is_active ? get_string('active') : get_string('pending')}}</td>
+                        <td>{{$register_interest->name}}</td>
+                        <td>{{$register_interest->email}}</td>
+                        <td><a href="{{ $register_interest->reference }}" target="_blank">{{$register_interest->reference_name}}</a></td>
+                        <td>
+                            <form action="">
+                                <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
+                                <input type="checkbox" class="filled-in primary-color status-callback" id="status{{$register_interest->id}}"  data-id="{{$register_interest->id}}" {{ $register_interest->status ? 'checked' : '' }}/>
+                                <label for="status{{$register_interest->id}}"></label>
+                            </form>
+                        </td>
                         <td>
                             <div class="icon-options">
-                                <a href="#" data-type="1" class="activate-button {{$user->is_active ? 'hidden': ''}}" data-id="{{$user->id}}" title="{{get_string('activate_user')}}"><i class="small material-icons color-primary">done</i></a>
+                                <a href="#" class="delete-button" data-id="{{$register_interest->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>
                             </div>
                         </td>
                     </tr>
-                    @endif
                 @endforeach
                 </tbody>
             </table>
+            {{$register_interests->links()}}
+            @else
+            <strong class="center-align">{{get_string('no_results')}}</strong>
+            @endif
         </div>
-    @else
-        <strong class="center-align">{{get_string('no_results')}}</strong>
-    @endif
-    {{ csrf_field() }}
-    <h3 class="page-title">{{get_string('properties')}}</h3>
-    @if($properties->count())
-        <div class="table-responsive">
+        
+        <div id="callbacks" class="table-responsive tab-pane">
+        @if($callbacks->count())
             <table class="table bordered striped">
                 <thead class="thead-inverse">
                 <tr>
@@ -64,84 +73,46 @@
                         <input type="checkbox" class="filled-in primary-color" id="select-all" />
                         <label for="select-all"></label>
                     </th>
-                    <th>{{get_string('property')}}</th>
-                    <th>{{get_string('user')}}</th>
-                    <th>{{get_string('category')}}</th>
-                    <th>{{get_string('location')}}</th>
-                    <th>{{get_string('status')}}</th>
-                    <th>{{get_string('featured')}}</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th class="icon-options">Status</th>
+                    <!-- <th>Reference</th> -->
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($properties as $property)
+                @foreach($callbacks as $callback)
                     <tr>
                         <td>
-                            <input type="checkbox" class="filled-in primary-color" id="{{$property->id}}" />
-                            <label for="{{$property->id}}"></label>
+                            <input type="checkbox" class="filled-in primary-color" id="{{$callback->id}}" />
+                            <label for="{{$callback->id}}"></label>
                         </td>
-                        <td>{{$property->contentDefault->name}}</td>
-                        <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td>
-                        <td>{{$property->category->contentDefault->name}}</td>
-                        <td>{{$property->prop_location->contentDefault->location}}</td>
-                        <td class="page-status">{{$property->status ? get_string('active') : get_string('pending')}}</td>
-                        <td class="page-featured">{{$property->featured ? get_string('yes') : get_string('no')}}</td>
+                        <td>{{$callback->name}}</td>
+                        <td>{{$callback->phone}}</td>
+                        <td class="icon-options">
+                        <form action="">
+                            <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
+                            <input type="checkbox" class="filled-in primary-color status-callback" id="status{{$callback->id}}"  data-id="{{$callback->id}}" {{ $callback->status ? 'checked' : '' }}/>
+                            <label for="status{{$callback->id}}"></label>
+                        </form>
+                        </td>
+                        <!-- <td><a href="{{ $callback->reference }}">{{$callback->reference_name}}</a></td> -->
                         <td>
                             <div class="icon-options">
-                                <a href="#" data-type="3" class="activate-button {{$property->status ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('activate_property')}}"><i class="small material-icons color-primary">done</i></a>
+                                <a href="#" class="delete-button" data-id="{{$callback->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>
                             </div>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
+            {{$callbacks->links()}}
+            @else
+                <strong class="center-align">{{get_string('no_results')}}</strong>
+            @endif
         </div>
-    @else
-        <strong class="center-align">{{get_string('no_results')}}</strong>
-    @endif
-    <h3 class="page-title">{{get_string('services')}}</h3>
-    @if($services->count())
-        <div class="table-responsive">
-            <table class="table bordered striped">
-                <thead class="thead-inverse">
-                <tr>
-                    <th>
-                        <input type="checkbox" class="filled-in primary-color" id="select-all" />
-                        <label for="select-all"></label>
-                    </th>
-                    <th>{{get_string('user')}}</th>
-                    <th>{{get_string('category')}}</th>
-                    <th>{{get_string('name')}}</th>
-                    <th>{{get_string('status')}}</th>
-                    <th>{{get_string('featured')}}</th>
-                    <th class="icon-options">{{get_string('options')}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($services as $service)
-                    <tr>
-                        <td>
-                            <input type="checkbox" class="filled-in primary-color" id="{{$service->id}}" />
-                            <label for="{{$service->id}}"></label>
-                        </td>
-                        <td>@if($service->user){{$service->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td>
-                        <td>{{$service->category->contentDefault->name}}</td>
-                        <td>{{$service->contentDefault->name}}</td>
-                        <td class="page-status">{{$service->status ? get_string('active') : get_string('pending')}}</td>
-                        <td class="page-featured">{{$service->featured ? get_string('yes') : get_string('no')}}</td>
-                        <td>
-                            <div class="icon-options">
-                                <a href="#" data-type="4" class="activate-button {{$service->status ? 'hidden': ''}}" data-id="{{$service->id}}" title="{{get_string('activate_service')}}"><i class="small material-icons color-primary">done</i></a>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    @else
-        <strong class="center-align">{{get_string('no_results')}}</strong>
-    @endif
+    </div>
+    </div>
 </div>
 @endsection
 
@@ -197,6 +168,63 @@
                     }
                 });
             });
+
+            $('.status-callback').on('change', function(){
+                var id = $(this).data('id');
+                var value = $(this).is(':checked') ? 1 : 0;
+                var token = $('[name="_token"]').val();
+                $.ajax({
+                    url: '{{ url('/admin/request/changestatus/') }}/'+id,
+                    type: 'post',
+                    data: {_token :token, value: value},
+                    success:function(msg) {
+                        toastr.success(msg);
+                    },
+                    error:function(msg){
+                        toastr.error(msg.responseJSON);
+                    }
+                });
+            });
+
+            $('.delete-button').click(function(event){
+                event.preventDefault();
+                var id = $(this).data('id');
+                var selector = $(this).parents('tr');
+                var token = $('[name="_token"]').val();
+                bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: '{{get_string('delete_confirm')}}',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/request/delete/') }}/'+id,
+                                type: 'post',
+                                data: {_method: 'delete', _token :token},
+                                success:function(msg) {
+                                    selector.remove();
+                                    toastr.success(msg);
+                                },
+                                error:function(msg){
+                                    toastr.error(msg.responseJSON);
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+            
         });
     </script>
 @endsection

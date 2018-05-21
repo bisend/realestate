@@ -29,7 +29,7 @@
         </ul>
     </div>
     <div class="tab-content">
-    @if($sale_properties->count())
+        @if($sale_properties->count())
         <div id="sale-body" class="table-responsive tab-pane active">
             <table class="table bordered striped">
                 <thead class="thead-inverse">

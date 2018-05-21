@@ -110,6 +110,8 @@ Route::group(['middleware' => 'admin'], function(){
 
     // Activity Controller Routes
     Route::get('/admin/request', 'Admin\AdminRequestController@index')->name('admin_requests');
+    Route::post('/admin/request/changestatus/{id}', 'Admin\AdminRequestController@changeStatus');
+    Route::delete('/admin/request/delete/{id}', 'Admin\AdminRequestController@delete');
 
     // Property Settings Controller Routes
     Route::get('/admin/settings/payment_settings', 'Admin\AdminPaymentSettingsController@index')->name('admin_payment_settings');
@@ -319,6 +321,10 @@ Route::get('/category/{alias}', 'CategoryController@index');
 Route::get('/location/{id}/services', 'LocationController@get_services');
 Route::get('/location/{id}/properties', 'LocationController@get_properties');
 Route::get('/location/{alias}', 'LocationController@index');
+
+// Requests
+Route::post('/request/registerinterest', 'HomeController@registerInterest');
+Route::post('/request/callback', 'HomeController@callback');
 
 /*
 |--------------------------------------------------------------------------

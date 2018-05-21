@@ -38,8 +38,8 @@
         <div class="fix-form-header">
             Register Interest
         </div>
-        <form action="" id="register-interest-form">
-        {{ csrf_field() }}
+        <form action="" id="register-interest-form" method="post">
+            <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
             <label for="name">Name:</label>
             <input type="text" placeholder="Name" name="name" id="register-name">
             <label for="email">Email:</label>
@@ -55,8 +55,8 @@
         <div class="fix-form-header">
             Call Back
         </div>
-        <form action="" id="coll-back-form">
-        {{ csrf_field() }}
+        <form action="" id="coll-back-form" method="post">
+            <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
             <label for="name">Name:</label>
             <input id="call-back-name" type="text" placeholder="Name" name="name">
             <label for="phone">Phone:</label>

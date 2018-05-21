@@ -63,7 +63,7 @@
         var regPage = window.location.href;
         var name = $('#register-name').val();
         var email = $('#register-email').val();
-
+        var token = $('[name="_token"]').val();
         var saveEmail = $('#register-email').val();
         var registrError = false;
 
@@ -90,12 +90,10 @@
         if(registrError == false){
 
             $.ajax({
-                url: '',
+                url: '/request/registerinterest',
                 type: 'POST',
-                contentType: false,      
-                cache: false,       
-                processData: false,
                 data: {
+                    _token: token,
                     name: name,
                     email: email,
                     regPage: regPage
@@ -146,7 +144,7 @@
         var name = $('#call-back-name').val();
         var phone = $('#call-back-phone').val();
         var backPage = window.location.href;
-
+        var token = $('[name="_token"]').val();
         var registrError = false;
 
         if(name == ''){
@@ -166,14 +164,15 @@
 
 
         if(registrError == false){
-           
+            console.log(token);
             $.ajax({
-                url: '',
-                type: 'POST',
-                contentType: false,      
-                cache: false,       
-                processData: false,
+                url: '/request/callback',
+                type: 'post',
+                // contentType: false,      
+                // cache: false,       
+                // processData: false,
                 data: {
+                    _token :token,
                     name: name,
                     phone: phone,
                     backPage: backPage
