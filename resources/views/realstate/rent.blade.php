@@ -18,7 +18,7 @@
 		
 			<div class="row">
 
-            @for($i = 0; $i < 8; $i++)
+      @foreach($properties as $property)
 				<div class="col-lg-6 col-md-6">
 					<div class="property shadow-hover">
 					<a href="#" class="property-img">
@@ -27,27 +27,27 @@
 							<div class="property-price">$150,000</div>
 							<div class="property-color-bar"></div>
 							<div class="prop-img-home">
-									<img src="images/testimg/test2.jpg" alt="" />
+									<img src="{{ URL::asset('images/data').'/'.$property->images->first()->image }}" alt="" />
 							</div>
 					</a>
 					<div class="property-content">
 							<div class="property-title">
-							<h4><a href="#">Beautiful Waterfront Condo</a></h4>
-							<p class="property-address"><i class="fa fa-map-marker icon"></i>123 Smith Dr, Annapolis, MD</p>
+							<h4><a href="#">{{ $property->contentload->name }}</a></h4>
+							<p class="property-address"><i class="fa fa-map-marker icon"></i>{{ $property->location['address'] }}, {{ $property->location['city'] }}, {{ $property->location['state'] }}, {{ $property->location['country'] }}</p>
 							</div>
 							<table class="property-details property-details-grid">
 							<tr>
-									<td><i class="fa fa-home" aria-hidden="true"></i></i>12</td>
-									<td><i class="fa fa-bed"></i>12</td>
-									<td><i class="fa fa-expand"></i>12</td>
-									<td><i class="fa fa-user" aria-hidden="true"></i>12</td>
+									<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+									<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
+									<td><i class="fa fa-expand"></i>{{ $property->property_info['size'] }}</td>
+									<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
 							</tr>
 							</table>
 						</div>
 					</div>
 				</div>
-            @endfor
-
+      @endforeach
+			{{$properties->links()}}
 			</div><!-- end row -->
 			
 			
@@ -110,37 +110,17 @@
 			<div class="widget widget-sidebar recent-properties">
 			  <h4><span>Recent Properties</span> <img src="images/divider-half.png" alt="" /></h4>
 			  <div class="widget-content">
-
+				@foreach($recent_properties as $property)
 				<div class="recent-property">
 				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/testimg/test1.jpg" alt="" /></a></div>
+					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="{{ URL::asset('images/data').'/'.$property->images->first()->image }}" alt="" /></a></div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
-					  <h5><a href="#">Beautiful Waterfront Condo</a></h5>
+					  <h5><a href="#">{{ $property->contentload->name }}</a></h5>
 					  <p><strong>$1,800</strong> Per Month</p>
 					</div>
 				  </div>
 				</div>
-
-				<div class="recent-property">
-				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/testimg/test2.jpg" alt="" /></a></div>
-					<div class="col-lg-8 col-md-8 col-sm-8">
-					  <h5><a href="#">Family Home</a></h5>
-					  <p><strong>$500,000</strong></p>
-					</div>
-				  </div>
-				</div>
-
-				<div class="recent-property">
-				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/testimg/test3.jpg" alt="" /></a></div>
-					<div class="col-lg-8 col-md-8 col-sm-8">
-					  <h5><a href="#">Ubran Apartment</a></h5>
-					  <p><strong>$1,800</strong> Per Month</p>
-					</div>
-				  </div>
-				</div>
-
+				@endforeach
 			  </div><!-- end widget content -->
 			</div><!-- end widget -->
 

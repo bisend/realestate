@@ -9,6 +9,8 @@ class Property extends Model
 {
     const FEATURED_COUNT = 5;
     const SLIDER_COUNT = 5;
+    const RECENT_PROPERTIES = 3;
+    const GET_PROPERTIES = 8;
 
     // Allow columns to be filled with data
     protected $fillable = [

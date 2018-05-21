@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\Property;
 use Illuminate\Http\Request;
 
 class RentController extends Controller
@@ -17,7 +18,8 @@ class RentController extends Controller
     {
         $static_data = $this->static_data;
         $default_language = $this->default_language;
-
-        return view('realstate.rent', compact('static_data'));
+        $properties = Property::where('rentals', 1)->orderBy('created_at', 'desc')->paginate(Property::GET_PROPERTIES);
+        $recent_properties = Property::orderBy('created_at', 'desc')->take(Property::RECENT_PROPERTIES)->get();
+        return view('realstate.rent', compact('static_data', 'properties', 'recent_properties'));
     }
 }

@@ -26,6 +26,7 @@
                         <label for="select-all"></label>
                     </th>
                     <th>Name</th>
+                    <th>Phone</th>
                     <th>Email</th>
                     <th>Reference</th>
                     <th class="icon-options">Status</th>
@@ -40,6 +41,7 @@
                             <label for="{{$register_interest->id}}"></label>
                         </td>
                         <td>{{$register_interest->name}}</td>
+                        <td>{{$register_interest->phone}}</td>
                         <td>{{$register_interest->email}}</td>
                         <td><a href="{{ $register_interest->reference }}" target="_blank">{{$register_interest->reference_name}}</a></td>
                         <td class="icon-options">

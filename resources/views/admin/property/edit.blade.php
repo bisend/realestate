@@ -68,7 +68,7 @@
                             @endif
                          </div>    
                     </div>
-                    <div class="col s12 clearfix">
+                    <!-- <div class="col s12 clearfix">
                         <h5 class="section-title">{{get_string('general')}}</h5>
                     </div>
                     <div class="col m4 s6">
@@ -87,7 +87,7 @@
                             @endif
                         </div>
                     </div>
-                    <!-- <div class="col l3 m4 s6 right right-align mbot0">
+                    <div class="col l3 m4 s6 right right-align mbot0">
                         <div class="form-group">
                             <div class="switch">
                                 <label>

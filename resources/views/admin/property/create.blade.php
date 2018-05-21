@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div id="data-panel" class="tab-pane">
-                    <div class="col s12 clearfix">
+                    <!-- <div class="col s12 clearfix">
                         <h5 class="section-title">{{get_string('general')}}</h5>
                     </div>
                     <div class="col m4 s6">
@@ -86,7 +86,7 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col s12 well checkbox-grid">
                         <p>{{get_string('choose_features')}}</p>
                         @foreach($features as $feature)

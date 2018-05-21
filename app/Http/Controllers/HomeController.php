@@ -109,7 +109,7 @@ class HomeController extends Controller
     {
 
         if($request->ajax()){
-            $data = $request->only(['name', 'email', 'regPage']);
+            $data = $request->only(['name', 'email', 'phone', 'regPage']);
             $data['register_interest'] = 1;
             $data['reference'] = $data['regPage'];
             $property_alias = explode('/', $data['reference']);
