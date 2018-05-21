@@ -63,9 +63,12 @@
         var regPage = window.location.href;
         var name = $('#register-name').val();
         var email = $('#register-email').val();
+        var phone = $('#register-phone').val();
         var token = $('[name="_token"]').val();
         var saveEmail = $('#register-email').val();
         var registrError = false;
+
+        console.log(phone)
 
         $('#register-email').on('focus', function () {
             $('#register-email').attr('placeholder', '');
@@ -76,6 +79,20 @@
             $('#register-name').val('');
             $('#register-name').attr('placeholder', 'Enter the correct name');
             $('#register-name').addClass('incorect-input');
+            registrError = true;
+        }
+
+        if(name.length > 30){
+            $('#register-name').val('');
+            $('#register-name').attr('placeholder', 'Maximum 30 characters');
+            $('#register-name').addClass('incorect-input');
+            registrError = true;
+        }
+
+        if(phone == ''){
+            $('#register-phone').val('');
+            $('#register-phone').attr('placeholder', 'Enter phone number');
+            $('#register-phone').addClass('incorect-input');
             registrError = true;
         }
 
@@ -154,9 +171,16 @@
             registrError = true;
         }
 
+        if(name.length > 30){
+            $('#call-back-name').val('');
+            $('#call-back-name').attr('placeholder', 'Maximum 30 characters');
+            $('#call-back-name').addClass('incorect-input');
+            registrError = true;
+        }
+
         if(phone == ''){
             $('#call-back-phone').val('');
-            $('#call-back-phone').attr('placeholder', 'Enter the correct name');
+            $('#call-back-phone').attr('placeholder', 'Enter phone number');
             $('#call-back-phone').addClass('incorect-input');
             registrError = true;
         }

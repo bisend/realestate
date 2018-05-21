@@ -44,6 +44,10 @@
             <input type="text" placeholder="Name" name="name" id="register-name">
             <label for="email">Email:</label>
             <input type="text" placeholder="Email" name="email" id="register-email">
+
+             <label for="phone">Phone Number:</label>
+            <input type="text" placeholder="Phone Number" name="phone" id="register-phone">
+
             <button id="send-register-form" class="button button-icon alt small"><i class="fa fa-envelope" aria-hidden="true"></i>Send</button>
         </form>
     </div>
@@ -59,7 +63,7 @@
             <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
             <label for="name">Name:</label>
             <input id="call-back-name" type="text" placeholder="Name" name="name">
-            <label for="phone">Phone:</label>
+            <label for="phone">Phone Number:</label>
             <input id="call-back-phone" type="text" placeholder="Phone" name="phone">
 
            
