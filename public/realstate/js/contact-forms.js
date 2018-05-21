@@ -88,19 +88,43 @@
         }
 
         if(registrError == false){
-            $('#register-name').val('');
-            $('#register-name').attr('placeholder', 'Name');
-            $('#register-name').removeClass('incorect-input');
 
-            $('#register-email').val('');
-            $('#register-email').attr('placeholder', 'Email');
-            $('#register-email').removeClass('incorect-input');
+            $.ajax({
+                url: '',
+                type: 'POST',
+                contentType: false,      
+                cache: false,       
+                processData: false,
+                data: {
+                    name: name,
+                    email: email
+                },
+                success: function(data){
+                    if (data.status == 'success')
+                    {
+                        $('#register-name').val('');
+                        $('#register-name').attr('placeholder', 'Name');
+                        $('#register-name').removeClass('incorect-input');
+            
+                        $('#register-email').val('');
+                        $('#register-email').attr('placeholder', 'Email');
+                        $('#register-email').removeClass('incorect-input');
+            
+                        saveEmail = '';
+            
+                        console.log('registr send')
+            
+                        $('#successModal').modal('show')
+                        
+                    }
+        
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
 
-            saveEmail = '';
 
-            console.log('registr send')
-
-            $('#successModal').modal('show')
         }
         
     })
@@ -140,17 +164,39 @@
 
 
         if(registrError == false){
-            $('#call-back-name').val('');
-            $('#call-back-name').attr('placeholder', 'Name');
-            $('#call-back-name').removeClass('incorect-input');
-
-            $('#call-back-phone').val('');
-            $('#call-back-phone').attr('placeholder', 'Phone');
-            $('#call-back-phone').removeClass('incorect-input');
+           
+            $.ajax({
+                url: '',
+                type: 'POST',
+                contentType: false,      
+                cache: false,       
+                processData: false,
+                data: {
+                    name: name,
+                    phone: phone
+                },
+                success: function(data){
+                    if (data.status == 'success')
+                    {
+                        $('#call-back-name').val('');
+                        $('#call-back-name').attr('placeholder', 'Name');
+                        $('#call-back-name').removeClass('incorect-input');
             
-            console.log('call back send')
-
-            $('#successModal').modal('show')
+                        $('#call-back-phone').val('');
+                        $('#call-back-phone').attr('placeholder', 'Phone');
+                        $('#call-back-phone').removeClass('incorect-input');
+                        
+                        console.log('call back send')
+            
+                        $('#successModal').modal('show')
+                        
+                    }
+        
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
 
         }
         
