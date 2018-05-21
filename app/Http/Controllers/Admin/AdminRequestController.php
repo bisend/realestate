@@ -17,8 +17,8 @@ class AdminRequestController extends Controller
         // $owners = Owner::where('status', 0)->get();
         // $services = Service::where('user_id', '<>', 1)->where('status', 0)->orderBy('created_at','desc')->get();
         // $users = User::where('id', '<>', 1)->where('is_active', 0)->orderBy('created_at','desc')->get();
-        $callbacks = RequstModel::where('callback', 1)->orderBy('status', 'asc')->paginate(10);
-        $register_interests = RequstModel::where('register_interest', 1)->orderBy('status', 'asc')->paginate(10);
+        $callbacks = RequstModel::where('callback', 1)->orderBy('status', 'asc')->orderBy('created_at', 'desc')->paginate(10);
+        $register_interests = RequstModel::where('register_interest', 1)->orderBy('status', 'asc')->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.request', compact('callbacks', 'register_interests'));
     }
 
