@@ -284,6 +284,9 @@ Route::get('/blog/post/{alias}', 'BlogController@post');
 Route::get('/explore/properties', 'ExploreController@properties')->name('explore_properties');
 Route::get('/explore/services', 'ExploreController@services')->name('explore_services');
 
+Route::get('/sale', 'SaleController@index');
+Route::get('/rent', 'RentController@index');
+
 // Payments
 Route::post('/payment-page', 'PaymentController@index')->name('booking_pay_page');
 Route::post('/booking/payment', 'PaymentController@payment')->name('booking_pay');
