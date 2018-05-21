@@ -42,7 +42,7 @@
                         <td>{{$register_interest->name}}</td>
                         <td>{{$register_interest->email}}</td>
                         <td><a href="{{ $register_interest->reference }}" target="_blank">{{$register_interest->reference_name}}</a></td>
-                        <td>
+                        <td class="icon-options">
                             <form action="">
                                 <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
                                 <input type="checkbox" class="filled-in primary-color status-callback" id="status{{$register_interest->id}}"  data-id="{{$register_interest->id}}" {{ $register_interest->status ? 'checked' : '' }}/>
@@ -90,11 +90,11 @@
                         <td>{{$callback->name}}</td>
                         <td>{{$callback->phone}}</td>
                         <td class="icon-options">
-                        <form action="">
-                            <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
-                            <input type="checkbox" class="filled-in primary-color status-callback" id="status{{$callback->id}}"  data-id="{{$callback->id}}" {{ $callback->status ? 'checked' : '' }}/>
-                            <label for="status{{$callback->id}}"></label>
-                        </form>
+                            <form action="">
+                                <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
+                                <input type="checkbox" class="filled-in primary-color status-callback" id="status{{$callback->id}}"  data-id="{{$callback->id}}" {{ $callback->status ? 'checked' : '' }}/>
+                                <label for="status{{$callback->id}}"></label>
+                            </form>
                         </td>
                         <!-- <td><a href="{{ $callback->reference }}">{{$callback->reference_name}}</a></td> -->
                         <td>
