@@ -388,8 +388,9 @@
   }
 
   .slider-price .noUi-horizontal{
-    width: 81%;
+    width: 100%;
   }
+  /**/
 
   /** TESITMONIALS **/
   .testimonials h3 { font-size:20px; }

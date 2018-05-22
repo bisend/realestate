@@ -215,7 +215,7 @@
         <div class="col-sm-12 col-md-6 col-lg-6 sale-home-list">
             <div class="module-header">
                 <h2>Sales</h2>
-                <img src="images/divider.png" alt="" />
+                <img src="/realstate/images/divider.png" alt="" />
             </div>
             <div class="row">
                 @foreach($sales_properties as $sales_property)
@@ -254,7 +254,7 @@
         <div class="col-sm-12 col-md-6 col-lg-6 rentals-home-list">
             <div class="module-header">
                 <h2>Rentals</h2>
-                <img src="images/divider.png" alt="" />
+                <img src="/realstate/images/divider.png" alt="" />
             </div>
             <div class="row">
             @foreach($rentals_properties as $rentals_property)

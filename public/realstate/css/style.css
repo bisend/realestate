@@ -2248,3 +2248,20 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	font-weight: 700;
 	display: none;
 }
+
+
+.noUi-horizontal .noUi-handle.noUi-handle-lower{
+	left: -1px;
+}
+
+.noUi-horizontal .noUi-handle.noUi-handle-upper{
+	left: -19px;;
+}
+
+.noUi-horizontal .noUi-handle.noUi-handle-lower .noUi-tooltip{
+	left: 124%;
+}
+
+.noUi-horizontal .noUi-handle.noUi-handle-upper .noUi-tooltip{
+	left: -67%;
+}
