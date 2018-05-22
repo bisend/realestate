@@ -344,8 +344,8 @@
                     </div>
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('property_info.internal_area') ? 'has-error' : ''}}">
-                            {{Form::text('property_info[internal_area]', null, ['class' => 'form-control', 'placeholder' => 'Internal Area'])}}
-                            {{Form::label('property_info[internal_area]', 'Internal Area')}}
+                            {{Form::text('property_info[internal_area]', null, ['class' => 'form-control', 'placeholder' => 'Internal Area &#x33a1;'])}}
+                            {{Form::label('property_info[internal_area]', 'Internal Area &#x33a1;')}}
                             @if($errors->has('property_info.internal_area'))
                                 <span class="wrong-error">* {{$errors->first('property_info.internal_area')}}</span>
                             @endif
