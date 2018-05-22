@@ -18,23 +18,42 @@
     //     });
     //   };
 
-    // var verifyCallback = function(response) {
-    //     alert(response);
-    //   };
-    //   var widgetId1;
-    //   var widgetId2;
-    //   var onloadCallback = function() {
-    //     // Renders the HTML element with id 'example1' as a reCAPTCHA widget.
-    //     // The id of the reCAPTCHA widget is assigned to 'widgetId1'.
-    //     widgetId1 = grecaptcha.render('call-back-captcha', {
-    //       'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj'
-    //     });
-    //     widgetId2 = grecaptcha.render(document.getElementById('reg-back-captcha'), {
-    //       'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj'
-    //     });
-    // };
-    
+    var regCaptchaError = true;
+    var callbackCaptchaError = true;
 
+    var verifyCallbackReg = function(response) {
+        $('#recaptcha-error-reg').hide();
+        if(response == ''){
+            regCaptchaError = true;
+        }else{
+            regCaptchaError = false;
+        }
+    };
+
+    var verifyCallback = function(response) {
+        $('#recaptcha-error-callback').hide();
+        if(response == ''){
+            callbackCaptchaError = true;
+        }else{
+            callbackCaptchaError = false;
+        }
+    };
+
+      var widgetId1;
+      var widgetId2;
+      var onloadCallback = function() {
+      
+        widgetId1 = grecaptcha.render('call-back-captcha', {
+          'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj',
+          'callback' : verifyCallback
+        });
+        widgetId2 = grecaptcha.render(document.getElementById('reg-back-captcha'), {
+          'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj',
+          'callback' : verifyCallbackReg
+        });
+       
+    };
+    
     $( document ).ready(function() {
         $('.show-register').on('click', function () {
             $('.Register-Interest').toggleClass('form-active-registr');
@@ -143,6 +162,11 @@
             registrError = true;
         }
 
+        if(regCaptchaError == true){
+            registrError = true;
+            $('#recaptcha-error-reg').show();
+        }
+
         if(registrError == false){
 
             $.ajax({
@@ -206,33 +230,38 @@
         var phone = $('#call-back-phone').val();
         var backPage = window.location.href;
         var token = $('[name="_token"]').val();
-        var registrError = false;
+        var callbackError = false;
 
         if(name == ''){
             $('#call-back-name').val('');
             $('#call-back-name').attr('placeholder', 'Enter the correct name');
             $('#call-back-name').addClass('incorect-input');
-            registrError = true;
+            callbackError = true;
         }
 
         if(name.length > 30){
             $('#call-back-name').val('');
             $('#call-back-name').attr('placeholder', 'Maximum 30 characters');
             $('#call-back-name').addClass('incorect-input');
-            registrError = true;
+            callbackError = true;
         }
 
         if(phone == ''){
             $('#call-back-phone').val('');
             $('#call-back-phone').attr('placeholder', 'Enter phone number');
             $('#call-back-phone').addClass('incorect-input');
-            registrError = true;
+            callbackError = true;
+        }
+
+        if(callbackCaptchaError == true){
+            callbackError = true;
+            $('#recaptcha-error-callback').show();
         }
 
 
 
-        if(registrError == false){
-            console.log(token);
+        if(callbackError == false){
+            
             $.ajax({
                 url: '/request/callback',
                 type: 'post',
