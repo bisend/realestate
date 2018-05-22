@@ -30,11 +30,11 @@ class AdminPropertyController extends Controller
             'sale_rent'             => 'required',
             // 'type_id'              => 'required',
             //'location_id'             => 'required',
-            'location.address'        => 'required',
-            'location.city'           => 'required',
-            'location.country'        => 'required',
-            // 'location.geo_lon'        => 'required',
-            // 'location.geo_lat'        => 'required',
+            // 'location.address'        => 'required',
+            // 'location.city'           => 'required',
+            // 'location.country'        => 'required',
+            'location.geo_lon'        => 'required',
+            'location.geo_lat'        => 'required',
             'contact.tel1'            => 'phone_number',
             'contact.tel2'            => 'phone_number',
             'contact.fax'             => 'phone_number',
@@ -43,7 +43,7 @@ class AdminPropertyController extends Controller
             'rooms'                   => 'required|integer',
             'guest_number'            => 'required|integer',
             'price_per_night'         => 'required|integer',
-            'property_info.size'      => 'integer',
+            'property_info.internal_area' => 'required|integer',
             'property_info.bedrooms'  => 'integer',
             'property_info.bathrooms' => 'integer',
             'prices.d_5'              => 'integer|required',
@@ -76,6 +76,7 @@ class AdminPropertyController extends Controller
             'guest_number.required'              => get_string('required_field'),
             // 'type_id.required'                => get_string('type_required'),
             'location_id.required'               => get_string('location_required'),
+            'property_info.internal_area.required' => get_string('required_field'),
         ];
         $this->languages = Language::all();
     }
