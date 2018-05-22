@@ -124,7 +124,7 @@
                     </div>
                     <div class="col s12">
                         <div class="row mbot0">
-                            <div class="col l6 m12 s12">
+                            <!-- <div class="col l6 m12 s12">
                                 <div class="row mbot0">
                                     <div class="col l12 m12 s12">
                                         <div class="form-group  {{$errors->has('location.address') ? 'has-error' : ''}}">
@@ -175,7 +175,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col l6 m12 s12">
                                 <div class="form-group  {{($errors->has('location.geo_lon') || ($errors->has('location.geo_lon')))  ? 'has-error' : ''}}">
                                     {{Form::text('marker', null, ['class' => 'form-control autocomplete', 'id' => 'address-map', 'placeholder' => get_string('drop_marker')])}}
@@ -314,14 +314,40 @@
                 </div>
                 <div id="property-panel" class="tab-pane">
                     <div class="col s12 clearfix">
+                        <h5 class="section-title">Sales or Rentals</h5>
+                    </div>
+                    <div class="col s6 checkbox-grid">
+                        <div class="form-group  {{$errors->has('sale_rent') ? 'has-error' : ''}}">
+                            <form action="" class="form-control">
+                                <div class="col s2">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="filled-in primary-color" id="contactChoice1" name="sale_rent[]" value="sales" {{ old('sale_rent') && in_array('sales', old('sale_rent')) ? 'checked' : '' }}>
+                                        <label for="contactChoice1"></label>
+                                        <span class="checkbox-label">Sales</span>
+                                    </div>
+                                </div>
+                                <div class="col s2">
+                                    <div class="form-group">
+                                        <input type="checkbox"  class="filled-in primary-color" id="contactChoice2" name="sale_rent[]" value="rentals"{{ old('sale_rent') && in_array('rentals', old('sale_rent')) ? 'checked' : '' }}>
+                                        <label for="contactChoice2"></label>
+                                        <span class="checkbox-label">Rentals</span>
+                                    </div>
+                                </div>
+                            </form>
+                            @if($errors->has('sale_rent'))
+                                <span class="wrong-error">* Choose one of the options</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col s12 clearfix">
                         <h5 class="section-title">{{get_string('property_info')}}</h5>
                     </div>
                     <div class="col l6 m6 s12">
-                        <div class="form-group  {{$errors->has('property_info.size') ? 'has-error' : ''}}">
-                            {{Form::text('property_info[size]', null, ['class' => 'form-control', 'placeholder' => get_string('property_size')])}}
-                            {{Form::label('property_info[size]', get_string('property_size'))}}
-                            @if($errors->has('property_info.size'))
-                                <span class="wrong-error">* {{$errors->first('property_info.size')}}</span>
+                        <div class="form-group  {{$errors->has('property_info.internal_area') ? 'has-error' : ''}}">
+                            {{Form::text('property_info[internal_area]', null, ['class' => 'form-control', 'placeholder' => 'Internal Area &#x33a1;'])}}
+                            {{Form::label('property_info[internal_area]', 'Internal Area &#x33a1;')}}
+                            @if($errors->has('property_info.internal_area'))
+                                <span class="wrong-error">* {{$errors->first('property_info.internal_area')}}</span>
                             @endif
                         </div>
                     </div>
@@ -418,30 +444,6 @@
                             {{Form::label('fees[cleaning_fee]', get_string('cleaning_fee'))}}
                             @if($errors->has('fees.cleaning_fee'))
                                 <span class="wrong-error">* {{$errors->first('fees.cleaning_fee')}}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col s12 clearfix">
-                        <h5 class="section-title">Sales or Rentals</h5>
-                    </div>
-                    <div class="col l6 m6 s12 clearfix">
-                        <div class="form-group  {{$errors->has('sale_rent') ? 'has-error' : ''}}">
-                            <form action="" class="form-control">
-                                <div class="form-group">
-                                    <div>
-                                        <input type="checkbox" class="filled-in primary-color" id="contactChoice1" name="sale_rent[]" value="sales">
-                                        <label for="contactChoice1"></label>
-                                        <span class="checkbox-label">Sales</span>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox"  class="filled-in primary-color" id="contactChoice2" name="sale_rent[]" value="rentals">
-                                        <label for="contactChoice2"></label>
-                                        <span class="checkbox-label">Rentals</span>
-                                    </div>
-                                </div>
-                            </form>
-                            @if($errors->has('sale_rent'))
-                                <span class="wrong-error">* Choose one of the options</span>
                             @endif
                         </div>
                     </div>
