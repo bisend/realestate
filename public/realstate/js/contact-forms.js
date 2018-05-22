@@ -197,7 +197,7 @@
                         saveEmail = '';
             
                         console.log('registr send')
-            
+                        grecaptcha.reset();
                         $('#successModal').modal('show')
                         
                     }
@@ -286,7 +286,7 @@
                         $('#call-back-phone').removeClass('incorect-input');
                         
                         console.log('call back send')
-            
+                        grecaptcha.reset();
                         $('#successModal').modal('show')
                         
                     }

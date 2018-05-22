@@ -13,7 +13,7 @@
     <div class="slider slider-simple slider-advanced">
 
     @foreach($slider as $slide)     
-      <div class="slide" style="background-image: url('{{ URL::asset('images/data').'/'.$slide->images->first()->image }}')">
+      <div class="slide" style="background-image: url('{{ isset($slide->images->first()->image) ? URL::asset('images/data').'/'.$slide->images->first()->image : URL::asset('images/no_image.jpg')}}')">
         <div class="img-overlay black"></div>
         <div class="container">
           <div class="slide-price">$250,000</div>
@@ -24,7 +24,7 @@
               <tr>
                 <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $slide->category->contentDefault->name }}</td>
                 <td><i class="fa fa-bed"></i>{{ $slide->rooms }}</td>
-                <td><i class="fa fa-expand"></i>{{ $slide->property_info['size'] }}</td>
+                <td><i class="fa fa-expand"></i>{{ $slide->property_info['internal_area'] }}</td>
                 <td><i class="fa fa-user" aria-hidden="true"></i>{{ $slide->guest_number }}</td>
               </tr>
             </table>
@@ -223,10 +223,10 @@
                         <a href="#" class="property-img">
                             <div class="img-fade"></div>
                             <div class="property-tag lable-sale featured">Sale</div>
-                            <div class="property-price">$150,000</div>
+                            <div class="property-price">${{ $sales_property->prices['service_charge'] }}</div>
                             <div class="property-color-bar"></div>
                             <div class="prop-img-home">
-                                <img src="{{ URL::asset('images/data').'/'.$sales_property->images->first()->image }}" alt="" />
+                                <img src="{{ isset($sales_property->images->first()->image) ? URL::asset('images/data').'/'.$sales_property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
                             </div>
                         </a>
                         <div class="property-content">
@@ -237,7 +237,7 @@
                             <tr>
                                 <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $sales_property->category->contentDefault->name }}</td>
                                 <td><i class="fa fa-bed"></i>{{ $sales_property->rooms }}</td>
-                                <td><i class="fa fa-expand"></i>{{ $sales_property->property_info['size'] }}</td>
+                                <td><i class="fa fa-expand"></i>{{ $sales_property->property_info['internal_area'] }}</td>
                                 <td><i class="fa fa-user" aria-hidden="true"></i>{{ $sales_property->guest_number }}</td>
                             </tr>
                             </table>
@@ -263,15 +263,15 @@
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
                           <div>
-                          ${{ $rentals_property->prices['d_5'] }} <span>weekly</span>
+                          ${{ $rentals_property->prices['week'] }} <span>weekly</span>
                           </div>
                           <div>
-                            ${{ $rentals_property->prices['d_30'] }} <span>monthly</span>
+                            ${{ $rentals_property->prices['month'] }} <span>monthly</span>
                           </div>
                         </div>
                         <div class="property-color-bar"></div>
                         <div class="prop-img-home">
-                            <img src="{{ URL::asset('images/data').'/'.$rentals_property->images->first()->image }}" alt="" />
+                            <img src="{{ isset($rentals_property->images->first()->image) ? URL::asset('images/data').'/'.$rentals_property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
                         </div>
                         </a>
                         <div class="property-content">
@@ -282,7 +282,7 @@
                             <tr>
                                 <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $rentals_property->category->contentDefault->name }}</td>
                                 <td><i class="fa fa-bed"></i>{{ $rentals_property->rooms }}</td>
-                                <td><i class="fa fa-expand"></i>{{ $rentals_property->property_info['size'] }}</td>
+                                <td><i class="fa fa-expand"></i>{{ $rentals_property->property_info['internal_area'] }}</td>
                                 <td><i class="fa fa-user" aria-hidden="true"></i>{{ $rentals_property->guest_number }}</td>
                             </tr>
                         </table>
