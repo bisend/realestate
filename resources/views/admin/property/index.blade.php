@@ -41,7 +41,7 @@
                     <th>{{get_string('property')}}</th>
                     <!-- <th>{{get_string('user')}}</th> -->
                     <th>{{get_string('category')}}</th>
-                    <th>{{get_string('location')}}</th>
+                    
                     <!-- <th>Type</th> -->
                     <th>{{get_string('featured')}}</th>
                     <th>Position</th>
@@ -59,7 +59,7 @@
                         <td>{{$property->contentDefault->name}}</td>
                         <!-- <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td> -->
                         <td>{{$property->category->contentDefault->name}}</td>
-                        <td>{{$property->prop_location->contentDefault->location}}</td>
+                        
                         <!-- <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td> -->
                         <td class="page-featured">{{$property->featured_sale ? get_string('yes') : get_string('no')}}</td>
                         <td>
@@ -121,7 +121,7 @@
                     <th>{{get_string('property')}}</th>
                     <!-- <th>{{get_string('user')}}</th> -->
                     <th>{{get_string('category')}}</th>
-                    <th>{{get_string('location')}}</th>
+                    
                     <!-- <th>Type</th> -->
                     <th>{{get_string('featured')}}</th>
                     <th>Position</th>
@@ -138,8 +138,8 @@
                         </td>
                         <td>{{$property->contentDefault->name}}</td>
                         <!-- <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td> -->
-                        <td>{{$property->category->contentDefault->name}}</td>
-                        <td>{{$property->prop_location->contentDefault->location}}</td>
+                        <!-- <td>{{$property->category->contentDefault->name}}</td> -->
+                        
                         <!-- <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td> -->
                         <td class="page-featured">{{$property->featured_rent ? get_string('yes') : get_string('no')}}</td>
                         <td>

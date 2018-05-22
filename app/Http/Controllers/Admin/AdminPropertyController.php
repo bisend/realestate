@@ -21,7 +21,7 @@ class AdminPropertyController extends Controller
 {
     private $validation_rules, $validation_messages;
     protected $languages;
-    public function __construct(){
+    public function __construct(Request $request){
         $this->validation_rules = [
             // 'business_hours.sat'      => 'business_hours',
             // 'business_hours.week'     => 'business_hours',
@@ -33,8 +33,8 @@ class AdminPropertyController extends Controller
             // 'location.address'        => 'required',
             // 'location.city'           => 'required',
             // 'location.country'        => 'required',
-            'location.geo_lon'        => 'required',
-            'location.geo_lat'        => 'required',
+            // 'location.geo_lon'        => 'required',
+            // 'location.geo_lat'        => 'required',
             'contact.tel1'            => 'phone_number',
             'contact.tel2'            => 'phone_number',
             'contact.fax'             => 'phone_number',
@@ -43,16 +43,23 @@ class AdminPropertyController extends Controller
             'rooms'                   => 'required|integer',
             'guest_number'            => 'required|integer',
             'prices.service_charge'   => 'required|integer',
+            'prices.rates'            => 'required|integer',
             'property_info.internal_area' => 'required|integer',
             'property_info.external_area' => 'required|integer',
             'property_info.bedrooms'  => 'required|integer',
             'property_info.bathrooms' => 'required|integer',
+            'property_info.property_reference' => 'required',
             // 'prices.d_5'              => 'integer|required',
             // 'prices.d_15'             => 'integer|required',
             // 'prices.d_30'             => 'integer|required',
-            'fees.city_fee'           => 'integer',
-            'fees.cleaning_fee'       => 'integer',
+            // 'fees.city_fee'           => 'integer',
+            // 'fees.cleaning_fee'       => 'integer',
         ];
+
+        if (isset($request['sale_rent']) && in_array('rentals', $request['sale_rent'])) {
+            $this->validation_rules['prices.week'] = 'required|integer';
+            $this->validation_rules['prices.month'] = 'required|integer';
+        }
 
         $this->validation_messages = [
             'business_hours.sat.business_hours'  => get_string('business_hours_validation'),
@@ -73,7 +80,10 @@ class AdminPropertyController extends Controller
             'prices.d_15'                        => get_string('required_field'),
             'prices.d_5'                         => get_string('required_field'),
             'prices.d_30'                        => get_string('required_field'),
-            'prices.service_charge.required'           => get_string('required_field'),
+            'prices.service_charge.required'     => get_string('required_field'),
+            'prices.rates.required'              => get_string('required_field'),
+            'prices.week.required'            => get_string('required_field'),
+            'prices.month.required'           => get_string('required_field'),
             'guest_number.required'              => get_string('required_field'),
             // 'type_id.required'                => get_string('type_required'),
             'location_id.required'               => get_string('location_required'),
@@ -81,6 +91,7 @@ class AdminPropertyController extends Controller
             'property_info.external_area.required' => get_string('required_field'),
             'property_info.bedrooms.required' => get_string('required_field'),
             'property_info.bathrooms.required' => get_string('required_field'),
+            'property_info.property_reference.required' => get_string('required_field'),
         ];
         $this->languages = Language::all();
     }

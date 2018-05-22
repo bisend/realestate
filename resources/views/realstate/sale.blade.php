@@ -24,10 +24,10 @@
 					<a href="#" class="property-img">
 							<div class="img-fade"></div>
 							<div class="property-tag lable-sale featured">Sale</div>
-							<div class="property-price">$150,000</div>
+							<div class="property-price">${{ $property->prices['service_charge'] }}</div>
 							<div class="property-color-bar"></div>
 							<div class="prop-img-home">
-									<img src="{{ URL::asset('images/data').'/'.$property->images->first()->image }}" alt="" />
+									<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
 							</div>
 					</a>
 					<div class="property-content">
@@ -38,7 +38,7 @@
 							<tr>
 									<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
 									<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
-									<td><i class="fa fa-expand"></i>{{ $property->property_info['size'] }}</td>
+									<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
 									<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
 							</tr>
 							</table>
@@ -114,10 +114,10 @@
 				@foreach($recent_properties as $property)
 				<div class="recent-property">
 				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="{{ URL::asset('images/data').'/'.$property->images->first()->image }}" alt="" /></a></div>
+					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" /></a></div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
 					  <h5><a href="#">{{ $property->contentload->name }}</a></h5>
-					  <p><strong>$1,800</strong> Per Month</p>
+					  <p><strong>${{ $property->prices['month'] }}</strong> {{ $property->rentals == 1 ? 'Per Month' : '' }}</p>
 					</div>
 				  </div>
 				</div>

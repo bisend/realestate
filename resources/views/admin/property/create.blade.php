@@ -59,10 +59,19 @@
                     </div>
                 </div>
                 <div id="data-panel" class="tab-pane">
-                    <!-- <div class="col s12 clearfix">
+                    <div class="col s12 clearfix">
                         <h5 class="section-title">{{get_string('general')}}</h5>
                     </div>
-                    <div class="col m4 s6">
+                    <div class="col l6 m6 s12">
+                        <div class="form-group  {{$errors->has('property_info.property_reference') ? 'has-error' : ''}}">
+                            {{Form::text('property_info[property_reference]', null, ['class' => 'form-control', 'placeholder' => 'Property Reference'])}}
+                            {{Form::label('property_info[property_reference]', 'Property Reference')}}
+                            @if($errors->has('property_info.property_reference'))
+                                <span class="wrong-error">* {{$errors->first('property_info.property_reference')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('category_id') ? 'has-error' : ''}}">
                             {{Form::select('category_id', $categories, null, ['class' => 'category-select form-control', 'placeholder' => get_string('choose_category')])}}
                             @if($errors->has('category_id'))
@@ -70,7 +79,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col m4 s6">
+                    <!-- <div class="col m4 s6">
                         <div class="form-group  {{$errors->has('location_id') ? 'has-error' : ''}}">
                             {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control', 'placeholder' => get_string('choose_location')])}}
                             @if($errors->has('location_id'))
@@ -124,9 +133,20 @@
                     </div>
                     <div class="col s12">
                         <div class="row mbot0">
-                            <!-- <div class="col l6 m12 s12">
+                            <div class="col l6 m12 s12">
+                                <div class="form-group  {{($errors->has('location.geo_lon') || ($errors->has('location.geo_lon')))  ? 'has-error' : ''}}">
+                                    <!-- {{Form::text('marker', null, ['class' => 'form-control autocomplete', 'id' => 'address-map', 'placeholder' => get_string('drop_marker')])}}
+                                    {{Form::label('marker', get_string('drop_marker'))}} -->
+                                    @if($errors->has('location.geo_lon') || $errors->has('location.geo_lat'))
+                                        <span class="wrong-error">* {{get_string('google_address_required')}} </span>
+                                    @endif
+                                </div>
+                                    <div id="google-map">
+                                </div>
+                            </div>
+                            <div class="col l6 m12 s12">
                                 <div class="row mbot0">
-                                    <div class="col l12 m12 s12">
+                                    <!-- <div class="col l12 m12 s12">
                                         <div class="form-group  {{$errors->has('location.address') ? 'has-error' : ''}}">
                                             {{Form::text('location[address]', null, ['class' => 'form-control', 'placeholder' => get_string('address')])}}
                                             {{Form::label('location[address]', get_string('address'))}}
@@ -161,32 +181,26 @@
                                                 <span class="wrong-error">* {{$errors->first('location.country')}}</span>
                                             @endif
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col l12 m12 s12">
                                         <div class="form-group">
-                                            {{Form::text('location[geo_lon]', null, ['class' => 'form-control', 'placeholder' => get_string('geo_lon')])}}
-                                            {{Form::label('location[geo_lon]', get_string('geo_lon'))}}
+                                            {{Form::hidden('location[geo_lon]', null, ['class' => 'form-control', 'placeholder' => get_string('geo_lon')])}}
+                                            <!-- {{Form::label('location[geo_lon]', get_string('geo_lon'))}} -->
                                         </div>
                                     </div>
                                     <div class="col l12 m12 s12">
                                         <div class="form-group">
-                                            {{Form::text('location[geo_lat]', null, ['class' => 'form-control', 'placeholder' => get_string('geo_lat')])}}
-                                            {{Form::label('location[geo_lat]', get_string('geo_lat'))}}
+                                            {{Form::hidden('location[geo_lat]', null, ['class' => 'form-control', 'placeholder' => get_string('geo_lat')])}}
+                                            <!-- {{Form::label('location[geo_lat]', get_string('geo_lat'))}} -->
+                                        </div>
+                                    </div>
+                                    <div class="col l12 m12 s12">
+                                        <div class="form-group">
+                                            {{Form::hidden('location[geo_zoom]', null, ['class' => 'form-control', 'placeholder' => 'Zoom'])}}
+                                            <!-- {{Form::label('location[zoom]', 'Zoom')}} -->
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
-                            <div class="col l6 m12 s12">
-                                <div class="form-group  {{($errors->has('location.geo_lon') || ($errors->has('location.geo_lon')))  ? 'has-error' : ''}}">
-                                    {{Form::text('marker', null, ['class' => 'form-control autocomplete', 'id' => 'address-map', 'placeholder' => get_string('drop_marker')])}}
-                                    {{Form::label('marker', get_string('drop_marker'))}}
-                                    @if($errors->has('location.geo_lon') || $errors->has('location.geo_lat'))
-                                        <span class="wrong-error">* {{get_string('google_address_required')}} </span>
-                                    @endif
-                                </div>
-                                <div id="google-map">
-                                </div>
-                                <span class="field-info">{{get_string('drag_marker')}}</span>
                             </div>
                         </div>
                     </div>
@@ -409,15 +423,33 @@
                         </div>
                     </div>
                     <div class="col l6 m6 s12">
-                        <div class="form-group  {{$errors->has('prices.d_5') ? 'has-error' : ''}}">
-                            {{Form::text('prices[d_5]', null, ['class' => 'form-control', 'placeholder' => get_string('price_d_5')])}}
-                            {{Form::label('prices[d_5]', get_string('price_d_5'))}}
-                            @if($errors->has('prices.d_5'))
-                                <span class="wrong-error">* {{$errors->first('prices.d_5')}}</span>
+                        <div class="form-group  {{$errors->has('prices.rates') ? 'has-error' : ''}}">
+                            {{Form::text('prices[rates]', null, ['class' => 'form-control', 'placeholder' => 'Rates'])}}
+                            {{Form::label('prices[rates]', 'Rates')}}
+                            @if($errors->has('prices.rates'))
+                                <span class="wrong-error">* {{$errors->first('prices.rates')}}</span>
                             @endif
                         </div>
                     </div>
-                    <div class="col s12 clearfix">
+                    <div class="col l6 m6 s12">
+                        <div class="form-group  {{$errors->has('prices.week') ? 'has-error' : ''}}">
+                            {{Form::text('prices[week]', null, ['class' => 'form-control', 'placeholder' => 'Price per week'])}}
+                            {{Form::label('prices[week]', 'Price per week')}}
+                            @if($errors->has('prices.week'))
+                                <span class="wrong-error">* {{$errors->first('prices.week')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col l6 m6 s12">
+                        <div class="form-group  {{$errors->has('prices.month') ? 'has-error' : ''}}">
+                            {{Form::text('prices[month]', null, ['class' => 'form-control', 'placeholder' => 'Price per month'])}}
+                            {{Form::label('prices[month]', 'Price per month')}}
+                            @if($errors->has('prices.month'))
+                                <span class="wrong-error">* {{$errors->first('prices.month')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <!-- <div class="col s12 clearfix">
                         <h5 class="section-title">{{get_string('property_fees')}}</h5>
                     </div>
                     <div class="col l6 m6 s12">
@@ -437,7 +469,7 @@
                                 <span class="wrong-error">* {{$errors->first('fees.cleaning_fee')}}</span>
                             @endif
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div id="meta-panel" class="tab-pane">
                     <div class="col s12 clearfix">
@@ -562,7 +594,7 @@
                 var infowindow = new google.maps.InfoWindow();
                 var searchBox = document.getElementById('address-map');
                 var autocomplete = new google.maps.places.Autocomplete(searchBox);
-
+                marker.setVisible(false);
                 autocomplete.bindTo('bounds', map);
                 autocomplete.addListener('place_changed', function() {
                     infowindow.close();
@@ -581,7 +613,7 @@
                     }
 
                     marker.setPosition(place.geometry.location);
-                    marker.setVisible(true);
+                    marker.setVisible(false);
 
                     var address = '';
                     if (place.address_components) {
@@ -596,11 +628,19 @@
                     infowindow.open(map, marker);
                 });
 
-                google.maps.event.addListener(marker, 'position_changed', function () {
-                    var lat = marker.getPosition().lat();
-                    var lng = marker.getPosition().lng();
+                // google.maps.event.addListener(marker, 'position_changed', function () {
+                //     var lat = marker.getPosition().lat();
+                //     var lng = marker.getPosition().lng();
+                //     $('[name="location[geo_lon]"]').val(lat);
+                //     $('[name="location[geo_lat]"]').val(lng);
+                // });
+                google.maps.event.addListener(map, 'center_changed', function () {
+                    var zoom = map.getZoom();
+                    var lat = map.getCenter().lat();
+                    var lng = map.getCenter().lng();
                     $('[name="location[geo_lon]"]').val(lat);
                     $('[name="location[geo_lat]"]').val(lng);
+                    $('[name="location[geo_zoom]"]').val(zoom);
                 });
                 $('a[href$="data-panel"]').click(function(){
                     var currCenter = map.getCenter();
