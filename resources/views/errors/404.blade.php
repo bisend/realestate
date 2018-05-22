@@ -1,14 +1,18 @@
-@extends('layouts.home_layout', ['static_data', $static_data])
-@section('title')
-    <title>404! - {{ $static_data['site_settings']['site_name'] }}</title>
-@endsection
-@section('bg')
-        {{URL::asset('/assets/images/home/').'/'.$static_data['design_settings']['slider_background']}}
-@endsection
-@section('content')
-    <div class="row  marginalized">
-        <div class="col-sm-12">
-            <h1 class="section-title-dark">404! <br>{{ $static_data['strings']['you_broke_internet'] }}</h1>
-        </div>
-    </div>
+@extends('realstate.layout')
+
+@section('mainsection')
+<section class="module page-not-found">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3">
+        <h2>404</h2>
+        <h3>Page not found.</h3>
+        <p>The page you are looking for was removed or does not exist. Try using the search form below.</p>
+        <a href="/" class="button button-icon"><i class="fa fa-angle-right"></i>Back to Home</a>
+      </div>
+    </div><!-- end row -->
+
+  </div>
+</section>
 @endsection
