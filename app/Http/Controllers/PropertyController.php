@@ -58,7 +58,7 @@ class PropertyController extends Controller
 
             $mainProperty = $property;
 
-            return view('home.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates'));
+            return view('realstate.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates'));
         } else {
             abort(404);
         }
