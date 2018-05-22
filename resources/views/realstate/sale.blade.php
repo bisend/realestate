@@ -57,7 +57,7 @@
 		<div class="col-lg-4 col-md-4 sidebar">
 		
 			<div class="widget widget-sidebar sidebar-properties advanced-search">
-			  <h4><span>Advanced Search</span> <img src="images/divider-half-white.png" alt="" /></h4>
+			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
 			  <div class="widget-content box">
 				<form>
 				  <div class="form-block border">
@@ -109,7 +109,7 @@
 			</div><!-- end widget -->
 			
 			<div class="widget widget-sidebar recent-properties">
-			  <h4><span>Recent Properties</span> <img src="images/divider-half.png" alt="" /></h4>
+			  <h4><span>Recent Properties</span> <img src="/realstate/images/divider-half.png" alt="" /></h4>
 			  <div class="widget-content">
 
 				@foreach($recent_properties as $property)

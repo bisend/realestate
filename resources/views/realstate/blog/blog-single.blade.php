@@ -35,7 +35,7 @@
         </div><!-- end blog post -->
         
 		<div class="widget blog-post-related">
-			<h4><span>Related Posts</span> <img src="images/divider-half.png" alt="" /></h4>
+			<h4><span>Related Posts</span> <img src="/realstate/images/divider-half.png" alt="" /></h4>
 			
 			<div class="row">
 			
