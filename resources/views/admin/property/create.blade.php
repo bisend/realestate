@@ -344,10 +344,19 @@
                     </div>
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('property_info.internal_area') ? 'has-error' : ''}}">
-                            {{Form::text('property_info[internal_area]', null, ['class' => 'form-control', 'placeholder' => 'Internal Area &#x33a1;'])}}
-                            {{Form::label('property_info[internal_area]', 'Internal Area &#x33a1;')}}
+                            {{Form::text('property_info[internal_area]', null, ['class' => 'form-control', 'placeholder' => 'Internal Area'])}}
+                            {{Form::label('property_info[internal_area]', 'Internal Area m')}}<sup>2</sup>
                             @if($errors->has('property_info.internal_area'))
                                 <span class="wrong-error">* {{$errors->first('property_info.internal_area')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col l6 m6 s12">
+                        <div class="form-group  {{$errors->has('property_info.external_area') ? 'has-error' : ''}}">
+                            {{Form::text('property_info[external_area]', null, ['class' => 'form-control', 'placeholder' => 'External Area'])}}
+                            {{Form::label('property_info[external_area]', 'External Area m')}}<sup>2</sup>
+                            @if($errors->has('property_info.external_area'))
+                                <span class="wrong-error">* {{$errors->first('property_info.external_area')}}</span>
                             @endif
                         </div>
                     </div>
@@ -371,7 +380,7 @@
                     </div>
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('property_info.bedrooms') ? 'has-error' : ''}}">
-                            {{Form::text('property_info[bedrooms]', 0, ['class' => 'form-control', 'placeholder' => get_string('property_bedrooms')])}}
+                            {{Form::text('property_info[bedrooms]', null, ['class' => 'form-control', 'placeholder' => get_string('property_bedrooms')])}}
                             {{Form::label('property_info[bedrooms]', get_string('property_bedrooms'))}}
                             @if($errors->has('property_info.bedrooms'))
                                 <span class="wrong-error">* {{$errors->first('property_info.bedrooms')}}</span>
@@ -380,7 +389,7 @@
                     </div>
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('property_info.bathrooms') ? 'has-error' : ''}}">
-                            {{Form::text('property_info[bathrooms]', 0, ['class' => 'form-control', 'placeholder' => get_string('property_bathrooms')])}}
+                            {{Form::text('property_info[bathrooms]', null, ['class' => 'form-control', 'placeholder' => get_string('property_bathrooms')])}}
                             {{Form::label('property_info[bathrooms]', get_string('property_bathrooms'))}}
                             @if($errors->has('property_info.bathrooms'))
                                 <span class="wrong-error">* {{$errors->first('property_info.bathrooms')}}</span>
@@ -391,11 +400,11 @@
                         <h5 class="section-title">{{get_string('property_prices')}}</h5>
                     </div>
                     <div class="col l6 m6 s12">
-                        <div class="form-group  {{$errors->has('price_per_night') ? 'has-error' : ''}}">
-                            {{Form::text('price_per_night', null, ['class' => 'form-control', 'placeholder' => get_string('price_per_night')])}}
-                            {{Form::label('price_per_night', get_string('price_per_night'))}}
-                            @if($errors->has('price_per_night'))
-                                <span class="wrong-error">* {{$errors->first('price_per_night')}}</span>
+                        <div class="form-group  {{$errors->has('prices.service_charge') ? 'has-error' : ''}}">
+                            {{Form::text('prices[service_charge]', null, ['class' => 'form-control', 'placeholder' => 'Service Charge'])}}
+                            {{Form::label('prices[service_charge]', 'Service Charge')}}
+                            @if($errors->has('prices.service_charge'))
+                                <span class="wrong-error">* {{$errors->first('prices.service_charge')}}</span>
                             @endif
                         </div>
                     </div>
@@ -405,24 +414,6 @@
                             {{Form::label('prices[d_5]', get_string('price_d_5'))}}
                             @if($errors->has('prices.d_5'))
                                 <span class="wrong-error">* {{$errors->first('prices.d_5')}}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col l6 m6 s12">
-                        <div class="form-group  {{$errors->has('prices.d_15') ? 'has-error' : ''}}">
-                            {{Form::text('prices[d_15]', null, ['class' => 'form-control', 'placeholder' => get_string('price_d_15')])}}
-                            {{Form::label('prices[d_15]', get_string('price_d_15'))}}
-                            @if($errors->has('prices.d_15'))
-                                <span class="wrong-error">* {{$errors->first('prices.d_15')}}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="col l6 m6 s12">
-                        <div class="form-group  {{$errors->has('prices.d_30') ? 'has-error' : ''}}">
-                            {{Form::text('prices[d_30]', null, ['class' => 'form-control', 'placeholder' => get_string('price_d_30')])}}
-                            {{Form::label('prices[d_30]', get_string('price_d_30'))}}
-                            @if($errors->has('prices.d_30'))
-                                <span class="wrong-error">* {{$errors->first('prices.d_30')}}</span>
                             @endif
                         </div>
                     </div>
