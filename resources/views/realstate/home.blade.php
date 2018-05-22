@@ -19,7 +19,6 @@
           <div class="slide-price">$250,000</div>
           <div class="slide-content">
             <h1>{{ $slide->contentload->name }}</h1>
-            <p><i class="fa fa-map-marker icon"></i>{{ $slide->location['address'] }}, {{ $slide->location['city'] }}, {{ $slide->location['state'] }}, {{ $slide->location['country'] }}</p>
             <p class="slide-text">{{ str_limit($slide->contentload->description, 200, ' ...') }}</p>
             <table>
               <tr>
@@ -233,7 +232,6 @@
                         <div class="property-content">
                             <div class="property-title">
                             <h4><a href="#">{{ $sales_property->contentload->name }}</a></h4>
-                            <p class="property-address"><i class="fa fa-map-marker icon"></i>{{ $sales_property->location['address'] }}, {{ $sales_property->location['city'] }}, {{ $sales_property->location['state'] }}, {{ $sales_property->location['country'] }}</p>
                             </div>
                             <table class="property-details">
                             <tr>
@@ -279,7 +277,6 @@
                         <div class="property-content">
                         <div class="property-title">
                         <h4><a href="#">{{ $rentals_property->contentload->name }}</a></h4>
-                            <p class="property-address"><i class="fa fa-map-marker icon"></i>{{ $rentals_property->location['address'] }}, {{ $rentals_property->location['city'] }}, {{ $rentals_property->location['state'] }}, {{ $rentals_property->location['country'] }}</p>
                         </div>
                         <table class="property-details">
                             <tr>

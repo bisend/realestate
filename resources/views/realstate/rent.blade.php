@@ -33,7 +33,6 @@
 					<div class="property-content">
 							<div class="property-title">
 							<h4><a href="#">{{ $property->contentload->name }}</a></h4>
-							<p class="property-address"><i class="fa fa-map-marker icon"></i>{{ $property->location['address'] }}, {{ $property->location['city'] }}, {{ $property->location['state'] }}, {{ $property->location['country'] }}</p>
 							</div>
 							<table class="property-details property-details-grid">
 							<tr>

@@ -956,7 +956,7 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 
 .property-title {
 	border-bottom:1px solid rgba(0, 0, 0, 0.09);
-	padding-bottom:20px;
+	padding-bottom:10px;
 	margin-bottom:20px;
 }
 .property-title h4 {  
