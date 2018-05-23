@@ -654,6 +654,11 @@
 }
 
 @media screen and (max-width: 600px) {
+
+  .Property-ref{
+    float: none!important;
+  }
+
 	.prop-img-home{
 		width: 100%;
 		height: 290px;

@@ -13,13 +13,21 @@
 					<div class="property-title">
 						<h4>{{ $mainProperty->contentload['name'] }}</h4>
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
+						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
 						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
 						<div class="property-price-single right"> ${{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
 						<div class="property-price-single right"> ${{ $mainProperty->prices['service_charge'] }}<span> For Sale</span></div>
+					
 						@elseif($mainProperty->rentals == 1)
-						<div class="property-price-single right">${{ $mainProperty->prices['week'] }}<span>Per Month</span> </div>
+						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
+						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
+						<div class="property-price-single right"> ${{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
 						@elseif($mainProperty->sales == 1)
-						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span></span></div>
+						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
+						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span>Service Charge</span></div>
+						<div class="property-price-single right">$10000 <span>Rates</span></div>
+					
+
 						@endif
             <div class="clear"></div>
 					</div>

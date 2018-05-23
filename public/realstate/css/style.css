@@ -2345,3 +2345,8 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	width: 100%;
 	object-fit: cover;
 }
+
+.slick-arrow.slick-hidden {
+	display: block;
+	outline: none;
+}

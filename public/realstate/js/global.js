@@ -102,10 +102,12 @@ jQuery(document).ready(function($) {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		adaptiveHeight: true,
-		arrows: false,
+		arrows: true,
 		fade: true,
 		infinite:false,
-		asNavFor: '.property-gallery-pager'
+		asNavFor: '.property-gallery-pager',
+		prevArrow: $('.slider-nav-property-gallery .slider-prev'),
+		nextArrow: $('.slider-nav-property-gallery .slider-next'),
 	});
 
 	$('.property-gallery-pager').on('init', function(event, slick){
