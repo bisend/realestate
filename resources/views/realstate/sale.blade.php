@@ -26,7 +26,7 @@
 							<div class="property-tag lable-sale featured">Sale</div>
 							<div class="property-price">${{ $property->prices['service_charge'] }}</div>
 							<div class="property-color-bar"></div>
-							<div class="prop-img-home">
+							<div class="prop-img-home prop-img-home-rent-sale">
 									<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
 							</div>
 					</a>

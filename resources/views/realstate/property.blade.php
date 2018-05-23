@@ -13,9 +13,10 @@
 					<div class="property-title">
 						<h4>{{ $mainProperty->contentload['name'] }}</h4>
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
-            <div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }} / ${{ $mainProperty->prices['week'] }}<span> Per Month</span></div>
+						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
+						<div class="property-price-single right"> ${{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
 						@elseif($mainProperty->rentals == 1)
-						<div class="property-price-single right">${{ $mainProperty->prices['week'] }}<span></span> Per Month</div>
+						<div class="property-price-single right">${{ $mainProperty->prices['week'] }}<span>Per Month</span> </div>
 						@elseif($mainProperty->sales == 1)
 						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span></span></div>
 						@endif
@@ -136,7 +137,14 @@
 						<a href="#" class="property-img">
 								<div class="img-fade"></div>
 								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">$150,000</div>
+								<div class="property-price">
+									<div>
+										10000$ <span>For Buy</span>
+									</div>
+									<div class="price-perWeek">
+										1000$ <span>Per  Month</span>
+									</div>
+              	</div>
 								<div class="property-color-bar"></div>
 								<div class="prop-img-home">
 										<img src="images/testimg/test2.jpg" alt="" />
@@ -163,7 +171,14 @@
 						<a href="#" class="property-img">
 								<div class="img-fade"></div>
 								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">$150,000</div>
+								<div class="property-price">
+									<div>
+										10000$ <span>For Buy</span>
+									</div>
+									<div class="price-perWeek">
+										1000$ <span>Per  Month</span>
+									</div>
+              	</div>
 								<div class="property-color-bar"></div>
 								<div class="prop-img-home">
 										<img src="images/testimg/test2.jpg" alt="" />

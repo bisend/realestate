@@ -262,11 +262,11 @@
                         <div class="img-fade"></div>
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
-                          <div>
-                          ${{ $rentals_property->prices['week'] }} <span>weekly</span>
-                          </div>
-                          <div>
+                          <div >
                             ${{ $rentals_property->prices['month'] }} <span>monthly</span>
+                          </div>
+                          <div class="price-perWeek">
+                          ${{ $rentals_property->prices['week'] }} <span>weekly</span>
                           </div>
                         </div>
                         <div class="property-color-bar"></div>
