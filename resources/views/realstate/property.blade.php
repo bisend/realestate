@@ -15,6 +15,7 @@
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
 						<div class="property-price-single right"> ${{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
+						<div class="property-price-single right"> ${{ $mainProperty->prices['service_charge'] }}<span> For Sale</span></div>
 						@elseif($mainProperty->rentals == 1)
 						<div class="property-price-single right">${{ $mainProperty->prices['week'] }}<span>Per Month</span> </div>
 						@elseif($mainProperty->sales == 1)
@@ -147,15 +148,26 @@
 								<div class="property-tag lable-sale featured">Sale</div>
 								@endif
 								<div class="property-price">
+									@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 									<div>
-										10000$ <span>For Buy</span>
+									${{ $mainProperty->prices['service_charge'] }} <span>For Sale</span>
 									</div>
 									<div class="price-perWeek">
-										1000$ <span>Per  Month</span>
+									${{ $mainProperty->prices['month'] }} <span>Per  Month</span>
 									</div>
+									@elseif($mainProperty->rentals == 1)
+									<div class="price-perWeek">
+									${{ $mainProperty->prices['month'] }} <span>Per  Month</span>
+									</div>
+									@elseif($mainProperty->sales == 1)
+									<div>
+									${{ $mainProperty->prices['service_charge'] }} <span>For Sale</span>
+									</div>
+									@endif
+									
               	</div>
 								<div class="property-color-bar"></div>
-								<div class="prop-img-home">
+								<div class="prop-img-home prop-img-home-rent-sale">
 										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
 								</div>
 						</a>

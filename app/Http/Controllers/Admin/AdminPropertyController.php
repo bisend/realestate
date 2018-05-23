@@ -42,8 +42,6 @@ class AdminPropertyController extends Controller
             'contact.web'             => 'website',
             'rooms'                   => 'required|integer',
             'guest_number'            => 'required|integer',
-            'prices.service_charge'   => 'required|integer',
-            'prices.rates'            => 'required|integer',
             'property_info.internal_area' => 'required|integer',
             'property_info.external_area' => 'required|integer',
             'property_info.bedrooms'  => 'required|integer',
@@ -59,6 +57,11 @@ class AdminPropertyController extends Controller
         if (isset($request['sale_rent']) && in_array('rentals', $request['sale_rent'])) {
             $this->validation_rules['prices.week'] = 'required|integer';
             $this->validation_rules['prices.month'] = 'required|integer';
+        }
+
+        if (isset($request['sale_rent']) && in_array('sales', $request['sale_rent'])) {
+            $this->validation_rules['prices.service_charge'] = 'required|integer';
+            $this->validation_rules['prices.rates'] = 'required|integer';
         }
 
         $this->validation_messages = [
@@ -222,7 +225,7 @@ class AdminPropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        //dd($request->all());
         $languages = $this->languages;
         // Validating the Property
         if($this->validateServiceUpdate($request, $id)){

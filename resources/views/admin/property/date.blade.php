@@ -41,25 +41,25 @@
         var dateToday = new Date();
 
          // Get Booked Dates
-            @if(count($property->booking))
-                    @foreach($property->booking as $booking)
-        var start_date = new Date('{{ $booking->start_date }}');
-        var end_date = new Date('{{ $booking->end_date }}');
-        while(start_date < end_date){
-                booked_dates.push(start_date);
-            var newDate = start_date.setDate(start_date.getDate() + 1);
-            start_date = new Date(newDate);
-        }
-                    @endforeach
-                @endif
+            @if( ! empty($property->booking))
+                @foreach($property->booking as $booking)
+                    var start_date = new Date('{{ $booking->start_date }}');
+                    var end_date = new Date('{{ $booking->end_date }}');
+                    while(start_date < end_date){
+                        booked_dates.push(start_date);
+                        var newDate = start_date.setDate(start_date.getDate() + 1);
+                        start_date = new Date(newDate);
+                    }
+                @endforeach
+            @endif
 
         // Get Owner dates
         var dates = [];
-        @if(count($property->prop_dates) && $property->prop_dates->dates)
-                @foreach($property->prop_dates->dates as $date)
-        var start_date = new Date('{{ $date }}');
-        dates.push(start_date);
-                @endforeach
+        @if( ! empty($property->prop_dates) && $property->prop_dates->dates)
+            @foreach($property->prop_dates->dates as $date)
+                var start_date = new Date('{{ $date }}');
+                dates.push(start_date);
+            @endforeach
         @endif
 
         // Generate datepicker
