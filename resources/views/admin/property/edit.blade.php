@@ -68,7 +68,15 @@
                             @endif
                          </div>    
                     </div>
-
+                    <div class="col l3 m4 s6 right right-align mbot0">
+                        <div class="form-group">
+                            <div class="switch">
+                                <label>
+                                Unactive<input type="checkbox" name="status" {{$property->status ? 'checked' : ''}}><span class="lever"></span>Active
+                                </label>
+                            </div>
+                        </div>
+                    </div> 
                     <div class="col s12 clearfix">
                         <h5 class="section-title">{{get_string('general')}}</h5>
                     </div>
@@ -104,16 +112,7 @@
                                 <span class="wrong-error">* {{$errors->first('location_id')}}</span>
                             @endif
                         </div>
-                    </div>
-                    <div class="col l3 m4 s6 right right-align mbot0">
-                        <div class="form-group">
-                            <div class="switch">
-                                <label>
-                                    {{get_string('standard')}}{{ Form::checkbox('featured', $property->featured, false, ['value' => $property->featured, 'id' => 'activeSwitch', 'class' => 'form-control', $property->featured_sale ? 'checked': $property->featured_rent ? 'checked': ''])}}<span class="lever"></span>{{get_string('featured')}}
-                                </label>
-                            </div>
-                        </div>
-                    </div> -->
+                    </div>-->
                     <div class="col s12 well checkbox-grid">
                         <p>{{get_string('choose_features')}}</p>
                         @foreach($features as $feature)

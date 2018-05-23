@@ -11,6 +11,8 @@ class Property extends Model
     const SLIDER_COUNT = 5;
     const RECENT_PROPERTIES = 3;
     const GET_PROPERTIES = 8;
+    const PRICE_RANGE = 10000;
+    const RELATED_PROPERTIES_COUNT = 2;
 
     // Allow columns to be filled with data
     protected $fillable = [

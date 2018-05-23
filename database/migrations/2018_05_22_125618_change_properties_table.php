@@ -31,12 +31,12 @@ class ChangePropertiesTable extends Migration
     public function down()
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->integer('user_id')->index();
-            $table->integer('category_id')->index();
-            $table->integer('type_id')->nullable();
-            $table->integer('location_id')->index();
-            $table->text('location');
-            $table->string('alias');
+            $table->integer('user_id')->index()->change();
+            $table->integer('category_id')->index()->change();
+            $table->integer('type_id')->nullable()->change();
+            $table->integer('location_id')->index()->change();
+            $table->text('location')->change();
+            $table->string('alias')->change();
         });
     }
 }

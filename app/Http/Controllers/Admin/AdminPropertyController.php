@@ -222,6 +222,7 @@ class AdminPropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $languages = $this->languages;
         // Validating the Property
         if($this->validateServiceUpdate($request, $id)){
