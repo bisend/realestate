@@ -57,9 +57,9 @@ class Handler extends ExceptionHandler
         if ($e instanceof ModelNotFoundException) {
             return response()->json(['error' => 'Something happened'], 400);
         }  
-        if($e instanceof \Symfony\Component\Debug\Exception\FatalErrorException) {
-            return response()->json(['error' => 'Something happened'], 400);
-        }
+        // if($e instanceof \Symfony\Component\Debug\Exception\FatalErrorException) {
+        //     return response()->json(['error' => 'Something happened'], 400);
+        // }
         return parent::render($request, $e);
     }
 

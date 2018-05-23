@@ -205,6 +205,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col s12 clearfix">
+                        <h5 class="section-title">Files</h5>
+                    </div>
+                    <div class="col l12 m12 s12">
+                        <div class="clearfix input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary waves-effect">File <i class="material-icons small">add_circle</i>
+                                <input type="file" name="files" style="opacity:0">
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </div>
                     <div class="col s12">
                         <ul class="collapsible collapsible-accordion">
                             <li>
@@ -327,6 +340,7 @@
                     <div class="hidden-fields hidden">
                     </div>
                 </div>
+
                 <div id="property-panel" class="tab-pane">
                     <div class="col s12 clearfix">
                         <h5 class="section-title">Sales or Rentals *</h5>
@@ -417,7 +431,7 @@
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('prices.service_charge') ? 'has-error' : ''}}">
                             {{Form::text('prices[service_charge]', null, ['class' => 'form-control', 'placeholder' => 'Service Charge'])}}
-                            {{Form::label('prices[service_charge]', 'Service Charge')}} *
+                            {{Form::label('prices[service_charge]', 'Service Charge (required for sale)')}}
                             @if($errors->has('prices.service_charge'))
                                 <span class="wrong-error">* {{$errors->first('prices.service_charge')}}</span>
                             @endif
@@ -426,7 +440,7 @@
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('prices.rates') ? 'has-error' : ''}}">
                             {{Form::text('prices[rates]', null, ['class' => 'form-control', 'placeholder' => 'Rates'])}}
-                            {{Form::label('prices[rates]', 'Rates')}} *
+                            {{Form::label('prices[rates]', 'Rates (required for sale)')}} 
                             @if($errors->has('prices.rates'))
                                 <span class="wrong-error">* {{$errors->first('prices.rates')}}</span>
                             @endif
@@ -435,7 +449,7 @@
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('prices.week') ? 'has-error' : ''}}">
                             {{Form::text('prices[week]', null, ['class' => 'form-control', 'placeholder' => 'Price per week'])}}
-                            {{Form::label('prices[week]', 'Price per week')}}
+                            {{Form::label('prices[week]', 'Price per week (required for rent)')}}
                             @if($errors->has('prices.week'))
                                 <span class="wrong-error">* {{$errors->first('prices.week')}}</span>
                             @endif
@@ -444,7 +458,7 @@
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('prices.month') ? 'has-error' : ''}}">
                             {{Form::text('prices[month]', null, ['class' => 'form-control', 'placeholder' => 'Price per month'])}}
-                            {{Form::label('prices[month]', 'Price per month')}}
+                            {{Form::label('prices[month]', 'Price per month (required for rent)')}} 
                             @if($errors->has('prices.month'))
                                 <span class="wrong-error">* {{$errors->first('prices.month')}}</span>
                             @endif

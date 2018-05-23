@@ -68,12 +68,16 @@
                             @endif
                          </div>    
                     </div>
-                    <div class="col l3 m4 s6 right right-align mbot0">
+                    <div class="col s12 clearfix">
+                        <h5 class="section-title">Status</h5>
+                    </div>
+                    <div class="col l3 m6 s6 mbot0">
                         <div class="form-group">
                             <div class="switch">
-                                <label>
-                                Unactive<input type="checkbox" name="status" {{$property->status ? 'checked' : ''}}><span class="lever"></span>Active
-                                </label>
+                                <select name="status" class="category-select form-control">
+                                    <option value="0" {{ ! $property->status ? 'selected' : ''}}>Unactive</option>
+                                    <option value="1" {{ $property->status ? 'selected' : ''}}>Active</option>
+                                </select>
                             </div>
                         </div>
                     </div> 
@@ -183,6 +187,33 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col s12 clearfix">
+                        <h5 class="section-title">Files</h5>
+                    </div>
+                    <div class="col l12 m12 s12">
+                        <div class="clearfix input-group">
+                        @if(isset($property->files))
+                            @foreach($property->files as $file)
+                            <div id="property-file-{{$file->id}}">
+                                <p>
+                                    <a href="{{$file->path}}" target="_blank">{{$file->name}}</a>
+                                    <a href="#" class="delete-file-button" data-id="{{$file->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>
+                                </p>
+                            </div>
+                            @endforeach
+                        @endif
+                        </div>
+                    </div>
+                    <div class="col l12 m12 s12">
+                        <div class="clearfix input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary waves-effect">File <i class="material-icons small">add_circle</i>
+                                <input type="file" name="files" style="opacity:0">
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="col s12">
@@ -397,7 +428,7 @@
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('prices.service_charge') ? 'has-error' : ''}}">
                             {{Form::text('prices[service_charge]', $property->prices['service_charge'], ['class' => 'form-control', 'placeholder' => 'Service Charge'])}}
-                            {{Form::label('prices[service_charge]', 'Service Charge')}}
+                            {{Form::label('prices[service_charge]', 'Service Charge (required for sale)')}}
                             @if($errors->has('prices.service_charge'))
                                 <span class="wrong-error">* {{$errors->first('prices.service_charge')}}</span>
                             @endif
@@ -406,7 +437,7 @@
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('prices.rates') ? 'has-error' : ''}}">
                             {{Form::text('prices[rates]', $property->prices['rates'], ['class' => 'form-control', 'placeholder' => 'Rates'])}}
-                            {{Form::label('prices[rates]', 'Rates')}}
+                            {{Form::label('prices[rates]', 'Rates (required for sale)')}} 
                             @if($errors->has('prices.rates'))
                                 <span class="wrong-error">* {{$errors->first('prices.rates')}}</span>
                             @endif
@@ -415,7 +446,7 @@
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('prices.week') ? 'has-error' : ''}}">
                             {{Form::text('prices[week]', isset($property->prices['week']) ? $property->prices['week'] : null, ['class' => 'form-control', 'placeholder' => 'Price per week'])}}
-                            {{Form::label('prices[week]', 'Price per week')}}
+                            {{Form::label('prices[week]', 'Price per week (required for rent)')}}
                             @if($errors->has('prices.week'))
                                 <span class="wrong-error">* {{$errors->first('prices.week')}}</span>
                             @endif
@@ -424,7 +455,7 @@
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('prices.month') ? 'has-error' : ''}}">
                             {{Form::text('prices[month]', isset($property->prices['month']) ? $property->prices['month'] : null, ['class' => 'form-control', 'placeholder' => 'Price per month'])}}
-                            {{Form::label('prices[month]', 'Price per month')}}
+                            {{Form::label('prices[month]', 'Price per month (required for rent)')}}
                             @if($errors->has('prices.month'))
                                 <span class="wrong-error">* {{$errors->first('prices.month')}}</span>
                             @endif
@@ -495,6 +526,40 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{get_setting('google_map_key', 'site')}}&libraries=places"></script>
     <script>
         $(document).ready(function(){
+            $('.delete-file-button').click(function(event){
+                event.preventDefault();
+                var id = $(this).data('id');
+                var token = $('[name="_token"]').val();
+                bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: 'Delete file?',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/property/file/delete/') }}/'+id,
+                                type: 'post',
+                                data: {_token :token},
+                                success:function(msg) {
+                                    $('#property-file-' + id).remove();
+                                    toastr.success(msg);
+                                }
+                            });
+                        }
+                    }
+                });
+            });
             $('.desc-content').summernote({
                 height: 200,
                 maxwidth: false,

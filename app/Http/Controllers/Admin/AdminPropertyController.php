@@ -10,12 +10,14 @@ use App\Models\Admin\CategoryContent;
 use App\Models\Admin\PropertyContent;
 use App\Models\Admin\PropertyDate;
 use App\Models\Admin\Feature;
+use App\Models\Admin\PropertyFile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Image;
+use Carbon\Carbon;
 
 class AdminPropertyController extends Controller
 {
@@ -42,8 +44,6 @@ class AdminPropertyController extends Controller
             'contact.web'             => 'website',
             'rooms'                   => 'required|integer',
             'guest_number'            => 'required|integer',
-            'prices.service_charge'   => 'required|integer',
-            'prices.rates'            => 'required|integer',
             'property_info.internal_area' => 'required|integer',
             'property_info.external_area' => 'required|integer',
             'property_info.bedrooms'  => 'required|integer',
@@ -59,6 +59,11 @@ class AdminPropertyController extends Controller
         if (isset($request['sale_rent']) && in_array('rentals', $request['sale_rent'])) {
             $this->validation_rules['prices.week'] = 'required|integer';
             $this->validation_rules['prices.month'] = 'required|integer';
+        }
+
+        if (isset($request['sale_rent']) && in_array('sales', $request['sale_rent'])) {
+            $this->validation_rules['prices.service_charge'] = 'required|integer';
+            $this->validation_rules['prices.rates'] = 'required|integer';
         }
 
         $this->validation_messages = [
@@ -162,6 +167,13 @@ class AdminPropertyController extends Controller
             }
         }
 
+        if(isset($request->files)){
+            foreach($request->files as $file){
+                PropertyFile::create(['property_id' => $property->id, 'name' => $file->getClientOriginalName(),  'file_name' => Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName(), 'path' => url('/').'/files/'.Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName()]);
+                $file->move(public_path().'/files', Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName());
+            }
+        }
+
         // Updating the Content
         foreach($languages as $language) {
 
@@ -222,7 +234,7 @@ class AdminPropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        //dd($request->all());
         $languages = $this->languages;
         // Validating the Property
         if($this->validateServiceUpdate($request, $id)){
@@ -279,6 +291,13 @@ class AdminPropertyController extends Controller
                 if(!in_array_r($image, $old_images)){
                     Image::create(['image' => $image, 'imageable_id' => $property->id, 'imageable_type' => 'App\Models\Admin\Property']);
                 }
+            }
+        }
+
+        if(isset($request->files)){
+            foreach($request->files as $file){
+                PropertyFile::create(['property_id' => $property->id, 'name' => $file->getClientOriginalName(), 'file_name' => Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName(), 'path' => url('/').'/files/'.Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName()]);
+                $file->move(public_path().'/files', Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName());
             }
         }
 
@@ -586,6 +605,16 @@ class AdminPropertyController extends Controller
             }
         }
 
+        if($property->files){
+            foreach($property->files as $file){
+                $path = public_path().'/files/'.$file->file_name;
+                if(File::exists($path)){
+                    File::delete($path);
+                }
+                $file->delete();
+            }
+        }
+
         // Deleting the Content
         $languages = $this->languages;
         foreach($languages as $language){
@@ -622,6 +651,21 @@ class AdminPropertyController extends Controller
                 return response()->json('Added to slider', 200);
             }
             return response()->json('Removed from slider', 200);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
+    }
+
+    public function deleteFile(Request $request, $id)
+    {
+        if($request->ajax()){
+            $file = PropertyFile::find($id);
+            $path = public_path().'/files/'.$file->file_name;
+            if(File::exists($path)){
+                File::delete($path);
+            }
+            $file->delete();
+            return response()->json(get_string('success_delete'), 200);
         }else{
             return response()->json(get_string('something_happened'), 400);
         }

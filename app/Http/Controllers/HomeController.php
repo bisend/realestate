@@ -127,7 +127,7 @@ class HomeController extends Controller
                 }
             }
             if (RequestModel::create($data)) {
-                Mail::to(get_setting('contact_email', 'site'))->send(new RequestMails($data));
+                Mail::to(get_setting('contact_email', 'site'))->subject('Register Interest')->send(new RequestMails($data));
                 $response['status'] = 'success';
                 return $response;
             }
@@ -142,7 +142,7 @@ class HomeController extends Controller
             $data = $request->only(['name', 'phone']);
             $data['callback'] = 1;
             if (RequestModel::create($data)) {
-                Mail::to(get_setting('contact_email', 'site'))->send(new RequestMails($data));
+                Mail::to(get_setting('contact_email', 'site'))->subject('Call Back')->send(new RequestMails($data));
                 $response['status'] = 'success';
                 return $response;
             }
