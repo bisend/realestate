@@ -208,11 +208,11 @@
                     <div class="col s12 clearfix">
                         <h5 class="section-title">Files</h5>
                     </div>
-                    <div class="col l12 m12 s12">
+                    <div class="col l12 m12 s12 new-file">
                         <div class="clearfix input-group">
                             <label class="input-group-btn">
-                                <span class="btn btn-primary waves-effect">File <i class="material-icons small">add_circle</i>
-                                    <input type="file" name="files" style="opacity:0">
+                                <span class="btn btn-primary">File <i class="material-icons small">add_circle</i>
+                                    <input type="file" name="files[]" style="opacity:0">
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -527,6 +527,20 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{get_setting('google_map_key', 'site')}}&libraries=places"></script>
     <script>
         $(document).ready(function(){
+            $(document).on('change', 'input[name="files[]"]', function () {
+                var input = $(this)[0];
+                if (input.files && input.files[0])
+                {
+                    var reader = new FileReader();
+                    $(reader).on('load', function (e)
+                    {
+                        var newFile = '<br><div class="clearfix input-group"><label class="input-group-btn"><span class="btn btn-primary">File <i class="material-icons small">add_circle</i><input type="file" name="files[]" style="opacity:0"></span></label><input type="text" class="form-control pdf-name"></div>';
+                        $('.new-file').append(newFile);
+                        $(input).parent().parent().parent().find('.pdf-name').val(input.files[0].name);
+                    });
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
             $('.desc-content').summernote({
                 height: 200,
                 maxwidth: false,

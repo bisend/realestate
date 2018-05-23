@@ -213,7 +213,7 @@
                                 <input type="file" name="files[]" style="opacity:0">
                                 </span>
                             </label>
-                            <input type="text" class="form-control" readonly>
+                            <input type="text" class="form-control pdf-name" readonly>
                         </div>
                     </div>
                     <div class="col s12">
@@ -526,15 +526,16 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{get_setting('google_map_key', 'site')}}&libraries=places"></script>
     <script>
         $(document).ready(function(){
-            $(document).on('change', '[name="files[]"]', function () {
+            $(document).on('change', 'input[name="files[]"]', function () {
                 var input = $(this)[0];
                 if (input.files && input.files[0])
                 {
                     var reader = new FileReader();
                     $(reader).on('load', function (e)
                     {
-                        var newFile = '<br><div class="clearfix input-group"><label class="input-group-btn"><span class="btn btn-primary">File <i class="material-icons small">add_circle</i><input type="file" name="files[]" style="opacity:0"></span></label><input type="text" class="form-control" readonly></div>';
+                        var newFile = '<br><div class="clearfix input-group"><label class="input-group-btn"><span class="btn btn-primary">File <i class="material-icons small">add_circle</i><input type="file" name="files[]" style="opacity:0"></span></label><input type="text" class="form-control pdf-name"></div>';
                         $('.new-file').append(newFile);
+                        $(input).parent().parent().parent().find('.pdf-name').val(input.files[0].name);
                     });
                     reader.readAsDataURL(input.files[0]);
                 }
