@@ -40,7 +40,7 @@
 						<td><i class="fa fa-home" aria-hidden="true"></i> <span>{{ $mainProperty->rooms }}</span> Rooms</td>
 						<td><i class="fa fa-bed"></i></i> <span>{{ $mainProperty->property_info['bedrooms'] }}</span> Beds</td>
 						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq Ft</td>
-						<td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PErson</td>
+						<td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> Person</td>
 					</tr>
 				</table>
 
@@ -74,7 +74,8 @@
 				<div class="tabs">
 			        <ul>
 			          <li><a href="#tabs-1"><i class="fa fa-pencil icon"></i>Additional Details</a></li>
-			          <li><a href="#tabs-3"><i class="fa fa-files-o icon"></i>Attachments</a></li>
+			          <li><a href="#tabs-2"><i class="fa fa-files-o icon"></i>Attachments</a></li>
+								<li><a href="#tabs-3"><i class="fa fa-calendar" aria-hidden="true"></i></i>Calendar</a></li>
 			        </ul>
 			        <div id="tabs-1" class="ui-tabs-hide">
 			          <ul class="additional-details-list">
@@ -93,8 +94,12 @@
 			          </ul>
 			        </div>
 
-			        <div id="tabs-3" class="ui-tabs-hide">
+			        <div id="tabs-2" class="ui-tabs-hide">
 			          <a href="#"><i class="fa fa-file-o icon"></i> 1</a><br/><br/>
+			        </div>
+
+							<div id="tabs-3" class="ui-tabs-hide">
+								<div id="datepicker"></div>
 			        </div>
 			    </div>
 			</div><!-- end description -->
@@ -241,7 +246,14 @@
 				@foreach($recent_properties as $property)
 				<div class="recent-property">
 				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="/property/{{$property->alias}}"><img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" /></a></div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<a href="/property/{{$property->alias}}">
+						<div class="recent-img">
+						<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+
+						</div>
+					</a>
+				</div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
 					  <p><strong>${{ $property->prices['month'] }}</strong> {{ $property->rentals == 1 ? 'Per Month' : '' }}</p>
@@ -258,7 +270,12 @@
 					@foreach($last_posts as $last_post)
           <div class="recent-property">
             <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4"><a href="{{url('/blog/post').'/'.$last_post->alias}}"><img src="{{ isset($last_post->imagee) ? url('/').$last_post->image : URL::asset('images/no_image.jpg')}}" alt="" /></a></div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+							<a href="{{url('/blog/post').'/'.$last_post->alias}}">
+							 <div class="recent-img">
+							 	<img src="{{ isset($last_post->imagee) ? url('/').$last_post->image : URL::asset('images/no_image.jpg')}}" alt="" />
+							 </div>
+						</a></div>
             <div class="col-lg-8 col-md-8 col-sm-8">
               <h5><a href="{{url('/blog/post').'/'.$last_post->alias}}">{{ $last_post->contentload->title }}</a></h5>
               <p><i class="fa fa-calendar-o"></i> {{ \Carbon\Carbon::parse($last_post['created_at'])->format('M') }}, {{ \Carbon\Carbon::parse($last_post['created_at'])->format('j') }}th {{ \Carbon\Carbon::parse($last_post['created_at'])->format('Y') }}</p>
@@ -277,6 +294,27 @@
   </div><!-- end container -->
 </section>
 
+<script>
+  // $( function() {
+  //   $( "#datepicker" ).datepicker({
+  //     changeMonth: true,
+  //     changeYear: true
+  //   });
+  // } );
+
+var array = ["2018-05-24","2018-05-25","2018-05-26"]
+
+$('#datepicker').datepicker({
+    beforeShowDay: function(date){
+        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+        return [$.inArray(string, array) == -1];
+    },
+		changeMonth: true,
+    changeYear: true
+});
+
+  </script>
+
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{get_setting('google_map_key', 'site')}}&sensor=false"></script>
 <script src="/realstate/js/map-single.js"></script> <!-- google maps -->
 <script>
@@ -286,5 +324,7 @@
     center: new google.maps.LatLng({{ $mainProperty->location['geo_lon'] }}, {{ $mainProperty->location['geo_lat'] }})
 	};
 </script>
+
+
 
 @endsection

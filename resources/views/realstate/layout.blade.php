@@ -32,6 +32,10 @@
 
   <!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
   <script src='https://www.google.com/recaptcha/api.js?hl=en' async defer></script>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
 </head>
 <body>
 
