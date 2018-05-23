@@ -131,60 +131,43 @@
 				</h4>
 
 				<div class="row">
+				@if(isset($related_properties))
+					@foreach($related_properties as $property)
 					<div class="col-lg-6 col-md-6">
 						<div class="property shadow-hover">
 						<a href="#" class="property-img">
 								<div class="img-fade"></div>
+								@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 								<div class="property-tag lable-sale featured">Sale</div>
+								<div class="property-tag lable-sale featured">Rent</div>
+								@elseif($mainProperty->rentals == 1)
+								<div class="property-tag lable-sale featured">Rent</div>
+								@elseif($mainProperty->sales == 1)
+								<div class="property-tag lable-sale featured">Sale</div>
+								@endif
 								<div class="property-price">$150,000</div>
 								<div class="property-color-bar"></div>
 								<div class="prop-img-home">
-										<img src="images/testimg/test2.jpg" alt="" />
+										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
 								</div>
 						</a>
 						<div class="property-content">
 								<div class="property-title">
-								<h4><a href="#">Beautiful Waterfront Condo</a></h4>
+								<h4><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h4>
 								</div>
 								<table class="property-details property-details-grid">
 								<tr>
-										<td><i class="fa fa-home" aria-hidden="true"></i></i>12</td>
-										<td><i class="fa fa-bed"></i>12</td>
-										<td><i class="fa fa-expand"></i>12</td>
-										<td><i class="fa fa-user" aria-hidden="true"></i>12</td>
+										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
+										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
+										<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
 								</tr>
 								</table>
 							</div>
 						</div>
-					</div>
-
-					<div class="col-lg-6 col-md-6">
-						<div class="property shadow-hover">
-						<a href="#" class="property-img">
-								<div class="img-fade"></div>
-								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">$150,000</div>
-								<div class="property-color-bar"></div>
-								<div class="prop-img-home">
-										<img src="images/testimg/test2.jpg" alt="" />
-								</div>
-						</a>
-						<div class="property-content">
-								<div class="property-title">
-								<h4><a href="#">Beautiful Waterfront Condo</a></h4>
-								</div>
-								<table class="property-details property-details-grid">
-								<tr>
-										<td><i class="fa fa-home" aria-hidden="true"></i></i>12</td>
-										<td><i class="fa fa-bed"></i>12</td>
-										<td><i class="fa fa-expand"></i>12</td>
-										<td><i class="fa fa-user" aria-hidden="true"></i>12</td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-
+					</div>		
+					@endforeach
+				@endif
 			    </div><!-- end row -->
 			</div><!-- end related properties -->
 
