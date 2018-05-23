@@ -110,11 +110,5 @@
 <script src="/realstate/js/contact-forms.js"></script>
 
 
-
-
-
-    
-
-
 </body>
 </html>

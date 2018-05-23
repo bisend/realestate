@@ -21,7 +21,7 @@
       @foreach($properties as $property)
 				<div class="col-lg-6 col-md-6">
 					<div class="property shadow-hover">
-					<a href="#" class="property-img">
+					<a href="/property/{{$property->alias}}" class="property-img">
 							<div class="img-fade"></div>
 							<div class="property-tag lable-rent featured">Rent</div>
 							<div class="property-price">${{ $property->prices['month'] }} Per Month</div>
@@ -32,7 +32,7 @@
 					</a>
 					<div class="property-content">
 							<div class="property-title">
-							<h4><a href="#">{{ $property->contentload->name }}</a></h4>
+							<h4><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h4>
 							</div>
 							<table class="property-details property-details-grid">
 							<tr>
@@ -112,9 +112,9 @@
 				@foreach($recent_properties as $property)
 				<div class="recent-property">
 				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" /></a></div>
+					<div class="col-lg-4 col-md-4 col-sm-4"><a href="/property/{{$property->alias}}"><img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" /></a></div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
-					  <h5><a href="#">{{ $property->contentload->name }}</a></h5>
+					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
 					  <p><strong>${{ $property->prices['month'] }}</strong> {{ $property->rentals == 1 ? 'Per Month' : '' }}</p>
 					</div>
 				  </div>

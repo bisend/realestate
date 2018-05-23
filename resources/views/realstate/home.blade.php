@@ -29,7 +29,7 @@
               </tr>
             </table>
             <span class="lable-rent right mobile-lable-flout">{{ $slide->sales == 1 ? 'Sale' : ''}} {{ $slide->rentals == 1 ? 'Rent' : '' }}</span>
-            <a href="#" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
+            <a href="/property/{{$slide->alias}}" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
           </div>
         </div>
       </div>
@@ -220,7 +220,7 @@
                 @foreach($sales_properties as $sales_property)
                     <div class="col-lg-12 col-md-12">
                         <div class="property shadow-hover">
-                        <a href="#" class="property-img">
+                        <a href="/property/{{$sales_property->alias}}" class="property-img">
                             <div class="img-fade"></div>
                             <div class="property-tag lable-sale featured">Sale</div>
                             <div class="property-price">${{ $sales_property->prices['service_charge'] }}</div>
@@ -231,7 +231,7 @@
                         </a>
                         <div class="property-content">
                             <div class="property-title">
-                            <h4><a href="#">{{ $sales_property->contentload->name }}</a></h4>
+                            <h4><a href="/property/{{$sales_property->alias}}">{{ $sales_property->contentload->name }}</a></h4>
                             </div>
                             <table class="property-details">
                             <tr>
@@ -258,7 +258,7 @@
             @foreach($rentals_properties as $rentals_property)
                 <div class="col-lg-12 col-md-12">
                     <div class="property shadow-hover">
-                        <a href="#" class="property-img">
+                        <a href="/property/{{$sales_property->alias}}" class="property-img">
                         <div class="img-fade"></div>
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
@@ -276,7 +276,7 @@
                         </a>
                         <div class="property-content">
                         <div class="property-title">
-                        <h4><a href="#">{{ $rentals_property->contentload->name }}</a></h4>
+                        <h4><a href="/property/{{$sales_property->alias}}">{{ $rentals_property->contentload->name }}</a></h4>
                         </div>
                         <table class="property-details">
                             <tr>

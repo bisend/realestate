@@ -11,23 +11,35 @@
 			<div class="property-single-item property-main">
 				<div class="property-header">
 					<div class="property-title">
-						<h4>Modern Family Home</h4>
-            <div class="property-price-single right">$255,000 <span>Per Month</span></div>
+						<h4>{{ $mainProperty->contentload['name'] }}</h4>
+						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
+            <div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }} / ${{ $mainProperty->prices['week'] }}<span> Per Month</span></div>
+						@elseif($mainProperty->rentals == 1)
+						<div class="property-price-single right">${{ $mainProperty->prices['week'] }}<span></span> Per Month</div>
+						@elseif($mainProperty->sales == 1)
+						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span></span></div>
+						@endif
             <div class="clear"></div>
 					</div>
 					<div class="property-single-tags">
-						<div class="property-tag lable-sale featured">Sale</div>
+						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
+            <div class="property-tag lable-sale featured">Sale</div>
 						<div class="property-tag lable-rent featured">Rent</div>
-						<div class="property-type right">Property Type: <a href="#">Family Home</a></div>
+						@elseif($mainProperty->rentals == 1)
+						<div class="property-tag lable-rent featured">Rent</div>
+						@elseif($mainProperty->sales == 1)
+						<div class="property-tag lable-sale featured">Sale</div>
+						@endif
+						<div class="property-type right">Property Type: <a href="#">{{ $mainProperty->category->contentDefault->name }}</a></div>
 					</div>
 				</div>
 
 				<table class="property-details-single">
 					<tr>
-						<td><i class="fa fa-home" aria-hidden="true"></i> <span>3</span> Beds</td>
-						<td><i class="fa fa-bed"></i></i> <span>2</span> Baths</td>
-						<td><i class="fa fa-expand"></i> <span>25,000</span> Sq Ft</td>
-						<td><i class="fa fa-user" aria-hidden="true"></i> <span>1</span> PErson</td>
+						<td><i class="fa fa-home" aria-hidden="true"></i> <span>{{ $mainProperty->rooms }}</span> Rooms</td>
+						<td><i class="fa fa-bed"></i></i> <span>{{ $mainProperty->property_info['bedrooms'] }}</span> Beds</td>
+						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq Ft</td>
+						<td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PErson</td>
 					</tr>
 				</table>
 
@@ -38,22 +50,14 @@
           </div>
           <div class="slide-counter"></div>
           <div class="slider slider-property-gallery">
-            <div class="slide"><img src="images/testimg/test1.jpg" alt="" /></div>
-            <div class="slide"><img src="images/testimg/test2.jpg" alt="" /></div>
-            <div class="slide"><img src="images/testimg/test3.jpg" alt="" /></div>
-            <div class="slide"><img src="images/testimg/test4.jpg" alt="" /></div>
-            <div class="slide"><img src="images/testimg/test1.jpg" alt="" /></div>
-            <div class="slide"><img src="images/testimg/test2.jpg" alt="" /></div>
-            <div class="slide"><img src="images/testimg/test3.jpg" alt="" /></div>
+					@foreach($mainProperty->images as $image)
+            <div class="slide"><img src="{{URL::asset('images/data').'/'.$image->image}}" alt="" /></div>
+					@endforeach
           </div>
           <div class="slider property-gallery-pager">
-            <a class="property-gallery-thumb"><img src="images/testimg/test1.jpg" alt="" /></a>
-            <a class="property-gallery-thumb"><img src="images/testimg/test2.jpg" alt="" /></a>
-            <a class="property-gallery-thumb"><img src="images/testimg/test3.jpg" alt="" /></a>
-            <a class="property-gallery-thumb"><img src="images/testimg/test4.jpg" alt="" /></a>
-            <a class="property-gallery-thumb"><img src="images/testimg/test1.jpg" alt="" /></a>
-            <a class="property-gallery-thumb"><img src="images/testimg/test2.jpg" alt="" /></a>
-            <a class="property-gallery-thumb"><img src="images/testimg/test3.jpg" alt="" /></a>
+					@foreach($mainProperty->images as $image)
+						<a class="property-gallery-thumb"><img src="{{URL::asset('images/data').'/'.$image->image}}" alt="" /></a>
+					@endforeach
           </div>
         </div>
 
@@ -61,22 +65,10 @@
 
 			<div class="widget property-single-item property-description content">
 				<h4>
-					<span>Description</span> <img class="divider-hex" src="images/divider-half.png" alt="" />
+					<span>Description</span> <img class="divider-hex" src="/realstate/images/divider-half.png" alt="" />
 					<div class="divider-fade"></div>
 				</h4>
-				<p>Ut euismod ultricies sollicitudin. Curabitur sed dapibus nulla. Nulla eget iaculis lectus. Mauris ac maximus neque. Nam 
-				in mauris quis libero sodales eleifend. Morbi varius, nulla sit amet rutrum elementum, est elit finibus tellus, ut 
-				tristique elit risus at metus. Sed fermentum, lorem vitae efficitur imperdiet, neque velit tristique turpis, et iaculis 
-				mi tortor finibus turpis.
-				</p>
-
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. 
-				Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. 
-				Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, 
-				a consequat purus viverra a. Aliquam pellentesque nibh et nibh feugiat gravida. Maecenas ultricies, diam vitae semper 
-				placerat, velit risus accumsan nisl, eget tempor lacus est vel nunc. Proin accumsan elit sed neque euismod fringilla. 
-				Curabitur lobortis nunc velit, et fermentum urna dapibus non. Vivamus magna lorem, elementum id gravida ac, laoreet 
-				tristique augue. Maecenas dictum lacus eu nunc porttitor, ut hendrerit arcu efficitur.</p>
+				<p>{!! $mainProperty->contentload->description !!}</p>
 
 				<div class="tabs">
 			        <ul>
@@ -85,46 +77,46 @@
 			        </ul>
 			        <div id="tabs-1" class="ui-tabs-hide">
 			          <ul class="additional-details-list">
-			          	<li>Property Reference: <span>11234</span></li>
-			          	<li>Property Type: <span>Rent</span></li>
-			          	<li>Internal Area: <span>Single Family Home</span></li>
-			          	<li>External Area: <span>2001</span></li>
-			          	<li>Bathrooms: <span>5</span></li>
-			          	<li>Bedrooms: <span>5</span></li>
+			          	<li>Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></li>
+			          	@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
+									<li>Property Type: <span>Sale/Rent</span></li>
+									@elseif($mainProperty->rentals == 1)
+									<li>Property Type: <span>Rent</span></li>
+									@elseif($mainProperty->sales == 1)
+									<li>Property Type: <span>Sale</span></li>
+									@endif
+			          	<li>Internal Area: <span>{{ $mainProperty->property_info['internal_area'] }}</span></li>
+			          	<li>External Area: <span>{{ $mainProperty->property_info['external_area'] }}</span></li>
+			          	<li>Bathrooms: <span>{{ $mainProperty->property_info['bathrooms'] }}</span></li>
+			          	<li>Bedrooms: <span>{{ $mainProperty->property_info['bedrooms'] }}</span></li>
 			          </ul>
 			        </div>
 
 			        <div id="tabs-3" class="ui-tabs-hide">
-			          <a href="#"><i class="fa fa-file-o icon"></i> Lease Agreement</a><br/><br/>
-			          <a href="#"><i class="fa fa-file-o icon"></i> Brochure</a><br/><br/>
-			          <a href="#"><i class="fa fa-file-o icon"></i> Property Details</a>
+			          <a href="#"><i class="fa fa-file-o icon"></i> 1</a><br/><br/>
 			        </div>
 			    </div>
 			</div><!-- end description -->
 
 			<div class="widget property-single-item property-amenities">
 				<h4>
-					<span>Amenities</span> <img class="divider-hex" src="images/divider-half.png" alt="" />
+					<span>Amenities</span> <img class="divider-hex" src="/realstate/images/divider-half.png" alt="" />
 					<div class="divider-fade"></div>
 				</h4>
 				<ul class="amenities-list">
-					<li><i class="fa fa-check icon"></i> Parking</li>
-					<li><i class="fa fa-check icon"></i> Furnished</li>
-					<li><i class="fa fa-check icon"></i> Pool</li>
-					<!-- <li><i class="fa fa-check icon"></i> Dishwasher</li>
-					<li><i class="fa fa-check icon"></i> Heating</li>
-					<li><i class="fa fa-close icon"></i> Internet</li>
-					<li><i class="fa fa-check icon"></i> Parking</li>
-					<li><i class="fa fa-check icon"></i> Pool</li>
-					<li><i class="fa fa-check icon"></i> Oven</li>
-					<li><i class="fa fa-close icon"></i> Gym</li>
-					<li><i class="fa fa-check icon"></i> Laundry Room</li> -->
+					@foreach($features as $feature)
+						@foreach($mainProperty->features as $propertyFeature)
+							@if($propertyFeature == $feature->id)
+								<li><i class="fa fa-check icon"></i> {{$feature->feature[$default_language->id]}}</li>
+							@endif
+						@endforeach
+					@endforeach
 				</ul>
 			</div><!-- end amenities -->
 
 			<div class="widget property-single-item property-location">
 				<h4>
-					<span>Location</span> <img class="divider-hex" src="images/divider-half.png" alt="" />
+					<span>Location</span> <img class="divider-hex" src="/realstate/images/divider-half.png" alt="" />
 					<div class="divider-fade"></div>
 				</h4>
 				<div id="map-single"></div>
@@ -134,7 +126,7 @@
 
 			<div class="widget property-single-item property-related">
 				<h4>
-					<span>Related Properties</span> <img class="divider-hex" src="images/divider-half.png" alt="" />
+					<span>Related Properties</span> <img class="divider-hex" src="/realstate/images/divider-half.png" alt="" />
 					<div class="divider-fade"></div>
 				</h4>
 
@@ -201,7 +193,7 @@
 		<div class="col-lg-4 col-md-4 sidebar sidebar-property-single">
 		
 			<div class="widget widget-sidebar advanced-search">
-			  <h4><span>Advanced Search</span> <img src="images/divider-half-white.png" alt="" /></h4>
+			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
 			  <div class="widget-content box">
 					<form>
 						<div class="form-block border">
@@ -253,76 +245,36 @@
 			</div><!-- end widget -->
 			
 			<div class="widget widget-sidebar recent-properties">
-			  <h4><span>Recent Properties</span> <img src="images/divider-half.png" alt="" /></h4>
+			  <h4><span>Recent Properties</span> <img src="/realstate/images/divider-half.png" alt="" /></h4>
 			  <div class="widget-content">
-
+				@foreach($recent_properties as $property)
 				<div class="recent-property">
 				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/1837x1206.png" alt="" /></a></div>
+					<div class="col-lg-4 col-md-4 col-sm-4"><a href="/property/{{$property->alias}}"><img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" /></a></div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
-					  <h5><a href="#">Beautiful Waterfront Condo</a></h5>
-					  <p><strong>$1,800</strong> Per Month</p>
+					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
+					  <p><strong>${{ $property->prices['month'] }}</strong> {{ $property->rentals == 1 ? 'Per Month' : '' }}</p>
 					</div>
 				  </div>
 				</div>
-
-				<div class="recent-property">
-				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/1837x1206.png" alt="" /></a></div>
-					<div class="col-lg-8 col-md-8 col-sm-8">
-					  <h5><a href="#">Family Home</a></h5>
-					  <p><strong>$500,000</strong></p>
-					</div>
-				  </div>
-				</div>
-
-				<div class="recent-property">
-				  <div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/1837x1206.png" alt="" /></a></div>
-					<div class="col-lg-8 col-md-8 col-sm-8">
-					  <h5><a href="#">Ubran Apartment</a></h5>
-					  <p><strong>$1,800</strong> Per Month</p>
-					</div>
-				  </div>
-				</div>
-
+				@endforeach
 			  </div><!-- end widget content -->
 			</div><!-- end widget -->
 
       <div class="widget widget-sidebar recent-posts">
-          <h4><span>Recent Blog Posts</span> <img src="images/divider-half.png" alt="" /></h4>
+          <h4><span>Recent Blog Posts</span> <img src="/realstate/images/divider-half.png" alt="" /></h4>
           <div class="widget-content">
-
+					@foreach($last_posts as $last_post)
           <div class="recent-property">
             <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/1837x1206.png" alt="" /></a></div>
+            <div class="col-lg-4 col-md-4 col-sm-4"><a href="{{url('/blog/post').'/'.$last_post->alias}}"><img src="{{ isset($last_post->imagee) ? url('/').$last_post->image : URL::asset('images/no_image.jpg')}}" alt="" /></a></div>
             <div class="col-lg-8 col-md-8 col-sm-8">
-              <h5><a href="#">6 Tips to help you sell your house</a></h5>
-              <p><i class="fa fa-calendar-o"></i> Feb, 18th 2017</p>
+              <h5><a href="{{url('/blog/post').'/'.$last_post->alias}}">{{ $last_post->contentload->title }}</a></h5>
+              <p><i class="fa fa-calendar-o"></i> {{ \Carbon\Carbon::parse($last_post['created_at'])->format('M') }}, {{ \Carbon\Carbon::parse($last_post['created_at'])->format('j') }}th {{ \Carbon\Carbon::parse($last_post['created_at'])->format('Y') }}</p>
             </div>
             </div>
           </div>
-
-          <div class="recent-property">
-            <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/1837x1206.png" alt="" /></a></div>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-              <h5><a href="#">Common mistakes to avoid when moving </a></h5>
-              <p><i class="fa fa-calendar-o"></i> Feb, 18th 2017</p>
-            </div>
-            </div>
-          </div>
-
-          <div class="recent-property">
-            <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4"><a href="#"><img src="images/1837x1206.png" alt="" /></a></div>
-            <div class="col-lg-8 col-md-8 col-sm-8">
-              <h5><a href="#">How to design a minimal but productive home office </a></h5>
-              <p><i class="fa fa-calendar-o"></i> Feb, 18th 2017</p>
-            </div>
-            </div>
-          </div>
-
+					@endforeach
           </div><!-- end widget content -->
       </div><!-- end widget -->
 			
@@ -334,15 +286,14 @@
   </div><!-- end container -->
 </section>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqb3fT3SbMSDMggMEK7fJOIkvamccLrjA&sensor=false"></script>
-<script src="js/map-single.js"></script> <!-- google maps -->
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{get_setting('google_map_key', 'site')}}&sensor=false"></script>
+<script src="/realstate/js/map-single.js"></script> <!-- google maps -->
 <script>
   var mapOptions = {
-    zoom: 13,
+    zoom: {{ $mainProperty->location['geo_zoom'] }},
     scrollwheel: false,
-    center: new google.maps.LatLng(50.642543, 26.204113)
-  };
+    center: new google.maps.LatLng({{ $mainProperty->location['geo_lon'] }}, {{ $mainProperty->location['geo_lat'] }})
+	};
 </script>
 
 @endsection

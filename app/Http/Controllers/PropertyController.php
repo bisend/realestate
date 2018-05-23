@@ -7,6 +7,7 @@ use App\Models\Admin\Feature;
 use App\Models\Admin\Property;
 use App\Models\Admin\PropertyDate;
 use App\Models\Admin\Review;
+use App\Models\Admin\Blog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -53,12 +54,15 @@ class PropertyController extends Controller
             $similar = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
                 $query->where('language_id', $default_language->id);
             }])->where('id', '!=', $property->id)->where(function ($query) use ($property) {
-                $query->where('category_id', $property->category->id)->orWhere('location_id', $property->prop_location->id);
+                $query->where('category_id', $property->category->id);
             })->inRandomOrder()->take(3)->get();
 
             $mainProperty = $property;
-
-            return view('realstate.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates'));
+            $recent_properties = Property::orderBy('created_at', 'desc')->take(Property::RECENT_PROPERTIES)->get();
+            $last_posts = Blog::with(['contentload' => function($query) use($default_language){
+                $query->where('language_id', $default_language->id);
+            }])->where('status', 1)->orderBy('created_at', 'desc')->take(3)->get();
+            return view('realstate.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates', 'recent_properties', 'last_posts'));
         } else {
             abort(404);
         }
