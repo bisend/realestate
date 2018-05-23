@@ -30,6 +30,6 @@ class RequestMails extends Mailable
      */
     public function build()
     {
-        return $this->view('realstate.emails.request');
+        return $this->view('realstate.emails.request')->subject($this->data['subject']);
     }
 }
