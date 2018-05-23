@@ -64,6 +64,7 @@ Route::group(['middleware' => 'admin'], function(){
     Route::post('/admin/property/slider/{id}', 'Admin\AdminPropertyController@slider');
     Route::post('/admin/property/positionsale/{id}', 'Admin\AdminPropertyController@changePositionSale');
     Route::post('/admin/property/positionrent/{id}', 'Admin\AdminPropertyController@changePositionRent');
+    Route::post('/admin/property/file/delete/{id}', 'Admin\AdminPropertyController@deleteFile');
 
     // Additional Taxonomy Category Routes
     Route::post('/admin/taxonomy/category/search/', 'Admin\AdminCategoryController@search')->name('admin_taxonomy_category_search');

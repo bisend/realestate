@@ -45,6 +45,10 @@ class Property extends Model
         return $this->morphMany('App\Models\Image', 'imageable');
     }
 
+    public function files(){
+        return $this->hasMany('App\Models\Admin\PropertyFile');
+    }
+
     // Getting the location
     public function prop_location(){
         return $this->belongsTo('App\Models\Admin\Location', 'location_id', 'id');

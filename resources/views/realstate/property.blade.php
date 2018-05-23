@@ -95,17 +95,22 @@
 			        </div>
 
 			        <div id="tabs-3" class="ui-tabs-hide">
-			          <a href="#"><i class="fa fa-file-o icon"></i> 1</a><br/><br/>
+								@if(isset($property->files))
+									@foreach($property->files as $file)
+			          		<a href="{{$file->path}}" target="_blank"><i class="fa fa-file-o icon"></i> {{$file->name}}</a><br/><br/>
+									@endforeach
+								@endif
 			        </div>
 			    </div>
 			</div><!-- end description -->
-
+			@if(isset($mainProperty->features))
 			<div class="widget property-single-item property-amenities">
 				<h4>
 					<span>Amenities</span> <img class="divider-hex" src="/realstate/images/divider-half.png" alt="" />
 					<div class="divider-fade"></div>
 				</h4>
 				<ul class="amenities-list">
+				
 					@foreach($features as $feature)
 						@foreach($mainProperty->features as $propertyFeature)
 							@if($propertyFeature == $feature->id)
@@ -113,9 +118,10 @@
 							@endif
 						@endforeach
 					@endforeach
+				
 				</ul>
 			</div><!-- end amenities -->
-
+			@endif
 			<div class="widget property-single-item property-location">
 				<h4>
 					<span>Location</span> <img class="divider-hex" src="/realstate/images/divider-half.png" alt="" />

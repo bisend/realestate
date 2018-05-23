@@ -189,6 +189,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col s12 clearfix">
+                        <h5 class="section-title">Files</h5>
+                    </div>
+                    <div class="col l12 m12 s12">
+                        <div class="clearfix input-group">
+                        @if(isset($property->files))
+                            @foreach($property->files as $file)
+                            <div id="property-file-{{$file->id}}">
+                                <p>
+                                    <a href="{{$file->path}}" target="_blank">{{$file->name}}</a>
+                                    <a href="#" class="delete-file-button" data-id="{{$file->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>
+                                </p>
+                            </div>
+                            @endforeach
+                        @endif
+                        </div>
+                    </div>
+                    <div class="col l12 m12 s12">
+                        <div class="clearfix input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary waves-effect">File <i class="material-icons small">add_circle</i>
+                                <input type="file" name="files" style="opacity:0">
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </div>
                     <div class="col s12">
                         <ul class="collapsible collapsible-accordion">
                             <li>
@@ -499,6 +526,40 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{get_setting('google_map_key', 'site')}}&libraries=places"></script>
     <script>
         $(document).ready(function(){
+            $('.delete-file-button').click(function(event){
+                event.preventDefault();
+                var id = $(this).data('id');
+                var token = $('[name="_token"]').val();
+                bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: 'Delete file?',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/property/file/delete/') }}/'+id,
+                                type: 'post',
+                                data: {_token :token},
+                                success:function(msg) {
+                                    $('#property-file-' + id).remove();
+                                    toastr.success(msg);
+                                }
+                            });
+                        }
+                    }
+                });
+            });
             $('.desc-content').summernote({
                 height: 200,
                 maxwidth: false,

@@ -205,6 +205,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col s12 clearfix">
+                        <h5 class="section-title">Files</h5>
+                    </div>
+                    <div class="col l12 m12 s12">
+                        <div class="clearfix input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary waves-effect">File <i class="material-icons small">add_circle</i>
+                                <input type="file" name="files" style="opacity:0">
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </div>
                     <div class="col s12">
                         <ul class="collapsible collapsible-accordion">
                             <li>
@@ -327,6 +340,7 @@
                     <div class="hidden-fields hidden">
                     </div>
                 </div>
+
                 <div id="property-panel" class="tab-pane">
                     <div class="col s12 clearfix">
                         <h5 class="section-title">Sales or Rentals *</h5>
