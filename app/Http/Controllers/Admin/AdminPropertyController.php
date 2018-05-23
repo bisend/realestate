@@ -294,8 +294,8 @@ class AdminPropertyController extends Controller
             }
         }
 
-        if(isset($request->files)){
-            foreach($request->files as $file){
+        if($request->file('files')){
+            foreach($request->file('files') as $file){
                 PropertyFile::create(['property_id' => $property->id, 'name' => $file->getClientOriginalName(), 'file_name' => Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName(), 'path' => url('/').'/files/'.Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName()]);
                 $file->move(public_path().'/files', Carbon::now()->format('Y_m_d_H_i_s').'_'.$file->getClientOriginalName());
             }

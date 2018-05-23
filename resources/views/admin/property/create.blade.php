@@ -212,7 +212,7 @@
                         <div class="clearfix input-group">
                             <label class="input-group-btn">
                                 <span class="btn btn-primary waves-effect">File <i class="material-icons small">add_circle</i>
-                                <input type="file" name="files" style="opacity:0">
+                                    <input type="file" name="files" style="opacity:0">
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>

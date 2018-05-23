@@ -206,11 +206,11 @@
                         @endif
                         </div>
                     </div>
-                    <div class="col l12 m12 s12">
+                    <div class="col l12 m12 s12 new-file">
                         <div class="clearfix input-group">
                             <label class="input-group-btn">
-                                <span class="btn btn-primary waves-effect">File <i class="material-icons small">add_circle</i>
-                                <input type="file" name="files" style="opacity:0">
+                                <span class="btn btn-primary">File <i class="material-icons small">add_circle</i>
+                                <input type="file" name="files[]" style="opacity:0">
                                 </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -526,6 +526,19 @@
     <script src="https://maps.googleapis.com/maps/api/js?key={{get_setting('google_map_key', 'site')}}&libraries=places"></script>
     <script>
         $(document).ready(function(){
+            $(document).on('change', '[name="files[]"]', function () {
+                var input = $(this)[0];
+                if (input.files && input.files[0])
+                {
+                    var reader = new FileReader();
+                    $(reader).on('load', function (e)
+                    {
+                        var newFile = '<br><div class="clearfix input-group"><label class="input-group-btn"><span class="btn btn-primary">File <i class="material-icons small">add_circle</i><input type="file" name="files[]" style="opacity:0"></span></label><input type="text" class="form-control" readonly></div>';
+                        $('.new-file').append(newFile);
+                    });
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
             $('.delete-file-button').click(function(event){
                 event.preventDefault();
                 var id = $(this).data('id');
