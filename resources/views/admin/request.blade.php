@@ -28,7 +28,7 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
-                    <th>Reference</th>
+                    <th>Property Reference</th>
                     <th class="icon-options">Status</th>
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
@@ -77,6 +77,7 @@
                     </th>
                     <th>Name</th>
                     <th>Phone</th>
+                    <th>Property Reference</th>
                     <th class="icon-options">Status</th>
                     <!-- <th>Reference</th> -->
                     <th class="icon-options">{{get_string('options')}}</th>
@@ -91,6 +92,7 @@
                         </td>
                         <td>{{$callback->name}}</td>
                         <td>{{$callback->phone}}</td>
+                        <td><a href="{{ $callback->reference }}" target="_blank">{{$callback->reference_name}}</a></td>
                         <td class="icon-options">
                             <form action="">
                                 <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">

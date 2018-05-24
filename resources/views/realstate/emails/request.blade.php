@@ -4,5 +4,5 @@ Phone: {{ $data['phone'] }} <br>
 Email: {{ $data['email'] }} <br>
 @endif
 @if(isset($data['reference']))
-Reference: {{ $data['reference'] }} <br>
+Reference: <a href="{{ $data['reference'] }}" target="_blank">{{ $data['reference_name'] }}</a> <br>
 @endif

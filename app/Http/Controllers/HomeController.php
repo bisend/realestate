@@ -118,7 +118,7 @@ class HomeController extends Controller
             $property_alias = end($property_alias);
             $property = Property::where('alias',  $property_alias)->first();
             if ($property) {
-                $data['reference_name'] = $property->contentDefault->name;
+                $data['reference_name'] = $property->property_info['property_reference'];
             } else {
                 if ($property_alias == '') {
                     $data['reference_name'] = 'home';
@@ -140,9 +140,22 @@ class HomeController extends Controller
     public function callback(Request $request)
     {
         if($request->ajax()){
-            $data = $request->only(['name', 'phone']);
+            $data = $request->only(['name', 'phone', 'backPage']);
             $data['callback'] = 1;
             $data['subject'] = 'Call Back';
+            $data['reference'] = $data['backPage'];
+            $property_alias = explode('/', $data['reference']);
+            $property_alias = end($property_alias);
+            $property = Property::where('alias',  $property_alias)->first();
+            if ($property) {
+                $data['reference_name'] = $property->property_info['property_reference'];
+            } else {
+                if ($property_alias == '') {
+                    $data['reference_name'] = 'home';
+                } else {
+                    $data['reference_name'] = $property_alias;
+                }
+            }
             if (RequestModel::create($data)) {
                 Mail::to(get_setting('contact_email', 'site'))->send(new RequestMails($data));
                 $response['status'] = 'success';
