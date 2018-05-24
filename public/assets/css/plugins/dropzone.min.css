@@ -18,7 +18,12 @@
     cursor: pointer;
 }
 
--webkit-animation: rotation 2s infinite 
+.check-genetal-photo{
+    position: absolute;
+    top: -26px;
+    width: 100%;
+    left: 10px;
+}
 
 /* .rotate-btn:before {
 	content: "";

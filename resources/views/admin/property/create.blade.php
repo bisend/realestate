@@ -587,17 +587,150 @@
                         $('.rotate-btn').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
                         var rotateImg = 0;
 
+                        // $('.check-genetal-photo').append('<input type="checkbox" name="general-photo" id="'+ json.data +'"> <label for="'+ json.data +'">general-photo</label>');
+
                         $('.rotate-btn').on('click', function () {
                                 // $(this).val(json.data)
-                                if(rotateImg == 360){
-                                    rotateImg = 0;
+                        if(rotateImg == 360){
+                            rotateImg = 0;
+                            }
+                        rotateImg += 90;
+                        var imgSrc = $(this).find('input').val();
+                        $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
+                        console.log(imgSrc)
+                        console.log(rotateImg);
+                        $.ajax({
+                            url: '',
+                            type: 'POST',
+                            data: {
+                                imgSrc: imgSrc,
+                                rotateImg: rotateImg
+                            },
+                            success: function(data){
+                                if (data.status == 'success')
+                                {
+                                console.log('YES')
+                                    
                                 }
-                                rotateImg += 90;
-                                var imgSrc = $(this).find('input').val();
-                                console.log(imgSrc)
-                                $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
-                                console.log(rotateImg)
+                    
+                            },
+                            error: function(error){
+                                console.log(error);
+                            }
+                            });
                         });
+                        
+            //             $(function () {
+            //                 var groups = $('.checkbox-group-sale');
+            //                 $('body').on('change', '.checkbox-group-sale input[type=checkbox]', function () {
+
+            //         var current = $(this);
+            //         var parent = current.parent();
+            //         var index = current.index();
+            //         var checked = current.prop('checked');
+
+            //         // disable others in current div
+            //         current.siblings().each(function () {
+            //             var other = $(this);
+
+            //             if (checked){
+            //                 other.attr('disabled', true);
+            //                 other.addClass('disable-by-current');
+            //             }else {
+            //                 other.removeClass('disable-by-current');
+            //                 if (other.hasClass('disable-by-others')){
+            //                     // can not disabled
+            //                 }else{
+            //                     other.attr('disabled', false);
+            //                 }
+            //             }
+
+            //         });
+
+            //         $('.checkbox-group-sale input[type=checkbox]').each(function () {
+            //             var tmpCurrent = $(this);
+            //             var tmpParent = tmpCurrent.parent();
+            //             var tmpIndex = tmpCurrent.index();
+            //             var tmpChecked = tmpCurrent.prop('checked');
+
+            //             // if not current div
+            //             if (tmpParent.get(0) !== parent.get(0)) {
+            //                 // common in other div
+            //                 if (tmpIndex === index) {
+            //                     if (checked){
+            //                         tmpCurrent.attr('disabled', true);
+            //                         tmpCurrent.addClass('disable-by-others');
+            //                     }else{
+            //                         tmpCurrent.removeClass('disable-by-others');
+            //                         if (tmpCurrent.hasClass('disable-by-current')){
+            //                             // can not disable
+            //                         }else {
+            //                             tmpCurrent.attr('disabled', false);
+            //                         }
+            //                     }
+            //                 }
+            //             }
+
+            //         })
+            //     })
+            // });
+
+            // $(function () {
+            //     var groups = $('.check-genetal-photo');
+            //     $('body').on('change', '.check-genetal-photo input[type=checkbox]', function () {
+
+            //         var current = $(this);
+            //         var parent = current.parent();
+            //         var index = current.index();
+            //         var checked = current.prop('checked');
+
+            //         // disable others in current div
+            //         current.siblings().each(function () {
+            //             var other = $(this);
+
+            //             if (checked){
+            //                 other.attr('disabled', true);
+            //                 other.addClass('disable-by-current');
+            //             }else {
+            //                 other.removeClass('disable-by-current');
+            //                 if (other.hasClass('disable-by-others')){
+            //                     // can not disabled
+            //                 }else{
+            //                     other.attr('disabled', false);
+            //                 }
+            //             }
+
+            //         });
+
+            //         $('.check-genetal-photo input[type=checkbox]').each(function () {
+            //             var tmpCurrent = $(this);
+            //             var tmpParent = tmpCurrent.parent();
+            //             var tmpIndex = tmpCurrent.index();
+            //             var tmpChecked = tmpCurrent.prop('checked');
+
+            //             // if not current div
+            //             if (tmpParent.get(0) !== parent.get(0)) {
+            //                 // common in other div
+            //                 if (tmpIndex === index) {
+            //                     if (checked){
+            //                         tmpCurrent.attr('disabled', true);
+            //                         tmpCurrent.addClass('disable-by-others');
+            //                     }else{
+            //                         tmpCurrent.removeClass('disable-by-others');
+            //                         if (tmpCurrent.hasClass('disable-by-current')){
+            //                             // can not disable
+            //                         }else {
+            //                             tmpCurrent.attr('disabled', false);
+            //                         }
+            //                     }
+            //                 }
+            //             }
+
+            //         })
+            //     })
+            // });
+
+
                     });
 
                     this.on('addedfile', function(file) {
