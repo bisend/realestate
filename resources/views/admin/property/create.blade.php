@@ -591,32 +591,33 @@
 
                         $('.rotate-btn').on('click', function () {
                                 // $(this).val(json.data)
-                        if(rotateImg == 360){
-                            rotateImg = 0;
-                            }
-                        rotateImg += 90;
-                        var imgSrc = $(this).find('input').val();
-                        $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
-                        console.log(imgSrc)
-                        console.log(rotateImg);
-                        $.ajax({
-                            url: '',
-                            type: 'POST',
-                            data: {
-                                imgSrc: imgSrc,
-                                rotateImg: rotateImg
-                            },
-                            success: function(data){
-                                if (data.status == 'success')
-                                {
-                                console.log('YES')
-                                    
+                            
+                            if(rotateImg == 360){
+                                rotateImg = 0;
                                 }
-                    
-                            },
-                            error: function(error){
-                                console.log(error);
-                            }
+                            rotateImg += 90;
+                            var imgSrc = $(this).find('input').val();
+                            $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
+                            console.log(imgSrc)
+                            console.log(rotateImg);
+                            var _this = $(this);
+                            _this.hide()
+                            $.ajax({
+                                url: '{{ url('/image_handler/rotate/') }}',
+                                type: 'post',
+                                data: {
+                                    _token: $('[name=_token]').val(),
+                                    imgSrc: imgSrc,
+                                    rotateImg: rotateImg
+                                },
+                                success:function(msg) {
+                                    _this.show();
+                                    toastr.success(msg);
+                                },
+                                error:function(msg){
+                                    _this.show();
+                                    toastr.error(msg.responseJSON);
+                                }
                             });
                         });
                         

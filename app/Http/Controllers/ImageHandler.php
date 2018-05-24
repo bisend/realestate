@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Admin\Service;
 use App\Models\Admin\Property;
+use App\Models\Image as ImageModel;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
@@ -34,6 +35,37 @@ class ImageHandler extends Controller
             $img->save($path);
             $data = $date .'/'. $name;
             return response()->json(['success' => get_string('image_uploaded'), 'data' => $data], 200);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
+    }
+
+    public function rotate(Request $request)
+    {
+        if($request->ajax()){
+            if(File::exists(public_path() . '/images/data/'. $request->imgSrc)){
+                $img = Image::make(public_path() . '/images/data/'. $request->imgSrc);
+                $img->rotate(-90);
+                $img->save();
+                return response()->json('Image rotated', 200);
+            }
+            return response()->json(get_string('something_happened'), 400);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
+    }
+
+    public function changeStatus(Request $request)
+    {
+        if($request->ajax()){
+            if(File::exists(public_path() . '/images/data/'. $request->imgSrc)){
+                $image = ImageModel::where('image', $request->imgSrc)->first();
+                $images = ImageModel::where('imageable_id', $image->imageable_id)->get();
+                $images->update(['status' => 0]);
+                $image->update(['status' => 1]);
+                return response()->json('Image status changed', 200);
+            }
+            return response()->json(get_string('something_happened'), 400);
         }else{
             return response()->json(get_string('something_happened'), 400);
         }
