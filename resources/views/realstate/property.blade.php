@@ -25,7 +25,7 @@
 						@elseif($mainProperty->sales == 1)
 						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
 						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span>Service Charge</span></div>
-						<div class="property-price-single right">$10000 <span>Rates</span></div>
+						<div class="property-price-single right">${{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
 					
 
 						@endif
@@ -299,7 +299,7 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
 							<a href="{{url('/blog/post').'/'.$last_post->alias}}">
 							 <div class="recent-img">
-							 	<img src="{{ isset($last_post->imagee) ? url('/').$last_post->image : URL::asset('images/no_image.jpg')}}" alt="" />
+							 	<img src="{{ isset($last_post->image) ? url('/').$last_post->image : URL::asset('images/no_image.jpg')}}" alt="" />
 							 </div>
 						</a></div>
             <div class="col-lg-8 col-md-8 col-sm-8">
@@ -328,11 +328,10 @@
   //   });
   // } );
 
-var array = ["2018-05-24","2018-05-25","2018-05-26"]
-
+var array = {!! json_encode($mainProperty->prop_dates->dates) !!};
 $('#datepicker').datepicker({
     beforeShowDay: function(date){
-        var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+        var string = jQuery.datepicker.formatDate('mm/dd/yy', date);
         return [$.inArray(string, array) == -1];
     },
 		changeMonth: true,
