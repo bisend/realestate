@@ -92,6 +92,7 @@
                         </td>
                         <td>{{$callback->name}}</td>
                         <td>{{$callback->phone}}</td>
+                        <td><a href="{{ $callback->reference }}" target="_blank">{{$callback->reference_name}}</a></td>
                         <td class="icon-options">
                             <form action="">
                                 <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
@@ -100,7 +101,6 @@
                             </form>
                         </td>
                         <!-- <td><a href="{{ $callback->reference }}">{{$callback->reference_name}}</a></td> -->
-                        <td><a href="{{ $callback->reference }}" target="_blank">{{$callback->reference_name}}</a></td>
                         <td>
                             <div class="icon-options">
                                 <a href="#" class="delete-button" data-id="{{$callback->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>
