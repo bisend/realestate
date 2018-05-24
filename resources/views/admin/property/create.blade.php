@@ -2,6 +2,8 @@
 
 @section('title')
     <title>{{get_string('create_property') . ' - ' . get_setting('site_name', 'site')}}</title>
+    <link href="/realstate/assets/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
+
 @endsection
 
 @section('content')
@@ -580,6 +582,22 @@
                         var selector = file._removeLink;
                         $(selector).attr('data-dz-remove', json.data);
                         $('.hidden-fields').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
+
+                        console.log(json.data);
+                        $('.rotate-btn').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
+                        var rotateImg = 0;
+
+                        $('.rotate-btn').on('click', function () {
+                                // $(this).val(json.data)
+                                if(rotateImg == 360){
+                                    rotateImg = 0;
+                                }
+                                rotateImg += 90;
+                                var imgSrc = $(this).find('input').val();
+                                console.log(imgSrc)
+                                $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
+                                console.log(rotateImg)
+                        });
                     });
 
                     this.on('addedfile', function(file) {
@@ -602,6 +620,7 @@
                 }
             });
         });
+
         // Google Map
         $(document).ready(function() {
             if(typeof google !== 'undefined' && google){
@@ -680,5 +699,6 @@
                 });
             }
         });
+
     </script>
 @endsection
