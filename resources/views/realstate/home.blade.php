@@ -16,7 +16,7 @@
       <div class="slide" style="background-image: url('{{ isset($slide->images->first()->image) ? URL::asset('images/data').'/'.$slide->images->first()->image : URL::asset('images/no_image.jpg')}}')">
         <div class="img-overlay black"></div>
         <div class="container">
-          <div class="slide-price">$250,000</div>
+          <div class="slide-price">₤250,000</div>
           <div class="slide-content">
             <h1>{{ $slide->contentload->name }}</h1>
             <p class="slide-text">{{ str_limit($slide->contentload->description, 200, ' ...') }}</p>
@@ -223,7 +223,7 @@
                         <a href="/property/{{$sales_property->alias}}" class="property-img">
                             <div class="img-fade"></div>
                             <div class="property-tag lable-sale featured">Sale</div>
-                            <div class="property-price">${{ $sales_property->prices['service_charge'] }}</div>
+                            <div class="property-price">₤{{ $sales_property->prices['service_charge'] }}</div>
                             <div class="property-color-bar"></div>
                             <div class="prop-img-home">
                                 <img src="{{ isset($sales_property->images->first()->image) ? URL::asset('images/data').'/'.$sales_property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
@@ -263,10 +263,10 @@
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
                           <div >
-                            ${{ $rentals_property->prices['month'] }} <span>monthly</span>
+                          ₤{{ $rentals_property->prices['month'] }} <span>monthly</span>
                           </div>
                           <div class="price-perWeek">
-                          ${{ $rentals_property->prices['week'] }} <span>weekly</span>
+                          ₤{{ $rentals_property->prices['week'] }} <span>weekly</span>
                           </div>
                         </div>
                         <div class="property-color-bar"></div>

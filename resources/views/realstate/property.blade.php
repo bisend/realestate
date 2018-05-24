@@ -14,18 +14,18 @@
 						<h4>{{ $mainProperty->contentload['name'] }}</h4>
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right"> ${{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
-						<div class="property-price-single right"> ${{ $mainProperty->prices['service_charge'] }}<span> For Sale</span></div>
+						<div class="property-price-single right"> ₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
+						<div class="property-price-single right">₤{{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
+						<div class="property-price-single right"> ₤{{ $mainProperty->prices['service_charge'] }}<span> For Sale</span></div>
 					
 						@elseif($mainProperty->rentals == 1)
 						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right"> ${{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
+						<div class="property-price-single right"> ₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
+						<div class="property-price-single right">₤{{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
 						@elseif($mainProperty->sales == 1)
 						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right">${{ $mainProperty->prices['service_charge'] }}<span>Service Charge</span></div>
-						<div class="property-price-single right">${{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
+						<div class="property-price-single right">₤{{ $mainProperty->prices['service_charge'] }}<span>Service Charge</span></div>
+						<div class="property-price-single right">₤{{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
 					
 
 						@endif
@@ -169,18 +169,18 @@
 								<div class="property-price">
 									@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 									<div>
-									${{ $mainProperty->prices['service_charge'] }} <span>For Sale</span>
+									₤{{ $mainProperty->prices['service_charge'] }} <span>For Sale</span>
 									</div>
 									<div class="price-perWeek">
-									${{ $mainProperty->prices['month'] }} <span>Per  Month</span>
+									₤{{ $mainProperty->prices['month'] }} <span>Per  Month</span>
 									</div>
 									@elseif($mainProperty->rentals == 1)
 									<div class="price-perWeek">
-									${{ $mainProperty->prices['month'] }} <span>Per  Month</span>
+									₤{{ $mainProperty->prices['month'] }} <span>Per  Month</span>
 									</div>
 									@elseif($mainProperty->sales == 1)
 									<div>
-									${{ $mainProperty->prices['service_charge'] }} <span>For Sale</span>
+									₤{{ $mainProperty->prices['service_charge'] }} <span>For Sale</span>
 									</div>
 									@endif
 									
@@ -282,7 +282,7 @@
 				</div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
-					  <p><strong>${{ $property->prices['month'] }}</strong> {{ $property->rentals == 1 ? 'Per Month' : '' }}</p>
+					  <p><strong>₤{{ $property->prices['month'] }}</strong> {{ $property->rentals == 1 ? 'Per Month' : '' }}</p>
 					</div>
 				  </div>
 				</div>
@@ -329,6 +329,7 @@
   // } );
 
 var array = {!! json_encode($mainProperty->prop_dates->dates) !!};
+// var array = ["05/25/2018"];
 $('#datepicker').datepicker({
     beforeShowDay: function(date){
         var string = jQuery.datepicker.formatDate('mm/dd/yy', date);

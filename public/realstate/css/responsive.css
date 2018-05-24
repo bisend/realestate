@@ -650,6 +650,10 @@
     margin-top: 10px;
     margin-bottom: -20px;
   }
+
+  .ui-datepicker {
+    width: 100%;
+}
 	
 }
 
