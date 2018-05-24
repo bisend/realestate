@@ -28,7 +28,7 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
-                    <th>Reference</th>
+                    <th>Property Reference</th>
                     <th class="icon-options">Status</th>
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
@@ -77,6 +77,7 @@
                     </th>
                     <th>Name</th>
                     <th>Phone</th>
+                    <th>Property Reference</th>
                     <th class="icon-options">Status</th>
                     <!-- <th>Reference</th> -->
                     <th class="icon-options">{{get_string('options')}}</th>
@@ -99,6 +100,7 @@
                             </form>
                         </td>
                         <!-- <td><a href="{{ $callback->reference }}">{{$callback->reference_name}}</a></td> -->
+                        <td><a href="{{ $callback->reference }}" target="_blank">{{$callback->reference_name}}</a></td>
                         <td>
                             <div class="icon-options">
                                 <a href="#" class="delete-button" data-id="{{$callback->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>

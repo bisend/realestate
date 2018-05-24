@@ -118,13 +118,7 @@ class HomeController extends Controller
             $property_alias = end($property_alias);
             $property = Property::where('alias',  $property_alias)->first();
             if ($property) {
-                $data['reference_name'] = $property->contentDefault->name;
-            } else {
-                if ($property_alias == '') {
-                    $data['reference_name'] = 'home';
-                } else {
-                    $data['reference_name'] = $property_alias;
-                }
+                $data['reference_name'] = $property->property_info->property_reference;
             }
             $data['subject'] = 'Register Interest';
             if (RequestModel::create($data)) {
@@ -143,6 +137,13 @@ class HomeController extends Controller
             $data = $request->only(['name', 'phone']);
             $data['callback'] = 1;
             $data['subject'] = 'Call Back';
+            $data['reference'] = $data['backPage'];
+            $property_alias = explode('/', $data['reference']);
+            $property_alias = end($property_alias);
+            $property = Property::where('alias',  $property_alias)->first();
+            if ($property) {
+                $data['reference_name'] = $property->property_info->property_reference;
+            }
             if (RequestModel::create($data)) {
                 Mail::to(get_setting('contact_email', 'site'))->send(new RequestMails($data));
                 $response['status'] = 'success';
