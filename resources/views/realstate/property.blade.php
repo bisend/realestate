@@ -187,7 +187,7 @@
               	</div>
 								<div class="property-color-bar"></div>
 								<div class="prop-img-home prop-img-home-rent-sale">
-										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+										<img src="{{ $property->imageByStatus }}" alt="" />
 								</div>
 						</a>
 						<div class="property-content">
@@ -275,7 +275,7 @@
 					<div class="col-lg-4 col-md-4 col-sm-4">
 						<a href="/property/{{$property->alias}}">
 						<div class="recent-img">
-						<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+						<img src="{{ $property->imageByStatus }}" alt="" />
 
 						</div>
 					</a>

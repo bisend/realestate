@@ -61,7 +61,10 @@ class HomeController extends Controller
         $slider = Property::with(['images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('slider', 1)->take(5)->get();
+        // foreach($sales_properties as $sales_property){
+        // dd($sales_property->images->where('status', 1)->first()->image);
 
+        // }
         // Returning the View
         return view('realstate.home', compact('posts', 'default_language',
             'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider'));

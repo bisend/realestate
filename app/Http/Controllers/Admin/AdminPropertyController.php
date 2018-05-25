@@ -24,7 +24,7 @@ class AdminPropertyController extends Controller
     private $validation_rules, $validation_messages;
     protected $languages;
     public function __construct(Request $request){
-        // dd($request->images);
+        //dd($request->all());
         $this->validation_rules = [
             // 'business_hours.sat'      => 'business_hours',
             // 'business_hours.week'     => 'business_hours',
@@ -164,7 +164,12 @@ class AdminPropertyController extends Controller
 
         if(isset($request->images)){
             foreach($request->images as $image){
-                Image::create(['image' => $image, 'imageable_id' => $property->id, 'imageable_type' => 'App\Models\Admin\Property']);
+                Image::create([
+                    'image' => $image,
+                    'imageable_id' => $property->id,
+                    'imageable_type' => 'App\Models\Admin\Property',
+                    'status' => isset($request['main_photo']) && $request['main_photo'] == $image ? 1 : 0,
+                    ]);
             }
         }
 
@@ -281,16 +286,16 @@ class AdminPropertyController extends Controller
 
         $property->update($data);
         $old_images = $property->images;
-
+        
         if(isset($request->images)){
             foreach($old_images as $image){
-                if(!in_array_r($image->image, $request->images)){
+                if(in_array($image->image, $request->images)){
                     $image->delete();
                 }
             }
             $old_images = $old_images->toArray();
             foreach($request->images as $image){
-                if(!in_array_r($image, $old_images)){
+                if(!in_array($image, $old_images)){
                     Image::create(['image' => $image, 'imageable_id' => $property->id, 'imageable_type' => 'App\Models\Admin\Property']);
                 }
             }
