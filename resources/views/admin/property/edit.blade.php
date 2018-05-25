@@ -594,6 +594,9 @@
                 }
             });
         });
+        
+        var imgCount = 0;
+        var checkCount = 0;
 
         Dropzone.autoDiscover = false;
         $(document).ready(function(){
@@ -617,8 +620,15 @@
                             this.createThumbnailFromUrl(mockFile, '/images/data/{{ $image->image }}');
                             this.emit("success", mockFile);
                         $('.hidden-fields').append('<input type="hidden" name="images[]" value="{{ $image->image }}">');
+
+                        // var rot = $($('.rotate-btn').get(imgCount++))
+                        // var checkboxList = $($('.checkboxList').get(checkCount++))
+                        // checkboxList.last().append('<input type="checkbox" id="{{ $image->image }}" class="filled-in primary-color" name="general photo" value="{{ $image->image }}" ><label for="{{ $image->image }}"></label><span>general photo</span>');
+                        // rot.last().append('<input type="hidden" value="{{ $image->image }}">');
+                        // var rotateImg = 0;
                         @endforeach
                     @endif
+                    
 
                     this.on('success', function(file, json) {
                         var selector = file._removeLink;
