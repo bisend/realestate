@@ -621,11 +621,158 @@
                             this.emit("success", mockFile);
                         $('.hidden-fields').append('<input type="hidden" name="images[]" value="{{ $image->image }}">');
 
-                        // var rot = $($('.rotate-btn').get(imgCount++))
-                        // var checkboxList = $($('.checkboxList').get(checkCount++))
-                        // checkboxList.last().append('<input type="checkbox" id="{{ $image->image }}" class="filled-in primary-color" name="general photo" value="{{ $image->image }}" ><label for="{{ $image->image }}"></label><span>general photo</span>');
-                        // rot.last().append('<input type="hidden" value="{{ $image->image }}">');
-                        // var rotateImg = 0;
+                        var rot = $($('.rotate-btn').get(imgCount++))
+                        rot.last().append('<input type="hidden" value="{{ $image->image }}">');
+                        var rotateImg = 0;
+                            rot.on('click', function () {
+                            if(rotateImg == 360){
+                                rotateImg = 0;
+                                }
+                            rotateImg += 90;
+                            var imgSrc = $(this).find('input').val();
+                            $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
+                            console.log(imgSrc)
+                            console.log(rotateImg);
+                            // $.ajax({
+                            //     url: '',
+                            //     type: 'POST',
+                            //     data: {
+                            //         imgSrc: imgSrc,
+                            //         rotateImg: rotateImg
+                            //     },
+                            //     success: function(data){
+                            //         if (data.status == 'success')
+                            //         {
+                            //         console.log('YES')
+                                        
+                            //         }
+                        
+                            //     },
+                            //     error: function(error){
+                            //         console.log(error);
+                            //     }
+                            //     });
+                            });
+
+                            var checkboxList = $($('.checkboxList').get(checkCount++))
+                            checkboxList.last().append('<input type="checkbox" id="{{ $image->image }}" class="filled-in primary-color" name="general photo" value="{{ $image->image }}" ><label for="{{ $image->image }}"></label><span>Main photo</span>');
+                            checkboxList.find('input').on('change', function(){
+                                if(this.checked) {
+                                var mainPhoto = $(this).val();
+                                console.log(mainPhoto)
+                                }
+                            });
+
+                            $( ".checkboxList input[type=checkbox]" ).each(function(  ) {
+                if(this.checked){
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                                other.attr('disabled', true);
+                                other.addClass('disable-by-current');
+                        }else {
+                                other.removeClass('disable-by-current');
+                                if (other.hasClass('disable-by-others')){
+                                        // can not disabled
+                                }else{
+                                        other.attr('disabled', false);
+                                }
+                        }
+
+                });
+
+                    $('.checkboxList input[type=checkbox]').each(function () {
+                            var tmpCurrent = $(this);
+                            var tmpParent = tmpCurrent.parent();
+                            var tmpIndex = tmpCurrent.index();
+                            var tmpChecked = tmpCurrent.prop('checked');
+
+                            // if not current div
+                            if (tmpParent.get(0) !== parent.get(0)) {
+                                    // common in other div
+                                    if (tmpIndex === index) {
+                                            if (checked){
+                                                    tmpCurrent.attr('disabled', true);
+                                                    tmpCurrent.addClass('disable-by-others');
+                                            }else{
+                                                    tmpCurrent.removeClass('disable-by-others');
+                                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                                            // can not disable
+                                                    }else {
+                                                            tmpCurrent.attr('disabled', false);
+                                                    }
+                                            }
+                                    }
+                            }
+
+                    });
+                }
+            });
+                            
+
+
+            $(function () {
+                var groups = $('.checkboxList');
+                $('body').on('change', '.checkboxList input[type=checkbox]', function () {
+
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                    current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                            other.attr('disabled', true);
+                            other.addClass('disable-by-current');
+                        }else {
+                            other.removeClass('disable-by-current');
+                            if (other.hasClass('disable-by-others')){
+                                // can not disabled
+                            }else{
+                                other.attr('disabled', false);
+                            }
+                        }
+
+                    });
+
+                    $('.checkboxList input[type=checkbox]').each(function () {
+                        var tmpCurrent = $(this);
+                        var tmpParent = tmpCurrent.parent();
+                        var tmpIndex = tmpCurrent.index();
+                        var tmpChecked = tmpCurrent.prop('checked');
+
+                        // if not current div
+                        if (tmpParent.get(0) !== parent.get(0)) {
+                            // common in other div
+                            if (tmpIndex === index) {
+                                if (checked){
+                                    tmpCurrent.attr('disabled', true);
+                                    tmpCurrent.addClass('disable-by-others');
+                                }else{
+                                    tmpCurrent.removeClass('disable-by-others');
+                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                        // can not disable
+                                    }else {
+                                        tmpCurrent.attr('disabled', false);
+                                    }
+                                }
+                            }
+                        }
+
+                    })
+                })
+            });
+
                         @endforeach
                     @endif
                     
@@ -634,6 +781,159 @@
                         var selector = file._removeLink;
                         $(selector).attr('data-dz-remove', json.data);
                         $('.hidden-fields').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
+                        var rotEdit = $($('.rotate-btn').get(imgCount++))
+                        rotEdit.last().append('<input type="hidden" value="'+ json.data +'">');
+                        var rotateImg = 0;
+                        rotEdit.on('click', function () {
+                            if(rotateImg == 360){
+                                rotateImg = 0;
+                                }
+                            rotateImg += 90;
+                            var imgSrc = $(this).find('input').val();
+                            $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
+                            console.log(imgSrc)
+                            console.log(rotateImg);
+                            // $.ajax({
+                            //     url: '',
+                            //     type: 'POST',
+                            //     data: {
+                            //         imgSrc: imgSrc,
+                            //         rotateImg: rotateImg
+                            //     },
+                            //     success: function(data){
+                            //         if (data.status == 'success')
+                            //         {
+                            //         console.log('YES')
+                                        
+                            //         }
+                        
+                            //     },
+                            //     error: function(error){
+                            //         console.log(error);
+                            //     }
+                            //     });
+                            });
+
+                            let checkboxList = $($('.checkboxList').get(checkCount++))
+                            checkboxList.last().append('<input type="checkbox" id="'+ json.data +'" class="filled-in primary-color" name="general photo" value="'+ json.data +'" ><label for="'+ json.data +'"></label><span>Main photo</span>');
+                            checkboxList.find('input').on('change', function(){
+                                if(this.checked) {
+                                var mainPhoto = $(this).val();
+                                console.log(mainPhoto)
+                                }
+                            });
+
+
+                            $( ".checkboxList input[type=checkbox]" ).each(function(  ) {
+                if(this.checked){
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                                other.attr('disabled', true);
+                                other.addClass('disable-by-current');
+                        }else {
+                                other.removeClass('disable-by-current');
+                                if (other.hasClass('disable-by-others')){
+                                        // can not disabled
+                                }else{
+                                        other.attr('disabled', false);
+                                }
+                        }
+
+                });
+
+                    $('.checkboxList input[type=checkbox]').each(function () {
+                            var tmpCurrent = $(this);
+                            var tmpParent = tmpCurrent.parent();
+                            var tmpIndex = tmpCurrent.index();
+                            var tmpChecked = tmpCurrent.prop('checked');
+
+                            // if not current div
+                            if (tmpParent.get(0) !== parent.get(0)) {
+                                    // common in other div
+                                    if (tmpIndex === index) {
+                                            if (checked){
+                                                    tmpCurrent.attr('disabled', true);
+                                                    tmpCurrent.addClass('disable-by-others');
+                                            }else{
+                                                    tmpCurrent.removeClass('disable-by-others');
+                                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                                            // can not disable
+                                                    }else {
+                                                            tmpCurrent.attr('disabled', false);
+                                                    }
+                                            }
+                                    }
+                            }
+
+                    });
+                }
+            });
+                            
+
+
+            $(function () {
+                var groups = $('.checkboxList');
+                $('body').on('change', '.checkboxList input[type=checkbox]', function () {
+
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                    current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                            other.attr('disabled', true);
+                            other.addClass('disable-by-current');
+                        }else {
+                            other.removeClass('disable-by-current');
+                            if (other.hasClass('disable-by-others')){
+                                // can not disabled
+                            }else{
+                                other.attr('disabled', false);
+                            }
+                        }
+
+                    });
+
+                    $('.checkboxList input[type=checkbox]').each(function () {
+                        var tmpCurrent = $(this);
+                        var tmpParent = tmpCurrent.parent();
+                        var tmpIndex = tmpCurrent.index();
+                        var tmpChecked = tmpCurrent.prop('checked');
+
+                        // if not current div
+                        if (tmpParent.get(0) !== parent.get(0)) {
+                            // common in other div
+                            if (tmpIndex === index) {
+                                if (checked){
+                                    tmpCurrent.attr('disabled', true);
+                                    tmpCurrent.addClass('disable-by-others');
+                                }else{
+                                    tmpCurrent.removeClass('disable-by-others');
+                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                        // can not disable
+                                    }else {
+                                        tmpCurrent.attr('disabled', false);
+                                    }
+                                }
+                            }
+                        }
+
+                    })
+                })
+            });
+
                     });
 
                     this.on('addedfile', function(file) {
