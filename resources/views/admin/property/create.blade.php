@@ -582,15 +582,15 @@
                         var selector = file._removeLink;
                         $(selector).attr('data-dz-remove', json.data);
                         $('.hidden-fields').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
-
-                        console.log(json.data);
-                        $('.rotate-btn').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
+                        
+                        $(file.previewElement).find('.rotate-btn').attr('data-file', json.data);
+                        $('.rotate-btn').append('<input type="hidden" value="'+ json.data +'">');
                         var rotateImg = 0;
 
-                        // $('.check-genetal-photo').append('<input type="checkbox" name="general-photo" id="'+ json.data +'"> <label for="'+ json.data +'">general-photo</label>');
+                        $('.check-genetal-photo').append('<input type="checkbox" name="general-photo" id="'+ json.data +'"> <label for="'+ json.data +'">general-photo</label>');
 
                         $('.rotate-btn').on('click', function () {
-                                // $(this).val(json.data)
+                                 $(this).val(json.data)
                             
                             if(rotateImg == 360){
                                 rotateImg = 0;

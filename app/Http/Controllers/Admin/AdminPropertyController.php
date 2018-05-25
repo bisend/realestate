@@ -24,6 +24,7 @@ class AdminPropertyController extends Controller
     private $validation_rules, $validation_messages;
     protected $languages;
     public function __construct(Request $request){
+        // dd($request->images);
         $this->validation_rules = [
             // 'business_hours.sat'      => 'business_hours',
             // 'business_hours.week'     => 'business_hours',
