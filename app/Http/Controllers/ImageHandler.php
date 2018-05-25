@@ -57,10 +57,9 @@ class ImageHandler extends Controller
     public function changeStatus(Request $request)
     {
         if($request->ajax()){
-            if(File::exists(public_path() . '/images/data/'. $request->imgSrc)){
-                $image = ImageModel::where('image', $request->imgSrc)->first();
-                $images = ImageModel::where('imageable_id', $image->imageable_id)->get();
-                $images->update(['status' => 0]);
+            if(File::exists(public_path() . '/images/data/'. $request->mainPhoto)){
+                $image = ImageModel::where('image', $request->mainPhoto);
+                $images = ImageModel::where('imageable_id', $image->first()->imageable_id)->update(['status' => 0]);
                 $image->update(['status' => 1]);
                 return response()->json('Image status changed', 200);
             }

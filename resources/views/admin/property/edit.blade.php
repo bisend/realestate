@@ -2,6 +2,8 @@
 
 @section('title')
     <title>{{get_string('edit_property') . ' - ' . get_setting('site_name', 'site')}}</title>
+    <link href="/realstate/assets/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" media="screen">
+
 @endsection
 
 @section('content')
@@ -620,6 +622,7 @@
                             this.emit("addedfile", mockFile);
                             this.createThumbnailFromUrl(mockFile, '/images/data/{{ $image->image }}');
                             this.emit("success", mockFile);
+                        
                         $('.hidden-fields').append('<input type="hidden" name="images[]" value="{{ $image->image }}">');
 
                         var rot = $($('.rotate-btn').get(imgCount++))
@@ -660,7 +663,7 @@
                         });
 
                             var checkboxList = $($('.checkboxList').get(checkCount++))
-                            checkboxList.last().append('<input type="checkbox" id="{{ $image->image }}" class="filled-in primary-color" name="general photo" value="{{ $image->image }}" ><label for="{{ $image->image }}"></label><span>Main photo</span>');
+                            checkboxList.last().append('<input type="checkbox" id="{{ $image->image }}" {{ $image->status == 1 ? "checked" : "" }} class="filled-in primary-color" name="general photo" value="{{ $image->image }}" ><label for="{{ $image->image }}"></label><span>Main photo</span>');
                             
                             checkboxList.find('input').on('change', function(){
                                 if(this.checked) {
@@ -669,7 +672,7 @@
                                 console.log($('#main-photo').val())
                                 console.log(mainPhoto)
                                 $.ajax({
-                                    url: '{{url('/image_handler/rotate')}}',
+                                    url: '{{url('/image_handler/status')}}',
                                     type: 'POST',
                                     data: {
                                         _token: $('[name="_token"]').val(),
@@ -841,14 +844,13 @@
                             checkboxList.last().append('<input type="checkbox" id="'+ json.data +'" class="filled-in primary-color" name="general photo" value="'+ json.data +'" ><label for="'+ json.data +'"></label><span>Main photo</span>');
                             checkboxList.find('input').on('change', function(){
                                 if(this.checked) {
-                                
-                                var mainPhoto = $(this).val();
-                                $('#main-photo').val(mainPhoto);
-                                console.log($('#main-photo').val())
-                            } else {
-                                $('#main-photo').val('');
-                                console.log($('#main-photo').val())
-                            }
+                                    var mainPhoto = $(this).val();
+                                    $('#main-photo').val(mainPhoto);
+                                    console.log($('#main-photo').val())
+                                } else {
+                                    $('#main-photo').val('');
+                                    console.log($('#main-photo').val())
+                                }
                             });
 
 

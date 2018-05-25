@@ -169,7 +169,7 @@ class AdminPropertyController extends Controller
                     'imageable_id' => $property->id,
                     'imageable_type' => 'App\Models\Admin\Property',
                     'status' => isset($request['main_photo']) && $request['main_photo'] == $image ? 1 : 0,
-                    ]);
+                ]);
             }
         }
 
@@ -296,7 +296,12 @@ class AdminPropertyController extends Controller
             $old_images = $old_images->toArray();
             foreach($request->images as $image){
                 if(!in_array($image, $old_images)){
-                    Image::create(['image' => $image, 'imageable_id' => $property->id, 'imageable_type' => 'App\Models\Admin\Property']);
+                    Image::create([
+                        'image' => $image,
+                        'imageable_id' => $property->id,
+                        'imageable_type' => 'App\Models\Admin\Property',
+                        'status' => isset($request['main_photo']) && $request['main_photo'] == $image ? 1 : 0,
+                    ]);                
                 }
             }
         }
