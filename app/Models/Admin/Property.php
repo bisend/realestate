@@ -101,4 +101,17 @@ class Property extends Model
     public function getUpdatedAtAttribute($date){
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
     }
+
+    public function getImageByStatusAttribute()
+    {
+        if ($this->images->isNotEmpty()) {
+            foreach($this->images as $image) {
+                if ($image->status == 1) {
+                    return asset('images/data').'/'.$image->image;
+                }
+            }
+            return asset('images/data').'/'.$this->images->first()->image;
+        }
+        return asset('images/no_image.jpg');
+    }
 }

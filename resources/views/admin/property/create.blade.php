@@ -120,6 +120,7 @@
                             </div>
                             <div class="fallback">
                             </div>
+                            <input type="hidden" id="main-photo" name="main_photo">
                         </div>
                     </div>
                     <!-- <div class="col s12">
@@ -604,49 +605,48 @@
                         $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
                         console.log(imgSrc)
                         console.log(rotateImg);
+                        rot.hide();
                         $.ajax({
-                            url: '',
+                            url: '{{url('/image_handler/rotate')}}',
                             type: 'POST',
                             data: {
+                                _token: $('[name="_token"]').val(),
                                 imgSrc: imgSrc,
                                 rotateImg: rotateImg
                             },
-                            success: function(data){
-                                if (data.status == 'success')
-                                {
-                                console.log('YES')
-                                    
-                                }
-                    
+                            success: function(msg){
+                                rot.show();
+                                toastr.success(msg);
                             },
-                            error: function(error){
-                                console.log(error);
+                            error:function(msg){
+                                toastr.error(msg.responseJSON);
                             }
-                            });
+                        });
                         });
 
                         checkboxList.find('input').on('change', function(){
                             if(this.checked) {
-                               var mainPhoto = $(this).val();
+                                
+                                var mainPhoto = $(this).val();
+                                $('#main-photo').val(mainPhoto);
+                                console.log($('#main-photo').val())
                             //    console.log(mainPhoto)
-                                $.ajax({
-                                    url: '',
-                                    type: 'POST',
-                                    data: {
-                                        mainPhoto: mainPhoto
-                                    },
-                                    success: function(data){
-                                        if (data.status == 'success')
-                                        {
-                                        console.log('YES')
-                                            
-                                        }
-                            
-                                    },
-                                    error: function(error){
-                                        console.log(error);
-                                    }
-                                });
+                                // $.ajax({
+                                //     url: '{{url('/image_handler/status')}}',
+                                //     type: 'POST',
+                                //     data: {
+                                //         mainPhoto: mainPhoto
+                                //     },
+                                //     success: function(msg){
+                                //         toastr.success(msg);
+                                //     },
+                                //     error:function(msg){
+                                //         toastr.error(msg.responseJSON);
+                                //     }
+                                // });
+                            } else {
+                                $('#main-photo').val('');
+                                console.log($('#main-photo').val())
                             }
                         });
 
@@ -654,28 +654,28 @@
                             var groups = $('.checkboxList');
                             $('body').on('change', '.checkboxList input[type=checkbox]', function () {
 
-                    var current = $(this);
-                    var parent = current.parent();
-                    var index = current.index();
-                    var checked = current.prop('checked');
+                            var current = $(this);
+                            var parent = current.parent();
+                            var index = current.index();
+                            var checked = current.prop('checked');
 
-                    // disable others in current div
-                    current.siblings().each(function () {
-                        var other = $(this);
+                            // disable others in current div
+                            current.siblings().each(function () {
+                                var other = $(this);
 
-                        if (checked){
-                            other.attr('disabled', true);
-                            other.addClass('disable-by-current');
-                        }else {
-                            other.removeClass('disable-by-current');
-                            if (other.hasClass('disable-by-others')){
-                                // can not disabled
-                            }else{
-                                other.attr('disabled', false);
-                            }
-                        }
+                                if (checked){
+                                    other.attr('disabled', true);
+                                    other.addClass('disable-by-current');
+                                }else {
+                                    other.removeClass('disable-by-current');
+                                    if (other.hasClass('disable-by-others')){
+                                        // can not disabled
+                                    }else{
+                                        other.attr('disabled', false);
+                                    }
+                                }
 
-                    });
+                            });
 
                     $('.checkboxList input[type=checkbox]').each(function () {
                         var tmpCurrent = $(this);
@@ -761,7 +761,7 @@
             });
 
 
-                    });
+        });
 
                     this.on('addedfile', function(file) {
 

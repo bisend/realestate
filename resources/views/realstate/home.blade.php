@@ -13,7 +13,7 @@
     <div class="slider slider-simple slider-advanced">
 
     @foreach($slider as $slide)     
-      <div class="slide" style="background-image: url('{{ isset($slide->images->first()->image) ? URL::asset('images/data').'/'.$slide->images->first()->image : URL::asset('images/no_image.jpg')}}')">
+      <div class="slide" style="background-image: url('{{ $slide->imageByStatus }}')">
         <div class="img-overlay black"></div>
         <div class="container">
           <div class="slide-price">₤250,000</div>
@@ -226,7 +226,7 @@
                             <div class="property-price">₤{{ $sales_property->prices['service_charge'] }}</div>
                             <div class="property-color-bar"></div>
                             <div class="prop-img-home">
-                                <img src="{{ isset($sales_property->images->first()->image) ? URL::asset('images/data').'/'.$sales_property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+                                <img src="{{ $sales_property->imageByStatus }}" alt="" />
                             </div>
                         </a>
                         <div class="property-content">
@@ -271,7 +271,7 @@
                         </div>
                         <div class="property-color-bar"></div>
                         <div class="prop-img-home">
-                            <img src="{{ isset($rentals_property->images->first()->image) ? URL::asset('images/data').'/'.$rentals_property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+                            <img src="{{ $rentals_property->imageByStatus }}" alt="" />
                         </div>
                         </a>
                         <div class="property-content">

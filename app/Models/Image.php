@@ -11,7 +11,7 @@ class Image extends Model
 
     // Allow columns to be filled with data
     protected $fillable = [
-        'image', 'imageable_id', 'imageable_type',
+        'image', 'imageable_id', 'imageable_type', 'status',
     ];
 
 
