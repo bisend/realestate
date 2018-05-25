@@ -564,6 +564,9 @@
             });
         });
 
+        var imgCount = 0;
+        var checkCount = 0;
+
         $(document).ready(function(){
             Dropzone.autoDiscover = false;
             $('#file-dropzone').dropzone({
@@ -577,20 +580,22 @@
                 parallelUploads: 1,
                 maxFiles: 6,
                 init: function() {
-
+                    
                     this.on('success', function(file, json) {
                         var selector = file._removeLink;
                         $(selector).attr('data-dz-remove', json.data);
                         $('.hidden-fields').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
+                        
+                        let rot = $($('.rotate-btn').get(imgCount++))
+                        
+                        let checkboxList = $($('.checkboxList').get(checkCount++))
 
-                        console.log(json.data);
-                        $('.rotate-btn').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
+                        checkboxList.last().append('<input type="checkbox" id="'+ json.data +'" class="filled-in primary-color" name="general photo" value="'+ json.data +'" ><label for="'+ json.data +'"></label><span>Main photo</span>');
+                                               
+                        rot.last().append('<input type="hidden" value="'+ json.data +'">');
                         var rotateImg = 0;
 
-                        // $('.check-genetal-photo').append('<input type="checkbox" name="general-photo" id="'+ json.data +'"> <label for="'+ json.data +'">general-photo</label>');
-
-                        $('.rotate-btn').on('click', function () {
-                                // $(this).val(json.data)
+                        rot.on('click', function () {
                         if(rotateImg == 360){
                             rotateImg = 0;
                             }
@@ -619,116 +624,141 @@
                             }
                             });
                         });
-                        
-            //             $(function () {
-            //                 var groups = $('.checkbox-group-sale');
-            //                 $('body').on('change', '.checkbox-group-sale input[type=checkbox]', function () {
 
-            //         var current = $(this);
-            //         var parent = current.parent();
-            //         var index = current.index();
-            //         var checked = current.prop('checked');
+                        checkboxList.find('input').on('change', function(){
+                            if(this.checked) {
+                               var mainPhoto = $(this).val();
+                            //    console.log(mainPhoto)
+                                $.ajax({
+                                    url: '',
+                                    type: 'POST',
+                                    data: {
+                                        mainPhoto: mainPhoto
+                                    },
+                                    success: function(data){
+                                        if (data.status == 'success')
+                                        {
+                                        console.log('YES')
+                                            
+                                        }
+                            
+                                    },
+                                    error: function(error){
+                                        console.log(error);
+                                    }
+                                });
+                            }
+                        });
 
-            //         // disable others in current div
-            //         current.siblings().each(function () {
-            //             var other = $(this);
+                        $(function () {
+                            var groups = $('.checkboxList');
+                            $('body').on('change', '.checkboxList input[type=checkbox]', function () {
 
-            //             if (checked){
-            //                 other.attr('disabled', true);
-            //                 other.addClass('disable-by-current');
-            //             }else {
-            //                 other.removeClass('disable-by-current');
-            //                 if (other.hasClass('disable-by-others')){
-            //                     // can not disabled
-            //                 }else{
-            //                     other.attr('disabled', false);
-            //                 }
-            //             }
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
 
-            //         });
+                    // disable others in current div
+                    current.siblings().each(function () {
+                        var other = $(this);
 
-            //         $('.checkbox-group-sale input[type=checkbox]').each(function () {
-            //             var tmpCurrent = $(this);
-            //             var tmpParent = tmpCurrent.parent();
-            //             var tmpIndex = tmpCurrent.index();
-            //             var tmpChecked = tmpCurrent.prop('checked');
+                        if (checked){
+                            other.attr('disabled', true);
+                            other.addClass('disable-by-current');
+                        }else {
+                            other.removeClass('disable-by-current');
+                            if (other.hasClass('disable-by-others')){
+                                // can not disabled
+                            }else{
+                                other.attr('disabled', false);
+                            }
+                        }
 
-            //             // if not current div
-            //             if (tmpParent.get(0) !== parent.get(0)) {
-            //                 // common in other div
-            //                 if (tmpIndex === index) {
-            //                     if (checked){
-            //                         tmpCurrent.attr('disabled', true);
-            //                         tmpCurrent.addClass('disable-by-others');
-            //                     }else{
-            //                         tmpCurrent.removeClass('disable-by-others');
-            //                         if (tmpCurrent.hasClass('disable-by-current')){
-            //                             // can not disable
-            //                         }else {
-            //                             tmpCurrent.attr('disabled', false);
-            //                         }
-            //                     }
-            //                 }
-            //             }
+                    });
 
-            //         })
-            //     })
-            // });
+                    $('.checkboxList input[type=checkbox]').each(function () {
+                        var tmpCurrent = $(this);
+                        var tmpParent = tmpCurrent.parent();
+                        var tmpIndex = tmpCurrent.index();
+                        var tmpChecked = tmpCurrent.prop('checked');
 
-            // $(function () {
-            //     var groups = $('.check-genetal-photo');
-            //     $('body').on('change', '.check-genetal-photo input[type=checkbox]', function () {
+                        // if not current div
+                        if (tmpParent.get(0) !== parent.get(0)) {
+                            // common in other div
+                            if (tmpIndex === index) {
+                                if (checked){
+                                    tmpCurrent.attr('disabled', true);
+                                    tmpCurrent.addClass('disable-by-others');
+                                }else{
+                                    tmpCurrent.removeClass('disable-by-others');
+                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                        // can not disable
+                                    }else {
+                                        tmpCurrent.attr('disabled', false);
+                                    }
+                                }
+                            }
+                        }
 
-            //         var current = $(this);
-            //         var parent = current.parent();
-            //         var index = current.index();
-            //         var checked = current.prop('checked');
+                    })
+                })
+            });
 
-            //         // disable others in current div
-            //         current.siblings().each(function () {
-            //             var other = $(this);
+            $(function () {
+                var groups = $('.checkboxList');
+                $('body').on('change', '.checkboxList input[type=checkbox]', function () {
 
-            //             if (checked){
-            //                 other.attr('disabled', true);
-            //                 other.addClass('disable-by-current');
-            //             }else {
-            //                 other.removeClass('disable-by-current');
-            //                 if (other.hasClass('disable-by-others')){
-            //                     // can not disabled
-            //                 }else{
-            //                     other.attr('disabled', false);
-            //                 }
-            //             }
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
 
-            //         });
+                    // disable others in current div
+                    current.siblings().each(function () {
+                        var other = $(this);
 
-            //         $('.check-genetal-photo input[type=checkbox]').each(function () {
-            //             var tmpCurrent = $(this);
-            //             var tmpParent = tmpCurrent.parent();
-            //             var tmpIndex = tmpCurrent.index();
-            //             var tmpChecked = tmpCurrent.prop('checked');
+                        if (checked){
+                            other.attr('disabled', true);
+                            other.addClass('disable-by-current');
+                        }else {
+                            other.removeClass('disable-by-current');
+                            if (other.hasClass('disable-by-others')){
+                                // can not disabled
+                            }else{
+                                other.attr('disabled', false);
+                            }
+                        }
 
-            //             // if not current div
-            //             if (tmpParent.get(0) !== parent.get(0)) {
-            //                 // common in other div
-            //                 if (tmpIndex === index) {
-            //                     if (checked){
-            //                         tmpCurrent.attr('disabled', true);
-            //                         tmpCurrent.addClass('disable-by-others');
-            //                     }else{
-            //                         tmpCurrent.removeClass('disable-by-others');
-            //                         if (tmpCurrent.hasClass('disable-by-current')){
-            //                             // can not disable
-            //                         }else {
-            //                             tmpCurrent.attr('disabled', false);
-            //                         }
-            //                     }
-            //                 }
-            //             }
+                    });
 
-            //         })
-            //     })
-            // });
+                    $('.checkboxList input[type=checkbox]').each(function () {
+                        var tmpCurrent = $(this);
+                        var tmpParent = tmpCurrent.parent();
+                        var tmpIndex = tmpCurrent.index();
+                        var tmpChecked = tmpCurrent.prop('checked');
+
+                        // if not current div
+                        if (tmpParent.get(0) !== parent.get(0)) {
+                            // common in other div
+                            if (tmpIndex === index) {
+                                if (checked){
+                                    tmpCurrent.attr('disabled', true);
+                                    tmpCurrent.addClass('disable-by-others');
+                                }else{
+                                    tmpCurrent.removeClass('disable-by-others');
+                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                        // can not disable
+                                    }else {
+                                        tmpCurrent.attr('disabled', false);
+                                    }
+                                }
+                            }
+                        }
+
+                    })
+                })
+            });
 
 
                     });

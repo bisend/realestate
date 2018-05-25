@@ -18,11 +18,27 @@
     cursor: pointer;
 }
 
-.check-genetal-photo{
+.checkboxList{
     position: absolute;
     top: -26px;
     width: 100%;
     left: 10px;
+    z-index: 1;
+}
+
+.checkboxList span{
+    margin-left: 10px;
+}
+
+
+
+.check-genetal-photo label{
+    z-index: 9999;
+}
+
+.radio-check{
+    z-index: 9999;
+    top: -100px;
 }
 
 /* .rotate-btn:before {
