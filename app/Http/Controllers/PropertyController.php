@@ -62,7 +62,7 @@ class PropertyController extends Controller
             $last_posts = Blog::with(['contentload' => function($query) use($default_language){
                 $query->where('language_id', $default_language->id);
             }])->where('status', 1)->orderBy('created_at', 'desc')->take(3)->get();
-            $properties = Property::where('status', 1)->get();
+            $properties = Property::where('status', 1)->where('id', '!=', $mainProperty->id)->get();
             $related_properties = $properties->each(function ($value) use($mainProperty) {
                 return $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE) && $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE);
             })->take(Property::RELATED_PROPERTIES_COUNT);

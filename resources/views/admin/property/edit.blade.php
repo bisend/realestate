@@ -613,7 +613,7 @@
                 addRemoveLinks: true,
                 maxfilesize: 1,
                 parallelUploads: 1,
-                maxFiles: 6,
+                maxFiles: 10,
                 init: function() {
 
                     @if($property->images)
@@ -679,7 +679,7 @@
                                         mainPhoto: mainPhoto
                                     },
                                     success: function(msg){
-                                        toastr.success(msg);
+                                        //toastr.success(msg);
                                     },
                                     error:function(msg){
                                         toastr.error(msg.responseJSON);

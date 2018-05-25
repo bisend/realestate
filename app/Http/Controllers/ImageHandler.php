@@ -31,6 +31,11 @@ class ImageHandler extends Controller
             if(!File::exists(public_path() . '/images/data/'. $date)){
                 File::makeDirectory(public_path() . '/images/data/'. $date, 0755, true);
             }
+            $watermarkPath = public_path('/images/watermark.png');
+            if(File::exists($watermarkPath)) {
+                $watermark = Image::make($watermarkPath);
+                $img->insert($watermark, 'center');
+            }
             $img->save($path, 100);
             $data = $date .'/'. $name;
             return response()->json(['success' => get_string('image_uploaded'), 'data' => $data], 200);
