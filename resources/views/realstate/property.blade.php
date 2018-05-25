@@ -350,7 +350,9 @@ $('#datepicker').datepicker({
   var mapOptions = {
     zoom: {{ $mainProperty->location['geo_zoom'] }},
     scrollwheel: false,
-    center: new google.maps.LatLng({{ $mainProperty->location['geo_lon'] }}, {{ $mainProperty->location['geo_lat'] }})
+		center: new google.maps.LatLng({{ $mainProperty->location['geo_lon'] }}, {{ $mainProperty->location['geo_lat'] }}),
+		disableDefaultUI: true,
+		draggable: false
 	};
 </script>
 
