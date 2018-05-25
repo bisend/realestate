@@ -11,7 +11,6 @@
     </div>
 
     <div class="slider slider-simple slider-advanced">
-
     @foreach($slider as $slide)     
       <div class="slide" style="background-image: url('{{ $slide->imageByStatus }}')">
         <div class="img-overlay black"></div>
@@ -246,7 +245,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="center"><a href="#" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Sales</a></div>
+            <div class="center"><a href="{{ route('sale') }}" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Sales</a></div>
         </div>
 
         <div class="col-sm-12 col-md-6 col-lg-6 rentals-home-list">
@@ -291,7 +290,7 @@
                  </div>
                  @endforeach
             
-            <div class="center"><a href="#" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Rentals</a></div>
+            <div class="center"><a href="{{ route('rent') }}" class="button button-icon more-properties-btn btn-showMore-home"><i class="fa fa-angle-right"></i> View More Rentals</a></div>
             </div><!-- end row -->
         </div>
       </div> 

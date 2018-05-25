@@ -114,4 +114,13 @@ class Property extends Model
         }
         return asset('images/no_image.jpg');
     }
+
+    public function scopeSearchSale($query, $params)
+    {
+        ! empty($params['from']) && ! empty($params['to']) ? $query->whereHas('info', function ($q) use ($params) {
+            $q->minage($params['from'])->maxage($params['to']);
+        }) : false;
+        
+        return $query;
+    }
 }

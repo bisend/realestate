@@ -579,7 +579,7 @@
                 addRemoveLinks: true,
                 maxfilesize: 1,
                 parallelUploads: 1,
-                maxFiles: 6,
+                maxFiles: 10,
                 init: function() {
                     
                     this.on('success', function(file, json) {

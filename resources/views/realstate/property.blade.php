@@ -282,8 +282,11 @@
 				</div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
-					  <p><strong>₤{{ $property->prices['month'] }}</strong> {{ $property->rentals == 1 ? 'Per Month' : '' }}</p>
-					</div>
+						@if($property->rentals == 1)
+						<p><strong>₤{{ $property->prices['month'] }}</strong> Per Month</p>
+						@elseif($property->sales == 1)
+						<p><strong>₤{{ $property->prices['service_charge'] }}</strong></p>
+						@endif					</div>
 				  </div>
 				</div>
 				@endforeach

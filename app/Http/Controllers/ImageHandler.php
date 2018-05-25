@@ -21,7 +21,6 @@ class ImageHandler extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request){
-
         if(null !== $request->file('file')) $file = $request->file('file');
         if ($request->ajax() && isset($file) && $file->isValid()) {
             $name = uniqid() . unique_string() .'.'. $file->getClientOriginalExtension();
@@ -32,7 +31,12 @@ class ImageHandler extends Controller
             if(!File::exists(public_path() . '/images/data/'. $date)){
                 File::makeDirectory(public_path() . '/images/data/'. $date, 0755, true);
             }
-            $img->save($path);
+            $watermarkPath = public_path('/images/watermark.png');
+            if(File::exists($watermarkPath)) {
+                $watermark = Image::make($watermarkPath);
+                $img->insert($watermark, 'center');
+            }
+            $img->save($path, 100);
             $data = $date .'/'. $name;
             return response()->json(['success' => get_string('image_uploaded'), 'data' => $data], 200);
         }else{
@@ -58,10 +62,9 @@ class ImageHandler extends Controller
     public function changeStatus(Request $request)
     {
         if($request->ajax()){
-            if(File::exists(public_path() . '/images/data/'. $request->imgSrc)){
-                $image = ImageModel::where('image', $request->imgSrc)->first();
-                $images = ImageModel::where('imageable_id', $image->imageable_id)->get();
-                $images->update(['status' => 0]);
+            if(File::exists(public_path() . '/images/data/'. $request->mainPhoto)){
+                $image = ImageModel::where('image', $request->mainPhoto);
+                $images = ImageModel::where('imageable_id', $image->first()->imageable_id)->update(['status' => 0]);
                 $image->update(['status' => 1]);
                 return response()->json('Image status changed', 200);
             }

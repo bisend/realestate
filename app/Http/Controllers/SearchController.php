@@ -90,4 +90,10 @@ class SearchController extends Controller
         return view('home.search', compact('services', 'static_data', 'default_language', 'featured_properties', 'featured_services',
             'services', 'properties'));
     }
+
+    public function searchSale(Request $request)
+    {
+        $properties = Property::searchSale()->paginate(Propety::GET_PROPERTIES);
+        return $properties;
+    }
 }

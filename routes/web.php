@@ -278,6 +278,7 @@ Route::post('/review', 'HomeController@review')->name('make_review');
 Route::get('/login', 'UserController@login')->name('login')->middleware('logged');
 Route::get('/activate-account', 'UserController@activateAccount')->name('activate_account');
 Route::post('/search', 'SearchController@index')->name('search');
+Route::post('/search/sale', 'SearchController@searchSale')->name('search-sale');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::post('/mail/sendcontact', 'EmailController@contact')->name('send_contact');
 Route::get('/blog', 'BlogController@index')->name('blog');
