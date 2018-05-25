@@ -54,10 +54,10 @@
 
     <div class="container">
       <div id="tabs-2" class="ui-tabs-hide">
-          <form class="select-search-form" method="get">
+          <form id="search-sale" class="select-search-form" method="post">
               <div class="filter-item filter-item-7">
                   <label>Property Type</label>
-                  <select name="property-type">
+                  <select id="search_sale-type" name="property-type">
                       <option value="">All</option>
                       <option value="1">Apartment</option>
                       <option value="2">Berth / Mooring</option>
@@ -74,7 +74,7 @@
       
                 <div class="filter-item filter-item-7">
                   <label>Location</label>
-                  <select name="property-type">
+                  <select id="search_sale-location" name="property-type">
                     <option value="">Any</option>
                     <option value="family-house">Family House</option>
                     <option value="apartment">Apartment</option>
@@ -84,7 +84,7 @@
       
                 <div class="filter-item filter-item-7">
                     <label>Beds</label>
-                    <select name="beds" id="property-beds">
+                    <select id="search_sale-beds" name="beds" id="property-beds">
                       <option value="">Any</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -101,7 +101,7 @@
       
                 <div class="filter-item filter-item-7">
                     <label>Price</label>
-                    <div class="slider-price">
+                    <div id="slider-price-sale" class="slider-price">
                         <div class="price-slider" id="price-slider"></div>
                         <div class="price-slider-values">
                           <span class="price-range-num" id="price-low-value-1"></span>
@@ -112,27 +112,27 @@
       
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>
-                  <input type="submit" class="button alt" value="Find Properties" />
+                  <input id="find-sale" type="submit" class="button alt" value="Find Properties" />
                 </div>
           </form>
-          <form class="prop-search-form" action="">
+          <form id="refer-sale-search" class="prop-search-form" method="post">
               <div class="filter-item filter-item-7">
                   <label>Search By Reference:</label>
-                  <input class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
+                  <input id="refer-val-sale" class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
                 </div>
     
               <div class="filter-item filter-item-7">
                 <label class="label-submit">Submit</label><br/>
-                <input type="submit" class="button alt" value="Find Properties" />
+                <input id="refer-find-btn" type="submit" class="button alt" value="Find Properties" />
               </div>
           </form>
       </div><!-- end tab 2 -->
 
       <div id="tabs-3" class="ui-tabs-hide">
-          <form class="select-search-form" method="get">
+          <form id="search-rent" class="select-search-form" method="post">
               <div class="filter-item filter-item-7">
                   <label>Property Type</label>
-                  <select name="property-type">
+                  <select id="search_rent-type" name="property-type">
                       <option value="">All</option>
                       <option value="1">Apartment</option>
                       <option value="2">Berth / Mooring</option>
@@ -149,7 +149,7 @@
       
                 <div class="filter-item filter-item-7">
                   <label>Location</label>
-                  <select name="property-type">
+                  <select id="search_rent-location" name="property-location">
                     <option value="">Any</option>
                     <option value="family-house">Family House</option>
                     <option value="apartment">Apartment</option>
@@ -159,7 +159,7 @@
       
                 <div class="filter-item filter-item-7">
                     <label>Beds</label>
-                    <select name="beds" id="property-beds">
+                    <select id="search_rent-beds" name="beds" id="property-beds">
                       <option value="">Any</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -176,7 +176,7 @@
       
                 <div class="filter-item filter-item-7">
                     <label>Price</label>
-                    <div class="slider-price">
+                    <div id="price-rent" class="slider-price">
                         <div class="price-slider" id="price-slider"></div>
                         <div class="price-slider-values">
                           <span class="price-range-num" id="price-low-value-1"></span>
@@ -187,18 +187,18 @@
       
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>
-                  <input type="submit" class="button alt" value="Find Properties" />
+                  <input id="find-rent-btn" type="submit" class="button alt" value="Find Properties" />
                 </div>
           </form>
-          <form class="prop-search-form" action="">
+          <form id="refer-rent-search" class="prop-search-form" method="post">
               <div class="filter-item filter-item-7">
                   <label>Search By Reference:</label>
-                  <input class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
+                  <input id="refer-val-rent" class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
                 </div>
     
               <div class="filter-item filter-item-7">
                 <label class="label-submit">Submit</label><br/>
-                <input type="submit" class="button alt" value="Find Properties" />
+                <input id="#refer-find-btn-rent" type="submit" class="button alt" value="Find Properties" />
               </div>
           </form>
       </div><!-- end tab 3 -->

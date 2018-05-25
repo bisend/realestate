@@ -58,10 +58,20 @@
 			<div class="widget widget-sidebar sidebar-properties advanced-search">
 			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
 			  <div class="widget-content box">
-				<form>
+				<form id="search-sale" method="post">
+
+				<div class="form-block border">
+					<label for="search_sale-type">Property Type</label>
+					<select id="search_sale-type" class="border">
+					  <option value="">Any</option>
+					  <option value="sale">For Sale</option>
+					  <option value="rent">For Rent</option>
+					</select>
+					</div>
+					
 				  <div class="form-block border">
-					<label for="property-location">Location</label>
-					<select id="property-location" class="border">
+					<label for="search_sale-location">Location</label>
+					<select id="search_sale-location" class="border">
 					  <option value="">Any</option>
 					  <option value="baltimore">Baltimore</option>
 					  <option value="ny">New York</option>
@@ -69,18 +79,10 @@
 					</select>
 				  </div>
 
-				  <div class="form-block border">
-					<label for="property-status">Property Type</label>
-					<select id="property-status" class="border">
-					  <option value="">Any</option>
-					  <option value="sale">For Sale</option>
-					  <option value="rent">For Rent</option>
-					</select>
-				  </div>
-
+				
 				  <div class="form-block border">
 						<label>Beds</label>
-						<select name="beds" id="property-beds" class="border">
+						<select name="beds" id="search_sale-beds" class="border">
 							<option value="">Any</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
@@ -97,11 +99,10 @@
 				  
 				  <div class="form-block">
 					<label>Price</label>
-					<div class="price-slider"></div>
+					<div id="slider-price-sale" class="price-slider"></div>
 				  </div>
-
 				  <div class="form-block">
-					<input type="submit" class="button" value="Find Properties" />
+					<input id="find-sale" type="submit" class="button" value="Find Properties" />
 				  </div>
 				</form>
 			  </div><!-- end widget content -->

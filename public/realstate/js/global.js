@@ -185,7 +185,7 @@ jQuery(document).ready(function($) {
 			format: wNumb({
 				decimals: 0,
 				thousand: ',',
-				prefix: '$',
+				prefix: '₤',
 			})
 		});
 

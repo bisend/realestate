@@ -113,6 +113,8 @@
 
 <script src="/realstate/js/contact-forms.js"></script>
 
+<script src="/realstate/js/searchSale.js"></script>
 
+<script src="/realstate/js/searchRent.js"></script>
 </body>
 </html>
