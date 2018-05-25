@@ -15,10 +15,10 @@ $('#find-sale').on('click', function (e) {
     console.log(type, location, beds, lower, upper)
 
     $.ajax({
-        url: '/request/registerinterest',
+        url: '/search/sale',
         type: 'POST',
         data: {
-            _token: token,
+            _token: $('[name="_token"]').val(),
             type: type,
             location: location,
             beds: beds,

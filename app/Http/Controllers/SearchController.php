@@ -93,7 +93,21 @@ class SearchController extends Controller
 
     public function searchSale(Request $request)
     {
-        $properties = Property::searchSale()->paginate(Propety::GET_PROPERTIES);
-        return $properties;
+        $properties = Property::where('status', 1);
+        if (isset($request->type)) {
+            $properties->where('category_id', $request->type);
+        }
+        if (isset($request->beds)) {
+            $properties->each(function ($value) use ($request) {
+                return $value->property_info['bedrooms'] == $request->beds;
+            });
+        }
+        if (isset($request->lower) && isset($request->upper)) {
+            $properties->each(function ($value) use ($request) {
+                return $value->prices['service_charge'] > $request->lower && $value->prices['service_charge'] < $request->upper;
+            });
+        }
+        $search_properties = $properties->get();
+        return view('realstate.sale', compact('static_data', 'search_properties'));
     }
 }
