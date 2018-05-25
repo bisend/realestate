@@ -21,7 +21,6 @@ class ImageHandler extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request){
-
         if(null !== $request->file('file')) $file = $request->file('file');
         if ($request->ajax() && isset($file) && $file->isValid()) {
             $name = uniqid() . unique_string() .'.'. $file->getClientOriginalExtension();
@@ -32,7 +31,7 @@ class ImageHandler extends Controller
             if(!File::exists(public_path() . '/images/data/'. $date)){
                 File::makeDirectory(public_path() . '/images/data/'. $date, 0755, true);
             }
-            $img->save($path);
+            $img->save($path, 100);
             $data = $date .'/'. $name;
             return response()->json(['success' => get_string('image_uploaded'), 'data' => $data], 200);
         }else{
