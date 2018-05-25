@@ -630,80 +630,66 @@
                                 var mainPhoto = $(this).val();
                                 $('#main-photo').val(mainPhoto);
                                 console.log($('#main-photo').val())
-                            //    console.log(mainPhoto)
-                                // $.ajax({
-                                //     url: '{{url('/image_handler/status')}}',
-                                //     type: 'POST',
-                                //     data: {
-                                //         mainPhoto: mainPhoto
-                                //     },
-                                //     success: function(msg){
-                                //         toastr.success(msg);
-                                //     },
-                                //     error:function(msg){
-                                //         toastr.error(msg.responseJSON);
-                                //     }
-                                // });
                             } else {
                                 $('#main-photo').val('');
                                 console.log($('#main-photo').val())
                             }
                         });
 
-                        $(function () {
-                            var groups = $('.checkboxList');
-                            $('body').on('change', '.checkboxList input[type=checkbox]', function () {
+                         $( ".checkboxList input[type=checkbox]" ).each(function(  ) {
+                            if(this.checked){
+                                var current = $(this);
+                                var parent = current.parent();
+                                var index = current.index();
+                                var checked = current.prop('checked');
 
-                            var current = $(this);
-                            var parent = current.parent();
-                            var index = current.index();
-                            var checked = current.prop('checked');
-
-                            // disable others in current div
+                                // disable others in current div
                             current.siblings().each(function () {
-                                var other = $(this);
+                                    var other = $(this);
 
-                                if (checked){
-                                    other.attr('disabled', true);
-                                    other.addClass('disable-by-current');
-                                }else {
-                                    other.removeClass('disable-by-current');
-                                    if (other.hasClass('disable-by-others')){
-                                        // can not disabled
-                                    }else{
-                                        other.attr('disabled', false);
+                                    if (checked){
+                                            other.attr('disabled', true);
+                                            other.addClass('disable-by-current');
+                                    }else {
+                                            other.removeClass('disable-by-current');
+                                            if (other.hasClass('disable-by-others')){
+                                                    // can not disabled
+                                            }else{
+                                                    other.attr('disabled', false);
+                                            }
                                     }
-                                }
 
                             });
 
-                    $('.checkboxList input[type=checkbox]').each(function () {
-                        var tmpCurrent = $(this);
-                        var tmpParent = tmpCurrent.parent();
-                        var tmpIndex = tmpCurrent.index();
-                        var tmpChecked = tmpCurrent.prop('checked');
+                            $('.checkboxList input[type=checkbox]').each(function () {
+                                    var tmpCurrent = $(this);
+                                    var tmpParent = tmpCurrent.parent();
+                                    var tmpIndex = tmpCurrent.index();
+                                    var tmpChecked = tmpCurrent.prop('checked');
 
-                        // if not current div
-                        if (tmpParent.get(0) !== parent.get(0)) {
-                            // common in other div
-                            if (tmpIndex === index) {
-                                if (checked){
-                                    tmpCurrent.attr('disabled', true);
-                                    tmpCurrent.addClass('disable-by-others');
-                                }else{
-                                    tmpCurrent.removeClass('disable-by-others');
-                                    if (tmpCurrent.hasClass('disable-by-current')){
-                                        // can not disable
-                                    }else {
-                                        tmpCurrent.attr('disabled', false);
+                                    // if not current div
+                                    if (tmpParent.get(0) !== parent.get(0)) {
+                                            // common in other div
+                                            if (tmpIndex === index) {
+                                                    if (checked){
+                                                            tmpCurrent.attr('disabled', true);
+                                                            tmpCurrent.addClass('disable-by-others');
+                                                    }else{
+                                                            tmpCurrent.removeClass('disable-by-others');
+                                                            if (tmpCurrent.hasClass('disable-by-current')){
+                                                                    // can not disable
+                                                            }else {
+                                                                    tmpCurrent.attr('disabled', false);
+                                                            }
+                                                    }
+                                            }
                                     }
-                                }
-                            }
-                        }
 
-                    })
-                })
-            });
+                            });
+                        }
+                    });
+                            
+
 
             $(function () {
                 var groups = $('.checkboxList');
