@@ -661,7 +661,7 @@ class AdminPropertyController extends Controller
     {
         if($request->ajax()) {
             $properties = Property::where('slider', 1)->get();
-            if ($properties->count() >= Property::SLIDER_COUNT) {
+            if ($properties->count() >= Property::SLIDER_COUNT && $request->value) {
                 return response()->json('You can not add more '.Property::SLIDER_COUNT.' items', 400);
             }
             $property = Property::findOrFail($id);
