@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\Category;
 use App\Models\Admin\Blog;
 use App\Models\Admin\Property;
 use App\Models\Admin\Review;
@@ -61,9 +62,11 @@ class HomeController extends Controller
         $slider = Property::with(['images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('slider', 1)->take(5)->get();
+
+        $categories = Category::get();
         // Returning the View
         return view('realstate.home', compact('posts', 'default_language',
-            'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider'));
+            'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider', 'categories'));
     }
 
     // Contact page

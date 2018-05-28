@@ -12,27 +12,55 @@ $('#find-sale').on('click', function (e) {
     var lower = $('#slider-price-sale .noUi-handle-lower .noUi-tooltip').html();
     var upper = $('#slider-price-sale .noUi-handle-upper .noUi-tooltip').html();
 
+    var urlFilters = '/sale?';
+
     console.log(type, location, beds, lower, upper)
 
-    $.ajax({
-        url: '/search/sale',
-        type: 'POST',
-        data: {
-            _token: $('[name="_token"]').val(),
-            type: type,
-            location: location,
-            beds: beds,
-            lower: lower,
-            upper: upper
-        },
-        success: function(data){
+    var filters = [];
 
-
-        },
-        error: function(error){
-
+     if(type !== '' ){
+         var t = {
+             name: 'type',
+             val: type
+         }
+        filters.push(t);
+    }
+    if(location !== ''){
+        var l = {
+            name: 'location',
+            val: location
         }
+       filters.push(l);
+    }
+    if(beds !== ''){
+        var b = {
+            name: 'beds',
+            val: beds
+        }
+       filters.push(b);
+    }
+    if(lower !== ''){
+        var lprice = {
+            name: 'lower',
+            val: lower.replace('₤', '').replace(',', '')
+        }
+       filters.push(lprice);
+    }
+    if(upper !== ''){
+        var uprice = {
+            name: 'upper',
+            val: upper.replace('₤', '').replace(',', '')
+        }
+       filters.push(uprice);
+    }
+    // console.log(filters)
+
+    filters.forEach(function(item){
+        urlFilters += item.name+'='+item.val+'&';
     });
+    console.log(urlFilters)
+    window.location.href = urlFilters;
+    
 })
 
 // refer-sale-search
@@ -45,21 +73,12 @@ $('#refer-find-btn').on('click', function (e) {
     var referValSale = $('#refer-val-sale').val();
     console.log(referValSale)
 
+    var urlFiltersRef = '/property/';
 
-    $.ajax({
-        url: '',
-        type: 'POST',
-        data: {
-            _token: token,
-            referValSale: referValSale
-        },
-        success: function(data){
-
-
-        },
-        error: function(error){
-
-        }
-    });
+    if(referValSale !== ''){
+        urlFiltersRef += referValSale
+        console.log(urlFiltersRef)
+        window.location.href = urlFiltersRef;
+    }
     
 })

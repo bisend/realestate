@@ -18,46 +18,69 @@
 		
 			<div class="row">
 
-      @foreach($properties as $property)
-				<div class="col-lg-6 col-md-6">
-					<div class="property shadow-hover">
-					<a href="/property/{{$property->alias}}" class="property-img">
-							<div class="img-fade"></div>
-							<div class="property-tag lable-rent featured">Rent</div>
-							
-							<div class="property-price">
-                <div>
-								₤{{ $property->prices['month'] }} <span>Per Month</span>
-                </div>
-								<div class="price-perWeek">
-								₤{{ $property->prices['week'] }} <span>Per  Week</span>
+			@if(isset($search_properties))
+				@foreach($search_properties as $property)
+					<div class="col-lg-6 col-md-6">
+						<div class="property shadow-hover">
+						<a href="/property/{{$property->alias}}" class="property-img">
+								<div class="img-fade"></div>
+								<div class="property-tag lable-rent featured">Rent</div>
+								<div class="property-price">₤{{ $property->prices['service_charge'] }}</div>
+								<div class="property-color-bar"></div>
+								<div class="prop-img-home prop-img-home-rent-sale">
+										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
 								</div>
-              </div>
-
-
-							<!-- <div class="property-price">${{ $property->prices['month'] }} Per Month</div> -->
-							<div class="property-color-bar"></div>
-							<div class="prop-img-home prop-img-home-rent-sale">
-									<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+						</a>
+						<div class="property-content">
+								<div class="property-title">
+								<h4><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h4>
+								</div>
+								<table class="property-details property-details-grid">
+								<tr>
+										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
+										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
+										<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
+								</tr>
+								</table>
 							</div>
-					</a>
-					<div class="property-content">
-							<div class="property-title">
-							<h4><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h4>
-							</div>
-							<table class="property-details property-details-grid">
-							<tr>
-									<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
-									<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
-									<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
-									<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
-							</tr>
-							</table>
 						</div>
 					</div>
-				</div>
-      @endforeach
-			{{$properties->links()}}
+				@endforeach
+			
+			@else
+			@if(isset($properties))
+				@foreach($properties as $property)
+					<div class="col-lg-6 col-md-6">
+						<div class="property shadow-hover">
+						<a href="/property/{{$property->alias}}" class="property-img">
+								<div class="img-fade"></div>
+								<div class="property-tag lable-rent featured">Rent</div>
+								<div class="property-price">₤{{ $property->prices['service_charge'] }}</div>
+								<div class="property-color-bar"></div>
+								<div class="prop-img-home prop-img-home-rent-sale">
+										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+								</div>
+						</a>
+						<div class="property-content">
+								<div class="property-title">
+								<h4><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h4>
+								</div>
+								<table class="property-details property-details-grid">
+								<tr>
+										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
+										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
+										<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				@endforeach
+				{{$properties->links()}}
+			@endif
+		@endif
 			</div><!-- end row -->
 			
 			
@@ -74,8 +97,11 @@
 					<label for="property-status">Property Type</label>
 					<select id="search_rent-type" class="border">
 					  <option value="">Any</option>
-					  <option value="sale">For Sale</option>
-					  <option value="rent">For Rent</option>
+					  @if(isset($categories))
+							@foreach($categories as $category)
+									<option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
+							@endforeach
+						@endif
 					</select>
 					</div>
 					

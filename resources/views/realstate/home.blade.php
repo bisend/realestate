@@ -53,27 +53,22 @@
 
     <div class="container">
       <div id="tabs-2" class="ui-tabs-hide">
-          <form id="search-sale" class="select-search-form" method="post">
+          <form id="search-sale" class="select-search-form">
               <div class="filter-item filter-item-7">
                   <label>Property Type</label>
                   <select id="search_sale-type" name="property-type">
                       <option value="">All</option>
-                      <option value="1">Apartment</option>
-                      <option value="2">Berth / Mooring</option>
-                      <option value="3">Building Plot</option>
-                      <option value="4">Hotel</option>
-                      <option value="5">Penthouse</option>
-                      <option value="6">Restaurant</option>
-                      <option value="7">Rural Land</option>
-                      <option value="8">Townhouse</option>
-                      <option value="9">Villa</option>
-                      <option value="10">Village House</option>
+                      @if(isset($categories))
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
+                        @endforeach
+                      @endif
                   </select>
                 </div>
       
                 <div class="filter-item filter-item-7">
                   <label>Location</label>
-                  <select id="search_sale-location" name="property-type">
+                  <select id="search_sale-location" name="location">
                     <option value="">Any</option>
                     <option value="family-house">Family House</option>
                     <option value="apartment">Apartment</option>
@@ -106,12 +101,13 @@
                           <span class="price-range-num" id="price-low-value-1"></span>
                           <span class="price-range-num right" id="price-high-value-1"></span>
                       </div>
+                      <span class="low-price"></span>
                     </div>
                 </div>
       
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>
-                  <input id="find-sale" type="submit" class="button alt" value="Find Properties" />
+                  <input type="submit" id="find-sale" class="button alt" value="Find Properties"/>
                 </div>
           </form>
           <form id="refer-sale-search" class="prop-search-form" method="post">
@@ -133,16 +129,11 @@
                   <label>Property Type</label>
                   <select id="search_rent-type" name="property-type">
                       <option value="">All</option>
-                      <option value="1">Apartment</option>
-                      <option value="2">Berth / Mooring</option>
-                      <option value="3">Building Plot</option>
-                      <option value="4">Hotel</option>
-                      <option value="5">Penthouse</option>
-                      <option value="6">Restaurant</option>
-                      <option value="7">Rural Land</option>
-                      <option value="8">Townhouse</option>
-                      <option value="9">Villa</option>
-                      <option value="10">Village House</option>
+                      @if(isset($categories))
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
+                        @endforeach
+                      @endif
                   </select>
                 </div>
       
@@ -192,12 +183,12 @@
           <form id="refer-rent-search" class="prop-search-form" method="post">
               <div class="filter-item filter-item-7">
                   <label>Search By Reference:</label>
-                  <input id="refer-val-rent" class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
+                  <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
                 </div>
     
               <div class="filter-item filter-item-7">
                 <label class="label-submit">Submit</label><br/>
-                <input id="#refer-find-btn-rent" type="submit" class="button alt" value="Find Properties" />
+                <input id="refer-find-btn-rent" type="submit" class="button alt" value="Find Properties" />
               </div>
           </form>
       </div><!-- end tab 3 -->

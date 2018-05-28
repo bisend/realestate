@@ -31,7 +31,15 @@ class PropertyController extends Controller
         $default_language = $this->default_language;
         $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
             $query->where('language_id', $default_language->id);
-        }])->where('alias', $alias)->first();
+        }])->where('status', 1)->where('alias', $alias)->first();
+        if ( ! $property) {
+            $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
+                $query->where('language_id', $default_language->id);
+            }])->where('status', 1)->get()->filter(function($value) use($alias) {
+                return $value->property_info['property_reference'] == $alias;
+            })->first();
+        }
+
         $features = Feature::all();
 
         if ($property) {

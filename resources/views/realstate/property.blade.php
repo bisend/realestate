@@ -154,7 +154,7 @@
 					@foreach($related_properties as $property)
 					<div class="col-lg-6 col-md-6">
 						<div class="property shadow-hover">
-						<a href="#" class="property-img">
+						<a href="/property/{{$property->alias}}" class="property-img">
 								<div class="img-fade"></div>
 								@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 								<div class="property-tag lable-sale featured">Sale</div>
