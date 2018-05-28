@@ -93,6 +93,7 @@ class SearchController extends Controller
 
     public function searchSale(Request $request)
     {
+        $static_data = $this->static_data;
         $properties = Property::where('status', 1);
         if (isset($request->type)) {
             $properties->where('category_id', $request->type);
@@ -107,7 +108,8 @@ class SearchController extends Controller
                 return $value->prices['service_charge'] > $request->lower && $value->prices['service_charge'] < $request->upper;
             });
         }
-        $search_properties = $properties->get();
+        $search_properties = $properties->paginate(3);
+
         return view('realstate.sale', compact('static_data', 'search_properties'));
     }
 }

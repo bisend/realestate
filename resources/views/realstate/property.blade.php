@@ -15,19 +15,17 @@
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
 						<div class="property-price-single right"> ₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
+						<div class="property-price-single right">₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
 						<div class="property-price-single right"> ₤{{ $mainProperty->prices['service_charge'] }}<span> For Sale</span></div>
-					
+						<div class="property-price-single right">₤{{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
 						@elseif($mainProperty->rentals == 1)
 						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
 						<div class="property-price-single right"> ₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['service_charge'] }}<span> Per Month</span></div>
+						<div class="property-price-single right">₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
 						@elseif($mainProperty->sales == 1)
 						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
 						<div class="property-price-single right">₤{{ $mainProperty->prices['service_charge'] }}<span>Service Charge</span></div>
 						<div class="property-price-single right">₤{{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
-					
-
 						@endif
             <div class="clear"></div>
 					</div>
@@ -350,7 +348,9 @@ $('#datepicker').datepicker({
   var mapOptions = {
     zoom: {{ $mainProperty->location['geo_zoom'] }},
     scrollwheel: false,
-    center: new google.maps.LatLng({{ $mainProperty->location['geo_lon'] }}, {{ $mainProperty->location['geo_lat'] }})
+		center: new google.maps.LatLng({{ $mainProperty->location['geo_lon'] }}, {{ $mainProperty->location['geo_lat'] }}),
+		disableDefaultUI: true,
+		draggable: false
 	};
 </script>
 

@@ -384,11 +384,14 @@ class AdminPropertyController extends Controller
     public function makeFeaturedSale(Request $request, $id){
 
         if($request->ajax()) {
-            $properties = Property::where('featured_sale', 1)->get();
+            $properties = Property::where('sales', 1)->where('featured_sale', 1)->get();
             if ($properties->count() >= Property::FEATURED_COUNT) {
                 return response()->json('You can not add more '.Property::FEATURED_COUNT.' items', 400);
             }
             $property = Property::findOrFail($id);
+            if ($property->status == 0) {
+                return response()->json('You can not add this item, it sold', 400);
+            }
             $property->featured_sale = 1;
             $property->touch();
             $property->save();
@@ -417,7 +420,7 @@ class AdminPropertyController extends Controller
     public function makeFeaturedRent(Request $request, $id){
 
         if($request->ajax()) {
-            $properties = Property::where('featured_rent', 1)->get();
+            $properties = Property::where('rentals', 1)->where('featured_rent', 1)->get();
             if ($properties->count() >= Property::FEATURED_COUNT) {
                 return response()->json('You can not add more '.Property::FEATURED_COUNT.' items', 400);
             }
@@ -478,6 +481,11 @@ class AdminPropertyController extends Controller
         if($request->ajax()) {
             $property = Property::findOrFail($id);
             $property->status = 0;
+            $property->featured_rent = 0;
+            $property->featured_sale = 0;
+            $property->position_sale = 0;
+            $property->position_rent = 0;
+            $property->slider = 0;
             $property->touch();
             $property->save();
             return response()->json(get_string('success_deactivate'), 200);
@@ -657,6 +665,9 @@ class AdminPropertyController extends Controller
                 return response()->json('You can not add more '.Property::SLIDER_COUNT.' items', 400);
             }
             $property = Property::findOrFail($id);
+            if ($property->status == 0) {
+                return response()->json('You can not add this item, it sold', 400);
+            }
             $property->slider = $request->value;
             $property->touch();
             $property->save();

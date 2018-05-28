@@ -65,7 +65,7 @@
                         <td class="page-featured">{{$property->featured_sale ? get_string('yes') : get_string('no')}}</td>
                         <td>
                             @if($property->featured_sale)
-                            <div id="position-checkboxes{{$property->id}}" class="checkbox-group-sale">
+                            <div id="position-checkboxes-sale{{$property->id}}" class="checkbox-group-sale">
                                 @for($i = 1; $i <= 5; $i++)
                                 <input type="checkbox" id="{{ $i }}position-sale{{$property->id}}" class="filled-in primary-color change-position-sale" data-id="{{$property->id}}" name="first" value="{{ $i }}" {{ $property->position_sale == $i ? 'checked' : ''}}>
                                 <label for="{{ $i }}position-sale{{$property->id}}"></label>
@@ -74,7 +74,7 @@
                                 @endfor
                             </div>
                             @else
-                            <div id="position-checkboxes{{$property->id}}" class="checkbox-group-sale" style="display:none">
+                            <div id="position-checkboxes-sale{{$property->id}}" class="checkbox-group-sale" style="display:none">
                                 @for($i = 1; $i <= 5; $i++)
                                 <input type="checkbox" id="{{ $i }}position-sale{{$property->id}}" class="filled-in primary-color change-position-sale" data-id="{{$property->id}}" name="first" value="{{ $i }}">
                                 <label for="{{ $i }}position-sale{{$property->id}}"></label>
@@ -89,7 +89,10 @@
                             <label for="slider{{$property->id}}"></label>
                         </td>
                         <td>
-                            {{ $property->status ? 'active' : 'sold' }}
+                            <select name="status_sale" class="form-control status-sale" data-id="{{$property->id}}">
+                                <option value="1" class="activate-button" {{ $property->status == 1 ? 'selected' : '' }}>active</option>
+                                <option value="0" class="deactivate-button" {{ $property->status == 0 ? 'selected' : '' }}>sold</option>
+                            </select>
                         </td>
                         <td>
                             <div class="icon-options">
@@ -149,7 +152,7 @@
                         <td class="page-featured">{{$property->featured_rent ? get_string('yes') : get_string('no')}}</td>
                         <td>
                             @if($property->featured_rent)
-                            <div id="position-checkboxes{{$property->id}}" class="checkbox-group-rent">
+                            <div id="position-checkboxes-rent{{$property->id}}" class="checkbox-group-rent">
                                 @for($i = 1; $i <= 5; $i++)
                                 <input type="checkbox" id="{{ $i }}position-rent{{$property->id}}" class="filled-in primary-color change-position-rent" data-id="{{$property->id}}" name="first" value="{{ $i }}" {{ $property->position_rent == $i ? 'checked' : ''}}>
                                 <label for="{{ $i }}position-rent{{$property->id}}"></label>
@@ -158,7 +161,7 @@
                                 @endfor
                             </div>
                             @else
-                            <div id="position-checkboxes{{$property->id}}" class="checkbox-group-rent" style="display:none">
+                            <div id="position-checkboxes-rent{{$property->id}}" class="checkbox-group-rent" style="display:none">
                                 @for($i = 1; $i <= 5; $i++)
                                 <input type="checkbox" id="{{ $i }}position-rent{{$property->id}}" class="filled-in primary-color change-position-rent" data-id="{{$property->id}}" name="first" value="{{ $i }}" >
                                 <label for="{{ $i }}position-rent{{$property->id}}"></label>
@@ -173,7 +176,10 @@
                             <label for="slider{{$property->id}}"></label>
                         </td>
                         <td>
-                            {{ $property->status ? 'active' : 'sold' }}
+                            <select name="status_sale" class="form-control status-rent" data-id="{{$property->id}}">
+                                <option value="1" {{ $property->status == 1 ? 'selected' : '' }}>active</option>
+                                <option value="0" {{ $property->status == 0 ? 'selected' : '' }}>sold</option>
+                            </select>
                         </td>
                         <td>
                             <div class="icon-options">
@@ -287,14 +293,51 @@
                 });
             });
 
-            $('.deactivate-button').click(function(event){
+            $('.status-sale').on('change', function(event){
                 event.preventDefault();
                 var id = $(this).data('id');
                 var selector = $(this).parents('tr');
                 var thisBtn = $(this).parents('.icon-options');
                 var status = selector.children('.page-status');
                 var token = $('[name="_token"]').val();
-                bootbox.confirm({
+                var _this = $(this);
+                if ($(this).val() == 1) {
+                    bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: '{{get_string('activate_property_confirm')}}',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/property/activate/') }}/'+id,
+                                type: 'post',
+                                data: {_token :token},
+                                success:function(msg) {
+                                    thisBtn.children('.activate-button').addClass('hidden');
+                                    thisBtn.children('.deactivate-button').removeClass('hidden');
+                                    status.html('{{get_string('active')}}');
+                                    toastr.success(msg);
+                                },
+                                error:function(msg){
+                                    toastr.error(msg.responseJSON);
+                                }
+                            });
+                        }
+                    }
+                });
+                } else {
+                    bootbox.confirm({
                     title: '{{get_string('confirm_action')}}',
                     message: '{{get_string('deactivate_property_confirm')}}',
                     onEscape: true,
@@ -318,6 +361,10 @@
                                 success:function(msg) {
                                     thisBtn.children('.deactivate-button').addClass('hidden');
                                     thisBtn.children('.activate-button').removeClass('hidden');
+                                    _this.closest('tr').find('.make-default-sale-button').addClass('hidden');
+                                    _this.closest('tr').find('.make-featured-sale-button').removeClass('hidden');
+                                    _this.closest('tr').find('.slider-checkbox').removeAttr('checked');
+                                    $('#position-checkboxes-sale' + id).hide();
                                     status.html('{{get_string('pending')}}');
                                     toastr.success(msg);
                                 },
@@ -328,6 +375,94 @@
                         }
                     }
                 });
+                }
+                
+            });
+
+            $('.status-rent').on('change', function(event){
+                event.preventDefault();
+                var id = $(this).data('id');
+                var selector = $(this).parents('tr');
+                var thisBtn = $(this).parents('.icon-options');
+                var status = selector.children('.page-status');
+                var token = $('[name="_token"]').val();
+                var _this = $(this);
+                if ($(this).val() == 1) {
+                    bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: '{{get_string('activate_property_confirm')}}',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/property/activate/') }}/'+id,
+                                type: 'post',
+                                data: {_token :token},
+                                success:function(msg) {
+                                    thisBtn.children('.activate-button').addClass('hidden');
+                                    thisBtn.children('.deactivate-button').removeClass('hidden');
+                                    status.html('{{get_string('active')}}');
+                                    toastr.success(msg);
+                                },
+                                error:function(msg){
+                                    toastr.error(msg.responseJSON);
+                                }
+                            });
+                        }
+                    }
+                });
+                } else {
+                    bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: '{{get_string('deactivate_property_confirm')}}',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/property/deactivate/') }}/'+id,
+                                type: 'post',
+                                data: {_token :token},
+                                success:function(msg) {
+                                    thisBtn.children('.deactivate-button').addClass('hidden');
+                                    thisBtn.children('.activate-button').removeClass('hidden');
+                                    _this.closest('tr').find('.make-default-rent-button').addClass('hidden');
+                                    _this.closest('tr').find('.make-featured-rent-button').removeClass('hidden');
+                                    _this.closest('tr').find('.slider-checkbox').removeAttr('checked');
+                                    $('#position-checkboxes-rent' + id).hide();
+                                    status.html('{{get_string('pending')}}');
+                                    toastr.success(msg);
+                                },
+                                error:function(msg){
+                                    toastr.error(msg.responseJSON);
+                                }
+                            });
+                        }
+                    }
+                });
+                }
+                
             });
 
             $('.make-featured-sale-button').click(function(event){
@@ -361,7 +496,7 @@
                                 success:function(msg) {
                                     thisBtn.children('.make-featured-sale-button').addClass('hidden');
                                     thisBtn.children('.make-default-sale-button').removeClass('hidden');
-                                    $('#position-checkboxes' + id).show();
+                                    $('#position-checkboxes-sale' + id).show();
                                     status.html('{{get_string('yes')}}');
                                     toastr.success(msg);
                                 },
@@ -405,7 +540,7 @@
                                 success:function(msg) {
                                     thisBtn.children('.make-default-sale-button').addClass('hidden');
                                     thisBtn.children('.make-featured-sale-button').removeClass('hidden');
-                                    $('#position-checkboxes' + id).hide();
+                                    $('#position-checkboxes-sale' + id).hide();
                                     status.html('{{get_string('no')}}');
                                     toastr.success(msg);
                                 },
@@ -449,7 +584,7 @@
                                 success:function(msg) {
                                     thisBtn.children('.make-featured-rent-button').addClass('hidden');
                                     thisBtn.children('.make-default-rent-button').removeClass('hidden');
-                                    $('#position-checkboxes' + id).show();
+                                    $('#position-checkboxes-rent' + id).show();
                                     status.html('{{get_string('yes')}}');
                                     toastr.success(msg);
                                 },
@@ -493,7 +628,7 @@
                                 success:function(msg) {
                                     thisBtn.children('.make-default-rent-button').addClass('hidden');
                                     thisBtn.children('.make-featured-rent-button').removeClass('hidden');
-                                    $('#position-checkboxes' + id).hide();
+                                    $('#position-checkboxes-rent' + id).hide();
                                     status.html('{{get_string('no')}}');
                                     toastr.success(msg);
                                 },

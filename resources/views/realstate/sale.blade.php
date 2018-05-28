@@ -17,7 +17,38 @@
 		<div class="col-lg-8 col-md-8">
 		
 			<div class="row">
-
+			@if(isset($search_properties))
+				@foreach($search_properties as $property)
+					<div class="col-lg-6 col-md-6">
+						<div class="property shadow-hover">
+						<a href="/property/{{$property->alias}}" class="property-img">
+								<div class="img-fade"></div>
+								<div class="property-tag lable-sale featured">Sale</div>
+								<div class="property-price">₤{{ $property->prices['service_charge'] }}</div>
+								<div class="property-color-bar"></div>
+								<div class="prop-img-home prop-img-home-rent-sale">
+										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+								</div>
+						</a>
+						<div class="property-content">
+								<div class="property-title">
+								<h4><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h4>
+								</div>
+								<table class="property-details property-details-grid">
+								<tr>
+										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
+										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
+										<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
+								</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				@endforeach
+			{{$search_properties->links()}}
+			@else
+			@if(isset($properties))
       @foreach($properties as $property)
 				<div class="col-lg-6 col-md-6">
 					<div class="property shadow-hover">
@@ -47,8 +78,10 @@
 				</div>
       @endforeach
 			{{$properties->links()}}
+		@endif
+		@endif
 			</div><!-- end row -->
-			
+	
 		
 		
 		</div><!-- end listing -->
@@ -111,7 +144,7 @@
 			<div class="widget widget-sidebar recent-properties">
 			  <h4><span>Recent Properties</span> <img src="/realstate/images/divider-half.png" alt="" /></h4>
 			  <div class="widget-content">
-
+			@if(isset($recent_properties))
 				@foreach($recent_properties as $property)
 				<div class="recent-property">
 				  <div class="row">
@@ -127,6 +160,7 @@
 				  </div>
 				</div>
 				@endforeach
+			@endif
 
 			  </div><!-- end widget content -->
 			</div><!-- end widget -->
