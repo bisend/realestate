@@ -15,25 +15,55 @@ $('#find-rent-btn').on('click', function (e) {
 
     console.log(typeRent, locationRent, bedsRent, lowerRent, upperRent)
 
-    $.ajax({
-        url: '',
-        type: 'POST',
-        data: {
-            _token: token,
-            typeRent: typeRent,
-            locationRent: locationRent,
-            bedsRent: bedsRent,
-            lowerRent: lowerRent,
-            upperRent: upperRent
-        },
-        success: function(data){
+    var urlFilters = '/rent?';
 
+    // console.log(type, location, beds, lower, upper)
 
-        },
-        error: function(error){
+    var filters = [];
 
+     if(typeRent !== '' ){
+         var t = {
+             name: 'property-type',
+             val: typeRent
+         }
+        filters.push(t);
+    }
+    if(locationRent !== ''){
+        var l = {
+            name: 'location',
+            val: locationRent
         }
+       filters.push(l);
+    }
+    if(bedsRent !== ''){
+        var b = {
+            name: 'beds',
+            val: bedsRent
+        }
+       filters.push(b);
+    }
+    if(lowerRent !== ''){
+        var lprice = {
+            name: 'lower',
+            val: lowerRent.replace('₤', '')
+        }
+       filters.push(lprice);
+    }
+    if(upperRent !== ''){
+        var uprice = {
+            name: 'upper',
+            val: upperRent.replace('₤', '')
+        }
+       filters.push(uprice);
+    }
+    // console.log(filters)
+
+    filters.forEach(function(item){
+        urlFilters += item.name+'='+item.val+';';
     });
+    console.log(urlFilters)
+
+    window.location.href = urlFilters;
 })
 
 // refer-rent-search
@@ -42,23 +72,18 @@ $('#find-rent-btn').on('click', function (e) {
 
 $('#refer-find-btn-rent').on('click', function (e) {
     e.preventDefault();
+
     var referValrent = $('#refer-val-rent').val();
     console.log(referValrent)
 
-    $.ajax({
-        url: '',
-        type: 'POST',
-        data: {
-            _token: token,
-            referValrent: referValrent
-        },
-        success: function(data){
+    var urlFiltersRefRent = '/rent';
 
+    if(referValrent !== ''){
+        urlFiltersRefRent += '?refer='+referValrent
+        console.log(urlFiltersRefRent)
+        window.location.href = urlFiltersRefRent;
+    }
 
-        },
-        error: function(error){
-
-        }
-    });
 
 })
+

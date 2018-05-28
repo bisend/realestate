@@ -381,6 +381,30 @@ $( document ).ready(function() {
 	win.on('resize', checkWidth);
 	})
 
+	// $( ".noUi-handle-lower .noUi-tooltip" ).change(function() {
+	// 	console.log(1)
+	// });
+
+	// $('.noUi-handle-lower .noUi-tooltip').bind("DOMSubtreeModified",function(){
+	// 	console.log(2)
+	// });
+		
+
+	// $('.noUi-handle-lower .noUi-tooltip').bind("DOMSubtreeModified",function(){
+	// 	console.log(3)
+	//   })
+
+	//   jQuery(".noUi-handle-lower .noUi-tooltip").bind( 'DOMSubtreeModified',function(){ // отслеживаем изменение содержимого блока 2
+	// 	console.log(4)
+	// });
 
 
+	// var div = $('#slider-price-sale .noUi-handle-lower');
+	// div.on('click', function () {
+	// 	console.log(12311231321)
+	// 	console.log(this.innerHTML)
+	// })
+	// div.onchange = function(e){
+	// 	alert(this.innerHTML);
+	// };
 
