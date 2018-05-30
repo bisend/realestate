@@ -1488,6 +1488,8 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 .blog-post-content h3 a { font-weight:100; color:#3a464e; }
 .blog-post-content h3 a:hover { color:#6d458a; }
 
+
+
 .blog-post-creative { margin-bottom:30px; }
 .blog-post-creative h3 { font-size:23px; margin-top:15px; }
 .img-overlay {
