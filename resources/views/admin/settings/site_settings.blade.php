@@ -60,7 +60,7 @@
                             </label>
                             <input type="text" class="form-control" readonly>
                         </div>
-                        <div class="field-info">{{ get_string('upload_your_logo') }}  {{get_setting('site_logo', 'site')}}</div>
+                        <div class="field-info">{{ get_string('upload_your_logo') }}  {{get_setting('site_logo', 'site')}} (170px x 50px)</div>
                     </div>
                     <div class="col s12 mbot20">
                         <div class="input-group clearfix {{$errors->has('favicon') ? 'has-error' : ''}}">

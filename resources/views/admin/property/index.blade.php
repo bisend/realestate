@@ -85,8 +85,8 @@
                             @endif
                         </td>
                         <td class="icon-options">
-                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
-                            <label for="slider{{$property->id}}"></label>
+                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider-sale{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
+                            <label for="slider-sale{{$property->id}}"></label>
                         </td>
                         <td>
                             <select name="status_sale" class="form-control status-sale" data-id="{{$property->id}}">
@@ -172,8 +172,8 @@
                             @endif
                         </td>
                         <td class="icon-options">
-                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
-                            <label for="slider{{$property->id}}"></label>
+                            <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider-rent{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
+                            <label for="slider-rent{{$property->id}}"></label>
                         </td>
                         <td>
                             <select name="status_sale" class="form-control status-rent" data-id="{{$property->id}}">
