@@ -128,7 +128,7 @@ class HomeController extends Controller
                     $data['reference_name'] = $property_alias;
                 }
             }
-            $data['subject'] = 'Register Interest';
+            $data['subject'] = 'Register Interest Request from Findaproperty';
             if (RequestModel::create($data)) {
                 Mail::to(get_setting('contact_email', 'site'))->send(new RequestMails($data));
                 $response['status'] = 'success';
@@ -144,7 +144,7 @@ class HomeController extends Controller
         if($request->ajax()){
             $data = $request->only(['name', 'phone', 'backPage']);
             $data['callback'] = 1;
-            $data['subject'] = 'Call Back';
+            $data['subject'] = 'Call Back Request from Findaproperty';
             $data['reference'] = $data['backPage'];
             $property_alias = explode('/', $data['reference']);
             $property_alias = end($property_alias);

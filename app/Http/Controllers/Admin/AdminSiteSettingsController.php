@@ -24,6 +24,15 @@ class AdminSiteSettingsController extends Controller
             $file = $request->file('logo');
             if(isset($file) && $file->isValid()){
                 $setting = Setting::where([['type', 'site'],['key', 'site_logo']])->first();
+                if(File::exists(public_path().'/assets/images/home/'.'logo.png')){
+                    File::delete(public_path().'/assets/images/home/'.'logo.png');
+                }
+                if(File::exists(public_path().'/assets/images/home/'.'logo.jpg')){
+                    File::delete(public_path().'/assets/images/home/'.'logo.jpg');
+                }
+                if(File::exists(public_path().'/assets/images/home/'.'logo.jpeg')){
+                    File::delete(public_path().'/assets/images/home/'.'logo.jpeg');
+                }
                 $name = 'logo.' . $file->getClientOriginalExtension();
                 $img = Image::make($file->getRealPath());
                 $img->save(public_path().'/assets/images/home/'. $name);

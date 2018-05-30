@@ -49,7 +49,7 @@
         <div class="clear"></div>
         </div>
 
-        <a class="navbar-brand" href="/"><img src="/realstate/images/logo.png" alt="Homely" /></a>
+        <a class="navbar-brand" href="/"><img src="{{ URL::asset('assets/images/home').'/'.get_setting('site_logo', 'site') }}" alt="Logo" /></a>
 
         <!-- nav toggle -->
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
