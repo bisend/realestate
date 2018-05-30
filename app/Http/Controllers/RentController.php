@@ -19,6 +19,7 @@ class RentController extends Controller
     {
         $static_data = $this->static_data;
         $default_language = $this->default_language;
+        $title = 'Rent | Findaproperty';
         $categories = Category::get();
         $recent_properties = Property::orderBy('created_at', 'desc')->take(Property::RECENT_PROPERTIES)->get();
         if ( ! empty($request->all())) {
@@ -37,9 +38,9 @@ class RentController extends Controller
                 })->values();
             }
             $search_properties = $filter_properties;
-            return view('realstate.rent', compact('static_data', 'search_properties', 'recent_properties', 'categories'));
+            return view('realstate.rent', compact('static_data', 'search_properties', 'recent_properties', 'categories', 'title'));
         }
         $properties = Property::where('rentals', 1)->orderBy('created_at', 'desc')->paginate(Property::GET_PROPERTIES);
-        return view('realstate.rent', compact('static_data', 'properties', 'recent_properties', 'categories'));
+        return view('realstate.rent', compact('static_data', 'properties', 'recent_properties', 'categories', 'title'));
     }
 }

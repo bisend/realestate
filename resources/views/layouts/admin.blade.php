@@ -16,6 +16,7 @@
     <link href="{{ URL::asset('assets/css/plugins/dropzone.min.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/plugins/colorpicker.css')}}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/backend_style.css')}}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('favicon.png?v=2') }}" type="image/x-icon">
     @yield('style')
 
 </head>

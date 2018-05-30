@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class BlogController extends Controller
 {
     public function index(){
-
+        $title = 'Blog | Findaproperty';
         // Get Blog Contents
         $default_language = default_language();
         $static_data = static_home();
@@ -16,7 +16,7 @@ class BlogController extends Controller
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->orderBy('created_at', 'desc')->paginate(9);
 
-        return view('realstate.blog.blog-list', compact('posts', 'static_data'));
+        return view('realstate.blog.blog-list', compact('posts', 'static_data', 'title'));
     }
 
     public function post($alias){
@@ -31,7 +31,8 @@ class BlogController extends Controller
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('id', '!=', $post->id)->orderBy('created_at', 'desc')->take(3)->get();
         if($post){
-            return view('realstate.blog.blog-single', compact('post', 'last_posts', 'static_data'));
+            $title = $post->contentDefault->title;
+            return view('realstate.blog.blog-single', compact('post', 'last_posts', 'static_data', 'title'));
         }else{
             abort(404);
         }

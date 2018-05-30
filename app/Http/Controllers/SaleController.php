@@ -18,6 +18,7 @@ class SaleController extends Controller
     {
         $static_data = $this->static_data;
         $default_language = $this->default_language;
+        $title = 'Sale | Findaproperty';
         $categories = Category::get();
         $recent_properties = Property::orderBy('created_at', 'desc')->take(Property::RECENT_PROPERTIES)->get();
         if ( ! empty($request->all())) {
@@ -36,10 +37,10 @@ class SaleController extends Controller
                 })->values();
             }
             $search_properties = $filter_properties;
-            return view('realstate.sale', compact('static_data', 'search_properties', 'recent_properties', 'categories'));
+            return view('realstate.sale', compact('static_data', 'search_properties', 'recent_properties', 'categories', 'title'));
         }
         $properties = Property::where('sales', 1)->where('status', 1)->orderBy('created_at', 'desc')->paginate(Property::GET_PROPERTIES);
         
-        return view('realstate.sale', compact('static_data', 'properties', 'recent_properties', 'categories'));
+        return view('realstate.sale', compact('static_data', 'properties', 'recent_properties', 'categories', 'title'));
     }
 }

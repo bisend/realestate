@@ -62,17 +62,7 @@
                         </div>
                         <div class="field-info">{{ get_string('upload_your_logo') }}  {{get_setting('site_logo', 'site')}} (170px x 50px)</div>
                     </div>
-                    <div class="col s12 mbot20">
-                        <div class="input-group clearfix {{$errors->has('favicon') ? 'has-error' : ''}}">
-                            <label class="input-group-btn">
-                                <span class="btn btn-primary waves-effect">{{ get_string('select_file') }}
-                                    {!! Form::file('favicon', ['class' => 'hidden']) !!}
-                                </span>
-                            </label>
-                            <input type="text" class="form-control" readonly>
-                        </div>
-                        <div class="field-info">Favicon (.ico)</div>
-                    </div>
+
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('dateformat') ? 'has-error' : ''}}">
                             {{Form::select('dateformat', ['d.m.Y' => 'dd/mm/YYYY', 'm.d.Y' => 'mm/dd/YYYY'], get_setting('dateformat', 'site'), ['class' => 'form-control'])}}
