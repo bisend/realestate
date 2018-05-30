@@ -29,6 +29,7 @@ class PropertyController extends Controller
     {
         $static_data = $this->static_data;
         $default_language = $this->default_language;
+        
         $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('alias', $alias)->first();
@@ -39,7 +40,7 @@ class PropertyController extends Controller
                 return $value->property_info['property_reference'] == $alias;
             })->first();
         }
-
+        $title = $property->contentDefault->name;
         $features = Feature::all();
 
         if ($property) {
@@ -74,7 +75,7 @@ class PropertyController extends Controller
             $related_properties = $properties->each(function ($value) use($mainProperty) {
                 return $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE) && $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE);
             })->take(Property::RELATED_PROPERTIES_COUNT);
-            return view('realstate.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates', 'recent_properties', 'last_posts', 'related_properties'));
+            return view('realstate.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates', 'recent_properties', 'last_posts', 'related_properties','title'));
         } else {
             abort(404);
         }

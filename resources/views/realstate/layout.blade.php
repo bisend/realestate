@@ -19,7 +19,7 @@
   <link href="/realstate/css/style.css" rel="stylesheet" type="text/css" media="all" />
   <link href="/realstate/css/responsive.css" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
-
+  <link rel="shortcut icon" href="{{ asset('favicon.png?v=2') }}" type="image/x-icon">
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
         async defer>
     </script>

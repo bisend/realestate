@@ -32,6 +32,8 @@ class HomeController extends Controller
         $static_data = $this->static_data;
         $default_language = $this->default_language;
 
+        $title = 'Home | Findaproperty';
+
         // Get the properties (Eager Load)
         $number_of_properties = get_setting('fp_properties_count', 'design');;
         if($static_data['design_settings']['fp_show_featured_only']){
@@ -66,7 +68,7 @@ class HomeController extends Controller
         $categories = Category::get();
         // Returning the View
         return view('realstate.home', compact('posts', 'default_language',
-            'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider', 'categories'));
+            'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider', 'categories', 'title'));
     }
 
     // Contact page
