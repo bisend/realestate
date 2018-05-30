@@ -130,7 +130,10 @@
 			        <ul>
 			          <li><a href="#tabs-1"><i class="fa fa-pencil icon"></i>Additional Details</a></li>
 			          <li><a href="#tabs-2"><i class="fa fa-files-o icon"></i>Attachments</a></li>
-								<li><a href="#tabs-3"><i class="fa fa-calendar" aria-hidden="true"></i></i>Calendar</a></li>
+								@if($property->rentals == 1)
+									<li><a href="#tabs-3"><i class="fa fa-calendar" aria-hidden="true"></i></i>Calendar</a></li>
+								@endif
+
 			        </ul>
 			        <div id="tabs-1" class="ui-tabs-hide">
 			          <ul class="additional-details-list">
@@ -156,10 +159,11 @@
 									@endforeach
 								@endif
 			        </div>
-
+							@if($property->rentals == 1)
 							<div id="tabs-3" class="ui-tabs-hide">
 								<div id="datepicker"></div>
 			        </div>
+							@endif
 			    </div>
 			</div><!-- end description -->
 			@if(isset($mainProperty->features))
