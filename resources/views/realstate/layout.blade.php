@@ -41,8 +41,6 @@
 
 @include('realstate.modals.success')
 
-    
-
     @include('realstate.header')
 
     @yield('mainsection')

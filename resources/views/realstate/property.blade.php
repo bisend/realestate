@@ -1,54 +1,58 @@
 @extends('realstate.layout')
 
 @section('mainsection')
-<div class="contact-form-fix Register-Interest form-active-registr">
-        <div class="show-btn-wrapper">
-            <button class="show-register"><i class="fa fa-envelope" aria-hidden="true"></i></button>
-        </div>
-        <div class="fix-form-header">
-            Register Interest
-        </div>
-        <form action="" id="register-interest-form" methods="post">
-            <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
-            <label for="name">Name:</label>
-            <input type="text" placeholder="Name" name="name" id="register-name">
-            <label for="email">Email:</label>
-            <input type="text" placeholder="Email" name="email" id="register-email">
-
-             <label for="phone">Phone Number:</label>
-            <input type="text" placeholder="Phone Number" name="phone" id="register-phone">
-            
-            <div class="recaptcha-div">
-                <span id="recaptcha-error-reg">Please complete the verification!</span>
-                <div class="recaptcha-style" id="reg-back-captcha"></div>
-            </div>
-
-            <button id="send-register-form" class="button button-icon alt small"><i class="fa fa-envelope" aria-hidden="true"></i>Send</button>
-        </form>
-    </div>
-
-    <div class="contact-form-fix Call-Back-wrap form-active">
-        <div class="show-btn-wrapper">
-            <button class="show-collback"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></button>
-        </div>
-        <div class="fix-form-header">
+		
+		<div class="tabs tabs-form tab-forms-show">
+			<a class="close-tab-forms">
+					<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+			</a>
+				<ul class="tabs-form-nav">
+					<li><a class="open-tab-forms" href="#tab-form-callback"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></a></li>
+					<li><a class="open-tab-forms" href="#tab-form-register"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+				</ul>
+			<div class="forms-div">
+			<div id="tab-form-callback" class="ui-tabs-hide">
+				<div class="fix-form-header">
             Call Back
         </div>
-        <form action="" id="coll-back-form" methods="post">
-            <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
-            <label for="name">Name:</label>
-            <input id="call-back-name" type="text" placeholder="Name" name="name">
-            <label for="phone">Phone Number:</label>
-            <input id="call-back-phone" type="text" placeholder="Phone" name="phone">
-            <div class="recaptcha-div">
-                <span id="recaptcha-error-callback">Please complete the verification!</span>
-                <div class="recaptcha-style" id="call-back-captcha"></div>
-            </div>
-           
+				<form action="" id="coll-back-form" methods="post">
+							<input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
+							<label for="name">Name:</label>
+							<input id="call-back-name" type="text" placeholder="Name" name="name">
+							<label for="phone">Phone Number:</label>
+							<input id="call-back-phone" type="text" placeholder="Phone" name="phone">
+							<div class="recaptcha-div">
+									<span id="recaptcha-error-callback">Please complete the verification!</span>
+									<div class="recaptcha-style" id="call-back-captcha"></div>
+							</div>
+							<button id="send-coll-back" class="button button-icon alt small"><i class="fa fa-volume-control-phone" aria-hidden="true"></i>Send</button>
+					</form>
+				</div>
+				<div id="tab-form-register" class="ui-tabs-hide">
+					<div class="fix-form-header">
+							Register Interest
+					</div>
+					<form action="" id="register-interest-form" methods="post">
+							<input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
+							<label for="name">Name:</label>
+							<input type="text" placeholder="Name" name="name" id="register-name">
+							<label for="email">Email:</label>
+							<input type="text" placeholder="Email" name="email" id="register-email">
 
-            <button id="send-coll-back" class="button button-icon alt small"><i class="fa fa-volume-control-phone" aria-hidden="true"></i>Send</button>
-        </form>
-    </div>
+							<label for="phone">Phone Number:</label>
+							<input type="text" placeholder="Phone Number" name="phone" id="register-phone">
+							
+							<div class="recaptcha-div">
+									<span id="recaptcha-error-reg">Please complete the verification!</span>
+									<div class="recaptcha-style" id="reg-back-captcha"></div>
+							</div>
+
+							<button id="send-register-form" class="button button-icon alt small"><i class="fa fa-envelope" aria-hidden="true"></i>Send</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
 
 <section class="module">
   <div class="container">

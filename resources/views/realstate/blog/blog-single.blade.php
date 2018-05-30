@@ -1,6 +1,31 @@
 @extends('realstate.layout')
 
 @section('mainsection')
+<div class="contact-form-fix Call-Back-wrap form-active">
+        <div class="show-btn-wrapper">
+            <button class="show-collback"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></button>
+        </div>
+        <div class="fix-form-header">
+            Call Back
+        </div>
+        <form action="" id="coll-back-form" methods="post">
+            <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
+            <label for="name">Name:</label>
+            <input id="call-back-name" type="text" placeholder="Name" name="name">
+            <label for="phone">Phone Number:</label>
+            <input id="call-back-phone" type="text" placeholder="Phone" name="phone">
+            <div class="recaptcha-div">
+                <span id="recaptcha-error-callback">Please complete the verification!</span>
+                <div class="recaptcha-style" id="call-back-captcha"></div>
+            </div>
+           
+
+            <button id="send-coll-back" class="button button-icon alt small"><i class="fa fa-volume-control-phone" aria-hidden="true"></i>Send</button>
+        </form>
+    </div>
+
+
+
 
     <!-- <section class="subheader">
   <div class="container">

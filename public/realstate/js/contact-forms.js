@@ -18,6 +18,49 @@
 //     });
 //   };
 
+
+/* -- TABS FORM  -- */
+
+$('.close-tab-forms').on('click', function () {
+    $('.tabs-form').removeClass('tab-forms-show')
+})
+
+$('.open-tab-forms').on('click', function () {
+    console.log(1)
+    if($('.tabs-form').hasClass('tab-forms-show')){
+        console.log(2)
+    }else{
+        console.log(3)
+        $('.tabs-form').addClass('tab-forms-show')
+    }
+})
+
+
+
+if (window.innerWidth < 991) {
+    $('.tabs-form').removeClass('tab-forms-show')
+
+    $('.close-tab-forms').on('click', function () {
+        $('.tabs-form').removeClass('tabs-show-mobile')
+    })
+
+    $('.open-tab-forms').on('click', function () {
+        console.log(1)
+        if($('.tabs-form').hasClass('tabs-show-mobile')){
+            console.log(2)
+        }else{
+            console.log(3)
+            $('.tabs-form').addClass('tabs-show-mobile')
+        }
+    })
+}
+
+
+
+
+
+/* -- TABS FORM  END-- */
+
 var regCaptchaError = true;
 var callbackCaptchaError = true;
 

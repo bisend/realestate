@@ -654,6 +654,37 @@
   .ui-datepicker {
     width: 100%;
 }
+
+
+.tabs-form{
+	position: fixed;
+	right: -245px;
+	display: flex;
+	z-index: 9998;
+	
+	background-color: #323746!important;
+    width: 245px;
+    padding: 10px;
+    position: fixed;
+    z-index: 9998;
+    top: 35%;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.tabs-show-mobile{
+  right: 0;
+}
+
+.forms-div #tab-form-callback form{
+	width: 220px;
+}
+
+.forms-div #tab-form-register form{
+	width: 220px;
+}
 	
 }
 
