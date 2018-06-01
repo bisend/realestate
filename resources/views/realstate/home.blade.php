@@ -54,7 +54,14 @@
                 <td><i class="fa fa-user" aria-hidden="true"></i>{{ $slide->guest_number }}</td>
               </tr>
             </table>
-            <span class="lable-rent right mobile-lable-flout">{{ $slide->sales == 1 ? 'Sale' : ''}} {{ $slide->rentals == 1 ? 'Rent' : '' }}</span>
+            @if($slide->sales == 1 && $slide->rentals == 1)
+            <span class="lable-sale right mobile-lable-flout">Sale</span>
+            <span class="lable-rent right mobile-lable-flout">Rent</span>
+            @elseif($slide->rentals == 1)
+            <span class="lable-rent right mobile-lable-flout">Rent</span>
+            @elseif($slide->sales == 1)
+            <span class="lable-sale right mobile-lable-flout">Sale</span>
+            @endif
             <a href="/property/{{$slide->alias}}" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
           </div>
         </div>

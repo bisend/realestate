@@ -85,6 +85,11 @@ class Property extends Model
         return $this->hasOne('App\Models\Admin\PropertyContent');
     }
 
+    // Getting the content all Languages
+    public function pdfFile(){
+        return $this->hasOne('App\Models\Admin\PropertyPdfFile');
+    }
+
     // Add Attribute to the images
     public function getImageAttribute($value){
         if($value == 'no_image.jpg'){

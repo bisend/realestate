@@ -14,6 +14,7 @@ Auth::routes();
 | Administrator Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/pdf/{alias}', 'PropertyController@indexPDF');
 Route::group(['middleware' => 'admin'], function(){
 
     // Admin routes

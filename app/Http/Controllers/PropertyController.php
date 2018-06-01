@@ -81,6 +81,62 @@ class PropertyController extends Controller
         }
     }
 
+    public function indexPDF($alias)
+    {
+        $static_data = $this->static_data;
+        $default_language = $this->default_language;
+        
+        $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
+            $query->where('language_id', $default_language->id);
+        }])->where('status', 1)->where('alias', $alias)->first();
+        if ( ! $property) {
+            $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
+                $query->where('language_id', $default_language->id);
+            }])->where('status', 1)->get()->filter(function($value) use($alias) {
+                return $value->property_info['property_reference'] == $alias;
+            })->first();
+        }
+        $title = 'PDF';
+        $features = Feature::all();
+
+        if ($property) {
+            // Get booked dates for calendar
+            $dates = PropertyDate::where('property_id', $property->id)->pluck('dates')->toArray();
+            if ($dates || !count($dates)) {
+                $dates = [];
+            }
+            $bookings = Booking::where('property_id', $property->id)->get();
+            foreach ($bookings as $booking) {
+                $date = generateDateRangeB(Carbon::createFromFormat('Y-m-d', $booking->start_date), Carbon::createFromFormat('Y-m-d', $booking->end_date));
+                if ($date) {
+                    $dates[] = $date;
+                }
+            }
+            if (isset($dates[0])) {
+                $dates = array_reduce($dates, 'array_merge', []);
+            }
+            $reviews = Review::where('property_id', $property->id)->where('status', 1)->take(3)->get();
+            $similar = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
+                $query->where('language_id', $default_language->id);
+            }])->where('id', '!=', $property->id)->where(function ($query) use ($property) {
+                $query->where('category_id', $property->category->id);
+            })->inRandomOrder()->take(3)->get();
+
+            $mainProperty = $property;
+            $recent_properties = Property::orderBy('created_at', 'desc')->where('status', 1)->take(Property::RECENT_PROPERTIES)->get();
+            $last_posts = Blog::with(['contentload' => function($query) use($default_language){
+                $query->where('language_id', $default_language->id);
+            }])->where('status', 1)->orderBy('created_at', 'desc')->take(3)->get();
+            $properties = Property::where('status', 1)->where('id', '!=', $mainProperty->id)->get();
+            $related_properties = $properties->each(function ($value) use($mainProperty) {
+                return $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE) && $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE);
+            })->take(Property::RELATED_PROPERTIES_COUNT);
+            return view('realstate.pdf.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates', 'recent_properties', 'last_posts', 'related_properties','title'));
+        } else {
+            abort(404);
+        }
+    }
+
     public function book(Request $request)
     {
         $static_data = $this->static_data;

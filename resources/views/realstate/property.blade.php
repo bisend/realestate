@@ -112,12 +112,12 @@
           <div class="slide-counter"></div>
           <div class="slider slider-property-gallery">
 					@foreach($mainProperty->images as $image)
-            <div class="slide"><img src="{{URL::asset('images/data').'/'.$image->image}}" alt="" /></div>
+            <div class="slide"><img src="{{ asset('images/data/'.$image->image) }}" alt="" /></div>
 					@endforeach
           </div>
           <div class="slider property-gallery-pager">
 					@foreach($mainProperty->images as $image)
-						<a class="property-gallery-thumb"><img src="{{URL::asset('images/data').'/'.$image->image}}" alt="" /></a>
+						<a class="property-gallery-thumb"><img src="{{ asset('images/data/'.$image->image) }}" alt="" /></a>
 					@endforeach
           </div>
         </div>
