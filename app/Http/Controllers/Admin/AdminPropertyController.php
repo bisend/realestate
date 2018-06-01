@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Image;
 use Carbon\Carbon;
 use PDF;
+use Intervention\Image\Facades\Image as InterventionImage;
 
 class AdminPropertyController extends Controller
 {
@@ -174,6 +175,14 @@ class AdminPropertyController extends Controller
                     'imageable_type' => 'App\Models\Admin\Property',
                     'status' => isset($request['main_photo']) && $request['main_photo'] == $image ? 1 : 0,
                 ]);
+
+                $img = InterventionImage::make(public_path() . '/images/data/'. $image);
+                $watermarkPath = public_path('/images/watermark.png');
+                if(File::exists($watermarkPath)) {
+                    $watermark = InterventionImage::make($watermarkPath);
+                    $img->insert($watermark, 'center');
+                }
+                $img->save();
             }
         }
 
@@ -305,7 +314,15 @@ class AdminPropertyController extends Controller
                         'imageable_id' => $property->id,
                         'imageable_type' => 'App\Models\Admin\Property',
                         'status' => isset($request['main_photo']) && $request['main_photo'] == $image ? 1 : 0,
-                    ]);                
+                    ]);
+                    
+                    $img = InterventionImage::make(public_path() . '/images/data/'. $image);
+                    $watermarkPath = public_path('/images/watermark.png');
+                    if(File::exists($watermarkPath)) {
+                        $watermark = InterventionImage::make($watermarkPath);
+                        $img->insert($watermark, 'center');
+                    }
+                    $img->save();
                 }
             }
         }

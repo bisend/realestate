@@ -660,22 +660,23 @@
         let putData = $('#putData').val();
         console.log(imgID, putData)
 
-        // $.ajax({
-        //     url: '',
-        //     type: 'POST',
-        //     data: {
-        //        imgID: imgID,
-        //        putData: putData
-        //     },
-        //     success: function (data) {
-        //         if (data.status == 'success') {
+        $.ajax({
+            url: '{{url('/image_handler/update')}}',
+            type: 'POST',
+            data: {
+                _token: $('[name=_token]').val(),
+                imgID: imgID,
+                putData: putData
+            },
+            success: function (data) {
+                if (data.status == 'success') {
 
-        //         }
-        //     },
-        //     error: function (error) {
+                }
+            },
+            error: function (error) {
                 
-        //     }
-        // });
+            }
+        });
 
     })
 
