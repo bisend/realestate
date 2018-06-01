@@ -31,11 +31,11 @@ class ImageHandler extends Controller
             if(!File::exists(public_path() . '/images/data/'. $date)){
                 File::makeDirectory(public_path() . '/images/data/'. $date, 0755, true);
             }
-            $watermarkPath = public_path('/images/watermark.png');
-            if(File::exists($watermarkPath)) {
-                $watermark = Image::make($watermarkPath);
-                $img->insert($watermark, 'center');
-            }
+            // $watermarkPath = public_path('/images/watermark.png');
+            // if(File::exists($watermarkPath)) {
+            //     $watermark = Image::make($watermarkPath);
+            //     $img->insert($watermark, 'center');
+            // }
             $img->save($path, 100);
             $data = $date .'/'. $name;
             return response()->json(['success' => get_string('image_uploaded'), 'data' => $data], 200);
@@ -46,13 +46,17 @@ class ImageHandler extends Controller
 
     public function update(Request $request)
     {
-        dd($request->all());
+        $data = json_decode($request->putData);
         if($request->ajax()){
-            if(File::exists(public_path() . '/images/data/'. $request->imgSrc)){
-                $img = Image::make(public_path() . '/images/data/'. $request->imgSrc);
-                $img->rotate(-90);
-                $img->save();
-                return response()->json('Image rotated', 200);
+            if(File::exists(public_path() . '/images/data/'. $request->imgID)){
+                $img = Image::make(public_path() . '/images/data/'. $request->imgID);
+                $img->rotate((-1 * $data->rotate));
+                $img->crop((int)$data->width, (int)$data->height, (int)$data->x, (int)$data->y);
+                $img->save();               
+                $data = [];
+                $data['status'] = 'success';
+                $data['img'] = base64_encode($img->encoded);
+                return $data;
             }
             return response()->json(get_string('something_happened'), 400);
         }else{
