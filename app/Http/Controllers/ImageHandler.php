@@ -44,8 +44,9 @@ class ImageHandler extends Controller
         }
     }
 
-    public function rotate(Request $request)
+    public function update(Request $request)
     {
+        dd($request->all());
         if($request->ajax()){
             if(File::exists(public_path() . '/images/data/'. $request->imgSrc)){
                 $img = Image::make(public_path() . '/images/data/'. $request->imgSrc);

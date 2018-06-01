@@ -236,7 +236,7 @@ Route::get('/admin/reset', 'Admin\AdminLoginController@resetPassword')->name('ad
 // Image Handler
 Route::get('/image_handler', 'ImageHandler@index');
 Route::post('/image_handler/upload', 'ImageHandler@store')->name('image_handler_upload');
-Route::post('/image_handler/rotate', 'ImageHandler@rotate');
+Route::post('/image_handler/update', 'ImageHandler@update');
 Route::post('/image_handler/status', 'ImageHandler@changeStatus');
 Route::post('/image_handler/delete', 'ImageHandler@delete')->name('image_handler_delete');
 Route::post('/image_handler/deleteBase', 'ImageHandler@deleteBase')->name('image_handler_deleteBase');
