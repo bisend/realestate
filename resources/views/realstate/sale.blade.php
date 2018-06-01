@@ -129,6 +129,15 @@
 						@endif
 					</select>
 					</div>
+
+					<div class="form-block border">
+						<label for="search_sale-country">Country</label>
+						<select id="search_sale-country" class="border">
+							<option value="">Any</option>
+							<option value="Spain">Spain</option>
+							<option value="Gibraltar">Gibraltar</option>
+						</select>
+				  </div>
 					
 				  <div class="form-block border">
 					<label for="search_sale-location">Location</label>
@@ -144,24 +153,28 @@
 				  <div class="form-block border">
 						<label>Beds</label>
 						<select name="beds" id="search_sale-beds" class="border">
-							<option value="">Any</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
+								<option value="">Any</option>
+								<option value="studio">Studio+</option>
+								<option value="1">1+</option>
+								<option value="2">2+</option>
+								<option value="3">3+</option>
+								<option value="4">4+</option>
+								<option value="5">5+</option>
+								<option value="6">6+</option>
+								<option value="7">7+</option>
+								<option value="8">8+</option>
+								<option value="9">9+</option>
+								<option value="10">10+</option>
 						</select>
 						</div>
 				  
 				  <div class="form-block">
-					<label>Price</label>
-					<div id="slider-price-sale" class="price-slider"></div>
+						<label>Price</label>
+						<div id="slider-price-sale" class="price-slider"></div>
 				  </div>
+
+					<input type="hidden" id="refer-val-sale">
+
 				  <div class="form-block">
 					<input id="find-sale" type="submit" class="button" value="Find Properties" />
 				  </div>

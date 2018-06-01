@@ -99,7 +99,8 @@
 						<td><i class="fa fa-home" aria-hidden="true"></i> <span>{{ $mainProperty->rooms }}</span> Rooms</td>
 						<td><i class="fa fa-bed"></i></i> <span>{{ $mainProperty->property_info['bedrooms'] }}</span> Beds</td>
 						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq Ft</td>
-						<td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> Person</td>
+						<!-- <td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PDF</td> -->
+						<td><a target="_blank" class="pdf-down-prop" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>PDF</span> </a></td>
 					</tr>
 				</table>
 
@@ -271,52 +272,145 @@
 			<div class="widget widget-sidebar advanced-search">
 			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
 			  <div class="widget-content box">
-					<form>
-						<div class="form-block border">
-						<label for="property-location">Location</label>
-						<select id="property-location" class="border">
-							<option value="">Any</option>
-							<option value="baltimore">Baltimore</option>
-							<option value="ny">New York</option>
-							<option value="nap">Annapolis</option>
-						</select>
+					
+				<div class="tabs tabs-search">
+					<ul class="tabs-search-nav">
+						<li><a class="open-tabs-search" href="#tabs-search-sale">For Sale</a></li>
+						<li><a class="open-tabs-search" href="#tabs-search-rent">For Rent</a></li>
+					</ul>
+					<div class="forms-div">
+						<div id="tabs-search-sale" class="ui-tabs-hide">
+						<form id="search-sale" method="post">
+
+								<div class="form-block border">
+									<label for="search_sale-type">Property Type</label>
+									<select id="search_sale-type" class="border">
+										<option value="">Any</option>
+										@if(isset($categories))
+											@foreach($categories as $category)
+												<option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
+											@endforeach
+										@endif
+									</select>
+									</div>
+
+									<div class="form-block border">
+										<label for="search_sale-country">Country</label>
+										<select id="search_sale-country" class="border">
+											<option value="">Any</option>
+											<option value="Spain">Spain</option>
+											<option value="Gibraltar">Gibraltar</option>
+										</select>
+									</div>
+									
+									<div class="form-block border">
+									<label for="search_sale-location">Location</label>
+									<select id="search_sale-location" class="border">
+										<option value="">Any</option>
+										<option value="baltimore">Baltimore</option>
+										<option value="ny">New York</option>
+										<option value="nap">Annapolis</option>
+									</select>
+									</div>
+
+
+									<div class="form-block border">
+										<label>Beds</label>
+										<select name="beds" id="search_sale-beds" class="border">
+												<option value="">Any</option>
+												<option value="studio">Studio+</option>
+												<option value="1">1+</option>
+												<option value="2">2+</option>
+												<option value="3">3+</option>
+												<option value="4">4+</option>
+												<option value="5">5+</option>
+												<option value="6">6+</option>
+												<option value="7">7+</option>
+												<option value="8">8+</option>
+												<option value="9">9+</option>
+												<option value="10">10+</option>
+										</select>
+										</div>
+									
+									<div class="form-block">
+										<label>Price</label>
+										<div id="slider-price-sale" class="price-slider"></div>
+									</div>
+
+									<input type="hidden" id="refer-val-sale">
+
+									<div class="form-block">
+									<input id="find-sale" type="submit" class="button" value="Find Properties" />
+									</div>
+								</form>
 						</div>
-	
-						<div class="form-block border">
-						<label for="property-status">Property Type</label>
-						<select id="property-status" class="border">
-							<option value="">Any</option>
-							<option value="sale">For Sale</option>
-							<option value="rent">For Rent</option>
-						</select>
+						<div id="tabs-search-rent" class="ui-tabs-hide">
+								<form id="search-rent">
+										
+										<div class="form-block border">
+										<label for="property-status">Property Type</label>
+										<select id="search_rent-type" class="border">
+											<option value="">Any</option>
+											@if(isset($categories))
+												@foreach($categories as $category)
+														<option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
+												@endforeach
+											@endif
+										</select>
+										</div>
+
+										<div class="form-block border">
+											<label for="search_rent-country">Country</label>
+											<select id="search_rent-country" name="property-country">
+												<option value="">Any</option>
+												<option value="Spain">Spain</option>
+												<option value="Gibraltar">Gibraltar</option>
+											</select>
+										</div>
+										
+										<div class="form-block border">
+										<label for="property-location">Location</label>
+										<select  id="search_rent-location" class="border">
+											<option value="">Any</option>
+											<option value="baltimore">Baltimore</option>
+											<option value="ny">New York</option>
+											<option value="nap">Annapolis</option>
+										</select>
+										</div>
+
+										<div class="form-block border">
+											<label>Beds</label>
+											<select name="beds" id="search_rent-beds" class="border">
+													<option value="">Any</option>
+													<option value="studio">Studio+</option>
+													<option value="1">1+</option>
+													<option value="2">2+</option>
+													<option value="3">3+</option>
+													<option value="4">4+</option>
+													<option value="5">5+</option>
+													<option value="6">6+</option>
+													<option value="7">7+</option>
+													<option value="8">8+</option>
+													<option value="9">9+</option>
+													<option value="10">10+</option>
+											</select>
+											</div>
+										
+										<div class="form-block">
+										<label>Price</label>
+										<div id="price-rent" class="price-slider"></div>
+										</div>
+
+										<input type="hidden" id="refer-val-rent">
+
+										<div class="form-block">
+										<input id="find-rent-btn" type="submit" class="button" value="Find Properties" />
+										</div>
+									</form>
 						</div>
-	
-						<div class="form-block border">
-							<label>Beds</label>
-							<select name="beds" id="property-beds" class="border">
-								<option value="">Any</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-							</select>
-							</div>
-						
-						<div class="form-block">
-						<label>Price</label>
-						<div class="price-slider"></div>
-						</div>
-	
-						<div class="form-block">
-						<input type="submit" class="button" value="Find Properties" />
-						</div>
-					</form>
+					</div>
+			</div>
+
 			  </div><!-- end widget content -->
 			</div><!-- end widget -->
 			

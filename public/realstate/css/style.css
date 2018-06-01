@@ -1488,7 +1488,25 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 .blog-post-content h3 a { font-weight:100; color:#3a464e; }
 .blog-post-content h3 a:hover { color:#6d458a; }
 
+.blog-post-content .button.grey {
+    color: #fff;
+    cursor: auto;
+    background-color: #6d458a;
+}
 
+.blog-post-content .button.grey:hover{
+	background-color: #c7c6c6;
+}
+
+.pdf-down-prop{
+	color: #fff;
+}
+
+.pdf-down-prop span{
+	font-size: 17px!important;
+    padding-top: 6px;
+    display: block;
+}
 
 .blog-post-creative { margin-bottom:30px; }
 .blog-post-creative h3 { font-size:23px; margin-top:15px; }
@@ -2550,3 +2568,28 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
     -moz-transition: all 0.4s;
     transition: all 0.4s;
 }
+
+
+
+/* SERACH TABS ------- */
+
+.tabs-search-nav li{
+	margin: 0!important;
+	width: 50%;
+}
+
+.tabs-search-nav li a{
+	width: 100%;
+	text-align: center;
+	padding: 10px!important;
+}
+
+#tabs-search-sale{
+	width: 100%;
+}
+
+#tabs-search-rent{
+	width: 100%;
+}
+
+/* SERACH TABS END------- */

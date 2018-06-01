@@ -16,6 +16,12 @@
  * 11. Messages
 */
 
+.tstmodal {
+    background: none!important;
+}
+
+
+
 /* 1. Core Selector_is */
 ::-moz-selection {background: #ffb000; color: white;}
 ::selection {background: #ffb000; color: white;}

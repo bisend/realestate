@@ -92,6 +92,15 @@
                       @endif
                   </select>
                 </div>
+
+                <div class="filter-item filter-item-7">
+                  <label>Country</label>
+                  <select id="search_sale-country" name="property-country">
+                    <option value="">Any</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Gibraltar">Gibraltar</option>
+                  </select>
+                </div>
       
                 <div class="filter-item filter-item-7">
                   <label>Location</label>
@@ -107,16 +116,17 @@
                     <label>Beds</label>
                     <select id="search_sale-beds" name="beds" id="property-beds">
                       <option value="">Any</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
+                      <option value="studio">Studio+</option>
+                      <option value="1">1+</option>
+                      <option value="2">2+</option>
+                      <option value="3">3+</option>
+                      <option value="4">4+</option>
+                      <option value="5">5+</option>
+                      <option value="6">6+</option>
+                      <option value="7">7+</option>
+                      <option value="8">8+</option>
+                      <option value="9">9+</option>
+                      <option value="10">10+</option>
                     </select>
                 </div>
       
@@ -131,22 +141,17 @@
                       <span class="low-price"></span>
                     </div>
                 </div>
-      
+
+                <div class="filter-item filter-item-7">
+                  <label>Search By Reference:</label>
+                  <input id="refer-val-sale" class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
+                </div>
+                
+
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>
                   <input type="submit" id="find-sale" class="button alt" value="Find Properties"/>
                 </div>
-          </form>
-          <form id="refer-sale-search" class="prop-search-form" method="post">
-              <div class="filter-item filter-item-7">
-                  <label>Search By Reference:</label>
-                  <input id="refer-val-sale" class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
-                </div>
-    
-              <div class="filter-item filter-item-7">
-                <label class="label-submit">Submit</label><br/>
-                <input id="refer-find-btn" type="submit" class="button alt" value="Find Properties" />
-              </div>
           </form>
       </div><!-- end tab 2 -->
 
@@ -162,8 +167,17 @@
                         @endforeach
                       @endif
                   </select>
+                </div> 
+
+                <div class="filter-item filter-item-7">
+                  <label>Country</label>
+                  <select id="search_rent-country" name="property-country">
+                    <option value="">Any</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Gibraltar">Gibraltar</option>
+                  </select>
                 </div>
-      
+
                 <div class="filter-item filter-item-7">
                   <label>Location</label>
                   <select id="search_rent-location" name="property-location">
@@ -178,16 +192,17 @@
                     <label>Beds</label>
                     <select id="search_rent-beds" name="beds" id="property-beds">
                       <option value="">Any</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
+                      <option value="studio">Studio+</option>
+                      <option value="1">1+</option>
+                      <option value="2">2+</option>
+                      <option value="3">3+</option>
+                      <option value="4">4+</option>
+                      <option value="5">5+</option>
+                      <option value="6">6+</option>
+                      <option value="7">7+</option>
+                      <option value="8">8+</option>
+                      <option value="9">9+</option>
+                      <option value="10">10+</option>
                     </select>
                 </div>
       
@@ -201,22 +216,16 @@
                       </div>
                     </div>
                 </div>
+
+                <div class="filter-item filter-item-7">
+                  <label>Search By Reference:</label>
+                  <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
+                </div>
       
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>
                   <input id="find-rent-btn" type="submit" class="button alt" value="Find Properties" />
                 </div>
-          </form>
-          <form id="refer-rent-search" class="prop-search-form" method="post">
-              <div class="filter-item filter-item-7">
-                  <label>Search By Reference:</label>
-                  <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
-                </div>
-    
-              <div class="filter-item filter-item-7">
-                <label class="label-submit">Submit</label><br/>
-                <input id="refer-find-btn-rent" type="submit" class="button alt" value="Find Properties" />
-              </div>
           </form>
       </div><!-- end tab 3 -->
 

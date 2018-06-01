@@ -370,6 +370,10 @@
   .filter-item, .filter-item-7 { width:100% !important; margin-right:0; }
   .google-maps .filter { width:100%; }
 
+  .filter-item-7:nth-child(3){
+    margin-right: 0;
+  }
+
   .filter-item-7:nth-last-child(3){
     margin-right: 0;
   }

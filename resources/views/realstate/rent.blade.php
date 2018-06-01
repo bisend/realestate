@@ -130,6 +130,15 @@
 						@endif
 					</select>
 					</div>
+
+					 <div class="form-block border">
+						<label for="search_rent-country">Country</label>
+						<select id="search_rent-country" name="property-country">
+							<option value="">Any</option>
+							<option value="Spain">Spain</option>
+							<option value="Gibraltar">Gibraltar</option>
+						</select>
+					 </div>
 					
 					<div class="form-block border">
 					<label for="property-location">Location</label>
@@ -144,17 +153,18 @@
 				  <div class="form-block border">
 						<label>Beds</label>
 						<select name="beds" id="search_rent-beds" class="border">
-							<option value="">Any</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
+								<option value="">Any</option>
+								<option value="studio">Studio+</option>
+								<option value="1">1+</option>
+								<option value="2">2+</option>
+								<option value="3">3+</option>
+								<option value="4">4+</option>
+								<option value="5">5+</option>
+								<option value="6">6+</option>
+								<option value="7">7+</option>
+								<option value="8">8+</option>
+								<option value="9">9+</option>
+								<option value="10">10+</option>
 						</select>
 						</div>
 				  
@@ -162,6 +172,8 @@
 					<label>Price</label>
 					<div id="price-rent" class="price-slider"></div>
 				  </div>
+
+					<input type="hidden" id="refer-val-rent">
 
 				  <div class="form-block">
 					<input id="find-rent-btn" type="submit" class="button" value="Find Properties" />
