@@ -164,7 +164,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Barryvdh\DomPDF\ServiceProvider::class,
         //
 
         /*
@@ -238,5 +238,6 @@ return [
         'Share' => Chencha\Share\ShareFacade::class,
         'Currency' => Torann\Currency\Facades\Currency::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 ];

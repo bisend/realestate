@@ -11,6 +11,7 @@ use App\Models\Admin\PropertyContent;
 use App\Models\Admin\PropertyDate;
 use App\Models\Admin\Feature;
 use App\Models\Admin\PropertyFile;
+use App\Models\Admin\PropertyPdfFile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -18,12 +19,15 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Image;
 use Carbon\Carbon;
+use PDF;
 
 class AdminPropertyController extends Controller
 {
     private $validation_rules, $validation_messages;
     protected $languages;
+    protected $static_data;
     public function __construct(Request $request){
+        $this->static_data = static_home();
         //dd($request->all());
         $this->validation_rules = [
             // 'business_hours.sat'      => 'business_hours',
@@ -199,7 +203,7 @@ class AdminPropertyController extends Controller
 
         // Create available dates
         PropertyDate::create(['dates' => null, 'property_id' => $property->id]);
-
+        $this->createPdfFile($property);
         // Redirect after saving
         return redirect('admin/property');
     }
@@ -330,6 +334,7 @@ class AdminPropertyController extends Controller
             $category_content = PropertyContent::where(['language_id' => $language->id, 'property_id' => $id])->first();
             $category_content->update($data);
         }
+        $this->createPdfFile($property);
 
         // Redirect after saving
         return redirect('admin/property');
@@ -693,5 +698,23 @@ class AdminPropertyController extends Controller
         }else{
             return response()->json(get_string('something_happened'), 400);
         }
+    }
+
+    public function createPdfFile($property)
+    {
+        $static_data = $this->static_data;
+        $default_language = Language::where('default', 1)->first();
+        $features = Feature::all();
+        $fileName = Carbon::now()->format('Y_m_d_H_i_s_u').'_'.str_replace(' ', '_', $property->contentload['name']);
+        if ($property->pdfFile) {
+            $propertyPdfFile = PropertyPdfFile::where('property_id', $property->id)->first();
+            if(File::exists($property->pdfFile->path.'.pdf')){
+                File::delete($property->pdfFile->path.'.pdf');
+            }
+            $propertyPdfFile->update(['name' => $property->alias,  'file_name' => $fileName, 'path' => public_path().'/files/'.$fileName]);
+        } else {
+            $propertyPdfFile = PropertyPdfFile::create(['property_id' => $property->id, 'name' => $property->alias,  'file_name' => $fileName, 'path' => public_path().'/files/'.$fileName]);
+        }
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true, 'defaultFont' => 'sans-serif'])->loadView('realstate.pdf.property', compact('property', 'features', 'default_language', 'static_data'))->save(public_path().'/files/'.$fileName.'.pdf');
     }
 }
