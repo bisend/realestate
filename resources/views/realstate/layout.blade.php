@@ -67,5 +67,7 @@
 <script src="/realstate/js/searchSale.js"></script>
 
 <script src="/realstate/js/searchRent.js"></script>
+
+<script src="/realstate/js/contact-page.js"></script>
 </body>
 </html>
