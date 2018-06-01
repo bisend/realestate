@@ -670,7 +670,18 @@
             },
             success: function (data) {
                 if (data.status == 'success') {
+                    console.log(data.img);
+                                        
+                    $( ".dz-image img" ).each(function() {
+                        if($(this).attr('id') == imgID){
+                             $(this).attr('src', 'data:image/png;base64,'+data.img)
+                        }
+                    });
+                    $('.cropper-section-modal').modal('hide');
 
+                    // if($('.dz-image img').attr('id') == imgID){
+                    //     $('.dz-image img').attr('src', data.img)
+                    // }
                 }
             },
             error: function (error) {
@@ -1037,6 +1048,7 @@ if (URL) {
         var imgCount = 0;
         var checkCount = 0;
         var cropImg = 0;
+        var lastImg = 0;
 
         $(document).ready(function(){
             Dropzone.autoDiscover = false;
@@ -1057,6 +1069,10 @@ if (URL) {
                         $(selector).attr('data-dz-remove', json.data);
                         $('.hidden-fields').append('<input type="hidden" name="images[]" value="'+ json.data +'">');
                         
+                        
+                        let lastUploadImg = $($('.dz-image img').get(lastImg++))
+                        lastUploadImg.last().attr('id',json.data)
+
                         // let rot = $($('.rotate-btn').get(imgCount++))
                         let cropbtn = $($('.open-cropper').get(cropImg++))
                         cropbtn.last().append('<input type="hidden" value="'+ json.data +'">');

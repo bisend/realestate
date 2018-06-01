@@ -2593,3 +2593,30 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 }
 
 /* SERACH TABS END------- */
+
+/* --  CONTACT PAGE  -- */
+
+.contact-page-phones{
+	margin: 0;
+}
+
+.contact-page-phones li{
+	display: inline-block;
+	margin: 0 10px;
+}
+
+#contact-us input{
+	border: 1px solid #fff;
+}
+
+#contact-us #contact-message{
+	min-height: 120px;
+	height: 120px;
+	max-width: 100%;
+	min-width: 100%;
+	width: 100%;
+}
+
+.select-hide{
+	display: none;
+}

@@ -76,7 +76,7 @@ class HomeController extends Controller
         // Get Static Data
         $static_data = $this->static_data;
         $default_language = $this->default_language;
-        return view('home.contact', compact('static_data', 'default_language'));
+        return view('realstate.contact', compact('static_data', 'default_language'));
     }
 
     public function reCaptcha(Request $request){

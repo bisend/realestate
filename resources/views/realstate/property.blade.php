@@ -275,8 +275,8 @@
 					
 				<div class="tabs tabs-search">
 					<ul class="tabs-search-nav">
-						<li><a class="open-tabs-search" href="#tabs-search-sale">For Sale</a></li>
-						<li><a class="open-tabs-search" href="#tabs-search-rent">For Rent</a></li>
+						<li><a class="open-tabs-search tbs-sale" href="#tabs-search-sale">For Sale</a></li>
+						<li><a class="open-tabs-search tbs-rent" href="#tabs-search-rent">For Rent</a></li>
 					</ul>
 					<div class="forms-div">
 						<div id="tabs-search-sale" class="ui-tabs-hide">
@@ -294,24 +294,34 @@
 									</select>
 									</div>
 
-									<div class="form-block border">
-										<label for="search_sale-country">Country</label>
-										<select id="search_sale-country" class="border">
-											<option value="">Any</option>
-											<option value="Spain">Spain</option>
-											<option value="Gibraltar">Gibraltar</option>
-										</select>
-									</div>
-									
-									<div class="form-block border">
-									<label for="search_sale-location">Location</label>
-									<select id="search_sale-location" class="border">
-										<option value="">Any</option>
-										<option value="baltimore">Baltimore</option>
-										<option value="ny">New York</option>
-										<option value="nap">Annapolis</option>
-									</select>
-									</div>
+								<div class="form-block border">
+                  <label>Country</label>
+                  <select class="border" id="search_sale-country" name="property-country">
+                    <option class="country-any" value="">Any</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Gibraltar">Gibraltar</option>
+                  </select>
+                </div>
+      
+                <div class="form-block border">
+                  <label>Location</label>
+                  <select class="location-select border" id="search_sale-location" name="location">
+                        <option class="select-any" value="">Any</option>
+                   
+                        <option class="country-sp" value="family-house">Family House</option>
+                        <option class="country-sp" value="apartment">Apartment</option>
+                        <option class="country-sp" value="condo">Condo</option>
+                    
+                   
+                        <option class="country-gb" value="family-house">1</option>
+                        <option class="country-gb" value="apartment">2</option>
+                        <option class="country-gb" value="condo">3</option>
+                        <option class="country-gb" value="family-house">4</option>
+                        <option class="country-gb" value="apartment">5</option>
+                        <option class="country-gb" value="condo">6</option>
+                    
+                  </select>
+                </div>
 
 
 									<div class="form-block border">
@@ -359,23 +369,33 @@
 										</select>
 										</div>
 
-										<div class="form-block border">
-											<label for="search_rent-country">Country</label>
-											<select id="search_rent-country" name="property-country">
-												<option value="">Any</option>
+										 <div class="form-block border">
+											<label>Country</label>
+											<select class="border" id="search_rent-country" name="property-country">
+												<option class="country-any" value="">Any</option>
 												<option value="Spain">Spain</option>
 												<option value="Gibraltar">Gibraltar</option>
 											</select>
 										</div>
-										
+					
 										<div class="form-block border">
-										<label for="property-location">Location</label>
-										<select  id="search_rent-location" class="border">
-											<option value="">Any</option>
-											<option value="baltimore">Baltimore</option>
-											<option value="ny">New York</option>
-											<option value="nap">Annapolis</option>
-										</select>
+											<label>Location</label>
+											<select class="location-select border" id="search_rent-location" name="location">
+														<option class="select-any" value="">Any</option>
+											
+														<option class="country-sp" value="family-house">Family House</option>
+														<option class="country-sp" value="apartment">Apartment</option>
+														<option class="country-sp" value="condo">Condo</option>
+												
+											
+														<option class="country-gb" value="family-house">1</option>
+														<option class="country-gb" value="apartment">2</option>
+														<option class="country-gb" value="condo">3</option>
+														<option class="country-gb" value="family-house">4</option>
+														<option class="country-gb" value="apartment">5</option>
+														<option class="country-gb" value="condo">6</option>
+												
+											</select>
 										</div>
 
 										<div class="form-block border">
