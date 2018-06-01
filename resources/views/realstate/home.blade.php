@@ -79,8 +79,8 @@
     <div class="filter-header">
       <div class="container">
           <ul>
-            <li><a href="#tabs-2">For Sale</a></li>
-            <li><a href="#tabs-3">For Rent</a></li>
+            <li><a class="tbs-sale" href="#tabs-2">For Sale</a></li>
+            <li><a class="tbs-rent" href="#tabs-3">For Rent</a></li>
           </ul>
       </div><!-- end container -->
     </div><!-- end filter header -->
@@ -103,7 +103,7 @@
                 <div class="filter-item filter-item-7">
                   <label>Country</label>
                   <select id="search_sale-country" name="property-country">
-                    <option value="">Any</option>
+                    <option class="country-any" value="">Any</option>
                     <option value="Spain">Spain</option>
                     <option value="Gibraltar">Gibraltar</option>
                   </select>
@@ -111,11 +111,21 @@
       
                 <div class="filter-item filter-item-7">
                   <label>Location</label>
-                  <select id="search_sale-location" name="location">
-                    <option value="">Any</option>
-                    <option value="family-house">Family House</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="condo">Condo</option>
+                  <select class="location-select" id="search_sale-location" name="location">
+                        <option class="select-any" value="">Any</option>
+                   
+                        <option class="country-sp" value="family-house">Family House</option>
+                        <option class="country-sp" value="apartment">Apartment</option>
+                        <option class="country-sp" value="condo">Condo</option>
+                    
+                   
+                        <option class="country-gb" value="family-house">1</option>
+                        <option class="country-gb" value="apartment">2</option>
+                        <option class="country-gb" value="condo">3</option>
+                        <option class="country-gb" value="family-house">4</option>
+                        <option class="country-gb" value="apartment">5</option>
+                        <option class="country-gb" value="condo">6</option>
+                    
                   </select>
                 </div>
       
@@ -179,19 +189,29 @@
                 <div class="filter-item filter-item-7">
                   <label>Country</label>
                   <select id="search_rent-country" name="property-country">
-                    <option value="">Any</option>
+                    <option class="country-any" value="">Any</option>
                     <option value="Spain">Spain</option>
                     <option value="Gibraltar">Gibraltar</option>
                   </select>
                 </div>
-
+      
                 <div class="filter-item filter-item-7">
                   <label>Location</label>
-                  <select id="search_rent-location" name="property-location">
-                    <option value="">Any</option>
-                    <option value="family-house">Family House</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="condo">Condo</option>
+                  <select class="location-select" id="search_rent-location" name="location">
+                        <option class="select-any" value="">Any</option>
+                   
+                        <option class="country-sp" value="family-house">Family House</option>
+                        <option class="country-sp" value="apartment">Apartment</option>
+                        <option class="country-sp" value="condo">Condo</option>
+                    
+                   
+                        <option class="country-gb" value="family-house">1</option>
+                        <option class="country-gb" value="apartment">2</option>
+                        <option class="country-gb" value="condo">3</option>
+                        <option class="country-gb" value="family-house">4</option>
+                        <option class="country-gb" value="apartment">5</option>
+                        <option class="country-gb" value="condo">6</option>
+                    
                   </select>
                 </div>
       

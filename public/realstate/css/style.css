@@ -2616,3 +2616,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	min-width: 100%;
 	width: 100%;
 }
+
+.select-hide{
+	display: none;
+}
