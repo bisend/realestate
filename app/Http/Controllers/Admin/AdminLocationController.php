@@ -9,7 +9,8 @@ use App\Models\Admin\LocationContent;
 use App\Models\Admin\Property;
 use App\Models\Admin\Service;
 use Illuminate\Http\Request;
-
+use App\Models\Admin\Country;
+use App\Models\Admin\CountryContent;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -40,7 +41,8 @@ class AdminLocationController extends Controller
     public function create()
     {
         $languages = $this->languages;
-        return view('admin.taxonomy.location.create', compact('languages'));
+        $countries = Country::all();
+        return view('admin.taxonomy.location.create', compact('languages', 'countries'));
     }
 
     /**
@@ -58,36 +60,12 @@ class AdminLocationController extends Controller
         }
 
         $data = [];
-        // Handing the Featured image
-        $file = $request->file('featured_image');
-        if(isset($file) && $file->isValid()){
-            $name = uniqid() . unique_string() .'.'. $file->getClientOriginalExtension();
-            $img = Image::make($file->getRealPath());
-            $date = date('M-Y');
-            if(!File::exists(public_path() . '/images/data/'. $date)){
-                File::makeDirectory(public_path() . '/images/data/'. $date, 0755, true);
-            }
-            $img->save(public_path().'/images/data/'. $date .'/'. $name);
-            $data['featured_image'] = $date .'/'. $name;
-        }
-
-        // Handing the Home Image
-        $file = $request->file('home_image');
-        if(isset($file) && $file->isValid()){
-            $name = uniqid() . unique_string() .'.'. $file->getClientOriginalExtension();
-            $img = Image::make($file->getRealPath());
-            $date = date('M-Y');
-            if(!File::exists(public_path() . '/images/data/'. $date)){
-                File::makeDirectory(public_path() . '/images/data/'. $date, 0755, true);
-            }
-            $img->save(public_path().'/images/data/'. $date .'/'. $name);
-            $data['home_image'] = $date .'/'. $name;
-        }
 
         $default_language = Language::where('default', 1)->first();
         $data['alias'] = Utility::alias($request->name[$default_language->id], [], 'location');
         $data['featured'] = $request->featured ? $request->featured : 0;
         $data['order'] = $request->order ? $request->order : 0;
+        $data['country_id'] = $request->country_id ? $request->country_id : 0;
         $location = Location::create($data);
 
         unset($data);
@@ -127,7 +105,8 @@ class AdminLocationController extends Controller
     {
         $location = Location::findOrFail($id);
         $languages = $this->languages;
-        return view('admin.taxonomy.location.edit', compact('location', 'languages'));
+        $countries = Country::all();
+        return view('admin.taxonomy.location.edit', compact('location', 'languages', 'countries'));
     }
 
     /**
@@ -202,6 +181,7 @@ class AdminLocationController extends Controller
 
         $data['order'] = $request->order ? $request->order : $location->order;
         $data['featured'] = $request->featured ? $request->featured : 0;
+        $data['country_id'] = $request->country_id ? $request->country_id : 0;
         $location->update($data);
 
         // Updating the Content

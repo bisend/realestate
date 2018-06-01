@@ -51,9 +51,9 @@ class Handler extends ExceptionHandler
                 return response()->json(['error' => 'Method not allowed!'], 405);
             }
         }
-        if ($e instanceof \Illuminate\Session\TokenMismatchException) {
-            return response()->json(['error' => 'You have been inactive for a while, please go back to the previous page!'], 400);
-        }
+        // if ($e instanceof \Illuminate\Session\TokenMismatchException) {
+        //     return response()->json(['error' => 'You have been inactive for a while, please go back to the previous page!'], 400);
+        // }
         if ($e instanceof ModelNotFoundException) {
             return response()->json(['error' => 'Something happened'], 400);
         }  

@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 @section('page_title')
-    <h3 class="page-title mbot10">{{get_string('categories')}}</h3>
+    <h3 class="page-title mbot10">Property Type</h3>
 @endsection
     <div class="col l6 m8 s12 left left-align mbot10">
         {!!Form::open(['method' => 'post', 'url' => route('admin_taxonomy_category_search')]) !!}

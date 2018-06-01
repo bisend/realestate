@@ -17,7 +17,6 @@
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li class="tab active"><a href="#content-panel" data-toggle="tab">{{get_string('content')}}</a></li>
-                <li class="tab"><a href="#data-panel" data-toggle="tab">{{get_string('data')}}</a></li>
             </ul>
         </div>
         <div class="panel-body">
@@ -45,6 +44,16 @@
                                             </div>
                                         </div>
                                         <div class="col s12">
+                                            <div class="form-group  {{$errors->has('name.'.$language->id.'') ? 'has-error' : ''}}">
+                                                <select name="country_id" class ="location-select form-control">
+                                                    @foreach($countries as $country)
+                                                    <option value="{{$country->id}}" {{ $country->id == $location->country_id ? 'selected' : '' }}>{{$country->contentDefault->location}}</option>
+                                                    @endforeach
+                                                </select>
+                                                {{Form::label('name[country_id]', 'Country')}}
+                                            </div>
+                                        </div>
+                                        <div class="col s12">
                                             {{Form::textarea('description['.$language->id.']', $location->content($language->id)->description, ['class' => 'hidden desc-content'])}}
                                             @if($errors->has('description.'.$language->id.''))
                                                 <span class="wrong-error">{{$errors->first('description.'.$language->id.'')}}</span>
@@ -54,72 +63,6 @@
                                 @endforeach
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div id="data-panel" class="tab-pane">
-                    <div class="col s12">
-                         <div class="form-group  {{$errors->has('alias') ? 'has-error' : ''}}">
-                            {{Form::text('alias', $location->alias, ['class' => 'form-control', 'placeholder' => get_string('alias')])}}
-                            {{Form::label('alias', get_string('alias'))}}
-                            @if($errors->has('alias'))
-                                <span class="wrong-error">* {{$errors->first('alias')}}</span>
-                            @endif
-                         </div>    
-                    </div>
-                    <div class="col m8 s6 left left-align mbot0">
-                        <div class="form-group">
-                            {{Form::number('order', $location->order, ['class' => 'form-control', 'min' => '0', 'step' => 1, 'placeholder' => get_string('order')])}}
-                            {{Form::label('order', get_string('order'))}}
-                        </div>
-                    </div>
-                    <div class="col m4 s6 right right-align mbot0">
-                        <div class="form-group">
-                            <div class="switch">
-                                <label>
-                                    {{get_string('standard')}}{{ Form::checkbox('featured', $location->featured, false, ['value' => $location->featured, 'id' => 'activeSwitch', 'class' => 'form-control', $location->featured ? 'checked': ''])}}<span class="lever"></span>{{get_string('featured')}}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="row">
-                        <div class="col m6 c12">
-                        <div class="col s12">
-                            <div class="input-group {{$errors->has('home_image') ? 'has-error' : ''}}">
-                                <label class="input-group-btn">
-                        <span class="btn btn-primary waves-effect">{{get_string('upload_home_image')}} <i class="material-icons small">add_circle</i>
-                            {!! Form::file('home_image', ['id' => 'home_image', 'class' => 'hidden']) !!}
-                        </span>
-                                </label>
-                                <input type="text" class="form-control" readonly>
-                            </div>
-                        </div>
-                        @if($location->home_image)
-                        <div class="text-centered mtop10 mbot10 clearfix">
-                            <img id="home-image" class="img-responsive mtop10" src="{{$location->home_image}}"/>
-                            <a href="#!" class="mtop20 delete-home-image btn waves-effect btn-red" data-id="{{$location->id}}"><i class="material-icons color-white">delete</i>{{ get_string('delete_image') }}</a>
-                        </div>
-                        @endif
-                    </div>
-                    <div class="col m6 c12">
-                        <div class="col s12">
-                            <div class="input-group {{$errors->has('home_image') ? 'has-error' : ''}}">
-                                <label class="input-group-btn">
-                        <span class="btn btn-primary waves-effect">{{get_string('upload_featured_image')}} <i class="material-icons small">add_circle</i>
-                            {!! Form::file('featured_image', ['id' => 'home_image', 'class' => 'hidden']) !!}
-                        </span>
-                                </label>
-                                <input type="text" class="form-control" readonly>
-                            </div>
-                            <span class="field-info">{{get_string('min_dimension_featured')}}</span>
-                        </div>
-                        @if($location->featured_image)
-                        <div class="text-centered mtop10 mbot10 clearfix">
-                            <img id="featured-image" class="img-responsive mtop10" src="{{$location->featured_image}}"/>
-                            <a href="#!" class="mtop20 delete-featured-image btn waves-effect btn-red" data-id="{{$location->id}}"><i class="material-icons color-white">delete</i>{{ get_string('delete_image') }}</a>
-                        </div>
-                        @endif
-                    </div> 
                     </div>
                 </div>
             </div>
