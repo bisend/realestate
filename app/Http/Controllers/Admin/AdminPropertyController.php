@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Common\Utility;
 use App\Models\Admin\Language;
+use App\Models\Admin\Location;
 use App\Models\Admin\LocationContent;
+use App\Models\Admin\CountryContent;
 use App\Models\Admin\Property;
 use App\Models\Admin\CategoryContent;
 use App\Models\Admin\PropertyContent;
@@ -37,7 +39,8 @@ class AdminPropertyController extends Controller
             'category_id'             => 'required',
             'sale_rent'             => 'required',
             // 'type_id'              => 'required',
-            //'location_id'             => 'required',
+            'country_id'             => 'required',
+            'location_id'             => 'required',
             // 'location.address'        => 'required',
             // 'location.city'           => 'required',
             // 'location.country'        => 'required',
@@ -103,6 +106,8 @@ class AdminPropertyController extends Controller
             'property_info.bedrooms.required' => get_string('required_field'),
             'property_info.bathrooms.required' => get_string('required_field'),
             'property_info.property_reference.required' => get_string('required_field'),
+            'location_id.required' => get_string('required_field'),
+            'country_id.required' => get_string('required_field'),
         ];
         $this->languages = Language::all();
     }
@@ -130,10 +135,11 @@ class AdminPropertyController extends Controller
     {
         $default_language = Language::where('default', 1)->first();
         $categories = CategoryContent::where('language_id', $default_language->id)->get()->pluck('name', 'category_id');
-        $locations = LocationContent::where('language_id', $default_language->id)->get()->pluck('location', 'location_id');
+        $locations = Location::all();
+        $countries = CountryContent::where('language_id', $default_language->id)->get()->pluck('location', 'location_id');
         $languages = $this->languages;
         $features = Feature::all();
-        return view('admin.property.create', compact('categories', 'languages', 'features', 'default_language', 'locations'));
+        return view('admin.property.create', compact('categories', 'languages', 'features', 'default_language', 'locations', 'countries'));
     }
 
     /**
@@ -212,7 +218,7 @@ class AdminPropertyController extends Controller
 
         // Create available dates
         PropertyDate::create(['dates' => null, 'property_id' => $property->id]);
-        $this->createPdfFile($property);
+        //$this->createPdfFile($property);
         // Redirect after saving
         return redirect('admin/property');
     }
@@ -239,10 +245,11 @@ class AdminPropertyController extends Controller
         $default_language = Language::where('default', 1)->first();
         $categories = CategoryContent::where('language_id', $default_language->id)->get()->pluck('name', 'category_id');
         $languages = $this->languages;
-        $locations = LocationContent::where('language_id', $default_language->id)->get()->pluck('location', 'location_id');
+        $locations = Location::all();
+        $countries = CountryContent::where('language_id', $default_language->id)->get()->pluck('location', 'location_id');
         $features = Feature::all();
         $property = Property::findOrFail($id);
-        return view('admin.property.edit', compact('property', 'categories', 'default_language', 'languages', 'features', 'locations'));
+        return view('admin.property.edit', compact('property', 'categories', 'default_language', 'languages', 'features', 'locations', 'countries'));
     }
 
     /**
@@ -728,9 +735,9 @@ class AdminPropertyController extends Controller
             if(File::exists($property->pdfFile->path.'.pdf')){
                 File::delete($property->pdfFile->path.'.pdf');
             }
-            $propertyPdfFile->update(['name' => $property->alias,  'file_name' => $fileName, 'path' => public_path().'/files/'.$fileName]);
+            $propertyPdfFile->update(['name' => $property->alias,  'file_name' => $fileName, 'path' => url('/').'/files/'.$fileName.'.pdf']);
         } else {
-            $propertyPdfFile = PropertyPdfFile::create(['property_id' => $property->id, 'name' => $property->alias,  'file_name' => $fileName, 'path' => public_path().'/files/'.$fileName]);
+            $propertyPdfFile = PropertyPdfFile::create(['property_id' => $property->id, 'name' => $property->alias,  'file_name' => $fileName, 'path' => public_path().'/files/'.$fileName.'.pdf']);
         }
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true, 'defaultFont' => 'sans-serif'])->loadView('realstate.pdf.property', compact('property', 'features', 'default_language', 'static_data'))->save(public_path().'/files/'.$fileName.'.pdf');
     }

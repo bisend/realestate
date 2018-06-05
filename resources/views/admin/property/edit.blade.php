@@ -98,27 +98,36 @@
                     <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('category_id') ? 'has-error' : ''}}">
                             {{Form::select('category_id', $categories, $property->category_id, ['class' => 'category-select form-control', 'placeholder' => get_string('choose_category')])}}
+                            {{Form::label('category_id', get_string('choose_category'))}} *
                             @if($errors->has('category_id'))
                                 <span class="wrong-error">* {{$errors->first('category_id')}}</span>
                             @endif
                         </div>
                     </div>
-                    <!-- <div class="col m4 s6">
-                        <div class="form-group  {{$errors->has('category_id') ? 'has-error' : ''}}">
-                            {{Form::select('category_id', $categories, $property->category_id, ['class' => 'category-select form-control', 'placeholder' => get_string('choose_category')])}}
-                            @if($errors->has('category_id'))
-                                <span class="wrong-error">* {{$errors->first('category_id')}}</span>
+                    <div class="col m6 s6">
+                        <div class="form-group  {{$errors->has('country_id') ? 'has-error' : ''}}">
+                            {{Form::select('country_id', $countries, $property->country_id, ['class' => 'country-select form-control', 'placeholder' => 'Select country'])}}
+                            {{Form::label('country_id', 'Country')}} *
+                            @if($errors->has('country_id'))
+                                <span class="wrong-error">* {{$errors->first('country_id')}}</span>
                             @endif
                         </div>
-                    </div>
-                    <div class="col m4 s6">
+                    </div>  
+                    <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('location_id') ? 'has-error' : ''}}">
-                            {{Form::select('location_id', $locations, $property->location_id, ['class' => 'location-select form-control', 'placeholder' => get_string('choose_location')])}}
+                            <!-- {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control country-', 'placeholder' => get_string('choose_location')])}} -->
+                            <select name="location_id" id="select_location_id" class="location-select form-control" placeholder="Select location">
+                            <option value="" selected disabled hidden>Select location</option>
+                            @foreach($locations as $location)
+                                <option class="country-{{$location->country_id}}" value="{{$location->id}}" {{$property->location_id == $location->id ? 'selected' : ''}}>{{$location->contentDefault->location}}</option>                        
+                            @endforeach
+                            </select>
+                            {{Form::label('location_id', 'Location')}} *
                             @if($errors->has('location_id'))
                                 <span class="wrong-error">* {{$errors->first('location_id')}}</span>
                             @endif
                         </div>
-                    </div>-->
+                    </div>
                     <div class="col s12 well checkbox-grid">
                         <p>{{get_string('choose_features')}}</p>
                         @foreach($features as $feature)
@@ -996,6 +1005,37 @@
                             });
                         }
                     });
+                }
+            });
+
+            $('.country-select').on('change', function () {
+                var country_id = $(this).val();
+                $('#select_location_id').val('');
+                if(country_id == ''){
+                    $(".location-select option" ).each(function() {
+                            $(this).show();
+                    });
+                }else{
+                    $(".location-select option").each(function() {
+                        if($(this).hasClass('country-'+country_id)){
+                            $(this).show();
+                            $('.location-any').show();
+                        }else{
+                            $(this).hide();
+                            $('.location-any').show();
+                        }
+                    });
+                }
+            });
+
+            var country_id = $('.country-select').val();
+            $(".location-select option").each(function() {
+                if($(this).hasClass('country-'+country_id)){
+                    $(this).show();
+                    $('.location-any').show();
+                }else{
+                    $(this).hide();
+                    $('.location-any').show();
                 }
             });
         });

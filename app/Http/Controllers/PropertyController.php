@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use App\Models\Admin\Location;
+use App\Models\Admin\Country;
+use App\Models\Admin\Category;
 
 class PropertyController extends Controller
 {
@@ -29,7 +32,9 @@ class PropertyController extends Controller
     {
         $static_data = $this->static_data;
         $default_language = $this->default_language;
-        
+        $countries = Country::all();
+        $locations = Location::all();
+        $categories = Category::get();
         $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('alias', $alias)->first();
@@ -75,7 +80,7 @@ class PropertyController extends Controller
             $related_properties = $properties->each(function ($value) use($mainProperty) {
                 return $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE) && $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE);
             })->take(Property::RELATED_PROPERTIES_COUNT);
-            return view('realstate.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates', 'recent_properties', 'last_posts', 'related_properties','title'));
+            return view('realstate.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates', 'recent_properties', 'last_posts', 'related_properties','title', 'categories', 'countries', 'locations'));
         } else {
             abort(404);
         }

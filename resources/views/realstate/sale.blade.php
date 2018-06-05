@@ -133,29 +133,20 @@
 					<div class="filter-item filter-item-7">
                   <label>Country</label>
                   <select id="search_sale-country" name="property-country">
-                    <option value="">Any</option>
-                    <option value="Spain">Spain</option>
-                    <option value="Gibraltar">Gibraltar</option>
+												<option class="country-any" value="">Any</option>
+                        @foreach($countries as $country)
+                        <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+                        @endforeach
                   </select>
                 </div>
       
                 <div class="filter-item filter-item-7">
                   <label>Location</label>
                   <select class="location-select" id="search_sale-location" name="location">
-                        <option class="select-any" value="">Any</option>
-                   
-                        <option class="country-sp" value="family-house">Family House</option>
-                        <option class="country-sp" value="apartment">Apartment</option>
-                        <option class="country-sp" value="condo">Condo</option>
-                    
-                   
-                        <option class="country-gb" value="family-house">1</option>
-                        <option class="country-gb" value="apartment">2</option>
-                        <option class="country-gb" value="condo">3</option>
-                        <option class="country-gb" value="family-house">4</option>
-                        <option class="country-gb" value="apartment">5</option>
-                        <option class="country-gb" value="condo">6</option>
-                    
+												<option class="location-any" value="">Any</option>
+                        @foreach($locations as $location)
+                            <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+                        @endforeach
                   </select>
                 </div>
 

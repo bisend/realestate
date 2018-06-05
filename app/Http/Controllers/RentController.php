@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Admin\Property;
 use Illuminate\Http\Request;
 use App\Models\Admin\Category;
+use App\Models\Admin\Location;
+use App\Models\Admin\Country;
 
 class RentController extends Controller
 {
@@ -20,6 +22,8 @@ class RentController extends Controller
         $static_data = $this->static_data;
         $default_language = $this->default_language;
         $title = 'Rent | Findaproperty';
+        $countries = Country::all();
+        $locations = Location::all();
         $categories = Category::get();
         $recent_properties = Property::orderBy('created_at', 'desc')->take(Property::RECENT_PROPERTIES)->get();
         if ( ! empty($request->all())) {
@@ -38,9 +42,9 @@ class RentController extends Controller
                 })->values();
             }
             $search_properties = $filter_properties;
-            return view('realstate.rent', compact('static_data', 'search_properties', 'recent_properties', 'categories', 'title'));
+            return view('realstate.rent', compact('static_data', 'search_properties', 'recent_properties', 'categories', 'title', 'countries', 'locations'));
         }
         $properties = Property::where('rentals', 1)->orderBy('created_at', 'desc')->paginate(Property::GET_PROPERTIES);
-        return view('realstate.rent', compact('static_data', 'properties', 'recent_properties', 'categories', 'title'));
+        return view('realstate.rent', compact('static_data', 'properties', 'recent_properties', 'categories', 'title', 'countries', 'locations'));
     }
 }
