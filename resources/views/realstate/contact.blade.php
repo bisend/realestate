@@ -80,6 +80,11 @@
               <label>Message *</label>
               <textarea id="contact-message" class="requiredField" placeholder="Your message..." name="message"></textarea>
             </div>
+
+             <!-- <div class="recaptcha-div">
+                <span id="recaptcha-error-callback">Please complete the verification!</span>
+                <div class="recaptcha-style" id="contact-recaptcha"></div>
+            </div> -->
             
             <div class="form-block">
               <input id="submit-contact-form" type="submit" value="Submit" />
@@ -104,5 +109,6 @@
 
   </div><!-- end container -->
 </section>
+
 
 @endsection

@@ -1,100 +1,94 @@
 
 $('#search_sale-country').on('change', function () {
-    console.log('SELECT');
-    $('.select-any').attr('selected', false);
 
-    if( $(this).val() == 'Spain'){
+    $('.location-any').attr('selected', false);
 
-        $( ".location-select option" ).each(function( index ) {
-            if($(this).hasClass('select-any')){
+        $( "#search_sale-location option" ).each(function() {
+            if($(this).hasClass('location-any')){
                 $(this).attr('selected', true);
             }else{
                 $(this).attr('selected', false);
             }
         });
 
-        console.log($(this).val());
-        // $('.select-any').attr('selected', true);
-        $('.country-gb').hide();
-        $('.country-sp').show();
-    }
 
-    if( $(this).val() == 'Gibraltar'){
-        $( ".location-select option" ).each(function( index ) {
-            if($(this).hasClass('select-any')){
-                $(this).attr('selected', true);
+    let classSelect = $(this).val();
+    console.log(classSelect)
+
+    if(classSelect == ''){
+        $( "#search_sale-location option" ).each(function() {
+            $(this).show();
+        });
+    }else{
+        $( "#search_sale-location option" ).each(function() {
+            if($(this).hasClass(classSelect)){
+                $(this).show();
+                $('.location-any').show();
             }else{
-                $(this).attr('selected', false);
+                $(this).hide();
+                $('.location-any').show();
             }
         });
-
-        console.log($(this).val());
-        // $('.select-any').attr('selected', true);
-        $('.country-sp').hide();
-        $('.country-gb').show();
     }
+
+
 })
+
+
+
+$('#search_rent-country').on('change', function () {
+
+    $('.location-any').attr('selected', false);
+
+        $( "#search_rent-location option" ).each(function() {
+            if($(this).hasClass('location-any')){
+                $(this).attr('selected', true);
+            }else{
+                $(this).attr('selected', false);
+            }
+        });
+
+
+    let classSelect = $(this).val();
+    console.log(classSelect)
+
+    if(classSelect == ''){
+        $( "#search_rent-location option" ).each(function() {
+            $(this).show();
+        });
+    }else{
+        $( "#search_rent-location option" ).each(function() {
+            if($(this).hasClass(classSelect)){
+                $(this).show();
+                $('.location-any').show();
+            }else{
+                $(this).hide();
+                $('.location-any').show();
+            }
+        });
+    }
+
+
+})
+
 
 
 
 
 /*------------------------*/ 
-$('#search_rent-country').on('change', function () {
-    console.log('SELECT');
-    $('.select-any').attr('selected', false);
 
-    if( $(this).val() == 'Spain'){
 
-        $( ".location-select option" ).each(function( index ) {
-            if($(this).hasClass('select-any')){
-                $(this).attr('selected', true);
-            }else{
-                $(this).attr('selected', false);
-            }
-        });
+// $('.tbs-sale').on('click', function () {
+//     $('.country-sp').show();
+//     $('.country-gb').show();
+//     $('.country-any').attr('selected', true)
+// })
 
-        console.log($(this).val());
-        // $('.select-any').attr('selected', true);
-        $('.country-gb').hide();
-        $('.country-sp').show();
-    }
+// $('.tbs-rent').on('click', function () {
+//     $('.country-sp').show();
+//     $('.country-gb').show();
+//     $('.country-any').attr('selected', true)
+// })
 
-    if( $(this).val() == 'Gibraltar'){
-        $( ".location-select option" ).each(function( index ) {
-            if($(this).hasClass('select-any')){
-                $(this).attr('selected', true);
-            }else{
-                $(this).attr('selected', false);
-            }
-        });
-
-        console.log($(this).val());
-        // $('.select-any').attr('selected', true);
-        $('.country-sp').hide();
-        $('.country-gb').show();
-    }
-    
-})
-
-// tbs-rent
-// tbs-sale
-
-$('.tbs-sale').on('click', function () {
-    $('.country-sp').show();
-    $('.country-gb').show();
-    $('.country-any').attr('selected', true)
-})
-
-$('.tbs-rent').on('click', function () {
-    $('.country-sp').show();
-    $('.country-gb').show();
-    $('.country-any').attr('selected', true)
-})
-
-// $('#search_rent-location').val('');
-// $('#search_rent-country').val('');
-
-//  $('#search_sale-location').val('');
-//  $('#search_sale-country').val('')
 
 

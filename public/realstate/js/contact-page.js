@@ -11,6 +11,28 @@ $("#contact-phone").keypress(function (e) {
 });
 
 
+// var contactRecaptchaError = true;
+
+// var contactResponse = function (response) {
+//     $('#contact-recaptcha').hide();
+//     if (response == '') {
+//         contactRecaptchaError = true;
+//     } else {
+//         contactRecaptchaError = false;
+//     }
+// };
+
+
+// var widgetId12;
+// var onloadCallback12 = function () {
+
+//     widgetId12 = grecaptcha.render('contact-recaptcha', {
+//         'sitekey': '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj',
+//         'callback': contactResponse
+//     });
+
+// };
+
 // contact-name
 // contact-email
 // contact-phone
@@ -86,53 +108,57 @@ $('#submit-contact-form').on('click', function (e) {
         $('#contact-message').removeClass('incorect-input');
     }
 
+    if( contactRecaptchaError == true){
+        error == true;
+    }
+
     if(error == false){
 
-        $.ajax({
-            url: '',
-            type: 'POST',
-            data: {
-                _token: token,
-                name: name,
-                email: email,
-                phone: phone,
-                subject: subject,
-                message: message
-            },
-            success: function (data) {
-                if (data.status == 'success') {
-                    $('#contact-name').val('');
-                    $('#contact-name').attr('placeholder', 'Name');
-                    $('#contact-name').removeClass('incorect-input');
+        // $.ajax({
+        //     url: '',
+        //     type: 'POST',
+        //     data: {
+        //         _token: token,
+        //         name: name,
+        //         email: email,
+        //         phone: phone,
+        //         subject: subject,
+        //         message: message
+        //     },
+        //     success: function (data) {
+        //         if (data.status == 'success') {
+        //             $('#contact-name').val('');
+        //             $('#contact-name').attr('placeholder', 'Name');
+        //             $('#contact-name').removeClass('incorect-input');
 
-                    $('#contact-email').val('');
-                    $('#contact-email').attr('placeholder', 'Email');
-                    $('#contact-email').removeClass('incorect-input');
+        //             $('#contact-email').val('');
+        //             $('#contact-email').attr('placeholder', 'Email');
+        //             $('#contact-email').removeClass('incorect-input');
 
-                    $('#contact-phone').val('');
-                    $('#contact-phone').attr('placeholder', 'Phone Number');
-                    $('#contact-phone').removeClass('incorect-input');
+        //             $('#contact-phone').val('');
+        //             $('#contact-phone').attr('placeholder', 'Phone Number');
+        //             $('#contact-phone').removeClass('incorect-input');
 
-                    $('#contact-subject').val('');
-                    $('#contact-subject').attr('placeholder', 'Subject');
-                    $('#contact-subject').removeClass('incorect-input');
+        //             $('#contact-subject').val('');
+        //             $('#contact-subject').attr('placeholder', 'Subject');
+        //             $('#contact-subject').removeClass('incorect-input');
 
-                    $('#contact-message').val('');
-                    $('#contact-message').attr('placeholder', 'Message');
-                    $('#contact-message').removeClass('incorect-input');
+        //             $('#contact-message').val('');
+        //             $('#contact-message').attr('placeholder', 'Message');
+        //             $('#contact-message').removeClass('incorect-input');
 
-                    saveEmail = '';
-                    $('#successModal').modal('show')
+        //             saveEmail = '';
+        //             $('#successModal').modal('show')
 
-                }
+        //         }
 
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    // console.log('Name='+name+'-- Email='+email+'--, phone='+phone+'--, subject+'+subject+'--, message='+message)
-    // $('#successModal').modal('show')
+        //     },
+        //     error: function (error) {
+        //         console.log(error);
+        //     }
+        // });
+    console.log('Name='+name+'-- Email='+email+'--, phone='+phone+'--, subject+'+subject+'--, message='+message)
+    $('#successModal').modal('show')
     }
 
 
