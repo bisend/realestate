@@ -7,16 +7,8 @@
 @section('page_title')
     <h3 class="page-title mbot10">{{get_string('locations')}}</h3>
 @endsection
-    <div class="col l6 m8 s12 left left-align mbot10">
-        {!!Form::open(['method' => 'post', 'url' => route('admin_taxonomy_location_search')]) !!}
-        <div class="form-group col s8 autocomplete-fix">
-            {{Form::text('term', null, ['class' => 'form-control', 'id' => 'term', 'placeholder' => get_string('search_locations')])}}
-        </div>
-        <div class="col l4 m4 s4">
-            <button class="btn waves-effect" type="submit" name="action">{{get_string('filter')}}</button>
-        </div>
-        {!! Form::close() !!}
-    </div>
+<input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
+
     <div class="col l6 m4 s12 right right-align mbot10">
         <a href="{{route('admin.taxonomy.location.create')}}" class="btn waves-effect"> {{get_string('create_location')}} <i class="material-icons small">add_circle</i></a>
         <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a>
@@ -32,8 +24,7 @@
                     <label for="select-all"></label>
                 </th>
                 <th>{{get_string('name')}}</th>
-                <th>{{get_string('order')}}</th>
-                <th>{{get_string('featured')}}</th>
+                <th>Country</th>
                 <th class="icon-options">{{get_string('options')}}</th>
             </tr>
             </thead>
@@ -45,11 +36,9 @@
                             <label for="{{$location->id}}"></label>
                         </td>
                         <td>{{$location->contentDefault->location}}</td>
-                        <td>{{ $location->order }}</td>
-                        <td>@if($location->featured)<i class="small material-icons color-primary">done</i>@else   <i class="small material-icons color-red">close</i> @endif</td>
+                        <td>{{$location->country['contentDefault']['location']}}</td>
                         <td>
                             <div class="icon-options">
-                                <a href="{{url('location').'/'.$location->alias}}" title="{{get_string('view_page')}}"><i class="small material-icons color-primary">visibility</i></a>
                                 <a href="{{route('admin.taxonomy.location.edit', $location->id)}}" title="{{get_string('edit_location')}}"><i class="small material-icons color-primary">mode_edit</i></a>
                                 <a href="#" class="delete-button" data-id="{{$location->id}}" title="{{get_string('delete_location')}}"><i class="small material-icons color-red">delete</i></a>
                             </div>

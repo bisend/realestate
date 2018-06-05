@@ -11,8 +11,13 @@ class Location extends Model
 
     // Enable columns to be filled with data
     protected $fillable = [
-        'featured_image', 'alias', 'home_image', 'featured', 'order',
+        'featured_image', 'alias', 'home_image', 'featured', 'order', 'country_id',
     ];
+
+    public function country()
+    {
+        return $this->hasOne('App\Models\Admin\Country', 'id', 'country_id');
+    }
 
     // Getting the content - Default Language
     public function contentDefault(){

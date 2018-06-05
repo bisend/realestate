@@ -88,23 +88,30 @@
                             @endif
                         </div>
                     </div>
-                    <!-- <div class="col m4 s6">
+                    <div class="col m6 s6">
+                        <div class="form-group  {{$errors->has('country_id') ? 'has-error' : ''}}">
+                            {{Form::select('country_id', $countries, null, ['class' => 'country-select form-control', 'placeholder' => 'Select country'])}}
+                            {{Form::label('country_id', 'Country')}} *
+                            @if($errors->has('country_id'))
+                                <span class="wrong-error">* {{$errors->first('country_id')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('location_id') ? 'has-error' : ''}}">
-                            {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control', 'placeholder' => get_string('choose_location')])}}
+                            <!-- {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control country-', 'placeholder' => get_string('choose_location')])}} -->
+                            <select name="location_id" id="select_location_id" class="location-select form-control" placeholder="Select location">
+                            <option value="" selected disabled hidden>Select location</option>
+                            @foreach($locations as $location)
+                                <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+                            @endforeach
+                            </select>
+                            {{Form::label('location_id', 'Location')}} *
                             @if($errors->has('location_id'))
                                 <span class="wrong-error">* {{$errors->first('location_id')}}</span>
                             @endif
                         </div>
                     </div>
-                    <div class="col l3 m4 s6 right right-align mbot0">
-                        <div class="form-group">
-                            <div class="switch">
-                                <label>
-                                    {{get_string('standard')}}{{ Form::checkbox('featured', 0, false, ['value' => '0', 'id' => 'activeSwitch', 'class' => 'form-control'])}}<span class="lever"></span>{{get_string('featured')}}
-                                </label>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="col s12 well checkbox-grid">
                         <p>{{get_string('choose_features')}}</p>
                         @foreach($features as $feature)
@@ -1256,6 +1263,27 @@ if (URL) {
                     });
                 }
             });
+
+            $('.country-select').on('change', function () {
+                var country_id = $(this).val();
+                $('#select_location_id').val('');
+                if(country_id == ''){
+                $(".location-select option" ).each(function() {
+                        $(this).show();
+                    });
+                }else{
+                    $(".location-select option").each(function() {
+                        if($(this).hasClass('country-'+country_id)){
+                            $(this).show();
+                            $('.location-any').show();
+                        }else{
+                            $(this).hide();
+                            $('.location-any').show();
+                        }
+                    });
+                }
+            });
+
         });
 
         // Google Map

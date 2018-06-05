@@ -225,6 +225,7 @@ Route::group(['middleware' => 'admin'], function(){
     Route::resource('/admin/faq', 'Admin\AdminFaqController', ['as' => 'admin']);
     Route::resource('/admin/service', 'Admin\AdminServiceController', ['as' => 'admin']);
     Route::resource('/admin/taxonomy/category', 'Admin\AdminCategoryController', ['as' => 'admin.taxonomy']);
+    Route::resource('/admin/taxonomy/country', 'Admin\AdminCountryController', ['as' => 'admin.taxonomy']);
     Route::resource('/admin/taxonomy/location', 'Admin\AdminLocationController', ['as' => 'admin.taxonomy']);
     Route::resource('/admin/property', 'Admin\AdminPropertyController', ['as' => 'admin']);
 

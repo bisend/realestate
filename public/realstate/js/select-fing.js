@@ -1,4 +1,3 @@
-
 $('#search_sale-country').on('change', function () {
 
     $('.location-any').attr('selected', false);
@@ -21,7 +20,23 @@ $('#search_sale-country').on('change', function () {
         });
     }else{
         $( "#search_sale-location option" ).each(function() {
-            if($(this).hasClass(classSelect)){
+            if($(this).hasClass('country-'+classSelect)){
+                $(this).show();
+                $('.location-any').show();
+            }else{
+                $(this).hide();
+                $('.location-any').show();
+            }
+        });
+    }
+
+    if(classSelect == ''){
+        $( ".chosen-results li" ).each(function() {
+            $(this).show();
+        });
+    }else{
+        $( ".chosen-results li" ).each(function() {
+            if($(this).hasClass('country-'+classSelect)){
                 $(this).show();
                 $('.location-any').show();
             }else{
@@ -58,7 +73,7 @@ $('#search_rent-country').on('change', function () {
         });
     }else{
         $( "#search_rent-location option" ).each(function() {
-            if($(this).hasClass(classSelect)){
+            if($(this).hasClass('country-'+countrID)){
                 $(this).show();
                 $('.location-any').show();
             }else{
@@ -68,27 +83,4 @@ $('#search_rent-country').on('change', function () {
         });
     }
 
-
-})
-
-
-
-
-
-/*------------------------*/ 
-
-
-// $('.tbs-sale').on('click', function () {
-//     $('.country-sp').show();
-//     $('.country-gb').show();
-//     $('.country-any').attr('selected', true)
-// })
-
-// $('.tbs-rent').on('click', function () {
-//     $('.country-sp').show();
-//     $('.country-gb').show();
-//     $('.country-any').attr('selected', true)
-// })
-
-
-
+});

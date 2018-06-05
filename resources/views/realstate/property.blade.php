@@ -100,7 +100,7 @@
 						<td><i class="fa fa-bed"></i></i> <span>{{ $mainProperty->property_info['bedrooms'] }}</span> Beds</td>
 						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq Ft</td>
 						<!-- <td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PDF</td> -->
-						<td><a target="_blank" class="pdf-down-prop" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>PDF</span> </a></td>
+						<td><a href="{{$mainProperty->pdfFile->path}}" target="_blank" class="pdf-down-prop"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>PDF</span> </a></td>
 					</tr>
 				</table>
 

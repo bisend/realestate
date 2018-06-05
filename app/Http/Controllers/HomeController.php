@@ -7,6 +7,7 @@ use App\Models\Admin\Blog;
 use App\Models\Admin\Property;
 use App\Models\Admin\Review;
 use App\Models\Admin\Location;
+use App\Models\Admin\Country;
 use App\Mail\RequestMails;
 use App\Models\Request as RequestModel;
 use Illuminate\Http\Request;
@@ -64,11 +65,12 @@ class HomeController extends Controller
         $slider = Property::with(['images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('slider', 1)->take(5)->get();
-
+        $countries = Country::all();
+        $locations = Location::all();
         $categories = Category::get();
         // Returning the View
         return view('realstate.home', compact('posts', 'default_language',
-            'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider', 'categories', 'title'));
+            'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider', 'categories', 'title', 'countries', 'locations'));
     }
 
     // Contact page
