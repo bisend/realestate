@@ -609,7 +609,7 @@
 
     </div><!-- /.docs-toggles -->
     <button id="saveImgCropp" type="button" class="btn btn-secondary width100" data-method="getData" data-option data-target="#putData">
-        <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;getData&quot;)">
+        <span class="docs-tooltip" data-toggle="tooltip" data-animation="false">
           Save
         </span>
       </button>

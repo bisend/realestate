@@ -130,9 +130,9 @@
 					</select>
 					</div>
 
-					<div class="filter-item filter-item-7">
+					<div class="form-block border">
                   <label>Country</label>
-                  <select id="search_sale-country" name="property-country">
+                  <select class="border" id="search_sale-country" name="property-country">
 												<option class="country-any" value="">Any</option>
                         @foreach($countries as $country)
                         <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
@@ -140,9 +140,9 @@
                   </select>
                 </div>
       
-                <div class="filter-item filter-item-7">
+                <div class="form-block border">
                   <label>Location</label>
-                  <select class="location-select" id="search_sale-location" name="location">
+                  <select class="location-select border" id="search_sale-location" name="location">
 												<option class="location-any" value="">Any</option>
                         @foreach($locations as $location)
                             <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
