@@ -455,14 +455,14 @@
                         <h5 class="section-title">{{get_string('property_prices')}}</h5>
                     </div>
                     <div class="col l6 m6 s12" data-prices-price>
-                            <div class="form-group  {{$errors->has('prices.price') ? 'has-error' : ''}}">
-                                {{Form::text('prices[price]', null, ['class' => 'form-control', 'placeholder' => 'Price'])}}
-                                {{Form::label('prices[price]', 'Price')}}
-                                @if($errors->has('prices.price'))
-                                    <span class="wrong-error">* {{$errors->first('prices.price')}}</span>
-                                @endif
-                            </div>
+                        <div class="form-group  {{$errors->has('prices.price') ? 'has-error' : ''}}">
+                            {{Form::text('prices[price]', null, ['class' => 'form-control', 'placeholder' => 'Price'])}}
+                            {{Form::label('prices[price]', 'Price')}}
+                            @if($errors->has('prices.price'))
+                                <span class="wrong-error">* {{$errors->first('prices.price')}}</span>
+                            @endif
                         </div>
+                    </div>
                     <div class="col l6 m6 s12" data-prices-sc-sale>
                         <div class="form-group  {{$errors->has('prices.service_charge') ? 'has-error' : ''}}">
                             {{Form::text('prices[service_charge]', null, ['class' => 'form-control', 'placeholder' => 'Service Charge'])}}
@@ -1384,7 +1384,9 @@ if (URL) {
             }
         });
 
-
+        /*
+        show/hide prices if sale/rent
+        */
         $(document).ready(function() {
             var saleCheck = document.getElementById('contactChoice1'),
                 rentCheck = document.getElementById('contactChoice2'),
@@ -1395,13 +1397,13 @@ if (URL) {
 
             function hidePrices (type) {
                 if (type == 'rent') {
-                    pwRent.hide();
-                    pmRent.hide();
+                    pwRent.hide().find('input').val('');
+                    pmRent.hide().find('input').val('');
                 }
 
                 if (type == 'sales') {
-                    scSale.hide();
-                    rateSale.hide();
+                    scSale.hide().find('input').val('');
+                    rateSale.hide().find('input').val('');
                 }
             }
 
@@ -1441,13 +1443,11 @@ if (URL) {
 
             checkPrices();
 
-            console.log(saleCheck.checked, rentCheck.checked);
             $('body').on('change', '#contactChoice1', function () {
-                console.log(saleCheck.checked);
                 checkPrices();
             });
+            
             $('body').on('change', '#contactChoice2', function () {
-                console.log(rentCheck.checked);
                 checkPrices();
             });
         });

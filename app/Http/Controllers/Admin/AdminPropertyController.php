@@ -220,7 +220,7 @@ class AdminPropertyController extends Controller
 
         // Create available dates
         PropertyDate::create(['dates' => null, 'property_id' => $property->id]);
-        //$this->createPdfFile($property);
+        $this->createPdfFile($property);
         // Redirect after saving
         return redirect('admin/property');
     }
