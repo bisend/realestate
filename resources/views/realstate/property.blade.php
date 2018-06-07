@@ -64,20 +64,17 @@
 				<div class="property-header">
 					<div class="property-title">
 						<h4>{{ $mainProperty->contentload['name'] }}</h4>
-						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
-						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right"> ₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
-						<div class="property-price-single right"> ₤{{ $mainProperty->prices['service_charge'] }}<span> For Sale</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
-						@elseif($mainProperty->rentals == 1)
-						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right"> ₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
-						@elseif($mainProperty->sales == 1)
-						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['service_charge'] }}<span>Service Charge</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
+						<div class="right Property-ref">
+							Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span>
+						</div>
+						@if(isset($mainProperty->prices['price']))
+							<div class="property-price-single right">
+								₤{{ $mainProperty->prices['price'] }}<span> Price</span>
+							</div>
+						@else
+							<div class="property-price-single right">
+								₤ 0<span> Price</span>
+							</div>
 						@endif
             <div class="clear"></div>
 					</div>
@@ -152,8 +149,20 @@
 									@endif
 			          	<li>Internal Area: <span>{{ $mainProperty->property_info['internal_area'] }}</span></li>
 			          	<li>External Area: <span>{{ $mainProperty->property_info['external_area'] }}</span></li>
-			          	<li>Bathrooms: <span>{{ $mainProperty->property_info['bathrooms'] }}</span></li>
-			          	<li>Bedrooms: <span>{{ $mainProperty->property_info['bedrooms'] }}</span></li>
+						<li>Bathrooms: <span>{{ $mainProperty->property_info['bathrooms'] }}</span></li>
+						<li>Bedrooms: <span>{{ $mainProperty->property_info['bedrooms'] }}</span></li>
+						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
+							<li>Per Week: <span>₤ {{ $mainProperty->prices['week'] }}</span></li>
+							<li>Per Month: <span>₤ {{ $mainProperty->prices['month'] }}</span></li>
+							<li>For Sale: <span>₤ {{ $mainProperty->prices['service_charge'] }}</span></li>
+							<li>Rates: <span>₤ {{ $mainProperty->prices['rates'] }}</span></li>
+						@elseif($mainProperty->rentals == 1)
+							<li>Per Week: <span>₤ {{ $mainProperty->prices['week'] }}</span></li>
+							<li>Per Month: <span>₤ {{ $mainProperty->prices['month'] }}</span></li>
+						@elseif($mainProperty->sales == 1)
+							<li>For Sale: <span>₤ {{ $mainProperty->prices['service_charge'] }}</span></li>
+							<li>Rates: <span>₤ {{ $mainProperty->prices['rates'] }}</span></li>
+						@endif
 			          </ul>
 			        </div>
 

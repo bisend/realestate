@@ -58,6 +58,7 @@ class AdminPropertyController extends Controller
             'property_info.bedrooms'  => 'required|integer',
             'property_info.bathrooms' => 'required|integer',
             'property_info.property_reference' => 'required',
+            'prices.price'            => 'required|integer',
             // 'prices.d_5'              => 'integer|required',
             // 'prices.d_15'             => 'integer|required',
             // 'prices.d_30'             => 'integer|required',
@@ -94,6 +95,7 @@ class AdminPropertyController extends Controller
             'prices.d_15'                        => get_string('required_field'),
             'prices.d_5'                         => get_string('required_field'),
             'prices.d_30'                        => get_string('required_field'),
+            'prices.price.required'                        => get_string('required_field'),
             'prices.service_charge.required'     => get_string('required_field'),
             'prices.rates.required'              => get_string('required_field'),
             'prices.week.required'            => get_string('required_field'),
@@ -261,7 +263,7 @@ class AdminPropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request->all());
+        // dd($request->all());
         $languages = $this->languages;
         // Validating the Property
         if($this->validateServiceUpdate($request, $id)){
@@ -289,7 +291,7 @@ class AdminPropertyController extends Controller
                 }
             }
         }
-
+        
         if (isset($data['sale_rent'])) {
            if(in_array('sales', $data['sale_rent']) && in_array('rentals', $data['sale_rent'])) {
                 $data['sales'] = 1;
@@ -383,7 +385,8 @@ class AdminPropertyController extends Controller
 
 
     // Handling mass deletion
-    public function massDestroy(Request $request){
+    public function massDestroy(Request $request)
+    {
         if($request->ajax() && isset($request->id)){
             $ids = $request->id;
             foreach ($ids as $id){
@@ -396,7 +399,8 @@ class AdminPropertyController extends Controller
     }
 
     // Activating post
-    public function activate(Request $request, $id){
+    public function activate(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
@@ -410,7 +414,8 @@ class AdminPropertyController extends Controller
     }
 
     // Making Featured
-    public function makeFeaturedSale(Request $request, $id){
+    public function makeFeaturedSale(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $properties = Property::where('sales', 1)->where('featured_sale', 1)->get();
@@ -431,7 +436,8 @@ class AdminPropertyController extends Controller
     }
 
     // Make Default
-    public function makeDefaultSale(Request $request, $id){
+    public function makeDefaultSale(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
@@ -446,7 +452,8 @@ class AdminPropertyController extends Controller
     }
 
     // Making Featured
-    public function makeFeaturedRent(Request $request, $id){
+    public function makeFeaturedRent(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $properties = Property::where('rentals', 1)->where('featured_rent', 1)->get();
@@ -464,7 +471,8 @@ class AdminPropertyController extends Controller
     }
 
     // Make Default
-    public function makeDefaultRent(Request $request, $id){
+    public function makeDefaultRent(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
@@ -505,7 +513,8 @@ class AdminPropertyController extends Controller
     }
 
     // Deactivating post
-    public function deactivate(Request $request, $id){
+    public function deactivate(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
@@ -524,7 +533,8 @@ class AdminPropertyController extends Controller
     }
 
     // Validating the Property upon creating
-    public function validateService(Request $request){
+    public function validateService(Request $request)
+    {
 
         $languages = $this->languages;
         $validator = Validator::make($request->all(), $this->validation_rules, $this->validation_messages);
@@ -566,7 +576,8 @@ class AdminPropertyController extends Controller
     }
 
     // Validating the Property upon updating
-    public function validateServiceUpdate(Request $request, $id){
+    public function validateServiceUpdate(Request $request, $id)
+    {
         $languages = $this->languages;
         $validator = Validator::make($request->all(), $this->validation_rules, $this->validation_messages);
         $images = Property::findOrFail($id)->images->toArray();
@@ -610,7 +621,8 @@ class AdminPropertyController extends Controller
     }
 
     // Autocomplete
-    public function autocomplete(Request $request){
+    public function autocomplete(Request $request)
+    {
 
         if($request->ajax()) {
             $term = $request->get('term') ? $request->get('term') : '';
@@ -628,7 +640,8 @@ class AdminPropertyController extends Controller
     }
 
     // Searching for Properties
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $term = $request->get('term') ? $request->get('term') : '';
 
         $property_ids = PropertyContent::where('name', 'LIKE', '%'.$term.'%')->get()->pluck('property_id');
@@ -639,7 +652,8 @@ class AdminPropertyController extends Controller
     }
 
     // Helper function for delete
-    public function delete($id){
+    public function delete($id)
+    {
 
         // Getting the post
         $property = Property::findOrFail($id);
@@ -677,7 +691,8 @@ class AdminPropertyController extends Controller
         $property->delete();
     }
 
-    public function updateDates(Request $request){
+    public function updateDates(Request $request)
+    {
         // Update available days
         $property_dates = PropertyDate::where('property_id', $request->property_id)->first();
         $data['dates'] = explode(',', $request->dates);
@@ -739,6 +754,12 @@ class AdminPropertyController extends Controller
         } else {
             $propertyPdfFile = PropertyPdfFile::create(['property_id' => $property->id, 'name' => $property->alias,  'file_name' => $fileName, 'path' => public_path().'/files/'.$fileName.'.pdf']);
         }
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true, 'defaultFont' => 'sans-serif'])->loadView('realstate.pdf.property', compact('property', 'features', 'default_language', 'static_data'))->save(public_path().'/files/'.$fileName.'.pdf');
+        $pdf = PDF::setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true, 
+                'defaultFont' => 'sans-serif'
+            ])
+            ->loadView('realstate.pdf.property', compact('property', 'features', 'default_language', 'static_data'))
+            ->save(public_path().'/files/'.$fileName.'.pdf');
     }
 }

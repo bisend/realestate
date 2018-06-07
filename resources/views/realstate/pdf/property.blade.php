@@ -54,9 +54,11 @@
 	<div style="background: #c7c6c6;width: 60px;padding: 4px 0;text-align: center;border-radius: 7px;color: #fff;margin:5px 0;">Sale</div>
 	@endif
 </div>
+@if(count($property->images) > 0))
 <div>
 	<img style="width: 100%" src="{{ URL::asset('images/data').'/'.$property->images->first()->image }}" alt="" />
 </div>
+@endif
 <br>
 <div>
 	@foreach($property->images as $image)

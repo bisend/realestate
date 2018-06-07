@@ -258,7 +258,9 @@
                         <a href="/property/{{$sales_property->alias}}" class="property-img">
                             <div class="img-fade"></div>
                             <div class="property-tag lable-sale featured">Sale</div>
-                            <div class="property-price">₤{{ $sales_property->prices['service_charge'] }}</div>
+                            <div class="property-price">
+                                ₤ {{ isset($sales_property->prices['price']) ? $sales_property->prices['price'] : 0 }}
+                            </div>
                             <div class="property-color-bar"></div>
                             <div class="prop-img-home">
                                 <img src="{{ $sales_property->imageByStatus }}" alt="" />
@@ -293,17 +295,20 @@
             @foreach($rentals_properties as $rentals_property)
                 <div class="col-lg-12 col-md-12">
                     <div class="property shadow-hover">
-                        <a href="/property/{{$sales_property->alias}}" class="property-img">
+                        <a href="/property/{{$rentals_property->alias}}" class="property-img">
                         <div class="img-fade"></div>
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
+                            ₤ {{ isset($rentals_property->prices['price']) ? $rentals_property->prices['price'] : 0 }}
+                        </div>
+                        {{-- <div class="property-price">
                           <div >
                           ₤{{ $rentals_property->prices['month'] }} <span>monthly</span>
                           </div>
                           <div class="price-perWeek">
                           ₤{{ $rentals_property->prices['week'] }} <span>weekly</span>
                           </div>
-                        </div>
+                        </div> --}}
                         <div class="property-color-bar"></div>
                         <div class="prop-img-home">
                             <img src="{{ $rentals_property->imageByStatus }}" alt="" />
@@ -311,14 +316,23 @@
                         </a>
                         <div class="property-content">
                         <div class="property-title">
-                        <h4><a href="/property/{{$sales_property->alias}}">{{ $rentals_property->contentload->name }}</a></h4>
+                        <h4><a href="/property/{{$rentals_property->alias}}">{{ $rentals_property->contentload->name }}</a></h4>
                         </div>
                         <table class="property-details">
                             <tr>
-                                <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $rentals_property->category->contentDefault->name }}</td>
+                                <td>
+                                    <i class="fa fa-home" aria-hidden="true"></i></i>
+                                    {{ $rentals_property->category->contentDefault->name }}
+                                </td>
                                 <td><i class="fa fa-bed"></i>{{ $rentals_property->rooms }}</td>
-                                <td><i class="fa fa-expand"></i>{{ $rentals_property->property_info['internal_area'] }}</td>
-                                <td><i class="fa fa-user" aria-hidden="true"></i>{{ $rentals_property->guest_number }}</td>
+                                <td>
+                                    <i class="fa fa-expand"></i>
+                                    {{ $rentals_property->property_info['internal_area'] }}
+                                </td>
+                                <td>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{ $rentals_property->guest_number }}
+                                </td>
                             </tr>
                         </table>
                         </div>

@@ -49,7 +49,9 @@
 						<a href="/property/{{$property->alias}}" class="property-img">
 								<div class="img-fade"></div>
 								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">₤{{ $property->prices['service_charge'] }}</div>
+								<div class="property-price">
+									₤ {{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}
+								</div>
 								<div class="property-color-bar"></div>
 								<div class="prop-img-home prop-img-home-rent-sale">
 										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
@@ -80,7 +82,9 @@
 						<a href="/property/{{$property->alias}}" class="property-img">
 								<div class="img-fade"></div>
 								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">₤{{ $property->prices['service_charge'] }}</div>
+								<div class="property-price">
+										₤ {{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}
+								</div>
 								<div class="property-color-bar"></div>
 								<div class="prop-img-home prop-img-home-rent-sale">
 										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
@@ -193,11 +197,11 @@
 					<div class="col-lg-4 col-md-4 col-sm-4"><a href="/property/{{$property->alias}}"><img src="{{ $property->imageByStatus }}" alt="" /></a></div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
-						@if($property->rentals == 1)
+						{{-- @if($property->rentals == 1)
 						<p><strong>₤{{ $property->prices['month'] }}</strong> Per Month</p>
-						@elseif($property->sales == 1)
-						<p><strong>₤{{ $property->prices['service_charge'] }}</strong></p>
-						@endif
+						@elseif($property->sales == 1) --}}
+						<p><strong>₤{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong></p>
+						{{-- @endif --}}
 					</div>
 				  </div>
 				</div>
