@@ -170,7 +170,7 @@
 				  
 				  <div class="form-block">
 					<label>Price</label>
-					<div id="price-rent" class="price-slider"></div>
+					<div id="price-rent" class="price-slider-rent"></div>
 				  </div>
 
 					<input type="hidden" id="refer-val-rent">

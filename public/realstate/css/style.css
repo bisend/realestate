@@ -2001,17 +2001,15 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 
 
 
-
-
-
-
 .Call-Back-wrap{
 	background-color: #323746;
     width: 300px;
     padding: 10px;
     position: fixed;
-    z-index: 9998;
-	top: 35%;
+	z-index: 9998;
+	top: 200px;
+	/* top: 35%; */
+	/* bottom: 0; */
 	right: -300px;
 	
 	-webkit-transition: all 0.4s;

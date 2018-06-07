@@ -1,6 +1,7 @@
+
 $('#search_sale-country').on('change', function () {
 
-    $('.location-any').attr('selected', false);
+       $('.location-any').attr('selected', false);
 
         $( "#search_sale-location option" ).each(function() {
             if($(this).hasClass('location-any')){
@@ -10,42 +11,18 @@ $('#search_sale-country').on('change', function () {
             }
         });
 
+    $('#search_sale_location_chosen .chosen-single span').html('Any')
 
+    $('style[id=style-select]').remove();
+
+    $('head').append('<style>#search_sale_location_chosen .chosen-results li{display:none;}</style>')
+    
     let classSelect = $(this).val();
-    console.log(classSelect)
-
     if(classSelect == ''){
-        $( "#search_sale-location option" ).each(function() {
-            $(this).show();
-        });
+        $('head').append('<style id="style-select">#search_sale_location_chosen .chosen-results li{display:block;}</style>')
     }else{
-        $( "#search_sale-location option" ).each(function() {
-            if($(this).hasClass('country-'+classSelect)){
-                $(this).show();
-                $('.location-any').show();
-            }else{
-                $(this).hide();
-                $('.location-any').show();
-            }
-        });
+        $('head').append('<style id="style-select">#search_sale_location_chosen .chosen-results .country-'+classSelect+'{display:block;}</style>')
     }
-
-    if(classSelect == ''){
-        $( ".chosen-results li" ).each(function() {
-            $(this).show();
-        });
-    }else{
-        $( ".chosen-results li" ).each(function() {
-            if($(this).hasClass('country-'+classSelect)){
-                $(this).show();
-                $('.location-any').show();
-            }else{
-                $(this).hide();
-                $('.location-any').show();
-            }
-        });
-    }
-
 
 })
 
@@ -55,32 +32,25 @@ $('#search_rent-country').on('change', function () {
 
     $('.location-any').attr('selected', false);
 
-        $( "#search_rent-location option" ).each(function() {
-            if($(this).hasClass('location-any')){
-                $(this).attr('selected', true);
-            }else{
-                $(this).attr('selected', false);
-            }
-        });
+    $( "#search_rent-location option" ).each(function() {
+        if($(this).hasClass('location-any')){
+            $(this).attr('selected', true);
+        }else{
+            $(this).attr('selected', false);
+        }
+    });
 
+    $('#search_rent_location_chosen .chosen-single span').html('Any')
+
+    $('style[id=style-select]').remove();
+
+    $('head').append('<style>#search_rent_location_chosen .chosen-results li{display:none;}</style>')
 
     let classSelect = $(this).val();
-    console.log(classSelect)
-
     if(classSelect == ''){
-        $( "#search_rent-location option" ).each(function() {
-            $(this).show();
-        });
+        $('head').append('<style id="style-select">#search_rent_location_chosen .chosen-results li{display:block;}</style>')
     }else{
-        $( "#search_rent-location option" ).each(function() {
-            if($(this).hasClass('country-'+countrID)){
-                $(this).show();
-                $('.location-any').show();
-            }else{
-                $(this).hide();
-                $('.location-any').show();
-            }
-        });
+        $('head').append('<style id="style-select">#search_rent_location_chosen .chosen-results .country-'+classSelect+'{display:block;}</style>')
     }
 
 });

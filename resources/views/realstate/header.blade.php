@@ -78,6 +78,9 @@
                 <a href="{{ route('blog') }}">Blogs</a>
             </li>
             <li>
+                <a href="{{ route('commercial') }}">Сommercial</a>
+            </li>
+            <li>
                 <a href="{{ route('contact') }}">Contact</a>
             </li>
         </ul>

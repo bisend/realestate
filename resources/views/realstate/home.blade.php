@@ -218,8 +218,8 @@
                 <div class="filter-item filter-item-7">
                     <label>Price</label>
                     <div id="price-rent" class="slider-price">
-                        <div class="price-slider" id="price-slider"></div>
-                        <div class="price-slider-values">
+                        <div class="price-slider-rent" id="price-slider"></div>
+                        <div class="price-slider-rent-values">
                           <span class="price-range-num" id="price-low-value-1"></span>
                           <span class="price-range-num right" id="price-high-value-1"></span>
                       </div>

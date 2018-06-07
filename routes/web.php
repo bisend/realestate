@@ -290,6 +290,7 @@ Route::get('/blog/post/{alias}', 'BlogController@post');
 Route::get('/explore/properties', 'ExploreController@properties')->name('explore_properties');
 Route::get('/explore/services', 'ExploreController@services')->name('explore_services');
 
+Route::get('/commercial', 'CommercialController@index')->name('commercial');
 Route::get('/sale', 'SaleController@index')->name('sale');
 Route::get('/rent', 'RentController@index')->name('rent');
 

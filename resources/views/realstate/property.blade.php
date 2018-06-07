@@ -295,25 +295,24 @@
 									</div>
 
 								<div class="form-block border">
-                  <label>Country</label>
-                  <select class="border" id="search_sale-country" name="property-country">
-											<option value="">Any</option>
-                    		@foreach($countries as $country)
-                        <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
-                        @endforeach
-                  </select>
-                </div>
-      
-                <div class="form-block border">
-                  <label>Location</label>
-                  <select class="location-select border" id="search_sale-location" name="location">
-											<option class="location-any" value="">Any</option>
-                        @foreach($locations as $location)
-                            <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
-                        @endforeach
-                    
-                  </select>
-                </div>
+									<label>Country</label>
+									<select class="border" id="search_sale-country" name="property-country">
+												<option class="country-any" value="">Any</option>
+												@foreach($countries as $country)
+												<option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+												@endforeach
+									</select>
+								</div>
+			
+								<div class="form-block border">
+									<label>Location</label>
+									<select class="location-select border" id="search_sale-location" name="location">
+												<option class="location-any" value="">Any</option>
+												@foreach($locations as $location)
+														<option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+												@endforeach
+									</select>
+								</div>
 
 
 									<div class="form-block border">
@@ -362,24 +361,24 @@
 										</div>
 
 										 <div class="form-block border">
-											<label>Country</label>
-											<select class="border" id="search_rent-country" name="property-country">
-												<option value="">Any</option>
-													@foreach($countries as $country)
-													<option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
-													@endforeach
-											</select>
-										</div>
-					
-										<div class="form-block border">
-											<label>Location</label>
-											<select class="location-select border" id="search_rent-location" name="location">
-												<option class="location-any" value="">Any</option>
-													@foreach($locations as $location)
-															<option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
-													@endforeach
-											</select>
-										</div>
+												<label>Country</label>
+												<select class="border" id="search_rent-country" name="property-country">
+													<option value="">Any</option>
+															@foreach($countries as $country)
+															<option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+															@endforeach
+												</select>
+											</div>
+						
+											<div class="form-block border">
+												<label>Location</label>
+												<select class="location-select border" id="search_rent-location" name="location">
+															<option class="location-any" value="">Any</option>
+															@foreach($locations as $location)
+																	<option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+															@endforeach
+												</select>
+											</div>
 
 										<div class="form-block border">
 											<label>Beds</label>
@@ -401,7 +400,7 @@
 										
 										<div class="form-block">
 										<label>Price</label>
-										<div id="price-rent" class="price-slider"></div>
+										<div id="price-rent" class="price-slider-rent"></div>
 										</div>
 
 										<input type="hidden" id="refer-val-rent">
@@ -502,11 +501,13 @@ $('#datepicker').datepicker({
     zoom: {{ $mainProperty->location['geo_zoom'] }},
     scrollwheel: false,
 		center: new google.maps.LatLng({{ $mainProperty->location['geo_lon'] }}, {{ $mainProperty->location['geo_lat'] }}),
-		disableDefaultUI: true,
-		draggable: false
+		disableDefaultUI: false,
+		draggable: true		
 	};
 </script>
 
 
 
 @endsection
+
+

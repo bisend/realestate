@@ -104,7 +104,7 @@
       z-index: 99;
       right: -241px;
       top: 35%;
-    
+      /* bottom: 0; */
     -webkit-transition: all 0.4s;
       -o-transition: all 0.4s;
       -moz-transition: all 0.4s;

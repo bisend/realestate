@@ -192,6 +192,34 @@ jQuery(document).ready(function($) {
 		count = count + 1;
 	}
 
+
+	var slidersRent = document.getElementsByClassName('price-slider-rent');
+	var countRent = 0;
+
+	for ( var i = 0; i < slidersRent.length; i++ ) {
+
+	var slidersRent = document.getElementsByClassName('price-slider-rent');
+		noUiSlider.create(slidersRent[i], {
+			connect: true,
+			start: [ 2000, 20000],
+			step: 100,
+			margin:1000,
+			range: {
+				'min': [  100 ],
+				'max': [ 25000  ]
+			},
+			tooltips: true,
+			format: wNumb({
+				decimals: 0,
+				thousand: ',',
+				prefix: '₤',
+			})
+		});
+
+		countRent = countRent + 1;
+	}
+
+
 	/***************************************************************************/
 	//FILTER TOGGLE (ON GOOGLE MAPS)
 	/***************************************************************************/
