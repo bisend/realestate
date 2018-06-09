@@ -1390,6 +1390,7 @@ if (URL) {
         $(document).ready(function() {
             var saleCheck = document.getElementById('contactChoice1'),
                 rentCheck = document.getElementById('contactChoice2'),
+                prc = $('[data-prices-price]'),
                 pwRent = $('[data-prices-pw-rent]'), 
                 pmRent = $('[data-prices-pm-rent]'),
                 scSale = $('[data-prices-sc-sale]'),
@@ -1402,6 +1403,7 @@ if (URL) {
                 }
 
                 if (type == 'sales') {
+                    prc.hide().find('input').val('');
                     scSale.hide().find('input').val('');
                     rateSale.hide().find('input').val('');
                 }
@@ -1414,6 +1416,7 @@ if (URL) {
                 }
 
                 if (type == 'sales') {
+                    prc.show();
                     scSale.show();
                     rateSale.show();
                 }

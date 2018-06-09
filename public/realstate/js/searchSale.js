@@ -15,22 +15,16 @@ $('#find-sale').on('click', function (e) {
     var lower = $('#slider-price-sale .noUi-handle-lower .noUi-tooltip').html();
     var upper = $('#slider-price-sale .noUi-handle-upper .noUi-tooltip').html();
 
-    var urlFilters = '/sale?';
-
-    // console.log(type, country ,location, beds, lower, upper)
+    var urlFilters = '/sale?search=true&';
 
     var referValSale = $('#refer-val-sale').val();
-    // console.log(referValSale)
 
     var urlFiltersRef = '/property/';
 
-    console.log(referValSale)
-    
-     if(referValSale !== ''){
-        urlFiltersRef += referValSale
-        // console.log(urlFiltersRef)
-        window.location.href = urlFiltersRef;
-    } else{
+    if(referValSale !== '') {
+        urlFilters += 'property=' + referValSale;
+        window.location.href = urlFilters;
+    } else {
         var filters = [];
 
         if(type !== '' ){
@@ -63,32 +57,28 @@ $('#find-sale').on('click', function (e) {
            }
           filters.push(b);
        }
-       if(lower !== ''){
-           var lprice = {
-               name: 'lower',
-               val: lower.replace('₤', '').replace(',', '')
-           }
-          filters.push(lprice);
-       }
-       if(upper !== ''){
-           var uprice = {
-               name: 'upper',
-               val: upper.replace('₤', '').replace(',', '')
-           }
-          filters.push(uprice);
-       }
-       // console.log(filters)
    
        filters.forEach(function(item){
            urlFilters += item.name+'='+item.val+'&';
        });
-    //    console.log(urlFilters)
+       
+       if(lower !== ''){
+           var lprice = {
+            name: 'lower',
+            val: lower.replace('₤', '').replace(/,/g , '')
+        }
+        urlFilters += lprice.name + '=' + lprice.val + '&';
+        }
+        if(upper !== ''){
+            var uprice = {
+                name: 'upper',
+                val: upper.replace('₤', '').replace(/,/g , '')
+            }
+            urlFilters += uprice.name + '=' + uprice.val;
+        }
+       
        window.location.href = urlFilters;
     }
-
-
-   
-    
 })
 
 // refer-sale-search

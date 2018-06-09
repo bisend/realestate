@@ -77,7 +77,7 @@
 				@endforeach
 			
 			@else
-			@if(isset($properties))
+			@if(isset($properties) && count($properties) > 0)
 				@foreach($properties as $property)
 					<div class="col-lg-6 col-md-6">
 						<div class="property shadow-hover">
@@ -109,6 +109,8 @@
 					</div>
 				@endforeach
 				{{$properties->links()}}
+				@else
+					<h2>No matches</h2>
 			@endif
 		@endif
 			</div><!-- end row -->
@@ -117,7 +119,8 @@
 		</div><!-- end listing -->
 		
 		<div class="col-lg-4 col-md-4 sidebar">
-		
+				<input type="hidden" data-rent-min-price value="{{ $rentMinPrice }}">
+				<input type="hidden" data-rent-max-price value="{{ $rentMaxPrice }}">
 			<div class="widget widget-sidebar sidebar-properties advanced-search">
 			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
 			  <div class="widget-content box">
@@ -158,7 +161,7 @@
 						<label>Beds</label>
 						<select name="beds" id="search_rent-beds" class="border">
 								<option value="">Any</option>
-								<option value="studio">Studio+</option>
+								{{-- <option value="studio">Studio+</option> --}}
 								<option value="1">1+</option>
 								<option value="2">2+</option>
 								<option value="3">3+</option>

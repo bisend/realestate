@@ -26,7 +26,8 @@ use Intervention\Image\Facades\Image as InterventionImage;
 
 class AdminPropertyController extends Controller
 {
-    private $validation_rules, $validation_messages;
+    private $validation_rules, 
+            $validation_messages;
     protected $languages;
     protected $static_data;
     public function __construct(Request $request){
@@ -58,7 +59,6 @@ class AdminPropertyController extends Controller
             'property_info.bedrooms'  => 'required|integer',
             'property_info.bathrooms' => 'required|integer',
             'property_info.property_reference' => 'required',
-            'prices.price'            => 'required|integer',
             // 'prices.d_5'              => 'integer|required',
             // 'prices.d_15'             => 'integer|required',
             // 'prices.d_30'             => 'integer|required',
@@ -72,6 +72,7 @@ class AdminPropertyController extends Controller
         }
 
         if (isset($request['sale_rent']) && in_array('sales', $request['sale_rent'])) {
+            $this->validation_rules['prices.price'] = 'required|integer';
             $this->validation_rules['prices.service_charge'] = 'required|integer';
             $this->validation_rules['prices.rates'] = 'required|integer';
         }
@@ -263,15 +264,14 @@ class AdminPropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
         $languages = $this->languages;
         // Validating the Property
+        
         if($this->validateServiceUpdate($request, $id)){
             return $this->validateServiceUpdate($request, $id);
         }
 
         $data = $request->except('markers', '_token', 'action', 'images', 'name', 'description');
-
         $property = Property::findOrFail($id);
         $property->touch();
         $default_language = Language::where('default', 1)->first();

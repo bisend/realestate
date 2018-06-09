@@ -86,6 +86,12 @@
     </div><!-- end filter header -->
 
     <div class="container">
+      <input type="hidden" data-sale-min-price value="{{ $saleMinPrice }}">
+      <input type="hidden" data-sale-max-price value="{{ $saleMaxPrice }}">
+      <input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek }}">
+      <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek }}">
+      <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth }}">
+      <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth }}">
       <div id="tabs-2" class="ui-tabs-hide">
           <form id="search-sale" class="select-search-form">
               <div class="filter-item filter-item-7">
@@ -115,7 +121,10 @@
                   <select class="location-select" id="search_sale-location" name="location">
                         <option class="location-any" value="">Any</option>
                         @foreach($locations as $location)
-                            <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+                            <option class="country-{{$location->country_id}}" 
+                                value="{{$location->id}}">
+                                {{$location->contentDefault->location}}
+                            </option>                        
                         @endforeach
                   </select>
                 </div>
@@ -124,7 +133,7 @@
                     <label>Beds</label>
                     <select id="search_sale-beds" name="beds" id="property-beds">
                       <option value="">Any</option>
-                      <option value="studio">Studio+</option>
+                      {{-- <option value="studio">Studio+</option> --}}
                       <option value="1">1+</option>
                       <option value="2">2+</option>
                       <option value="3">3+</option>
@@ -152,14 +161,20 @@
 
                 <div class="filter-item filter-item-7">
                   <label>Search By Reference:</label>
-                  <input id="refer-val-sale" class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
+                  <input id="refer-val-sale" 
+                  class="reference" 
+                  type="text" 
+                  name="reference-search" 
+                  placeholder="Search By Reference:">
                 </div>
                 
 
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>
-                  <input type="submit" id="find-sale" class="button alt" value="Find Properties"/>
+                  <input type="submit" id="find-sale" class="button alt" value="Find Properties">
                 </div>
+
+            
           </form>
       </div><!-- end tab 2 -->
 
@@ -201,7 +216,7 @@
                     <label>Beds</label>
                     <select id="search_rent-beds" name="beds" id="property-beds">
                       <option value="">Any</option>
-                      <option value="studio">Studio+</option>
+                      {{-- <option value="studio">Studio+</option> --}}
                       <option value="1">1+</option>
                       <option value="2">2+</option>
                       <option value="3">3+</option>
@@ -216,9 +231,9 @@
                 </div>
       
                 <div class="filter-item filter-item-7">
-                    <label>Price</label>
-                    <div id="price-rent" class="slider-price">
-                        <div class="price-slider-rent" id="price-slider"></div>
+                    <label>Price per week</label>
+                    <div id="price-rent-pw" class="slider-price">
+                        <div class="price-slider-rent" id="price-slider-rent-per-week"></div>
                         <div class="price-slider-rent-values">
                           <span class="price-range-num" id="price-low-value-1"></span>
                           <span class="price-range-num right" id="price-high-value-1"></span>
@@ -230,6 +245,17 @@
                   <label>Search By Reference:</label>
                   <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
                 </div>
+
+                <div class="filter-item filter-item-7">
+                        <label>Price per month</label>
+                        <div id="price-rent-pm" class="slider-price">
+                            <div class="price-slider-rent" id="price-slider-rent-per-month"></div>
+                            <div class="price-slider-rent-values">
+                              <span class="price-range-num" id="price-low-value-1"></span>
+                              <span class="price-range-num right" id="price-high-value-1"></span>
+                          </div>
+                        </div>
+                    </div>
       
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>

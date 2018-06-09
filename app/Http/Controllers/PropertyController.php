@@ -45,10 +45,11 @@ class PropertyController extends Controller
                 return $value->property_info['property_reference'] == $alias;
             })->first();
         }
-        $title = $property->contentDefault->name;
+        
         $features = Feature::all();
 
         if ($property) {
+            $title = $property->contentDefault->name;
             // Get booked dates for calendar
             $dates = PropertyDate::where('property_id', $property->id)->pluck('dates')->toArray();
             if ($dates || !count($dates)) {

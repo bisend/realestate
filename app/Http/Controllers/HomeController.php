@@ -31,9 +31,13 @@ class HomeController extends Controller
     {
         // Get Static Data
         $static_data = $this->static_data;
+
         $default_language = $this->default_language;
 
         $title = 'Home | Findaproperty';
+
+        $minPrice = 0;
+        $maxPrice = 0;
 
         // Get the properties (Eager Load)
         $number_of_properties = get_setting('fp_properties_count', 'design');;
@@ -68,9 +72,47 @@ class HomeController extends Controller
         $countries = Country::all();
         $locations = Location::all();
         $categories = Category::get();
+
+        $salePrices = Property::select("prices")->where('sales', '=', 1)->get();
+        foreach ($salePrices as $price) {
+            $p[] = $price['prices']['price'];
+        }
+        $saleMinPrice = min($p);
+        $saleMaxPrice = max($p);
+
+        $rentPrices = Property::select("prices")->where('rentals', '=', 1)->get();
+        foreach ($rentPrices as $price) {
+            $perWeek[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
+            $perMonth[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
+        }
+        $rentMinPricePerWeek = min($perWeek);
+        $rentMaxPricePerWeek = max($perWeek);
+        $rentMinPricePerMonth = min($perMonth);
+        $rentMaxPricePerMonth = max($perMonth);
+
+        // dd($rentMinPricePerWeek, $rentMaxPricePerWeek, $rentMinPricePerMonth, $rentMaxPricePerMonth);
+
         // Returning the View
-        return view('realstate.home', compact('posts', 'default_language',
-            'properties', 'static_data', 'f_locations', 'sales_properties', 'rentals_properties', 'slider', 'categories', 'title', 'countries', 'locations'));
+        return view('realstate.home', compact(
+            'posts', 
+            'default_language',
+            'properties', 
+            'static_data', 
+            'f_locations', 
+            'sales_properties', 
+            'rentals_properties', 
+            'slider', 
+            'categories', 
+            'title', 
+            'countries', 
+            'locations',
+            'saleMinPrice',
+            'saleMaxPrice',
+            'rentMinPricePerWeek',
+            'rentMaxPricePerWeek',
+            'rentMinPricePerMonth',
+            'rentMaxPricePerMonth'
+        ));
     }
 
     // Contact page
