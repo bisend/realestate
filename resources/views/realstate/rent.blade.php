@@ -119,8 +119,10 @@
 		</div><!-- end listing -->
 		
 		<div class="col-lg-4 col-md-4 sidebar">
-				<input type="hidden" data-rent-min-price value="{{ $rentMinPrice }}">
-				<input type="hidden" data-rent-max-price value="{{ $rentMaxPrice }}">
+			<input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek }}">
+      <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek }}">
+      <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth }}">
+      <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth }}">
 			<div class="widget widget-sidebar sidebar-properties advanced-search">
 			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
 			  <div class="widget-content box">
@@ -176,8 +178,14 @@
 						</div>
 				  
 				  <div class="form-block">
-					<label>Price</label>
-					<div id="price-rent" class="price-slider-rent"></div>
+						<div id="price-rent-pw">
+							<label>Price Per Week</label>
+							<div id="price-slider-rent-per-week"></div>
+						</div>
+						<div id="price-rent-pm">
+							<label>Price Per Month</label>
+							<div id="price-slider-rent-per-month"></div>
+						</div>
 				  </div>
 
 					<input type="hidden" id="refer-val-rent">

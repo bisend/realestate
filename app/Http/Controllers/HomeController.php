@@ -73,24 +73,49 @@ class HomeController extends Controller
         $locations = Location::all();
         $categories = Category::get();
 
-        $salePrices = Property::select("prices")->where('sales', '=', 1)->get();
+        $salePrices = Property::select("prices")
+                        ->where('sales', '=', 1)
+                        ->where('status', 1)
+                        ->get();
+        
+        $p = [];
+        $saleMinPrice = 0;
+        $saleMaxPrice = 0;
+
         foreach ($salePrices as $price) {
             $p[] = $price['prices']['price'];
         }
-        $saleMinPrice = min($p);
-        $saleMaxPrice = max($p);
 
-        $rentPrices = Property::select("prices")->where('rentals', '=', 1)->get();
+        if (count($p) > 0) {
+            $saleMinPrice = min($p);
+            $saleMaxPrice = max($p);
+        }
+
+        $rentPrices = Property::select("prices")
+                        ->where('rentals', '=', 1)
+                        ->where('status', 1)
+                        ->get();
+        $perWeek = [];
+        $perMonth = [];
+        $rentMinPricePerWeek = 0;
+        $rentMaxPricePerWeek = 0;
+        $rentMinPricePerMonth = 0;
+        $rentMaxPricePerMonth = 0;
+
         foreach ($rentPrices as $price) {
             $perWeek[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
             $perMonth[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
         }
-        $rentMinPricePerWeek = min($perWeek);
-        $rentMaxPricePerWeek = max($perWeek);
-        $rentMinPricePerMonth = min($perMonth);
-        $rentMaxPricePerMonth = max($perMonth);
 
-        // dd($rentMinPricePerWeek, $rentMaxPricePerWeek, $rentMinPricePerMonth, $rentMaxPricePerMonth);
+        if (count($perWeek) > 0) {
+            $rentMinPricePerWeek = min($perWeek);
+            $rentMaxPricePerWeek = max($perWeek);
+        }
+
+        if (count($perMonth) > 0) {
+            $rentMinPricePerMonth = min($perMonth);
+            $rentMaxPricePerMonth = max($perMonth);
+        }
 
         // Returning the View
         return view('realstate.home', compact(

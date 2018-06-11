@@ -85,7 +85,7 @@ class Property extends Model
         return $this->hasOne('App\Models\Admin\PropertyContent');
     }
 
-    // Getting the content all Languages
+    // Getting the pdf
     public function pdfFile(){
         return $this->hasOne('App\Models\Admin\PropertyPdfFile');
     }

@@ -661,8 +661,8 @@ class AdminPropertyController extends Controller
         // Unlinking the images
         if($property->images){
             foreach($property->images as $image){
-                $path = public_path('images/data/'.$image->image);
-                if(File::exists($path) && $image->image != '/images/no_image.jpg'){
+                $path = public_path('images/data/' . $image->image);
+                if(File::exists($path) && $image->image != '/images/no_image.jpg') {
                     File::delete($path);
                 }
                 $image->delete();
@@ -671,12 +671,23 @@ class AdminPropertyController extends Controller
 
         if($property->files){
             foreach($property->files as $file){
-                $path = public_path().'/files/'.$file->file_name;
+                $path = public_path("/files/$file->file_name");
                 if(File::exists($path)){
                     File::delete($path);
                 }
                 $file->delete();
             }
+        }
+
+        //deleting pdf
+        if ($property->pdfFile) {
+            $path = public_path("/files/" . $property->pdfFile->file_name . ".pdf");
+
+            if(File::exists($path)){
+                File::delete($path);
+            }
+
+            $property->pdfFile->delete();
         }
 
         // Deleting the Content
@@ -746,9 +757,10 @@ class AdminPropertyController extends Controller
         $features = Feature::all();
         $fileName = Carbon::now()->format('Y_m_d_H_i_s_u').'_'.str_replace(' ', '_', $property->contentload['name']);
         if ($property->pdfFile) {
+            $path = public_path("/files/" . $property->pdfFile->file_name . ".pdf");
             $propertyPdfFile = PropertyPdfFile::where('property_id', $property->id)->first();
-            if(File::exists($property->pdfFile->path.'.pdf')){
-                File::delete($property->pdfFile->path.'.pdf');
+            if(File::exists($path)) {
+                File::delete($path);
             }
             $propertyPdfFile->update(['name' => $property->alias,  'file_name' => $fileName, 'path' => url('/').'/files/'.$fileName.'.pdf']);
         } else {
@@ -760,6 +772,6 @@ class AdminPropertyController extends Controller
                 'defaultFont' => 'sans-serif'
             ])
             ->loadView('realstate.pdf.property', compact('property', 'features', 'default_language', 'static_data'))
-            ->save(public_path().'/files/'.$fileName.'.pdf');
+            ->save(public_path('/files/'.$fileName.'.pdf'));
     }
 }

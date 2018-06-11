@@ -32,14 +32,19 @@ class RentController extends Controller
 
         $categories = Category::get();
 
-        $recent_properties = Property::orderBy('created_at', 'desc')->take(Property::RECENT_PROPERTIES)->get();
+        $recent_properties = Property::orderBy('created_at', 'desc')
+                                ->where('status', 1)
+                                ->take(Property::RECENT_PROPERTIES)
+                                ->get();
         
         if (isset($request->search) && $request->search) {
             $ids = [];
 
             $propIds = [];
 
-            $priceIds = [];
+            $perWeekIds = [];
+
+            $perMonthIds = [];
 
             $categoryIds = [];
 
@@ -54,6 +59,7 @@ class RentController extends Controller
                     "id",
                     "property_info"
                 ])->where('rentals', '=', 1)
+                ->where('status', 1)
                 ->get();
 
                 if (count($saleProperties) > 0) {
@@ -70,14 +76,20 @@ class RentController extends Controller
                     "id",
                     "prices"
                 ])->where('rentals', '=', 1)
+                ->where('status', 1)
                 ->get();
 
                 foreach ($rentPrices as $price) {
-                    if ($price['prices']['price'] >= $request->lower && $price['prices']['price'] <= $request->upper)
-                    $priceIds[] = $price['id'];
+                    if ($price['prices']['week'] >= $request->{'lower-per-week'} && $price['prices']['week'] <= $request->{'upper-per-week'}) {
+                        $perWeekIds[] = $price['id'];
+                    }
+                    
+                    if ($price['prices']['month'] >= $request->{'lower-per-month'} && $price['prices']['month'] <= $request->{'upper-per-month'}) {
+                        $perMonthIds[] = $price['id'];
+                    }
                 }
 
-                $ids = $priceIds;
+                $ids = array_intersect($perWeekIds, $perMonthIds);
 
                 if (isset($request->type)) {
                     $rentCategories = Property::select([
@@ -85,6 +97,7 @@ class RentController extends Controller
                         "category_id"
                     ])->where('rentals', '=', 1)
                     ->where('category_id', '=', $request->type)
+                    ->where('status', 1)
                     ->get();
 
                     if (count($rentCategories) > 0) {
@@ -106,6 +119,7 @@ class RentController extends Controller
                         "country_id"
                     ])->where('rentals', '=', 1)
                     ->where('country_id', '=', $request->country)
+                    ->where('status', 1)
                     ->get();
 
                     if (count($rentCountries) > 0) {
@@ -127,6 +141,7 @@ class RentController extends Controller
                         "location_id"
                     ])->where('rentals', '=', 1)
                     ->where('location_id', '=', $request->location)
+                    ->where('status', 1)
                     ->get();
 
                     if (count($rentLocations) > 0) {
@@ -147,6 +162,7 @@ class RentController extends Controller
                         "id",
                         "property_info"
                     ])->where('rentals', '=', 1)
+                    ->where('status', 1)
                     ->get();
 
                     if (count($rentBeds) > 0) {
@@ -179,12 +195,31 @@ class RentController extends Controller
                         ->paginate(Property::GET_PROPERTIES);
         }
 
-        $rentPrices = Property::select("prices")->where('rentals', '=', 1)->get();
+        $rentPrices = Property::select("prices")
+                        ->where('rentals', '=', 1)
+                        ->where('status', 1)
+                        ->get();
+        $perWeek = [];
+        $perMonth = [];
+        $rentMinPricePerWeek = 0;
+        $rentMaxPricePerWeek = 0;
+        $rentMinPricePerMonth = 0;
+        $rentMaxPricePerMonth = 0;
+
         foreach ($rentPrices as $price) {
-            $p[] = $price['prices']['price'];
+            $perWeek[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
+            $perMonth[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
         }
-        $rentMinPrice = min($p);
-        $rentMaxPrice = max($p);
+
+        if (count($perWeek) > 0) {
+            $rentMinPricePerWeek = min($perWeek);
+            $rentMaxPricePerWeek = max($perWeek);
+        }
+
+        if (count($perMonth) > 0) {
+            $rentMinPricePerMonth = min($perMonth);
+            $rentMaxPricePerMonth = max($perMonth);
+        }
 
         return view('realstate.rent', compact(
             'static_data', 'properties', 
@@ -193,8 +228,10 @@ class RentController extends Controller
             'title', 
             'countries', 
             'locations',
-            'rentMinPrice',
-            'rentMaxPrice'
+            'rentMinPricePerWeek',
+            'rentMaxPricePerWeek',
+            'rentMinPricePerMonth',
+            'rentMaxPricePerMonth'
         ));
     }
 }

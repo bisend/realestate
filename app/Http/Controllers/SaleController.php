@@ -34,6 +34,7 @@ class SaleController extends Controller
 
         $recent_properties = Property::orderBy('created_at', 'desc')
                                 ->take(Property::RECENT_PROPERTIES)
+                                ->where('status', 1)
                                 ->get();
         
         if (isset($request->search) && $request->search) {
@@ -56,6 +57,7 @@ class SaleController extends Controller
                     "id",
                     "property_info"
                 ])->where('sales', '=', 1)
+                ->where('status', 1)
                 ->get();
 
                 if (count($saleProperties) > 0) {
@@ -72,6 +74,7 @@ class SaleController extends Controller
                     "id",
                     "prices"
                 ])->where('sales', '=', 1)
+                ->where('status', 1)
                 ->get();
 
                 foreach ($salePrices as $price) {
@@ -86,6 +89,7 @@ class SaleController extends Controller
                         "id",
                         "category_id"
                     ])->where('sales', '=', 1)
+                    ->where('status', 1)
                     ->where('category_id', '=', $request->type)
                     ->get();
 
@@ -107,6 +111,7 @@ class SaleController extends Controller
                         "id",
                         "country_id"
                     ])->where('sales', '=', 1)
+                    ->where('status', 1)
                     ->where('country_id', '=', $request->country)
                     ->get();
 
@@ -128,6 +133,7 @@ class SaleController extends Controller
                         "id",
                         "location_id"
                     ])->where('sales', '=', 1)
+                    ->where('status', 1)
                     ->where('location_id', '=', $request->location)
                     ->get();
 
@@ -148,7 +154,8 @@ class SaleController extends Controller
                     $saleBeds = Property::select([
                         "id",
                         "property_info"
-                    ])->where('sales', '=', 1)
+                    ])->where('status', 1)
+                    ->where('sales', '=', 1)
                     ->get();
 
                     if (count($saleBeds) > 0) {
@@ -181,12 +188,23 @@ class SaleController extends Controller
                         ->paginate(Property::GET_PROPERTIES);
         }
 
-        $salePrices = Property::select("prices")->where('sales', '=', 1)->get();
+        $salePrices = Property::select("prices")
+                        ->where('sales', '=', 1)
+                        ->where('status', 1)
+                        ->get();
+
+        $p = [];
+        $saleMinPrice = 0;
+        $saleMaxPrice = 0;
+
         foreach ($salePrices as $price) {
             $p[] = $price['prices']['price'];
         }
-        $saleMinPrice = min($p);
-        $saleMaxPrice = max($p);
+
+        if (count($p) > 0) {
+            $saleMinPrice = min($p);
+            $saleMaxPrice = max($p);
+        }
         
         return view('realstate.sale', compact(
             'static_data', 

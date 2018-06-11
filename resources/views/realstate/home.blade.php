@@ -42,7 +42,17 @@
       <div class="slide" style="background-image: url('{{ $slide->imageByStatus }}')">
         <div class="img-overlay black"></div>
         <div class="container">
-          <div class="slide-price">₤250,000</div>
+            @if($slide->sales == 1 && $slide->rentals == 1)
+            <div class="slide-price">
+                {{-- ₤ {{ $slide->prices['price'] }} --}}
+                {{-- ₤ {{ $slide->prices['price.week'] }} --}}
+                {{-- ₤ {{ $slide->prices['price.month'] }} --}}
+            </div>
+            @elseif($slide->rentals == 1)
+
+            @elseif($slide->sales == 1)
+            
+            @endif
           <div class="slide-content">
             <h1>{{ $slide->contentload->name }}</h1>
             <p class="slide-text">{{ str_limit($slide->contentload->description, 200, ' ...') }}</p>
@@ -86,12 +96,12 @@
     </div><!-- end filter header -->
 
     <div class="container">
-      <input type="hidden" data-sale-min-price value="{{ $saleMinPrice }}">
-      <input type="hidden" data-sale-max-price value="{{ $saleMaxPrice }}">
-      <input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek }}">
-      <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek }}">
-      <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth }}">
-      <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth }}">
+      <input type="hidden" data-sale-min-price value="{{ $saleMinPrice ? $saleMinPrice : 0 }}">
+      <input type="hidden" data-sale-max-price value="{{ $saleMaxPrice ? $saleMaxPrice : 0 }}">
+      <input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek ? $rentMinPricePerWeek : 0 }}">
+      <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek ? $rentMaxPricePerWeek : 0 }}">
+      <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth ? $rentMinPricePerMonth : 0 }}">
+      <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth ? $rentMaxPricePerMonth : 0 }}">
       <div id="tabs-2" class="ui-tabs-hide">
           <form id="search-sale" class="select-search-form">
               <div class="filter-item filter-item-7">
@@ -247,15 +257,15 @@
                 </div>
 
                 <div class="filter-item filter-item-7">
-                        <label>Price per month</label>
-                        <div id="price-rent-pm" class="slider-price">
-                            <div class="price-slider-rent" id="price-slider-rent-per-month"></div>
-                            <div class="price-slider-rent-values">
-                              <span class="price-range-num" id="price-low-value-1"></span>
-                              <span class="price-range-num right" id="price-high-value-1"></span>
-                          </div>
+                    <label>Price per month</label>
+                    <div id="price-rent-pm" class="slider-price">
+                        <div class="price-slider-rent" id="price-slider-rent-per-month"></div>
+                        <div class="price-slider-rent-values">
+                            <span class="price-range-num" id="price-low-value-1"></span>
+                            <span class="price-range-num right" id="price-high-value-1"></span>
                         </div>
                     </div>
+                </div>
       
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>
