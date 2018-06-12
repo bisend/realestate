@@ -42,7 +42,17 @@
       <div class="slide" style="background-image: url('{{ $slide->imageByStatus }}')">
         <div class="img-overlay black"></div>
         <div class="container">
-          <div class="slide-price">₤250,000</div>
+            @if($slide->sales == 1 && $slide->rentals == 1)
+            <div class="slide-price">
+                {{-- ₤ {{ $slide->prices['price'] }} --}}
+                {{-- ₤ {{ $slide->prices['price.week'] }} --}}
+                {{-- ₤ {{ $slide->prices['price.month'] }} --}}
+            </div>
+            @elseif($slide->rentals == 1)
+
+            @elseif($slide->sales == 1)
+            
+            @endif
           <div class="slide-content">
             <h1>{{ $slide->contentload->name }}</h1>
             <p class="slide-text">{{ str_limit($slide->contentload->description, 200, ' ...') }}</p>
@@ -86,6 +96,12 @@
     </div><!-- end filter header -->
 
     <div class="container">
+      <input type="hidden" data-sale-min-price value="{{ $saleMinPrice ? $saleMinPrice : 0 }}">
+      <input type="hidden" data-sale-max-price value="{{ $saleMaxPrice ? $saleMaxPrice : 0 }}">
+      <input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek ? $rentMinPricePerWeek : 0 }}">
+      <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek ? $rentMaxPricePerWeek : 0 }}">
+      <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth ? $rentMinPricePerMonth : 0 }}">
+      <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth ? $rentMaxPricePerMonth : 0 }}">
       <div id="tabs-2" class="ui-tabs-hide">
           <form id="search-sale" class="select-search-form">
               <div class="filter-item filter-item-7">
@@ -115,7 +131,10 @@
                   <select class="location-select" id="search_sale-location" name="location">
                         <option class="location-any" value="">Any</option>
                         @foreach($locations as $location)
-                            <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+                            <option class="country-{{$location->country_id}}" 
+                                value="{{$location->id}}">
+                                {{$location->contentDefault->location}}
+                            </option>                        
                         @endforeach
                   </select>
                 </div>
@@ -124,7 +143,7 @@
                     <label>Beds</label>
                     <select id="search_sale-beds" name="beds" id="property-beds">
                       <option value="">Any</option>
-                      <option value="studio">Studio+</option>
+                      {{-- <option value="studio">Studio+</option> --}}
                       <option value="1">1+</option>
                       <option value="2">2+</option>
                       <option value="3">3+</option>
@@ -152,14 +171,20 @@
 
                 <div class="filter-item filter-item-7">
                   <label>Search By Reference:</label>
-                  <input id="refer-val-sale" class="reference" type="text" name="reference-search" placeholder="Search By Reference:">
+                  <input id="refer-val-sale" 
+                  class="reference" 
+                  type="text" 
+                  name="reference-search" 
+                  placeholder="Search By Reference:">
                 </div>
                 
 
                 <div class="filter-item filter-item-7">
                   <label class="label-submit">Submit</label><br/>
-                  <input type="submit" id="find-sale" class="button alt" value="Find Properties"/>
+                  <input type="submit" id="find-sale" class="button alt" value="Find Properties">
                 </div>
+
+            
           </form>
       </div><!-- end tab 2 -->
 
@@ -201,7 +226,7 @@
                     <label>Beds</label>
                     <select id="search_rent-beds" name="beds" id="property-beds">
                       <option value="">Any</option>
-                      <option value="studio">Studio+</option>
+                      {{-- <option value="studio">Studio+</option> --}}
                       <option value="1">1+</option>
                       <option value="2">2+</option>
                       <option value="3">3+</option>
@@ -216,9 +241,9 @@
                 </div>
       
                 <div class="filter-item filter-item-7">
-                    <label>Price</label>
-                    <div id="price-rent" class="slider-price">
-                        <div class="price-slider-rent" id="price-slider"></div>
+                    <label>Price per week</label>
+                    <div id="price-rent-pw" class="slider-price">
+                        <div class="price-slider-rent" id="price-slider-rent-per-week"></div>
                         <div class="price-slider-rent-values">
                           <span class="price-range-num" id="price-low-value-1"></span>
                           <span class="price-range-num right" id="price-high-value-1"></span>
@@ -229,6 +254,17 @@
                 <div class="filter-item filter-item-7">
                   <label>Search By Reference:</label>
                   <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
+                </div>
+
+                <div class="filter-item filter-item-7">
+                    <label>Price per month</label>
+                    <div id="price-rent-pm" class="slider-price">
+                        <div class="price-slider-rent" id="price-slider-rent-per-month"></div>
+                        <div class="price-slider-rent-values">
+                            <span class="price-range-num" id="price-low-value-1"></span>
+                            <span class="price-range-num right" id="price-high-value-1"></span>
+                        </div>
+                    </div>
                 </div>
       
                 <div class="filter-item filter-item-7">
@@ -258,7 +294,9 @@
                         <a href="/property/{{$sales_property->alias}}" class="property-img">
                             <div class="img-fade"></div>
                             <div class="property-tag lable-sale featured">Sale</div>
-                            <div class="property-price">₤{{ $sales_property->prices['service_charge'] }}</div>
+                            <div class="property-price">
+                                ₤ {{ isset($sales_property->prices['price']) ? $sales_property->prices['price'] : 0 }}
+                            </div>
                             <div class="property-color-bar"></div>
                             <div class="prop-img-home">
                                 <img src="{{ $sales_property->imageByStatus }}" alt="" />
@@ -293,17 +331,20 @@
             @foreach($rentals_properties as $rentals_property)
                 <div class="col-lg-12 col-md-12">
                     <div class="property shadow-hover">
-                        <a href="/property/{{$sales_property->alias}}" class="property-img">
+                        <a href="/property/{{$rentals_property->alias}}" class="property-img">
                         <div class="img-fade"></div>
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
+                            ₤ {{ isset($rentals_property->prices['price']) ? $rentals_property->prices['price'] : 0 }}
+                        </div>
+                        {{-- <div class="property-price">
                           <div >
                           ₤{{ $rentals_property->prices['month'] }} <span>monthly</span>
                           </div>
                           <div class="price-perWeek">
                           ₤{{ $rentals_property->prices['week'] }} <span>weekly</span>
                           </div>
-                        </div>
+                        </div> --}}
                         <div class="property-color-bar"></div>
                         <div class="prop-img-home">
                             <img src="{{ $rentals_property->imageByStatus }}" alt="" />
@@ -311,14 +352,23 @@
                         </a>
                         <div class="property-content">
                         <div class="property-title">
-                        <h4><a href="/property/{{$sales_property->alias}}">{{ $rentals_property->contentload->name }}</a></h4>
+                        <h4><a href="/property/{{$rentals_property->alias}}">{{ $rentals_property->contentload->name }}</a></h4>
                         </div>
                         <table class="property-details">
                             <tr>
-                                <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $rentals_property->category->contentDefault->name }}</td>
+                                <td>
+                                    <i class="fa fa-home" aria-hidden="true"></i></i>
+                                    {{ $rentals_property->category->contentDefault->name }}
+                                </td>
                                 <td><i class="fa fa-bed"></i>{{ $rentals_property->rooms }}</td>
-                                <td><i class="fa fa-expand"></i>{{ $rentals_property->property_info['internal_area'] }}</td>
-                                <td><i class="fa fa-user" aria-hidden="true"></i>{{ $rentals_property->guest_number }}</td>
+                                <td>
+                                    <i class="fa fa-expand"></i>
+                                    {{ $rentals_property->property_info['internal_area'] }}
+                                </td>
+                                <td>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{ $rentals_property->guest_number }}
+                                </td>
                             </tr>
                         </table>
                         </div>

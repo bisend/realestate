@@ -26,7 +26,8 @@ use Intervention\Image\Facades\Image as InterventionImage;
 
 class AdminPropertyController extends Controller
 {
-    private $validation_rules, $validation_messages;
+    private $validation_rules, 
+            $validation_messages;
     protected $languages;
     protected $static_data;
     public function __construct(Request $request){
@@ -71,6 +72,7 @@ class AdminPropertyController extends Controller
         }
 
         if (isset($request['sale_rent']) && in_array('sales', $request['sale_rent'])) {
+            $this->validation_rules['prices.price'] = 'required|integer';
             $this->validation_rules['prices.service_charge'] = 'required|integer';
             $this->validation_rules['prices.rates'] = 'required|integer';
         }
@@ -94,6 +96,7 @@ class AdminPropertyController extends Controller
             'prices.d_15'                        => get_string('required_field'),
             'prices.d_5'                         => get_string('required_field'),
             'prices.d_30'                        => get_string('required_field'),
+            'prices.price.required'                        => get_string('required_field'),
             'prices.service_charge.required'     => get_string('required_field'),
             'prices.rates.required'              => get_string('required_field'),
             'prices.week.required'            => get_string('required_field'),
@@ -218,7 +221,7 @@ class AdminPropertyController extends Controller
 
         // Create available dates
         PropertyDate::create(['dates' => null, 'property_id' => $property->id]);
-        //$this->createPdfFile($property);
+        $this->createPdfFile($property);
         // Redirect after saving
         return redirect('admin/property');
     }
@@ -261,15 +264,14 @@ class AdminPropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //dd($request->all());
         $languages = $this->languages;
         // Validating the Property
+        
         if($this->validateServiceUpdate($request, $id)){
             return $this->validateServiceUpdate($request, $id);
         }
 
         $data = $request->except('markers', '_token', 'action', 'images', 'name', 'description');
-
         $property = Property::findOrFail($id);
         $property->touch();
         $default_language = Language::where('default', 1)->first();
@@ -289,7 +291,7 @@ class AdminPropertyController extends Controller
                 }
             }
         }
-
+        
         if (isset($data['sale_rent'])) {
            if(in_array('sales', $data['sale_rent']) && in_array('rentals', $data['sale_rent'])) {
                 $data['sales'] = 1;
@@ -383,7 +385,8 @@ class AdminPropertyController extends Controller
 
 
     // Handling mass deletion
-    public function massDestroy(Request $request){
+    public function massDestroy(Request $request)
+    {
         if($request->ajax() && isset($request->id)){
             $ids = $request->id;
             foreach ($ids as $id){
@@ -396,7 +399,8 @@ class AdminPropertyController extends Controller
     }
 
     // Activating post
-    public function activate(Request $request, $id){
+    public function activate(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
@@ -410,7 +414,8 @@ class AdminPropertyController extends Controller
     }
 
     // Making Featured
-    public function makeFeaturedSale(Request $request, $id){
+    public function makeFeaturedSale(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $properties = Property::where('sales', 1)->where('featured_sale', 1)->get();
@@ -431,7 +436,8 @@ class AdminPropertyController extends Controller
     }
 
     // Make Default
-    public function makeDefaultSale(Request $request, $id){
+    public function makeDefaultSale(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
@@ -446,7 +452,8 @@ class AdminPropertyController extends Controller
     }
 
     // Making Featured
-    public function makeFeaturedRent(Request $request, $id){
+    public function makeFeaturedRent(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $properties = Property::where('rentals', 1)->where('featured_rent', 1)->get();
@@ -464,7 +471,8 @@ class AdminPropertyController extends Controller
     }
 
     // Make Default
-    public function makeDefaultRent(Request $request, $id){
+    public function makeDefaultRent(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
@@ -505,7 +513,8 @@ class AdminPropertyController extends Controller
     }
 
     // Deactivating post
-    public function deactivate(Request $request, $id){
+    public function deactivate(Request $request, $id)
+    {
 
         if($request->ajax()) {
             $property = Property::findOrFail($id);
@@ -524,7 +533,8 @@ class AdminPropertyController extends Controller
     }
 
     // Validating the Property upon creating
-    public function validateService(Request $request){
+    public function validateService(Request $request)
+    {
 
         $languages = $this->languages;
         $validator = Validator::make($request->all(), $this->validation_rules, $this->validation_messages);
@@ -566,7 +576,8 @@ class AdminPropertyController extends Controller
     }
 
     // Validating the Property upon updating
-    public function validateServiceUpdate(Request $request, $id){
+    public function validateServiceUpdate(Request $request, $id)
+    {
         $languages = $this->languages;
         $validator = Validator::make($request->all(), $this->validation_rules, $this->validation_messages);
         $images = Property::findOrFail($id)->images->toArray();
@@ -610,7 +621,8 @@ class AdminPropertyController extends Controller
     }
 
     // Autocomplete
-    public function autocomplete(Request $request){
+    public function autocomplete(Request $request)
+    {
 
         if($request->ajax()) {
             $term = $request->get('term') ? $request->get('term') : '';
@@ -628,7 +640,8 @@ class AdminPropertyController extends Controller
     }
 
     // Searching for Properties
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $term = $request->get('term') ? $request->get('term') : '';
 
         $property_ids = PropertyContent::where('name', 'LIKE', '%'.$term.'%')->get()->pluck('property_id');
@@ -639,7 +652,8 @@ class AdminPropertyController extends Controller
     }
 
     // Helper function for delete
-    public function delete($id){
+    public function delete($id)
+    {
 
         // Getting the post
         $property = Property::findOrFail($id);
@@ -647,8 +661,8 @@ class AdminPropertyController extends Controller
         // Unlinking the images
         if($property->images){
             foreach($property->images as $image){
-                $path = public_path('images/data/'.$image->image);
-                if(File::exists($path) && $image->image != '/images/no_image.jpg'){
+                $path = public_path('images/data/' . $image->image);
+                if(File::exists($path) && $image->image != '/images/no_image.jpg') {
                     File::delete($path);
                 }
                 $image->delete();
@@ -657,12 +671,23 @@ class AdminPropertyController extends Controller
 
         if($property->files){
             foreach($property->files as $file){
-                $path = public_path().'/files/'.$file->file_name;
+                $path = public_path("/files/$file->file_name");
                 if(File::exists($path)){
                     File::delete($path);
                 }
                 $file->delete();
             }
+        }
+
+        //deleting pdf
+        if ($property->pdfFile) {
+            $path = public_path("/files/" . $property->pdfFile->file_name . ".pdf");
+
+            if(File::exists($path)){
+                File::delete($path);
+            }
+
+            $property->pdfFile->delete();
         }
 
         // Deleting the Content
@@ -677,7 +702,8 @@ class AdminPropertyController extends Controller
         $property->delete();
     }
 
-    public function updateDates(Request $request){
+    public function updateDates(Request $request)
+    {
         // Update available days
         $property_dates = PropertyDate::where('property_id', $request->property_id)->first();
         $data['dates'] = explode(',', $request->dates);
@@ -731,14 +757,21 @@ class AdminPropertyController extends Controller
         $features = Feature::all();
         $fileName = Carbon::now()->format('Y_m_d_H_i_s_u').'_'.str_replace(' ', '_', $property->contentload['name']);
         if ($property->pdfFile) {
+            $path = public_path("/files/" . $property->pdfFile->file_name . ".pdf");
             $propertyPdfFile = PropertyPdfFile::where('property_id', $property->id)->first();
-            if(File::exists($property->pdfFile->path.'.pdf')){
-                File::delete($property->pdfFile->path.'.pdf');
+            if(File::exists($path)) {
+                File::delete($path);
             }
             $propertyPdfFile->update(['name' => $property->alias,  'file_name' => $fileName, 'path' => url('/').'/files/'.$fileName.'.pdf']);
         } else {
             $propertyPdfFile = PropertyPdfFile::create(['property_id' => $property->id, 'name' => $property->alias,  'file_name' => $fileName, 'path' => public_path().'/files/'.$fileName.'.pdf']);
         }
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true, 'defaultFont' => 'sans-serif'])->loadView('realstate.pdf.property', compact('property', 'features', 'default_language', 'static_data'))->save(public_path().'/files/'.$fileName.'.pdf');
+        $pdf = PDF::setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true, 
+                'defaultFont' => 'sans-serif'
+            ])
+            ->loadView('realstate.pdf.property', compact('property', 'features', 'default_language', 'static_data'))
+            ->save(public_path('/files/'.$fileName.'.pdf'));
     }
 }

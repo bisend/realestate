@@ -64,20 +64,17 @@
 				<div class="property-header">
 					<div class="property-title">
 						<h4>{{ $mainProperty->contentload['name'] }}</h4>
-						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
-						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right"> ₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
-						<div class="property-price-single right"> ₤{{ $mainProperty->prices['service_charge'] }}<span> For Sale</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
-						@elseif($mainProperty->rentals == 1)
-						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right"> ₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
-						@elseif($mainProperty->sales == 1)
-						<div class="right Property-ref">Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['service_charge'] }}<span>Service Charge</span></div>
-						<div class="property-price-single right">₤{{ $mainProperty->prices['rates'] }} <span>Rates</span></div>
+						<div class="right Property-ref">
+							Property Reference: <span>{{ $mainProperty->property_info['property_reference'] }}</span>
+						</div>
+						@if(isset($mainProperty->prices['price']))
+							<div class="property-price-single right">
+								₤{{ $mainProperty->prices['price'] }}<span> Price</span>
+							</div>
+						@else
+							<div class="property-price-single right">
+								₤ 0<span> Price</span>
+							</div>
 						@endif
             <div class="clear"></div>
 					</div>
@@ -99,8 +96,13 @@
 						<td><i class="fa fa-home" aria-hidden="true"></i> <span>{{ $mainProperty->rooms }}</span> Rooms</td>
 						<td><i class="fa fa-bed"></i></i> <span>{{ $mainProperty->property_info['bedrooms'] }}</span> Beds</td>
 						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq Ft</td>
-						<!-- <td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PDF</td> -->
-						<td><a href="{{$mainProperty->pdfFile['path']}}" target="_blank" class="pdf-down-prop"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>PDF</span> </a></td>
+						{{-- <td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PDF</td> --}}
+						<td>
+							<a href="{{public_path('/files/' . $mainProperty->pdfFile['file_name'] . '.pdf')}}" 
+								target="_blank" class="pdf-down-prop">
+								<i class="fa fa-file-text-o" aria-hidden="true"></i><span>PDF</span>
+							</a>
+						</td>
 					</tr>
 				</table>
 
@@ -152,8 +154,20 @@
 									@endif
 			          	<li>Internal Area: <span>{{ $mainProperty->property_info['internal_area'] }}</span></li>
 			          	<li>External Area: <span>{{ $mainProperty->property_info['external_area'] }}</span></li>
-			          	<li>Bathrooms: <span>{{ $mainProperty->property_info['bathrooms'] }}</span></li>
-			          	<li>Bedrooms: <span>{{ $mainProperty->property_info['bedrooms'] }}</span></li>
+						<li>Bathrooms: <span>{{ $mainProperty->property_info['bathrooms'] }}</span></li>
+						<li>Bedrooms: <span>{{ $mainProperty->property_info['bedrooms'] }}</span></li>
+						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
+							<li>Per Week: <span>₤ {{ $mainProperty->prices['week'] }}</span></li>
+							<li>Per Month: <span>₤ {{ $mainProperty->prices['month'] }}</span></li>
+							<li>For Sale: <span>₤ {{ $mainProperty->prices['service_charge'] }}</span></li>
+							<li>Rates: <span>₤ {{ $mainProperty->prices['rates'] }}</span></li>
+						@elseif($mainProperty->rentals == 1)
+							<li>Per Week: <span>₤ {{ $mainProperty->prices['week'] }}</span></li>
+							<li>Per Month: <span>₤ {{ $mainProperty->prices['month'] }}</span></li>
+						@elseif($mainProperty->sales == 1)
+							<li>For Sale: <span>₤ {{ $mainProperty->prices['service_charge'] }}</span></li>
+							<li>Rates: <span>₤ {{ $mainProperty->prices['rates'] }}</span></li>
+						@endif
 			          </ul>
 			        </div>
 
@@ -268,6 +282,12 @@
 		</div><!-- end col -->
 		
 		<div class="col-lg-4 col-md-4 sidebar sidebar-property-single">
+			<input type="hidden" data-sale-min-price value="{{ $saleMinPrice ? $saleMinPrice : 0 }}">
+			<input type="hidden" data-sale-max-price value="{{ $saleMaxPrice ? $saleMaxPrice : 0 }}">
+			<input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek ? $rentMinPricePerWeek : 0 }}">
+			<input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek ? $rentMaxPricePerWeek : 0 }}">
+			<input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth ? $rentMinPricePerMonth : 0 }}">
+			<input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth ? $rentMaxPricePerMonth : 0 }}">
 		
 			<div class="widget widget-sidebar advanced-search">
 			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
@@ -319,7 +339,7 @@
 										<label>Beds</label>
 										<select name="beds" id="search_sale-beds" class="border">
 												<option value="">Any</option>
-												<option value="studio">Studio+</option>
+												{{-- <option value="studio">Studio+</option> --}}
 												<option value="1">1+</option>
 												<option value="2">2+</option>
 												<option value="3">3+</option>
@@ -384,7 +404,7 @@
 											<label>Beds</label>
 											<select name="beds" id="search_rent-beds" class="border">
 													<option value="">Any</option>
-													<option value="studio">Studio+</option>
+													{{-- <option value="studio">Studio+</option> --}}
 													<option value="1">1+</option>
 													<option value="2">2+</option>
 													<option value="3">3+</option>
@@ -399,8 +419,16 @@
 											</div>
 										
 										<div class="form-block">
-										<label>Price</label>
-										<div id="price-rent" class="price-slider-rent"></div>
+											<label>Price per week</label>
+											<div id="price-rent-pw" class="slider-price">
+													<div class="price-slider-rent" id="price-slider-rent-per-week"></div>
+											</div>
+											{{-- <div id="price-rent" class="price-slider-rent"></div> --}}
+
+											<label>Price per month</label>
+                    	<div id="price-rent-pm" class="slider-price">
+													<div class="price-slider-rent" id="price-slider-rent-per-month"></div>
+											</div>
 										</div>
 
 										<input type="hidden" id="refer-val-rent">

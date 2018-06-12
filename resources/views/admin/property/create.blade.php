@@ -366,14 +366,24 @@
                             <form action="" class="form-control">
                                 <div class="col s2">
                                     <div class="form-group">
-                                        <input type="checkbox" class="filled-in primary-color" id="contactChoice1" name="sale_rent[]" value="sales" {{ old('sale_rent') && in_array('sales', old('sale_rent')) ? 'checked' : '' }}>
+                                        <input type="checkbox" 
+                                            class="filled-in primary-color" 
+                                            id="contactChoice1" 
+                                            name="sale_rent[]" 
+                                            value="sales" {{ old('sale_rent') && in_array('sales', old('sale_rent')) ? 'checked' : '' }}
+                                        >
                                         <label for="contactChoice1"></label>
                                         <span class="checkbox-label">Sales</span>
                                     </div>
                                 </div>
                                 <div class="col s2">
                                     <div class="form-group">
-                                        <input type="checkbox"  class="filled-in primary-color" id="contactChoice2" name="sale_rent[]" value="rentals"{{ old('sale_rent') && in_array('rentals', old('sale_rent')) ? 'checked' : '' }}>
+                                        <input type="checkbox"  
+                                            class="filled-in primary-color" 
+                                            id="contactChoice2" 
+                                            name="sale_rent[]" 
+                                            value="rentals"{{ old('sale_rent') && in_array('rentals', old('sale_rent')) ? 'checked' : '' }}
+                                        >
                                         <label for="contactChoice2"></label>
                                         <span class="checkbox-label">Rentals</span>
                                     </div>
@@ -444,7 +454,16 @@
                     <div class="col s12 clearfix">
                         <h5 class="section-title">{{get_string('property_prices')}}</h5>
                     </div>
-                    <div class="col l6 m6 s12">
+                    <div class="col l6 m6 s12" data-prices-price>
+                        <div class="form-group  {{$errors->has('prices.price') ? 'has-error' : ''}}">
+                            {{Form::text('prices[price]', null, ['class' => 'form-control', 'placeholder' => 'Price'])}}
+                            {{Form::label('prices[price]', 'Price')}}
+                            @if($errors->has('prices.price'))
+                                <span class="wrong-error">* {{$errors->first('prices.price')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col l6 m6 s12" data-prices-sc-sale>
                         <div class="form-group  {{$errors->has('prices.service_charge') ? 'has-error' : ''}}">
                             {{Form::text('prices[service_charge]', null, ['class' => 'form-control', 'placeholder' => 'Service Charge'])}}
                             {{Form::label('prices[service_charge]', 'Service Charge (required for sale)')}}
@@ -453,7 +472,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col l6 m6 s12">
+                    <div class="col l6 m6 s12" data-prices-rate-sale>
                         <div class="form-group  {{$errors->has('prices.rates') ? 'has-error' : ''}}">
                             {{Form::text('prices[rates]', null, ['class' => 'form-control', 'placeholder' => 'Rates'])}}
                             {{Form::label('prices[rates]', 'Rates (required for sale)')}} 
@@ -462,7 +481,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col l6 m6 s12">
+                    <div class="col l6 m6 s12" data-prices-pw-rent>
                         <div class="form-group  {{$errors->has('prices.week') ? 'has-error' : ''}}">
                             {{Form::text('prices[week]', null, ['class' => 'form-control', 'placeholder' => 'Price per week'])}}
                             {{Form::label('prices[week]', 'Price per week (required for rent)')}}
@@ -471,7 +490,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col l6 m6 s12">
+                    <div class="col l6 m6 s12" data-prices-pm-rent>
                         <div class="form-group  {{$errors->has('prices.month') ? 'has-error' : ''}}">
                             {{Form::text('prices[month]', null, ['class' => 'form-control', 'placeholder' => 'Price per month'])}}
                             {{Form::label('prices[month]', 'Price per month (required for rent)')}} 
@@ -1291,15 +1310,15 @@ if (URL) {
             if(typeof google !== 'undefined' && google){
                 var map = new google.maps.Map(document.getElementById('google-map'), {
                     center:{
-                        lat: 40.118706,
-                        lng: -102.796208
+                        lat: 40.416775,
+                        lng: -3.703790
                     },
-                    zoom:4
+                    zoom:5
                 });
                 var marker = new google.maps.Marker({
                     position: {
-                        lat: 40.118706,
-                        lng: -102.796208
+                        lat: 40.416775,
+                        lng: -3.703790
                     },
                     map: map,
                     draggable: true
@@ -1307,46 +1326,46 @@ if (URL) {
                 var infowindow = new google.maps.InfoWindow();
                 var searchBox = document.getElementById('address-map');
                 var autocomplete = new google.maps.places.Autocomplete(searchBox);
-                marker.setVisible(false);
+                marker.setVisible(true);
                 autocomplete.bindTo('bounds', map);
-                autocomplete.addListener('place_changed', function() {
-                    infowindow.close();
-                    marker.setVisible(false);
-                    var place = autocomplete.getPlace();
-                    if (!place.geometry) {
-                        return;
-                    }
+                // autocomplete.addListener('place_changed', function() {
+                //     infowindow.close();
+                //     marker.setVisible(false);
+                //     var place = autocomplete.getPlace();
+                //     if (!place.geometry) {
+                //         return;
+                //     }
 
-                    // If the place has a geometry, then present it on a map.
-                    if (place.geometry.viewport) {
-                        map.fitBounds(place.geometry.viewport);
-                    } else {
-                        map.setCenter(place.geometry.location);
-                        map.setZoom(15);
-                    }
+                //     // If the place has a geometry, then present it on a map.
+                //     if (place.geometry.viewport) {
+                //         map.fitBounds(place.geometry.viewport);
+                //     } else {
+                //         map.setCenter(place.geometry.location);
+                //         map.setZoom(15);
+                //     }
 
-                    marker.setPosition(place.geometry.location);
-                    marker.setVisible(false);
+                //     marker.setPosition(place.geometry.location);
+                //     marker.setVisible(false);
 
-                    var address = '';
-                    if (place.address_components) {
-                        address = [
-                            (place.address_components[0] && place.address_components[0].short_name || ''),
-                            (place.address_components[1] && place.address_components[1].short_name || ''),
-                            (place.address_components[2] && place.address_components[2].short_name || '')
-                        ].join(' ');
-                    }
+                //     var address = '';
+                //     if (place.address_components) {
+                //         address = [
+                //             (place.address_components[0] && place.address_components[0].short_name || ''),
+                //             (place.address_components[1] && place.address_components[1].short_name || ''),
+                //             (place.address_components[2] && place.address_components[2].short_name || '')
+                //         ].join(' ');
+                //     }
 
-                    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-                    infowindow.open(map, marker);
-                });
-
-                // google.maps.event.addListener(marker, 'position_changed', function () {
-                //     var lat = marker.getPosition().lat();
-                //     var lng = marker.getPosition().lng();
-                //     $('[name="location[geo_lon]"]').val(lat);
-                //     $('[name="location[geo_lat]"]').val(lng);
+                //     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+                //     infowindow.open(map, marker);
                 // });
+
+                google.maps.event.addListener(marker, 'position_changed', function () {
+                    var lat = marker.getPosition().lat();
+                    var lng = marker.getPosition().lng();
+                    $('[name="location[geo_lon]"]').val(lat);
+                    $('[name="location[geo_lat]"]').val(lng);
+                });
                 google.maps.event.addListener(map, 'center_changed', function () {
                     var zoom = map.getZoom();
                     var lat = map.getCenter().lat();
@@ -1363,6 +1382,77 @@ if (URL) {
                     }, 50);
                 });
             }
+        });
+
+        /*
+        show/hide prices if sale/rent
+        */
+        $(document).ready(function() {
+            var saleCheck = document.getElementById('contactChoice1'),
+                rentCheck = document.getElementById('contactChoice2'),
+                prc = $('[data-prices-price]'),
+                pwRent = $('[data-prices-pw-rent]'), 
+                pmRent = $('[data-prices-pm-rent]'),
+                scSale = $('[data-prices-sc-sale]'),
+                rateSale = $('[data-prices-rate-sale]');
+
+            function hidePrices (type) {
+                if (type == 'rent') {
+                    pwRent.hide().find('input').val('');
+                    pmRent.hide().find('input').val('');
+                }
+
+                if (type == 'sales') {
+                    prc.hide().find('input').val('');
+                    scSale.hide().find('input').val('');
+                    rateSale.hide().find('input').val('');
+                }
+            }
+
+            function showPrices (type) {
+                if (type == 'rent') {
+                    pwRent.show();
+                    pmRent.show();
+                }
+
+                if (type == 'sales') {
+                    prc.show();
+                    scSale.show();
+                    rateSale.show();
+                }
+            }
+
+            function checkPrices () {
+                if (saleCheck.checked && rentCheck.checked) {
+                    showPrices('rent');
+                    showPrices('sales');
+                }
+
+                if (saleCheck.checked && ! rentCheck.checked) {
+                    hidePrices('rent');
+                    showPrices('sales');
+                }
+                
+                if ( ! saleCheck.checked && rentCheck.checked) {
+                    hidePrices('sales');
+                    showPrices('rent');
+                }
+
+                if ( ! saleCheck.checked &&  ! rentCheck.checked) {
+                    hidePrices('sales');
+                    hidePrices('rent');
+                }
+            }
+
+            checkPrices();
+
+            $('body').on('change', '#contactChoice1', function () {
+                checkPrices();
+            });
+            
+            $('body').on('change', '#contactChoice2', function () {
+                checkPrices();
+            });
         });
 
     </script>

@@ -38,6 +38,7 @@ class PropertyController extends Controller
         $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('alias', $alias)->first();
+
         if ( ! $property) {
             $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
                 $query->where('language_id', $default_language->id);
@@ -45,26 +46,34 @@ class PropertyController extends Controller
                 return $value->property_info['property_reference'] == $alias;
             })->first();
         }
-        $title = $property->contentDefault->name;
+        
         $features = Feature::all();
 
         if ($property) {
+            $title = $property->contentDefault->name;
             // Get booked dates for calendar
             $dates = PropertyDate::where('property_id', $property->id)->pluck('dates')->toArray();
+
             if ($dates || !count($dates)) {
                 $dates = [];
             }
+
             $bookings = Booking::where('property_id', $property->id)->get();
+
             foreach ($bookings as $booking) {
                 $date = generateDateRangeB(Carbon::createFromFormat('Y-m-d', $booking->start_date), Carbon::createFromFormat('Y-m-d', $booking->end_date));
+
                 if ($date) {
                     $dates[] = $date;
                 }
             }
+
             if (isset($dates[0])) {
                 $dates = array_reduce($dates, 'array_merge', []);
             }
+
             $reviews = Review::where('property_id', $property->id)->where('status', 1)->take(3)->get();
+
             $similar = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
                 $query->where('language_id', $default_language->id);
             }])->where('id', '!=', $property->id)->where(function ($query) use ($property) {
@@ -72,15 +81,95 @@ class PropertyController extends Controller
             })->inRandomOrder()->take(3)->get();
 
             $mainProperty = $property;
-            $recent_properties = Property::orderBy('created_at', 'desc')->where('status', 1)->take(Property::RECENT_PROPERTIES)->get();
+
+            $recent_properties = Property::orderBy('created_at', 'desc')
+                                    ->where('status', 1)
+                                    ->take(Property::RECENT_PROPERTIES)
+                                    ->get();
+
             $last_posts = Blog::with(['contentload' => function($query) use($default_language){
                 $query->where('language_id', $default_language->id);
-            }])->where('status', 1)->orderBy('created_at', 'desc')->take(3)->get();
-            $properties = Property::where('status', 1)->where('id', '!=', $mainProperty->id)->get();
+            }])->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+            
+            $properties = Property::where('status', 1)
+                            ->where('id', '!=', $mainProperty->id)
+                            ->get();
+
             $related_properties = $properties->each(function ($value) use($mainProperty) {
                 return $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE) && $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE);
             })->take(Property::RELATED_PROPERTIES_COUNT);
-            return view('realstate.property', compact('mainProperty', 'property', 'static_data', 'features', 'default_language', 'similar', 'reviews', 'dates', 'recent_properties', 'last_posts', 'related_properties','title', 'categories', 'countries', 'locations'));
+
+            $salePrices = Property::select("prices")
+                        ->where('sales', '=', 1)
+                        ->where('status', 1)
+                        ->get();
+        
+            $p = [];
+            $saleMinPrice = 0;
+            $saleMaxPrice = 0;
+
+            foreach ($salePrices as $price) {
+                $p[] = $price['prices']['price'];
+            }
+
+            if (count($p) > 0) {
+                $saleMinPrice = min($p);
+                $saleMaxPrice = max($p);
+            }
+
+            $rentPrices = Property::select("prices")
+                            ->where('rentals', '=', 1)
+                            ->where('status', 1)
+                            ->get();
+            $perWeek = [];
+            $perMonth = [];
+            $rentMinPricePerWeek = 0;
+            $rentMaxPricePerWeek = 0;
+            $rentMinPricePerMonth = 0;
+            $rentMaxPricePerMonth = 0;
+
+            foreach ($rentPrices as $price) {
+                $perWeek[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
+                $perMonth[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
+            }
+
+            if (count($perWeek) > 0) {
+                $rentMinPricePerWeek = min($perWeek);
+                $rentMaxPricePerWeek = max($perWeek);
+            }
+
+            if (count($perMonth) > 0) {
+                $rentMinPricePerMonth = min($perMonth);
+                $rentMaxPricePerMonth = max($perMonth);
+            }
+
+            return view('realstate.property', compact(
+                'mainProperty', 
+                'property', 
+                'static_data', 
+                'features', 
+                'default_language', 
+                'similar', 
+                'reviews', 
+                'dates', 
+                'recent_properties', 
+                'last_posts', 
+                'related_properties',
+                'title', 
+                'categories', 
+                'countries', 
+                'locations',
+                'saleMinPrice',
+                'saleMaxPrice',
+                'rentMinPricePerWeek',
+                'rentMaxPricePerWeek',
+                'rentMinPricePerMonth',
+                'rentMaxPricePerMonth'
+                )
+            );
         } else {
             abort(404);
         }

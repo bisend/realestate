@@ -24,19 +24,44 @@
 	<h4 style="margin:0;padding: 20px;background-color: #6d458a;color: #fff;font-size: 20px;font-weight: 700;border-bottom:1px solid #eee">{{ $property->contentload['name'] }}</h4>
 	<div style="padding: 20px;">
 	@if($property->sales == 1 && $property->rentals == 1)
-		<div style="float: right;color: #999;">Property Reference: <span>{{ $property->property_info['property_reference'] }}</span></div>
-		<div style="color: #6d458a;font-size: 23px;font-weight: 700;"> &#163;{{ $property->prices['week'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Per Week</span></div>
-		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">&#163;{{ $property->prices['month'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Per Month</span></div>
-		<div style="color: #6d458a;font-size: 23px;font-weight: 700;"> &#163;{{ $property->prices['service_charge'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> For Sale</span></div>
-		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">&#163;{{ $property->prices['rates'] }} <span style="font-weight: 300;font-size: 17px;margin-left: 10px;">Rates</span></div>
+		<div style="float: right;color: #999;">
+			Property Reference: <span>{{ $property->property_info['property_reference'] }}</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['price'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Price</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['week'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Per Week</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['month'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Per Month</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['service_charge'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> For Sale</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['rates'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Rates</span>
+		</div>
 		@elseif($property->rentals == 1)
-		<div class="right Property-ref">Property Reference: <span>{{ $property->property_info['property_reference'] }}</span></div>
-		<div style="color: #6d458a;font-size: 23px;font-weight: 700;"> &#163;{{ $property->prices['week'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Per Week</span></div>
-		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">&#163;{{ $property->prices['month'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Per Month</span></div>
+		<div class="right Property-ref">
+			Property Reference: <span>{{ $property->property_info['property_reference'] }}</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['week'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Per Week</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['month'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;"> Per Month</span>
+		</div>
 		@elseif($property->sales == 1)
-		<div class="right Property-ref">Property Reference: <span>{{ $property->property_info['property_reference'] }}</span></div>
-		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">&#163;{{ $property->prices['service_charge'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;">Service Charge</span></div>
-		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">&#163;{{ $property->prices['rates'] }} <span style="font-weight: 300;font-size: 17px;margin-left: 10px;">Rates</span></div>
+		<div class="right Property-ref">
+			Property Reference: <span>{{ $property->property_info['property_reference'] }}</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['service_charge'] }}<span style="font-weight: 300;font-size: 17px;margin-left: 10px;">Service Charge</span>
+		</div>
+		<div style="color: #6d458a;font-size: 23px;font-weight: 700;">
+			&#163;{{ $property->prices['rates'] }} <span style="font-weight: 300;font-size: 17px;margin-left: 10px;">Rates</span>
+		</div>
 		@endif
 	</div>
 	<div class="clear"></div>
@@ -54,9 +79,11 @@
 	<div style="background: #c7c6c6;width: 60px;padding: 4px 0;text-align: center;border-radius: 7px;color: #fff;margin:5px 0;">Sale</div>
 	@endif
 </div>
+@if(count($property->images) > 0))
 <div>
 	<img style="width: 100%" src="{{ URL::asset('images/data').'/'.$property->images->first()->image }}" alt="" />
 </div>
+@endif
 <br>
 <div>
 	@foreach($property->images as $image)

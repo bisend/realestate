@@ -16,5 +16,14 @@ class DatabaseSeeder extends Seeder
    		$sql = file_get_contents(database_path('seeds/booksi_sql.sql'));
 		DB::unprepared($sql);
         $this->command->info('Demo table seeded!');
+        // DB::table('users')->insert(
+        //     [
+        //         'role_id' => 1,
+        //         'username' => 'admin1',
+        //         'email' => 'admin@admin.com',
+        //         'is_active' => 1,
+        //         'password' => bcrypt('admin')
+        //     ]
+        // );
     }
 }

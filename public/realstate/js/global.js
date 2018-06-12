@@ -169,17 +169,23 @@ jQuery(document).ready(function($) {
 	/***************************************************************************/
 	var sliders = document.getElementsByClassName('price-slider');
 	var count = 0;
+	var saleMinPrice = parseInt($('[data-sale-min-price]').val());
+	var saleMaxPrice = parseInt($('[data-sale-max-price]').val());
+	var rentMinPricePerWeek = parseInt($('[data-rent-min-price-per-week]').val());
+	var rentMaxPricePerWeek = parseInt($('[data-rent-max-price-per-week]').val());
+	var rentMinPricePerMonth = parseInt($('[data-rent-min-price-per-month]').val());
+	var rentMaxPricePerMonth = parseInt($('[data-rent-max-price-per-month]').val());
 
 	for ( var i = 0; i < sliders.length; i++ ) {
 
 		noUiSlider.create(sliders[i], {
 			connect: true,
-			start: [ 150000, 600000 ],
-			step: 1000,
-			margin:1000,
+			start: [saleMinPrice, saleMaxPrice],
+			// step: 1000,
+			// margin: 1000,
 			range: {
-				'min': [  2000 ],
-				'max': [ 1000000 ]
+				'min': [saleMinPrice],
+				'max': [saleMaxPrice]
 			},
 			tooltips: true,
 			format: wNumb({
@@ -192,32 +198,43 @@ jQuery(document).ready(function($) {
 		count = count + 1;
 	}
 
+	var sliderRentPerWeek = document.getElementById('price-slider-rent-per-week');
 
-	var slidersRent = document.getElementsByClassName('price-slider-rent');
-	var countRent = 0;
+	noUiSlider.create(sliderRentPerWeek, {
+		connect: true,
+		start: [rentMinPricePerWeek, rentMaxPricePerWeek],
+		// step: 10,
+		// margin: 1000,
+		range: {
+			'min': [rentMinPricePerWeek],
+			'max': [rentMaxPricePerWeek]
+		},
+		tooltips: true,
+		format: wNumb({
+			decimals: 0,
+			thousand: ',',
+			prefix: '₤',
+		})
+	});
 
-	for ( var i = 0; i < slidersRent.length; i++ ) {
+	var sliderRentPerMonth = document.getElementById('price-slider-rent-per-month');
 
-	var slidersRent = document.getElementsByClassName('price-slider-rent');
-		noUiSlider.create(slidersRent[i], {
-			connect: true,
-			start: [ 2000, 20000],
-			step: 100,
-			margin:1000,
-			range: {
-				'min': [  100 ],
-				'max': [ 25000  ]
-			},
-			tooltips: true,
-			format: wNumb({
-				decimals: 0,
-				thousand: ',',
-				prefix: '₤',
-			})
-		});
-
-		countRent = countRent + 1;
-	}
+	noUiSlider.create(sliderRentPerMonth, {
+		connect: true,
+		start: [rentMinPricePerMonth, rentMaxPricePerMonth],
+		// step: 10,
+		// margin: 1000,
+		range: {
+			'min': [rentMinPricePerMonth],
+			'max': [rentMaxPricePerMonth]
+		},
+		tooltips: true,
+		format: wNumb({
+			decimals: 0,
+			thousand: ',',
+			prefix: '₤',
+		})
+	});
 
 
 	/***************************************************************************/

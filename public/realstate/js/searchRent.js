@@ -12,24 +12,20 @@ $('#find-rent-btn').on('click', function (e) {
     var bedsRent = $('#search_rent-beds').val();
     var countryRent = $('#search_rent-country').val();
 
-    var lowerRent = $('#price-rent .noUi-handle-lower .noUi-tooltip').html();
-    var upperRent = $('#price-rent .noUi-handle-upper .noUi-tooltip').html();
+    var lowerRentPerWeek = $('#price-rent-pw .noUi-handle-lower .noUi-tooltip').html();
+    var upperRentPerWeek = $('#price-rent-pw .noUi-handle-upper .noUi-tooltip').html();
+    var lowerRentPerMonth = $('#price-rent-pm .noUi-handle-lower .noUi-tooltip').html();
+    var upperRentPerMonth = $('#price-rent-pm .noUi-handle-upper .noUi-tooltip').html();
 
-    // console.log(typeRent, countryRent ,locationRent, bedsRent, lowerRent, upperRent)
-
-    var urlFilters = '/rent?';
-
-    // console.log(type, countryRent ,location, beds, lower, upper)
+    var urlFilters = '/rent?search=true&';
     var referValrent = $('#refer-val-rent').val();
-    // console.log(referValrent)
 
     var urlFiltersRefRent = '/property/';
 
     if(referValrent !== ''){
-        urlFiltersRefRent += referValrent
-        // console.log(urlFiltersRefRent)
-        window.location.href = urlFiltersRefRent;
-    }else{
+        urlFilters += 'property=' + referValrent;
+        window.location.href = urlFilters;
+    } else {
         var filters = [];
 
         if(typeRent !== '' ){
@@ -39,15 +35,15 @@ $('#find-rent-btn').on('click', function (e) {
             }
            filters.push(t);
        }
-   
+
        if(countryRent !== ''){
-           var c = {
-               name: 'country',
-               val: countryRent
-           }
-          filters.push(c);
-       }
-   
+        var c = {
+            name: 'country',
+            val: countryRent
+        }
+       filters.push(c);
+    }
+
        if(locationRent !== ''){
            var l = {
                name: 'location',
@@ -62,27 +58,43 @@ $('#find-rent-btn').on('click', function (e) {
            }
           filters.push(b);
        }
-       if(lowerRent !== ''){
-           var lprice = {
-               name: 'lower',
-               val: lowerRent.replace('₤', '').replace(',', '')
-           }
-          filters.push(lprice);
-       }
-       if(upperRent !== ''){
-           var uprice = {
-               name: 'upper',
-               val: upperRent.replace('₤', '').replace(',', '')
-           }
-          filters.push(uprice);
-       }
-       // console.log(filters)
    
        filters.forEach(function(item){
            urlFilters += item.name+'='+item.val+'&';
        });
-    //    console.log(urlFilters)
-   
+       
+       if(lowerRentPerWeek !== ''){
+           var lpricePw = {
+            name: 'lower-per-week',
+            val: lowerRentPerWeek.replace('₤', '').replace(/,/g , '')
+        }
+        urlFilters += lpricePw.name + '=' + lpricePw.val + '&';
+        }
+
+        if(upperRentPerWeek !== ''){
+            var upricePw = {
+                name: 'upper-per-week',
+                val: upperRentPerWeek.replace('₤', '').replace(/,/g , '')
+            }
+            urlFilters += upricePw.name + '=' + upricePw.val + '&';
+        }
+
+        if(lowerRentPerMonth !== ''){
+            var lpricePm = {
+             name: 'lower-per-month',
+             val: lowerRentPerMonth.replace('₤', '').replace(/,/g , '')
+         }
+         urlFilters += lpricePm.name + '=' + lpricePm.val + '&';
+         }
+         
+         if(upperRentPerMonth !== ''){
+             var upricePm = {
+                 name: 'upper-per-month',
+                 val: upperRentPerMonth.replace('₤', '').replace(/,/g , '')
+             }
+             urlFilters += upricePm.name + '=' + upricePm.val;
+         }
+       
        window.location.href = urlFilters;
     }
 })
