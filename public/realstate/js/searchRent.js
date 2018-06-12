@@ -9,8 +9,14 @@ $('#find-rent-btn').on('click', function (e) {
     e.preventDefault();
     var typeRent = $('#search_rent-type').val();
     var locationRent = $('#search_rent-location').val();
-    var bedsRent = $('#search_rent-beds').val();
+    var bedsRent = '';
     var countryRent = $('#search_rent-country').val();
+
+    $('.beds-item-rent input').each(function(){
+        if($(this).is(':checked')){
+            bedsRent = $(this).val();
+        }
+    })
 
     var lowerRentPerWeek = $('#price-rent-pw .noUi-handle-lower .noUi-tooltip').html();
     var upperRentPerWeek = $('#price-rent-pw .noUi-handle-upper .noUi-tooltip').html();

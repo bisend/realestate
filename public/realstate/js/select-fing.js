@@ -54,3 +54,18 @@ $('#search_rent-country').on('change', function () {
     }
 
 });
+
+
+$('.beds-radio input').on('change', function () {
+    
+    $( ".beds-radio input" ).each(function() {
+        if($(this).is(':checked')){
+            $(this).parent('p').find('span').addClass('active-check-text');
+        }else{
+            $(this).parent('p').find('span').removeClass('active-check-text');
+        }
+    });
+})
+
+
+  

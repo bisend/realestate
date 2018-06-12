@@ -139,22 +139,35 @@
                   </select>
                 </div>
       
-                <div class="filter-item filter-item-7">
+                <div class="filter-item filter-item-7 filter-item-sale beds-item-sale rooms-filter">
                     <label>Beds</label>
-                    <select id="search_sale-beds" name="beds" id="property-beds">
-                      <option value="">Any</option>
-                      {{-- <option value="studio">Studio+</option> --}}
-                      <option value="1">1+</option>
-                      <option value="2">2+</option>
-                      <option value="3">3+</option>
-                      <option value="4">4+</option>
-                      <option value="5">5+</option>
-                      <option value="6">6+</option>
-                      <option value="7">7+</option>
-                      <option value="8">8+</option>
-                      <option value="9">9+</option>
-                      <option value="10">10+</option>
-                    </select>
+                    <div class="beds-radio">
+                        <p>
+                            <input value="1" type="radio" id="1-plus-sale" name="radio-group-sale">
+                            <label for="1-plus-sale"></label>
+                            <span>1+</span>
+                        </p>
+                        <p>
+                            <input value="2" type="radio" id="2-plus-sale" name="radio-group-sale">
+                            <label for="2-plus-sale"></label>
+                            <span>2+</span>
+                        </p>
+                        <p>
+                            <input value="3" type="radio" id="3-plus-sale" name="radio-group-sale">
+                            <label for="3-plus-sale"></label>
+                            <span>3+</span>
+                        </p>
+                        <p>
+                            <input value="4" type="radio" id="4-plus-sale" name="radio-group-sale">
+                            <label for="4-plus-sale"></label>
+                            <span>4+</span>
+                        </p>
+                        <p>
+                            <input value="5" type="radio" id="5-plus-sale" name="radio-group-sale">
+                            <label for="5-plus-sale"></label>
+                            <span>5+</span>
+                        </p>
+                    </div>
                 </div>
       
                 <div class="filter-item filter-item-7">
@@ -202,7 +215,7 @@
                   </select>
                 </div> 
 
-                <div class="filter-item filter-item-7">
+                <div class="filter-item filter-item-7 filter-item-rent">
                   <label>Country</label>
                   <select id="search_rent-country" name="property-country">
                         <option class="country-any" value="">Any</option>
@@ -212,7 +225,7 @@
                   </select>
                 </div>
       
-                <div class="filter-item filter-item-7">
+                <div class="filter-item filter-item-7 filter-item-rent">
                   <label>Location</label>
                   <select class="location-select" id="search_rent-location" name="location">
                         <option class="location-any" value="">Any</option>
@@ -222,25 +235,38 @@
                   </select>
                 </div>
       
-                <div class="filter-item filter-item-7">
+                <div class="filter-item filter-item-7 filter-item-rent beds-item-rent rooms-filter">
                     <label>Beds</label>
-                    <select id="search_rent-beds" name="beds" id="property-beds">
-                      <option value="">Any</option>
-                      {{-- <option value="studio">Studio+</option> --}}
-                      <option value="1">1+</option>
-                      <option value="2">2+</option>
-                      <option value="3">3+</option>
-                      <option value="4">4+</option>
-                      <option value="5">5+</option>
-                      <option value="6">6+</option>
-                      <option value="7">7+</option>
-                      <option value="8">8+</option>
-                      <option value="9">9+</option>
-                      <option value="10">10+</option>
-                    </select>
+                    <div class="beds-radio">
+                        <p>
+                            <input value="1" type="radio" id="1-plus-rent" name="radio-group-rent">
+                            <label for="1-plus-rent"></label>
+                            <span>1+</span>
+                        </p>
+                        <p>
+                            <input value="2" type="radio" id="2-plus-rent" name="radio-group-rent">
+                            <label for="2-plus-rent"></label>
+                            <span>2+</span>
+                        </p>
+                        <p>
+                            <input value="3" type="radio" id="3-plus-rent" name="radio-group-rent">
+                            <label for="3-plus-rent"></label>
+                            <span>3+</span>
+                        </p>
+                        <p>
+                            <input value="4" type="radio" id="4-plus-rent" name="radio-group-rent">
+                            <label for="4-plus-rent"></label>
+                            <span>4+</span>
+                        </p>
+                        <p>
+                            <input value="5" type="radio" id="5-plus-rent" name="radio-group-rent">
+                            <label for="5-plus-rent"></label>
+                            <span>5+</span>
+                        </p>
+                    </div>
                 </div>
       
-                <div class="filter-item filter-item-7">
+                <div class="filter-item filter-item-7 filter-item-rent">
                     <label>Price per week</label>
                     <div id="price-rent-pw" class="slider-price">
                         <div class="price-slider-rent" id="price-slider-rent-per-week"></div>
@@ -251,12 +277,7 @@
                     </div>
                 </div>
 
-                <div class="filter-item filter-item-7">
-                  <label>Search By Reference:</label>
-                  <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
-                </div>
-
-                <div class="filter-item filter-item-7">
+                <div class="filter-item filter-item-7 filter-item-rent">
                     <label>Price per month</label>
                     <div id="price-rent-pm" class="slider-price">
                         <div class="price-slider-rent" id="price-slider-rent-per-month"></div>
@@ -266,8 +287,13 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="filter-item filter-item-7 filter-item-rent">
+                  <label>Search By Reference:</label>
+                  <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
+                </div>
       
-                <div class="filter-item filter-item-7">
+                <div class="filter-item filter-item-7 filter-item-rent">
                   <label class="label-submit">Submit</label><br/>
                   <input id="find-rent-btn" type="submit" class="button alt" value="Find Properties" />
                 </div>

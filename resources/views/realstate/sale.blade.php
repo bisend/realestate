@@ -159,22 +159,35 @@
 						</div>
 
 				
-				  <div class="form-block border">
+				  <div class="form-block border rooms-filter filter-item-sale beds-item-sale rooms-filter-dark">
 						<label>Beds</label>
-						<select name="beds" id="search_sale-beds" class="border">
-								<option value="">Any</option>
-								{{-- <option value="studio">Studio+</option> --}}
-								<option value="1">1+</option>
-								<option value="2">2+</option>
-								<option value="3">3+</option>
-								<option value="4">4+</option>
-								<option value="5">5+</option>
-								<option value="6">6+</option>
-								<option value="7">7+</option>
-								<option value="8">8+</option>
-								<option value="9">9+</option>
-								<option value="10">10+</option>
-						</select>
+							<div class="beds-radio">
+										<p>
+												<input value="1" type="radio" id="1-plus-sale" name="radio-group-sale">
+												<label for="1-plus-sale"></label>
+												<span>1+</span>
+										</p>
+										<p>
+												<input value="2" type="radio" id="2-plus-sale" name="radio-group-sale">
+												<label for="2-plus-sale"></label>
+												<span>2+</span>
+										</p>
+										<p>
+												<input value="3" type="radio" id="3-plus-sale" name="radio-group-sale">
+												<label for="3-plus-sale"></label>
+												<span>3+</span>
+										</p>
+										<p>
+												<input value="4" type="radio" id="4-plus-sale" name="radio-group-sale">
+												<label for="4-plus-sale"></label>
+												<span>4+</span>
+										</p>
+										<p>
+												<input value="5" type="radio" id="5-plus-sale" name="radio-group-sale">
+												<label for="5-plus-sale"></label>
+												<span>5+</span>
+										</p>
+                </div>
 						</div>
 				  
 				  <div class="form-block">

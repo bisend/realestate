@@ -9,7 +9,15 @@ $('#find-sale').on('click', function (e) {
     e.preventDefault();
     var type = $('#search_sale-type').val();
     var location = $('#search_sale-location').val();
-    var beds = $('#search_sale-beds').val();
+
+    var beds = '';
+
+    $('.beds-item-sale input').each(function(){
+        if($(this).is(':checked')){
+            beds = $(this).val();
+        }
+    })
+
     var country = $('#search_sale-country').val()
 
     var lower = $('#slider-price-sale .noUi-handle-lower .noUi-tooltip').html();
