@@ -1,5 +1,39 @@
 @extends('layouts.admin')
+<style>
+    #datepicker .ui-widget{
+        width: 100%!important;
+    }
+    #datepicker .ui-datepicker td span, #datepicker .ui-datepicker td a{
+        padding: 0px;
+        text-align: center;
+        font-size: 10px;
+    }
 
+   #datepicker .ui-datepicker-year{
+        background-color: #34495e;
+        font-size: 14px;
+   }
+   #datepicker .ui-datepicker select.ui-datepicker-year{
+       width: 30%;
+       padding-left: 15px;
+       margin-left: 8px;
+       height: 26px;
+       position: relative;
+   }
+
+   #datepicker .ui-datepicker select.ui-datepicker-year:after{
+    content: ''; 
+    position: absolute; /* Абсолютное позиционирование */
+	border: 30px solid transparent;
+    border-top: 43px solid rgb(255, 68, 0);
+    display: block;
+    width: 0;
+    height: 0;
+   }
+
+
+   
+</style>
 @section('title')
     <title>{{get_string('property_availability') . ' - ' . get_setting('site_name', 'site')}}</title>
 @endsection
@@ -7,10 +41,10 @@
 @section('page_title')
     <h3 class="page-title mbot10">{{get_string('property_availability')}} - {{ $property->contentDefault->name }}</h3>
 @endsection
-<div class="col l6 m6 s12">
+<div class="col l12 m12 s12">
     <div id="datepicker"></div>
 </div>
-<div class="col l6 m6 s12 pull-right">
+<div class="col l12 m12 s12 pull-right">
     <h3 class="page-title mbot10">{{ get_string('legend') }}</h3>
     <div class="boxed-legend-1">
         <span>{{ get_string('past_days') }}</span>
@@ -64,8 +98,12 @@
 
         // Generate datepicker
         $(document).ready(function(){
+            var today = new Date();
+            var y = today.getFullYear();
             $('#datepicker').multiDatesPicker({
+                numberOfMonths: [3,4],
                 minDate: dateToday,
+                changeYear: true,
                 altField: '#dates-input',
                 addDisabledDates: booked_dates.length ? booked_dates : '',
                 addDates: dates.length ? dates : '',
