@@ -2349,12 +2349,29 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	border: none;
 }
 
+#datepicker .ui-datepicker .ui-datepicker-prev,
+#datepicker .ui-datepicker .ui-datepicker-next{
+	display: none;
+}
+
+#datepicker .ui-datepicker .ui-datepicker-title{
+	display: flex;
+    justify-content: center;
+}
+
+#datepicker .ui-datepicker-year{
+	display: block!important;
+}
+
+#datepicker .chosen-container{
+	display: none;
+}
 
 #datepicker .ui-datepicker-header .chosen-container{
 	width: 60% !important;
 	margin-left: 0%!important;
-	margin-right: 0%!important;
 	padding: 0;
+	margin-right: 7px!important;
 }
 
 #datepicker .ui-datepicker-header .chosen-container .chosen-single{

@@ -544,7 +544,7 @@ $('#datepicker').datepicker({
         return [$.inArray(string, array) == -1];
     },
     changeYear: true,
-		numberOfMonths: 12
+	numberOfMonths: 12
 });
 
 $('#datepicker-mob').datepicker({
@@ -552,7 +552,7 @@ $('#datepicker-mob').datepicker({
         var string = jQuery.datepicker.formatDate('mm/dd/yy', date);
         return [$.inArray(string, array) == -1];
     },
-		changeMonth: true,
+	changeMonth: true,
     changeYear: true
 });
 
