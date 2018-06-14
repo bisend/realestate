@@ -28,7 +28,7 @@ class AdminCategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('order', 'asc')->paginate(10);
+        $categories = Category::orderBy('order', 'desc')->paginate(10);
         return view('admin.taxonomy.category.index', compact('categories'));
     }
 

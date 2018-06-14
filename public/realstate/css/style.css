@@ -955,6 +955,10 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 .property-tag.featured { right:10px; margin-top:10px; }
 .property-tag.status { right:10px; bottom:10px; }
 
+.lable-sale.lable-sale-to-left {
+	right: 60px;
+}
+
 .img-fade {
 	width:100%;
 	height:80px;

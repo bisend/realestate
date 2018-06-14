@@ -17,7 +17,7 @@
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li class="tab active"><a href="#content-panel" data-toggle="tab">{{get_string('content')}}</a></li>
-                <li class="tab"><a href="#data-panel" data-toggle="tab">{{get_string('data')}}</a></li>
+                {{-- <li class="tab"><a href="#data-panel" data-toggle="tab">{{get_string('data')}}</a></li> --}}
             </ul>
         </div>
         <div class="panel-body">
@@ -45,11 +45,17 @@
                                             </div>
                                         </div>
                                         <div class="col s12">
+                                            <div class="form-group">
+                                                {{Form::number('order', null, ['class' => 'form-control', 'min' => '0', 'step' => 1, 'placeholder' => get_string('order')])}}
+                                                {{Form::label('order', get_string('order'))}}
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col s12">
                                             {{Form::textarea('description['.$language->id.']', null, ['class' => 'hidden desc-content'])}}
                                             @if($errors->has('description.'.$language->id.''))
                                                 <span class="wrong-error">{{$errors->first('description.'.$language->id.'')}}</span>
                                             @endif
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 @endforeach
                             </div>

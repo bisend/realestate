@@ -19,7 +19,7 @@
     </div>
     <div class="col l6 m4 s12 right right-align mbot10">
         <a href="{{route('admin.taxonomy.category.create')}}" class="btn waves-effect"> {{get_string('create_category')}} <i class="material-icons small">add_circle</i></a>
-        <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a>
+        {{-- <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a> --}}
     </div>
     <div class="col s12">
         @if($categories->count())
@@ -47,7 +47,7 @@
                         <td>{{$category->order}}</td>
                         <td>
                             <div class="icon-options">
-                                <a href="{{url('category').'/'.$category->alias}}" title="{{get_string('view_page')}}"><i class="small material-icons color-primary">visibility</i></a>
+                                {{-- <a href="{{url('category').'/'.$category->alias}}" title="{{get_string('view_page')}}"><i class="small material-icons color-primary">visibility</i></a> --}}
                                 <a href="{{route('admin.taxonomy.category.edit', $category->id)}}" title="{{get_string('edit_category')}}"><i class="small material-icons color-primary">mode_edit</i></a>
                                 <a href="#" class="delete-button" data-id="{{$category->id}}" title="{{get_string('delete_category')}}"><i class="small material-icons color-red">delete</i></a>
                             </div>

@@ -1441,3 +1441,11 @@ td .ui-state-hover {
 #messages .message.owner-message{
     float: left;
 }
+
+.remove-property-file {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 3;
+    cursor: pointer;
+}

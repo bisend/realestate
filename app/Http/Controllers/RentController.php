@@ -222,7 +222,8 @@ class RentController extends Controller
         }
 
         return view('realstate.rent', compact(
-            'static_data', 'properties', 
+            'static_data', 
+            'properties', 
             'recent_properties', 
             'categories', 
             'title', 

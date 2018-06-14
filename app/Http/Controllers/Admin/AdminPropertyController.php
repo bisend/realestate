@@ -203,6 +203,15 @@ class AdminPropertyController extends Controller
             }
         }
 
+        if ($request->has('default_file')) {
+            PropertyFile::create([
+                    'property_id' => $property->id, 
+                    'name' => $request->default_file, 
+                    'file_name' => $request->default_file, 
+                    'path' => '/files/'.$request->default_file
+                ]);
+        }
+
         // Updating the Content
         foreach($languages as $language) {
 
@@ -221,7 +230,7 @@ class AdminPropertyController extends Controller
 
         // Create available dates
         PropertyDate::create(['dates' => null, 'property_id' => $property->id]);
-        $this->createPdfFile($property);
+        // $this->createPdfFile($property);
         // Redirect after saving
         return redirect('admin/property');
     }
@@ -360,7 +369,7 @@ class AdminPropertyController extends Controller
             $category_content = PropertyContent::where(['language_id' => $language->id, 'property_id' => $id])->first();
             $category_content->update($data);
         }
-        $this->createPdfFile($property);
+        // $this->createPdfFile($property);
 
         // Redirect after saving
         return redirect('admin/property');
@@ -537,6 +546,24 @@ class AdminPropertyController extends Controller
     {
 
         $languages = $this->languages;
+
+        //validate property_reference must be unique
+        $propertyInfos = Property::get(['property_info']);
+        
+        $propertyReferences = [];
+
+        $propertyReference = $request->property_info['property_reference'];
+
+        foreach ($propertyInfos as $propertyInfo) {
+            $propertyReferences[] = $propertyInfo->property_info['property_reference'];
+        }
+
+        if (in_array($propertyReference, $propertyReferences)) {
+            return Redirect::back()->withInput()->withErrors([
+                'property_reference' => 'This value already exists, please try another one!'
+            ]);
+        }
+
         $validator = Validator::make($request->all(), $this->validation_rules, $this->validation_messages);
 
         if($validator->fails()){
@@ -670,9 +697,9 @@ class AdminPropertyController extends Controller
         }
 
         if($property->files){
-            foreach($property->files as $file){
+            foreach($property->files as $file) {
                 $path = public_path("/files/$file->file_name");
-                if(File::exists($path)){
+                if($file->file_name != 'findaproperty-agreement.doc' && File::exists($path)){
                     File::delete($path);
                 }
                 $file->delete();
@@ -740,8 +767,11 @@ class AdminPropertyController extends Controller
         if($request->ajax()){
             $file = PropertyFile::find($id);
             $path = public_path().'/files/'.$file->file_name;
-            if(File::exists($path)){
-                File::delete($path);
+            if ($file->file_name != 'findaproperty-agreement.doc') {
+                if(File::exists($path)) {
+                    File::delete($path);
+                }
+                
             }
             $file->delete();
             return response()->json(get_string('success_delete'), 200);

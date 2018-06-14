@@ -71,9 +71,12 @@
                         <h5 class="section-title">{{get_string('general')}}</h5>
                     </div>
                     <div class="col l6 m6 s12">
-                        <div class="form-group  {{$errors->has('property_info.property_reference') ? 'has-error' : ''}}">
+                        <div class="form-group  {{$errors->has('property_info.property_reference') || $errors->has('property_reference') ? 'has-error' : ''}}">
                             {{Form::text('property_info[property_reference]', null, ['class' => 'form-control', 'placeholder' => 'Property Reference'])}}
                             {{Form::label('property_info[property_reference]', 'Property Reference')}} *
+                            @if($errors->has('property_reference'))
+                                <span class="wrong-error">* {{$errors->first('property_reference')}}</span>
+                            @endif
                             @if($errors->has('property_info.property_reference'))
                                 <span class="wrong-error">* {{$errors->first('property_info.property_reference')}}</span>
                             @endif
@@ -227,11 +230,21 @@
                     <div class="col l12 m12 s12 new-file">
                         <div class="clearfix input-group">
                             <label class="input-group-btn">
-                                <span class="btn btn-primary">File <i class="material-icons small">add_circle</i>
-                                    <input type="file" name="files[]" style="opacity:0">
+                                <span class="btn btn-primary">Default File
+                                    <input type="text" style="display: none;" name="default_file" value="findaproperty-agreement.doc">
                                 </span>
                             </label>
-                            <input type="text" class="form-control" readonly>
+                            <input type="text" class="form-control" readonly value="findaproperty-agreement.doc">
+                            <i class="material-icons small remove-property-file" data-remove-property-file="default">clear</i>
+                        </div>
+                        <br>
+                        <div class="clearfix input-group">
+                            <label class="input-group-btn">
+                                <span class="btn btn-primary">File <i class="material-icons small">add_circle</i>
+                                    <input type="file" name="files[]" style="display: none;">
+                                </span>
+                            </label>
+                            <input type="text" class="form-control" readonly data-file-name>
                         </div>
                     </div>
                     <div class="col s12">
@@ -1043,12 +1056,14 @@ if (URL) {
                     var reader = new FileReader();
                     $(reader).on('load', function (e)
                     {
-                        var newFile = '<br><div class="clearfix input-group"><label class="input-group-btn"><span class="btn btn-primary">File <i class="material-icons small">add_circle</i><input type="file" name="files[]" style="opacity:0"></span></label><input type="text" class="form-control pdf-name"></div>';
+                        var newFile = '<br><div class="clearfix input-group"><label class="input-group-btn"><span class="btn btn-primary">File <i class="material-icons small">add_circle</i><input type="file" name="files[]" style="display:none"></span></label><input type="text" class="form-control pdf-name" data-file-name></div>';
                         $('.new-file').append(newFile);
                         $(input).parent().parent().parent().find('.pdf-name').val(input.files[0].name);
                     });
                     reader.readAsDataURL(input.files[0]);
                 }
+                var cl = "<i class='material-icons small remove-property-file' data-remove-property-file='default'>clear</i>";
+                $(input).parent().parent().parent().find('[data-file-name]').after(cl);
             });
             $('.desc-content').summernote({
                 height: 200,
@@ -1452,6 +1467,11 @@ if (URL) {
             
             $('body').on('change', '#contactChoice2', function () {
                 checkPrices();
+            });
+
+            $('body').on('click', '[data-remove-property-file]', function (e) {
+                $(this).parent('.input-group').next('br').remove();
+                $(this).parent('.input-group').remove();
             });
         });
 

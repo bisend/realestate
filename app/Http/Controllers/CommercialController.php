@@ -19,41 +19,76 @@ class CommercialController extends Controller
     public function index(Request $request)
     {
         $static_data = $this->static_data;
+
         $default_language = $this->default_language;
-        $title = 'Sale | Findaproperty';
+
+        $title = 'Rent | Findaproperty';
+
         $countries = Country::all();
+
         $locations = Location::all();
+
         $categories = Category::get();
-        $recent_properties = Property::orderBy('created_at', 'desc')->take(Property::RECENT_PROPERTIES)->get();
-        // if ( ! empty($request->all())) {
-        //     $properties = Property::where('category_id', 1)->where('status', 1);
-        //     if (isset($request->type)) {
-        //         $properties->where('category_id', $request->type);
-        //     }
-        //     if (isset($request->country)) {
-        //         $properties->where('country_id', $request->country);
-        //     }
-        //     if (isset($request->location)) {
-        //         $properties->where('location_id', $request->location);
-        //     }
-        //     if (isset($request->beds)) {
-        //         $properties->each(function ($value) use ($request) {
-        //             return $value->property_info['bedrooms'] == $request->beds;
-        //         });
-        //     }
-        //     if (isset($request->lower) && isset($request->upper)) {
-        //         $filter_properties = $properties->get()->filter(function ($value) use ($request) {
-        //             return $value->prices['service_charge'] >= $request->lower && $value->prices['service_charge'] <= $request->upper;
-        //         })->values();
-        //     }
-        //     $search_properties = $filter_properties;
-        //     return view('realstate.sale', compact('static_data', 'search_properties', 'recent_properties', 'categories', 'title', 'countries', 'locations'));
-        // }
-        $properties = Property::where('sales', 1)
-                        ->where('status', 1)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(Property::GET_PROPERTIES);
+
+        $recent_properties = Property::orderBy('created_at', 'desc')
+                                ->where('status', 1)
+                                ->take(Property::RECENT_PROPERTIES)
+                                ->get();
         
+        $properties = Property::whereHas('category', function ($query) {
+            $query->whereHas('contentDefault', function ($q) {
+                $q->where('name', 'Commercial');
+            });
+        })
+                    ->where('status', 1)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(Property::GET_PROPERTIES);
+
+        $salePrices = Property::select("prices")
+                        ->where('sales', '=', 1)
+                        ->where('status', 1)
+                        ->get();
+
+        $p = [];
+        $saleMinPrice = 0;
+        $saleMaxPrice = 0;
+
+        foreach ($salePrices as $price) {
+            $p[] = $price['prices']['price'];
+        }
+
+        if (count($p) > 0) {
+            $saleMinPrice = min($p);
+            $saleMaxPrice = max($p);
+        }
+
+        $rentPrices = Property::select("prices")
+                        ->where('rentals', '=', 1)
+                        ->where('status', 1)
+                        ->get();
+
+        $perWeek = [];
+        $perMonth = [];
+        $rentMinPricePerWeek = 0;
+        $rentMaxPricePerWeek = 0;
+        $rentMinPricePerMonth = 0;
+        $rentMaxPricePerMonth = 0;
+
+        foreach ($rentPrices as $price) {
+            $perWeek[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
+            $perMonth[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
+        }
+
+        if (count($perWeek) > 0) {
+            $rentMinPricePerWeek = min($perWeek);
+            $rentMaxPricePerWeek = max($perWeek);
+        }
+
+        if (count($perMonth) > 0) {
+            $rentMinPricePerMonth = min($perMonth);
+            $rentMaxPricePerMonth = max($perMonth);
+        }
+
         return view('realstate.commercial', compact(
             'static_data', 
             'properties', 
@@ -61,6 +96,13 @@ class CommercialController extends Controller
             'categories', 
             'title', 
             'countries', 
-            'locations'));
+            'locations',
+            'saleMinPrice',
+            'saleMaxPrice',
+            'rentMinPricePerWeek',
+            'rentMaxPricePerWeek',
+            'rentMinPricePerMonth',
+            'rentMaxPricePerMonth'
+        ));
     }
 }

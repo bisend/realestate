@@ -42,49 +42,36 @@
 		<div class="col-lg-8 col-md-8">
 		
 			<div class="row">
-			@if(isset($search_properties))
-				@foreach($search_properties as $property)
-					<div class="col-lg-6 col-md-6">
-						<div class="property shadow-hover">
-						<a href="/property/{{$property->alias}}" class="property-img">
-								<div class="img-fade"></div>
-								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">₤{{ $property->prices['service_charge'] }}</div>
-								<div class="property-color-bar"></div>
-								<div class="prop-img-home prop-img-home-rent-sale">
-										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
-								</div>
-						</a>
-						<div class="property-content">
-								<div class="property-title">
-								<h4><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h4>
-								</div>
-								<table class="property-details property-details-grid">
-								<tr>
-										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
-										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
-										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
-										<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
-								</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-				@endforeach
-			
-			@else
-			@if(isset($properties))
+			@if(isset($properties) && count($properties) > 0)
 				@foreach($properties as $property)
 					<div class="col-lg-6 col-md-6">
 						<div class="property shadow-hover">
 						<a href="/property/{{$property->alias}}" class="property-img">
-								<div class="img-fade"></div>
-								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">₤{{ $property->prices['service_charge'] }}</div>
-								<div class="property-color-bar"></div>
-								<div class="prop-img-home prop-img-home-rent-sale">
-										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+							<div class="img-fade"></div>
+							@if($property->sales == 1 && $property->rentals == 1)
+								<div class="property-tag lable-sale lable-sale-to-left featured">Sale</div>
+								<div class="property-tag lable-rent featured">Rent</div>
+								<div class="property-price">
+									₤{{ $property->prices['price'] }} <span>Price</span>
+									₤{{ $property->prices['week'] }} <span>Per Week</span>
+									₤{{ $property->prices['month'] }} <span>Per Month</span>
 								</div>
+                            @elseif($property->rentals == 1)
+								<div class="property-tag lable-rent featured">Rent</div>
+								<div class="property-price">
+									₤{{ $property->prices['week'] }} <span>Per Week</span>
+									₤{{ $property->prices['month'] }} <span>Per Month</span>
+								</div>
+                            @elseif($property->sales == 1)
+								<div class="property-tag lable-sale featured">Sale</div>
+								<div class="property-price">
+									₤{{ $property->prices['price'] }} <span>Price</span>
+								</div>
+                            @endif
+							<div class="property-color-bar"></div>
+							<div class="prop-img-home prop-img-home-rent-sale">
+								<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
+							</div>
 						</a>
 						<div class="property-content">
 								<div class="property-title">
@@ -92,10 +79,10 @@
 								</div>
 								<table class="property-details property-details-grid">
 								<tr>
-										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
-										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
-										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
-										<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
+									<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+									<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
+									<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
+									<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
 								</tr>
 								</table>
 							</div>
@@ -103,8 +90,9 @@
 					</div>
 				@endforeach
 				{{$properties->links()}}
+				@else
+				<h2>No matches</h2>
 			@endif
-		@endif
 			</div><!-- end row -->
 	
 		
@@ -112,10 +100,19 @@
 		</div><!-- end listing -->
 		
 		<div class="col-lg-4 col-md-4 sidebar">
-		
 			<div class="widget widget-sidebar sidebar-properties advanced-search">
-			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
-			  <div class="widget-content box">
+				<input type="hidden" data-sale-min-price value="{{ $saleMinPrice ? $saleMinPrice : 0 }}">
+				<input type="hidden" data-sale-max-price value="{{ $saleMaxPrice ? $saleMaxPrice : 0 }}">
+				<input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek ? $rentMinPricePerWeek : 0 }}">
+				<input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek ? $rentMaxPricePerWeek : 0 }}">
+				<input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth ? $rentMinPricePerMonth : 0 }}">
+				<input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth ? $rentMaxPricePerMonth : 0 }}">
+
+			  	<h4>
+					<span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" />
+				</h4>
+				
+				<div class="widget-content box">
 					<div class="tabs tabs-search">
 						<ul class="tabs-search-nav">
 							<li><a class="open-tabs-search tbs-sale" href="#tabs-search-sale">For Sale</a></li>
@@ -123,11 +120,81 @@
 						</ul>
 						<div class="forms-div">
 							<div id="tabs-search-sale" class="ui-tabs-hide">
-							<form id="search-sale" method="post">
-
+								<form id="search-sale" method="post">
 									<div class="form-block border">
 										<label for="search_sale-type">Property Type</label>
-										<select id="search_sale-type" class="border">
+											<select id="search_sale-type" class="border">
+												<option value="">Any</option>
+												@if(isset($categories))
+													@foreach($categories as $category)
+														<option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
+													@endforeach
+												@endif
+											</select>
+									</div>
+									<div class="form-block border">
+										<label>Country</label>
+										<select class="border" id="search_sale-country" name="property-country">
+											<option class="country-any" value="">Any</option>
+												@foreach($countries as $country)
+													<option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+												@endforeach
+										</select>
+									</div>
+									<div class="form-block border">
+										<label>Location</label>
+										<select class="location-select border" id="search_sale-location" name="location">
+											<option class="location-any" value="">Any</option>
+											@foreach($locations as $location)
+												<option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+											@endforeach
+										</select>
+									</div>
+									<div class="form-block border rooms-filter filter-item-sale beds-item-sale rooms-filter-dark">
+										<label>Beds</label>
+										<div class="beds-radio">
+											<p>
+												<input value="1" type="radio" id="1-plus-sale" name="radio-group-sale">
+												<label for="1-plus-sale"></label>
+												<span>1+</span>
+											</p>
+											<p>
+												<input value="2" type="radio" id="2-plus-sale" name="radio-group-sale">
+												<label for="2-plus-sale"></label>
+												<span>2+</span>
+											</p>
+											<p>
+												<input value="3" type="radio" id="3-plus-sale" name="radio-group-sale">
+												<label for="3-plus-sale"></label>
+												<span>3+</span>
+											</p>
+											<p>
+												<input value="4" type="radio" id="4-plus-sale" name="radio-group-sale">
+												<label for="4-plus-sale"></label>
+												<span>4+</span>
+											</p>
+											<p>
+												<input value="5" type="radio" id="5-plus-sale" name="radio-group-sale">
+												<label for="5-plus-sale"></label>
+												<span>5+</span>
+											</p>
+										</div>
+									</div>		
+									<div class="form-block">
+										<label>Price</label>
+										<div id="slider-price-sale" class="price-slider"></div>
+									</div>
+									<input type="hidden" id="refer-val-sale">
+									<div class="form-block">
+										<input id="find-sale" type="submit" class="button" value="Find Properties" />
+									</div>
+								</form>
+							</div>
+							<div id="tabs-search-rent" class="ui-tabs-hide">
+								<form id="search-rent">					
+									<div class="form-block border">
+										<label for="property-status">Property Type</label>
+										<select id="search_rent-type" class="border">
 											<option value="">Any</option>
 											@if(isset($categories))
 												@foreach($categories as $category)
@@ -135,153 +202,76 @@
 												@endforeach
 											@endif
 										</select>
-										</div>
-
+									</div>
 									<div class="form-block border">
 										<label>Country</label>
-										<select class="border" id="search_sale-country" name="property-country">
-													<option class="country-any" value="">Any</option>
-													@foreach($countries as $country)
-													<option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
-													@endforeach
+										<select class="border" id="search_rent-country" name="property-country">
+											<option value="">Any</option>
+											@foreach($countries as $country)
+												<option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+											@endforeach
 										</select>
 									</div>
-				
 									<div class="form-block border">
 										<label>Location</label>
-										<select class="location-select border" id="search_sale-location" name="location">
-													<option class="location-any" value="">Any</option>
-													@foreach($locations as $location)
-															<option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
-													@endforeach
+										<select class="location-select border" id="search_rent-location" name="location">
+											<option class="location-any" value="">Any</option>
+											@foreach($locations as $location)
+												<option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+											@endforeach
 										</select>
 									</div>
-
-
-											<div class="form-block border rooms-filter filter-item-sale beds-item-sale rooms-filter-dark">
-												<label>Beds</label>
-													<div class="beds-radio">
-														<p>
-															<input value="1" type="radio" id="1-plus-sale" name="radio-group-sale">
-															<label for="1-plus-sale"></label>
-															<span>1+</span>
-														</p>
-														<p>
-															<input value="2" type="radio" id="2-plus-sale" name="radio-group-sale">
-															<label for="2-plus-sale"></label>
-															<span>2+</span>
-														</p>
-														<p>
-															<input value="3" type="radio" id="3-plus-sale" name="radio-group-sale">
-															<label for="3-plus-sale"></label>
-															<span>3+</span>
-														</p>
-														<p>
-															<input value="4" type="radio" id="4-plus-sale" name="radio-group-sale">
-															<label for="4-plus-sale"></label>
-															<span>4+</span>
-														</p>
-														<p>
-															<input value="5" type="radio" id="5-plus-sale" name="radio-group-sale">
-															<label for="5-plus-sale"></label>
-															<span>5+</span>
-														</p>
-													</div>
-												</div>
-										
-										<div class="form-block">
-											<label>Price</label>
-											<div id="slider-price-sale" class="price-slider"></div>
+									<div class="form-block border rooms-filter beds-item-rent rooms-filter-dark">
+										<label>Beds</label>
+											<div class="beds-radio">
+												<p>
+													<input value="1" type="radio" id="1-plus-rent" name="radio-group-rent">
+													<label for="1-plus-rent"></label>
+													<span class="val-radio">1+</span>
+												</p>
+												<p>
+													<input value="2" type="radio" id="2-plus-rent" name="radio-group-rent">
+													<label for="2-plus-rent"></label>
+													<span class="val-radio">2+</span>
+												</p>
+												<p>
+													<input value="3" type="radio" id="3-plus-rent" name="radio-group-rent">
+													<label for="3-plus-rent"></label>
+													<span class="val-radio">3+</span>
+												</p>
+												<p>
+													<input value="4" type="radio" id="4-plus-rent" name="radio-group-rent">
+													<label for="4-plus-rent"></label>
+													<span class="val-radio">4+</span>
+												</p>
+												<p>
+													<input value="5" type="radio" id="5-plus-rent" name="radio-group-rent">
+													<label for="5-plus-rent"></label>
+													<span class="val-radio">5+</span>
+												</p>
+											</div>
+									</div>					
+									<div class="form-block">
+										<label>Price per week</label>
+										<div id="price-rent-pw" class="slider-price">
+												<div class="price-slider-rent" id="price-slider-rent-per-week"></div>
 										</div>
-
-										<input type="hidden" id="refer-val-sale">
-
-										<div class="form-block">
-										<input id="find-sale" type="submit" class="button" value="Find Properties" />
+										{{-- <div id="price-rent" class="price-slider-rent"></div> --}}
+	
+										<label>Price per month</label>
+										<div id="price-rent-pm" class="slider-price">
+											<div class="price-slider-rent" id="price-slider-rent-per-month"></div>
 										</div>
-									</form>
-							</div>
-							<div id="tabs-search-rent" class="ui-tabs-hide">
-									<form id="search-rent">
-											
-											<div class="form-block border">
-											<label for="property-status">Property Type</label>
-											<select id="search_rent-type" class="border">
-												<option value="">Any</option>
-												@if(isset($categories))
-													@foreach($categories as $category)
-															<option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
-													@endforeach
-												@endif
-											</select>
-											</div>
-
-											<div class="form-block border">
-													<label>Country</label>
-													<select class="border" id="search_rent-country" name="property-country">
-														<option value="">Any</option>
-																@foreach($countries as $country)
-																<option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
-																@endforeach
-													</select>
-												</div>
-							
-												<div class="form-block border">
-													<label>Location</label>
-													<select class="location-select border" id="search_rent-location" name="location">
-																<option class="location-any" value="">Any</option>
-																@foreach($locations as $location)
-																		<option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
-																@endforeach
-													</select>
-												</div>
-
-											<div class="form-block border rooms-filter beds-item-rent rooms-filter-dark">
-											<label>Beds</label>
-												<div class="beds-radio">
-														<p>
-															<input value="1" type="radio" id="1-plus-rent" name="radio-group-rent">
-															<label for="1-plus-rent"></label>
-															<span class="val-radio">1+</span>
-														</p>
-														<p>
-															<input value="2" type="radio" id="2-plus-rent" name="radio-group-rent">
-															<label for="2-plus-rent"></label>
-															<span class="val-radio">2+</span>
-														</p>
-														<p>
-															<input value="3" type="radio" id="3-plus-rent" name="radio-group-rent">
-															<label for="3-plus-rent"></label>
-															<span class="val-radio">3+</span>
-														</p>
-														<p>
-															<input value="4" type="radio" id="4-plus-rent" name="radio-group-rent">
-															<label for="4-plus-rent"></label>
-															<span class="val-radio">4+</span>
-														</p>
-														<p>
-															<input value="5" type="radio" id="5-plus-rent" name="radio-group-rent">
-															<label for="5-plus-rent"></label>
-															<span class="val-radio">5+</span>
-														</p>
-													</div>
-											</div>
-											
-											<div class="form-block">
-											<label>Price</label>
-											<div id="price-rent" class="price-slider-rent"></div>
-											</div>
-
-											<input type="hidden" id="refer-val-rent">
-
-											<div class="form-block">
-											<input id="find-rent-btn" type="submit" class="button" value="Find Properties" />
-											</div>
-										</form>
+									</div>
+									<input type="hidden" id="refer-val-rent">
+									<div class="form-block">
+										<input id="find-rent-btn" type="submit" class="button" value="Find Properties" />
+									</div>
+								</form>
 							</div>
 						</div>
-				</div>
-			  </div><!-- end widget content -->
+					</div>
+			  	</div><!-- end widget content -->
 			</div><!-- end widget -->
 			
 			<div class="widget widget-sidebar recent-properties">
@@ -294,11 +284,28 @@
 					<div class="col-lg-4 col-md-4 col-sm-4"><a href="/property/{{$property->alias}}"><img src="{{ $property->imageByStatus }}" alt="" /></a></div>
 					<div class="col-lg-8 col-md-8 col-sm-8">
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
-						@if($property->rentals == 1)
-						<p><strong>₤{{ $property->prices['month'] }}</strong> Per Month</p>
-						@elseif($property->sales == 1)
-						<p><strong>₤{{ $property->prices['service_charge'] }}</strong></p>
-						@endif
+					  @if($property->sales == 1 && $property->rentals == 1)
+					  	<p>
+							<strong>₤{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
+						</p>
+					  	<p>
+							<strong>₤{{ $property->prices['week'] }}</strong> Per Week
+						</p>
+						<p>
+							<strong>₤{{ $property->prices['month'] }}</strong> Per Month
+						</p>
+					  @elseif($property->sales == 1)
+						<p>
+							<strong>₤{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
+						</p>
+					  @elseif($property->rentals == 1)
+						<p>
+							<strong>₤{{ $property->prices['week'] }}</strong> Per Week
+						</p>
+						<p>
+							<strong>₤{{ $property->prices['month'] }}</strong> Per Month
+						</p>
+					  @endif
 					</div>
 				  </div>
 				</div>

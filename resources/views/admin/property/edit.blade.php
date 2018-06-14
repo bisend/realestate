@@ -223,10 +223,10 @@
                         <div class="clearfix input-group">
                             <label class="input-group-btn">
                                 <span class="btn btn-primary">File <i class="material-icons small">add_circle</i>
-                                <input type="file" name="files[]" style="opacity:0">
+                                <input type="file" name="files[]" style="display: none;">
                                 </span>
                             </label>
-                            <input type="text" class="form-control pdf-name" readonly>
+                            <input type="text" class="form-control pdf-name" readonly data-file-name>
                         </div>
                     </div>
                     <div class="col s12">
@@ -1056,12 +1056,14 @@ if (URL) {
                     var reader = new FileReader();
                     $(reader).on('load', function (e)
                     {
-                        var newFile = '<br><div class="clearfix input-group"><label class="input-group-btn"><span class="btn btn-primary">File <i class="material-icons small">add_circle</i><input type="file" name="files[]" style="opacity:0"></span></label><input type="text" class="form-control pdf-name"></div>';
+                        var newFile = '<br><div class="clearfix input-group"><label class="input-group-btn"><span class="btn btn-primary">File <i class="material-icons small">add_circle</i><input type="file" name="files[]" style="display:none;"></span></label><input type="text" class="form-control pdf-name" data-file-name></div>';
                         $('.new-file').append(newFile);
                         $(input).parent().parent().parent().find('.pdf-name').val(input.files[0].name);
                     });
                     reader.readAsDataURL(input.files[0]);
                 }
+                var cl = "<i class='material-icons small remove-property-file' data-remove-property-file='default'>clear</i>";
+                $(input).parent().parent().parent().find('[data-file-name]').after(cl);
             });
             $('.delete-file-button').click(function(event){
                 event.preventDefault();
@@ -1754,6 +1756,11 @@ if (URL) {
             
             $('body').on('change', '#contactChoice2', function () {
                 checkPrices();
+            });
+
+            $('body').on('click', '[data-remove-property-file]', function (e) {
+                $(this).parent('.input-group').next('br').remove();
+                $(this).parent('.input-group').remove();
             });
         });
     </script>

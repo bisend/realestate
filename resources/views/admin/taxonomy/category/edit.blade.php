@@ -17,7 +17,7 @@
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li class="tab active"><a href="#content-panel" data-toggle="tab">{{get_string('content')}}</a></li>
-                <li class="tab"><a href="#data-panel" data-toggle="tab">{{get_string('data')}}</a></li>
+                {{-- <li class="tab"><a href="#data-panel" data-toggle="tab">{{get_string('data')}}</a></li> --}}
             </ul>
         </div>
         <div class="panel-body">
@@ -45,11 +45,17 @@
                                             </div>
                                         </div>
                                         <div class="col s12">
+                                            <div class="form-group">
+                                                {{Form::number('order', $category->order, ['class' => 'form-control', 'min' => '0', 'step' => 1, 'placeholder' => get_string('order')])}}
+                                                {{Form::label('order', get_string('order'))}}
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col s12">
                                             {{Form::textarea('description['.$language->id.']', $category->content($language->id)->description, ['class' => 'hidden desc-content'])}}
                                             @if($errors->has('description.'.$language->id.''))
                                                 <span class="wrong-error">{{$errors->first('description.'.$language->id.'')}}</span>
                                             @endif
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 @endforeach
                             </div>
@@ -108,7 +114,7 @@
                 <div class="form-group">
                     <button class="btn waves-effect" type="submit" name="action">{{get_string('edit_category')}}</button>
                     <a href="{{route('admin.taxonomy.category.index')}}" class="btn waves-effect">{{get_string('category_all')}}</a>
-                    <a href="#!" class="delete-button btn waves-effect btn-red" data-id="{{$category->id}}"><i class="material-icons color-white">delete</i></a>
+                    {{-- <a href="#!" class="delete-button btn waves-effect btn-red" data-id="{{$category->id}}"><i class="material-icons color-white">delete</i></a> --}}
                 </div>
             </div>
             {!!Form::close()!!}

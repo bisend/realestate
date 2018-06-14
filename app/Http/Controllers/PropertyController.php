@@ -99,7 +99,8 @@ class PropertyController extends Controller
                             ->get();
 
             $related_properties = $properties->each(function ($value) use($mainProperty) {
-                return $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE) && $value->prices['service_charge'] < ($mainProperty->prices['service_charge'] + Property::PRICE_RANGE);
+                return (int) $value->prices['service_charge'] < ((int)$mainProperty->prices['service_charge'] + Property::PRICE_RANGE) && 
+                (int)$value->prices['service_charge'] < ((int)$mainProperty->prices['service_charge'] + Property::PRICE_RANGE);
             })->take(Property::RELATED_PROPERTIES_COUNT);
 
             $salePrices = Property::select("prices")

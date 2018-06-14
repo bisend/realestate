@@ -37,7 +37,7 @@
                             <li class="{{ setActive('admin/taxonomy') }}">
                                 <a href="#">{{get_string('taxonomy')}}<i class="material-icons tiny">arrow_drop_down</i></a>
                                     <ul class="sub-menu">
-                                    <li><a href="{{route('admin.taxonomy.category.index')}}">Property Type</a></li>
+                                    <li><a href="{{route('admin.taxonomy.category.index')}}">Categories</a></li>
                                     <li><a href="{{route('admin.taxonomy.country.index')}}">Countries</a></li>
                                     <li><a href="{{route('admin.taxonomy.location.index')}}">Locations</a></li>
                                     <li><a href="{{route('admin_taxonomy_feature')}}">{{get_string('features')}}</a></li>

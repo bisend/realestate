@@ -19,7 +19,7 @@
 </div>
 <div class="col l6 m4 s12 right right-align mbot10">
     <a href="{{route('admin.property.create')}}" class="btn waves-effect"> {{get_string('create_property')}} <i class="material-icons small">add_circle</i></a>
-    <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a>
+    {{-- <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a> --}}
 </div>
 <div class="col s12">
     <div class="panel-heading">
@@ -706,7 +706,9 @@
                         .appendTo( ul );
             };
 
-            $('.slider-checkbox').on('change', function () {
+            $('.slider-checkbox').on('click', function (e) {
+                e.preventDefault();
+                var check = $(this);
                 var value = $(this).is(':checked') ? 1 : 0;
                 var id = $(this).data('id');
                 var token = $('[name="_token"]').val();
@@ -733,6 +735,7 @@
                                 data: {_token :token, value: value},
                                 success:function(msg) {
                                     toastr.success(msg);
+                                    check.prop('checked', !check.is(':checked'));
                                 },
                                 error:function(msg){
                                     toastr.error(msg.responseJSON);

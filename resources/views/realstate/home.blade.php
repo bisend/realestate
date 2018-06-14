@@ -42,17 +42,19 @@
       <div class="slide" style="background-image: url('{{ $slide->imageByStatus }}')">
         <div class="img-overlay black"></div>
         <div class="container">
-            @if($slide->sales == 1 && $slide->rentals == 1)
             <div class="slide-price">
-                {{-- ₤ {{ $slide->prices['price'] }} --}}
-                {{-- ₤ {{ $slide->prices['price.week'] }} --}}
-                {{-- ₤ {{ $slide->prices['price.month'] }} --}}
+                @if($slide->sales == 1 && $slide->rentals == 1)
+                    <div>₤ {{ $slide->prices['price'] }} Price</div>
+                    <div>₤ {{ $slide->prices['week'] }} Per Week</div>
+                    <div>₤ {{ $slide->prices['month'] }} Per Month</div>
+                @elseif($slide->rentals == 1)
+                    <div>₤ {{ $slide->prices['week'] }} Per Week</div>
+                    <div>₤ {{ $slide->prices['month'] }} Per Month</div>
+                @elseif($slide->sales == 1)
+                    <div>₤ {{ $slide->prices['price'] }} Price</div>
+                @endif
             </div>
-            @elseif($slide->rentals == 1)
 
-            @elseif($slide->sales == 1)
-            
-            @endif
           <div class="slide-content">
             <h1>{{ $slide->contentload->name }}</h1>
             <p class="slide-text">{{ str_limit($slide->contentload->description, 200, ' ...') }}</p>
@@ -65,12 +67,12 @@
               </tr>
             </table>
             @if($slide->sales == 1 && $slide->rentals == 1)
-            <span class="lable-sale right mobile-lable-flout">Sale</span>
-            <span class="lable-rent right mobile-lable-flout">Rent</span>
+                <span class="lable-sale right mobile-lable-flout">Sale</span>
+                <span class="lable-rent right mobile-lable-flout">Rent</span>
             @elseif($slide->rentals == 1)
-            <span class="lable-rent right mobile-lable-flout">Rent</span>
+                <span class="lable-rent right mobile-lable-flout">Rent</span>
             @elseif($slide->sales == 1)
-            <span class="lable-sale right mobile-lable-flout">Sale</span>
+                <span class="lable-sale right mobile-lable-flout">Sale</span>
             @endif
             <a href="/property/{{$slide->alias}}" class="button button-icon"><i class="fa fa-angle-right"></i>View Details</a>
           </div>
@@ -321,7 +323,16 @@
                             <div class="img-fade"></div>
                             <div class="property-tag lable-sale featured">Sale</div>
                             <div class="property-price">
-                                ₤ {{ isset($sales_property->prices['price']) ? $sales_property->prices['price'] : 0 }}
+                                @if($sales_property->sales == 1 && $sales_property->rentals == 1)
+                                    <div>₤ {{ $sales_property->prices['price'] }} Price</div>
+                                    <div>₤ {{ $sales_property->prices['week'] }} Per Week</div>
+                                    <div>₤ {{ $sales_property->prices['month'] }} Per Month</div>
+                                @elseif($sales_property->rentals == 1)
+                                    <div>₤ {{ $sales_property->prices['week'] }} Per Week</div>
+                                    <div>₤ {{ $sales_property->prices['month'] }} Per Month</div>
+                                @elseif($sales_property->sales == 1)
+                                    <div>₤ {{ $sales_property->prices['price'] }} Price</div>
+                                @endif
                             </div>
                             <div class="property-color-bar"></div>
                             <div class="prop-img-home">
@@ -363,14 +374,18 @@
                         <div class="property-price">
                             ₤ {{ isset($rentals_property->prices['price']) ? $rentals_property->prices['price'] : 0 }}
                         </div>
-                        {{-- <div class="property-price">
-                          <div >
-                          ₤{{ $rentals_property->prices['month'] }} <span>monthly</span>
-                          </div>
-                          <div class="price-perWeek">
-                          ₤{{ $rentals_property->prices['week'] }} <span>weekly</span>
-                          </div>
-                        </div> --}}
+                        <div class="property-price">
+                            @if($rentals_property->sales == 1 && $rentals_property->rentals == 1)
+                                <div>₤ {{ $rentals_property->prices['price'] }} Price</div>
+                                <div>₤ {{ $rentals_property->prices['week'] }} Per Week</div>
+                                <div>₤ {{ $rentals_property->prices['month'] }} Per Month</div>
+                            @elseif($rentals_property->rentals == 1)
+                                <div>₤ {{ $rentals_property->prices['week'] }} Per Week</div>
+                                <div>₤ {{ $rentals_property->prices['month'] }} Per Month</div>
+                            @elseif($rentals_property->sales == 1)
+                                <div>₤ {{ $rentals_property->prices['price'] }} Price</div>
+                            @endif
+                        </div>
                         <div class="property-color-bar"></div>
                         <div class="prop-img-home">
                             <img src="{{ $rentals_property->imageByStatus }}" alt="" />

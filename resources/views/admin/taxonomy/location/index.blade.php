@@ -11,7 +11,7 @@
 
     <div class="col l6 m4 s12 right right-align mbot10">
         <a href="{{route('admin.taxonomy.location.create')}}" class="btn waves-effect"> {{get_string('create_location')}} <i class="material-icons small">add_circle</i></a>
-        <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a>
+        {{-- <a href="#" class="mass-delete btn waves-effect btn-red"><i class="material-icons color-white">delete</i></a> --}}
     </div>
     <div class="col s12">
         @if($locations->count())
