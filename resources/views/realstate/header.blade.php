@@ -75,10 +75,10 @@
                 <a href="{{ route('rent') }}">Rent</a>
             </li>
             <li>
-                <a href="{{ route('blog') }}">Blogs</a>
+                <a href="{{ route('commercial') }}">Сommercial</a>
             </li>
             <li>
-                <a href="{{ route('commercial') }}">Сommercial</a>
+                <a href="{{ route('blog') }}">Blogs</a>
             </li>
             <li>
                 <a href="{{ route('contact') }}">Contact</a>
