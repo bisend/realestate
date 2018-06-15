@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin\Blog;
 use Illuminate\Http\Request;
+use App\Models\Admin\Page;
 
 class BlogController extends Controller
 {
@@ -15,8 +16,8 @@ class BlogController extends Controller
         $posts = Blog::with(['contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->orderBy('created_at', 'desc')->paginate(9);
-
-        return view('realstate.blog.blog-list', compact('posts', 'static_data', 'title'));
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+        return view('realstate.blog.blog-list', compact('posts', 'static_data', 'title', 'pages'));
     }
 
     public function post($alias){

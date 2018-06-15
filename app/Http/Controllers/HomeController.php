@@ -13,6 +13,7 @@ use App\Models\Request as RequestModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Admin\Page;
 
 class HomeController extends Controller
 {
@@ -117,6 +118,7 @@ class HomeController extends Controller
             $rentMaxPricePerMonth = max($perMonth);
         }
 
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
         // Returning the View
         return view('realstate.home', compact(
             'posts', 
@@ -136,7 +138,8 @@ class HomeController extends Controller
             'rentMinPricePerWeek',
             'rentMaxPricePerWeek',
             'rentMinPricePerMonth',
-            'rentMaxPricePerMonth'
+            'rentMaxPricePerMonth',
+            'pages'
         ));
     }
 
@@ -145,7 +148,8 @@ class HomeController extends Controller
         // Get Static Data
         $static_data = $this->static_data;
         $default_language = $this->default_language;
-        return view('realstate.contact', compact('static_data', 'default_language'));
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+        return view('realstate.contact', compact('static_data', 'default_language', 'pages'));
     }
 
     public function reCaptcha(Request $request){

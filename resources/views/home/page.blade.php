@@ -7,7 +7,7 @@
   <meta name="author" content="Rype Creative [Chris Gipple]">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ isset($title) ? $title : 'Findaproperty'}}</title>
+  <title>{{ isset($page->contentload->title) ? $page->contentload->title : 'Findaproperty'}}</title>
 
   <!-- CSS file links -->
   <link href="/realstate/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -61,10 +61,10 @@
 
 
 <div class="page-content">
-<!-- {{ $page->contentload->title }} -->
-<div class="container">
-    {!! $page->contentload->content  !!}
-</div>
+    <div class="container">
+        <h1 class="text-center">{{ $page->contentload->title }}</h1>
+        {!! $page->contentload->content  !!}
+    </div>
 </div>
 
 

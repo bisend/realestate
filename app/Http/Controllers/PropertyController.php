@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Admin\Location;
 use App\Models\Admin\Country;
 use App\Models\Admin\Category;
+use App\Models\Admin\Page;
 
 class PropertyController extends Controller
 {
@@ -147,6 +148,8 @@ class PropertyController extends Controller
                 $rentMaxPricePerMonth = max($perMonth);
             }
 
+            $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+
             return view('realstate.property', compact(
                 'mainProperty', 
                 'property', 
@@ -168,7 +171,8 @@ class PropertyController extends Controller
                 'rentMinPricePerWeek',
                 'rentMaxPricePerWeek',
                 'rentMinPricePerMonth',
-                'rentMaxPricePerMonth'
+                'rentMaxPricePerMonth',
+                'pages'
                 )
             );
         } else {

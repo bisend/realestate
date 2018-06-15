@@ -83,6 +83,16 @@
             <li>
                 <a href="{{ route('contact') }}">Contact</a>
             </li>
+            @if(isset($pages) && count($pages) > 0)
+                @foreach($pages as $page)
+                    <li>
+                        <a href="{{ route('page', ['alias' => $page->alias] ) }}">
+                            {{ $page->contentDefault->title }}
+                        </a>
+                    </li>
+                @endforeach
+            @endif
+
         </ul>
         <div class="clear"></div>
 

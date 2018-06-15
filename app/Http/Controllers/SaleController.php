@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Category;
 use App\Models\Admin\Location;
 use App\Models\Admin\Country;
+use App\Models\Admin\Page;
 
 class SaleController extends Controller
 {
@@ -206,6 +207,7 @@ class SaleController extends Controller
             $saleMaxPrice = max($p);
         }
         
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
         return view('realstate.sale', compact(
             'static_data', 
             'properties', 
@@ -215,7 +217,8 @@ class SaleController extends Controller
             'countries', 
             'locations',
             'saleMinPrice',
-            'saleMaxPrice'
+            'saleMaxPrice',
+            'pages'
         ));
     }
 }
