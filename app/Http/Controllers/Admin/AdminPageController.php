@@ -58,11 +58,10 @@ class AdminPageController extends Controller
         $default_language = Language::where('default', 1)->first();
         $data['alias'] = Utility::alias($request->title[$default_language->id], [], 'page');
         $page = Page::create($data);
-
         foreach($languages as $language) {
-
+            // dd($data);
             $data['title'] = $request->title[$language->id];
-
+            
             // Getting content from textarea
             if($request->body[$language->id]) {
                 $body = saveContentTextarea($request->body[$language->id]);
@@ -74,7 +73,11 @@ class AdminPageController extends Controller
             // Linking images for this page, so later can be deleted
             if(isset($body['images'])){
                 foreach ($body['images'] as $image) {
-                    Image::create(['image' => $image, 'imageable_id' => $page->id, 'imageable_type' => 'App\Models\Admin\Page']);
+                    Image::create([
+                        'image' => $image, 
+                        'imageable_id' => $page->id, 
+                        'imageable_type' => 'App\Models\Admin\Page'
+                    ]);
                 }
             }
             $data['page_id'] = $page->id;
@@ -257,7 +260,7 @@ class AdminPageController extends Controller
     public function validateTitle(Request $request, $id){
         $this->validate($request, [
             'title.'.$id.'' => 'required|min:5',
-            'body.'.$id.'' => 'max:5000',
+            // 'body.'.$id.'' => 'max:5000',
         ],[
             'title.'.$id.'.required'    => get_string('required_field'),
             'title.'.$id.'.min'         => get_string('min_5'),

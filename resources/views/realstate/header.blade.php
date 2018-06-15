@@ -4,9 +4,14 @@
     <div class="container">
         <div class="top-bar-left left">
             <ul class="top-bar-item right social-icons">
-            <li><a href="{{ $static_data['site_settings']['social_facebook'] }}"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="{{ $static_data['site_settings']['social_twitter'] }}"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="{{ $static_data['site_settings']['social_google_plus'] }}"><i class="fa fa-google-plus"></i></a></li>
+                @if($static_data['site_settings']['social_facebook']) <li><a href="{{ $static_data['site_settings']['social_facebook'] }}" target="_blank"><i class="fa fa-facebook"></i></a></li> @endif
+                @if($static_data['site_settings']['social_twitter']) <li><a href="{{ $static_data['site_settings']['social_twitter'] }}"  target="_blank"><i class="fa fa-twitter"></i></a></li>@endif
+                @if($static_data['site_settings']['social_youtube'])  <li><a href="{{ $static_data['site_settings']['social_youtube'] }}"  target="_blank"><i class="fa fa-youtube"></i></a></li>@endif
+                @if($static_data['site_settings']['social_instagram'])  <li><a href="{{ $static_data['site_settings']['social_instagram'] }}" target="_blank"><i class="fa fa-instagram"></i></a></li>@endif
+                @if($static_data['site_settings']['social_google_plus'])  <li><a href="{{ $static_data['site_settings']['social_google_plus'] }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>@endif
+                @if($static_data['site_settings']['social_pinterest'])  <li><a href="{{ $static_data['site_settings']['social_pinterest'] }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>@endif
+                @if($static_data['site_settings']['social_linkedin'])  <li><a href="{{ $static_data['site_settings']['social_linkedin'] }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>@endif
+                @if($static_data['site_settings']['social_tripadvisor'])  <li><a href="{{ $static_data['site_settings']['social_tripadvisor'] }}" target="_blank"><i class="fa fa-tripadvisor"></i></a></li>@endif            
             </ul>
             <div class="clear"></div>
         </div>

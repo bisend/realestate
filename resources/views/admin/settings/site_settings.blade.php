@@ -13,7 +13,7 @@
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li class="tab active"><a data-toggle="tab" href="#general_settings">{{get_string('general')}}</a></li>
-                <li class="tab"><a data-toggle="tab" href="#location">{{get_string('location')}}</a></li>
+                {{-- <li class="tab"><a data-toggle="tab" href="#location">{{get_string('location')}}</a></li> --}}
                 <li class="tab"><a data-toggle="tab" href="#contact">{{get_string('contact')}}</a></li>
                 <li class="tab"><a data-toggle="tab" href="#social">{{get_string('social')}}</a></li>
                 <li class="tab"><a data-toggle="tab" href="#google_settings">{{get_string('google')}}</a></li>
@@ -332,7 +332,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col l6 m6 s12 clearfix">
+                    {{-- <div class="col l6 m6 s12 clearfix">
                         <div class="form-group  {{$errors->has('reCaptcha') ? 'has-error' : ''}}">
                             {{Form::select('reCaptcha', ['0' => get_string('no'), '1' => get_string('yes')], get_setting('reCaptcha', 'site'), ['class' => 'form-control'])}}
                             {{Form::label('reCaptcha', get_string('reCaptcha_label'))}}
@@ -340,8 +340,8 @@
                                 <span class="wrong-error">* {{$errors->first('reCaptcha_label')}}</span>
                             @endif
                         </div>
-                    </div>
-                    <div class="col l6 m6 s12">
+                    </div> --}}
+                    {{-- <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('reCaptcha_api') ? 'has-error' : ''}}">
                             {{Form::text('reCaptcha_api', get_setting('reCaptcha_api', 'site'), ['class' => 'form-control', 'placeholder' => get_string('reCaptcha_api')])}}
                             {{Form::label('reCaptcha_api', get_string('reCaptcha_api'))}}
@@ -349,8 +349,8 @@
                                 <span class="wrong-error">* {{$errors->first('reCaptcha_api')}}</span>
                             @endif
                         </div>
-                    </div>
-                    <div class="col l6 m6 s12">
+                    </div> --}}
+                    {{-- <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('reCaptcha_api_secret') ? 'has-error' : ''}}">
                             {{Form::text('reCaptcha_api_secret', get_setting('reCaptcha_api_secret', 'site'), ['class' => 'form-control', 'placeholder' => get_string('reCaptcha_api_secret')])}}
                             {{Form::label('reCaptcha_api_secret', get_string('reCaptcha_api_secret'))}}
@@ -358,7 +358,7 @@
                                 <span class="wrong-error">* {{$errors->first('reCaptcha_api_secret')}}</span>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col s12">
                         <div class="card-panel">
                             <span class="primary-color">*{{get_string('note_for_apiGoogleMap')}}</span>
@@ -369,7 +369,7 @@
                             <span class="primary-color">*{{get_string('note_for_reCaptcha')}}</span>
                         </div>
                     </div>
-                    <!-- <div class="col l12 m12 s12">
+                    {{-- <div class="col l12 m12 s12">
                         <div class="form-group  {{$errors->has('google_map_styles') ? 'has-error' : ''}}">
                             {{Form::textarea('google_map_styles', get_setting('google_map_styles', 'site'), ['class' => 'form-control', 'placeholder' => get_string('google_map_styles')])}}
                             {{Form::label('google_map_styles', get_string('google_map_styles_label'))}}
@@ -377,7 +377,7 @@
                                 <span class="wrong-error">* {{$errors->first('google_map_styles')}}</span>
                             @endif
                         </div>
-                    </div> -->
+                    </div> --}}
                 </div>
                 <div id="email_settings" class="tab-pane"></div>
             </div>
