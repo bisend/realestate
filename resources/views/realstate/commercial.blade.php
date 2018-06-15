@@ -51,21 +51,21 @@
 							@if($property->sales == 1 && $property->rentals == 1)
 								<div class="property-tag lable-sale lable-sale-to-left featured">Sale</div>
 								<div class="property-tag lable-rent featured">Rent</div>
-								<div class="property-price">
-									₤{{ $property->prices['price'] }} <span>Price</span>
-									₤{{ $property->prices['week'] }} <span>Per Week</span>
-									₤{{ $property->prices['month'] }} <span>Per Month</span>
+								<div class="property-price property-price-com">
+									<div>₤{{ $property->prices['price'] }} <span>Price</span></div>	
+									<div>₤{{ $property->prices['week'] }} <span>Per Week</span></div>
+									<div>₤{{ $property->prices['month'] }} <span>Per Month</span></div>
 								</div>
                             @elseif($property->rentals == 1)
 								<div class="property-tag lable-rent featured">Rent</div>
-								<div class="property-price">
-									₤{{ $property->prices['week'] }} <span>Per Week</span>
-									₤{{ $property->prices['month'] }} <span>Per Month</span>
+								<div class="property-price property-price-com">
+									<div>₤{{ $property->prices['week'] }} <span>Per Week</span></div>
+									<div>₤{{ $property->prices['month'] }} <span>Per Month</span></div>
 								</div>
                             @elseif($property->sales == 1)
 								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">
-									₤{{ $property->prices['price'] }} <span>Price</span>
+								<div class="property-price property-price-com">
+									<div>₤{{ $property->prices['price'] }} <span>Price</span></div>
 								</div>
                             @endif
 							<div class="property-color-bar"></div>

@@ -69,18 +69,18 @@
 						</div>
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 							<div class="property-price-single right">
-								₤{{ $mainProperty->prices['price'] }}<span> Price</span>
-								₤{{ $mainProperty->prices['week'] }}<span> Per Week</span>
-								₤{{ $mainProperty->prices['month'] }}<span> Per Month</span>
+								<div>₤{{ $mainProperty->prices['price'] }}<span> Price</span></div>
+								<div>₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
+								<div>₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
 							</div>
 						@elseif($mainProperty->rentals == 1)
 							<div class="property-price-single right">
-								₤{{ $mainProperty->prices['week'] }}<span> Per Week</span>
-								₤{{ $mainProperty->prices['month'] }}<span> Per Month</span>
+								<div>₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
+								<div>₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
 							</div>
 						@elseif($mainProperty->sales == 1)
 							<div class="property-price-single right">
-								₤{{ $mainProperty->prices['price'] }}<span> Price</span>
+								<div>₤{{ $mainProperty->prices['price'] }}<span> Price</span></div>
 							</div>
 						@endif
             		<div class="clear"></div>
