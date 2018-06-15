@@ -43,6 +43,7 @@
                                     <li><a href="{{route('admin_taxonomy_feature')}}">{{get_string('features')}}</a></li>
                                 </ul>
                             </li>
+                            <li class="{{ setActive('admin/page') }}"><a href="{{route('admin.page.index')}}">{{get_string('pages')}}</a></li>
                             <li class="{{ setActive('admin/blog') }}"><a href="{{route('admin.blog.index')}}">{{get_string('blog')}}</a></li>
                             <li class="{{ setActive('admin/request') }}"><a href="{{route('admin_requests')}}">{{get_string('requests')}}</a></li>
                             <li class="{{ setActive('admin/settings') }}">
