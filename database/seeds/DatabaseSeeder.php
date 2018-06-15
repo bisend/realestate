@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
     	
-   		$sql = file_get_contents(database_path('seeds/booksi_sql.sql'));
-		DB::unprepared($sql);
-        $this->command->info('Demo table seeded!');
+   		// $sql = file_get_contents(database_path('seeds/booksi_sql.sql'));
+		// DB::unprepared($sql);
+        // $this->command->info('Demo table seeded!');
         // DB::table('users')->insert(
         //     [
         //         'role_id' => 1,
@@ -25,5 +25,9 @@ class DatabaseSeeder extends Seeder
         //         'password' => bcrypt('admin')
         //     ]
         // );
+        $this->call(CategoriesSeeder::class);
+        $this->call(CountriesSeeder::class);
+        $this->call(LocationsSeeder::class);
+        $this->call(PropertiesSeeder::class);
     }
 }
