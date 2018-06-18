@@ -1586,6 +1586,9 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 .comment-details a { color:#9eaab2; margin-left:14px; }
 .comment-details a:hover { color:#6d458a; }
 
+.comment-form{
+	min-height: 600px;
+}
 .comment-form form { margin-top:30px; }
 .comment-form h4 { margin-bottom:30px; }
 .comment-form h4 span { margin-bottom:7px; display:block; }

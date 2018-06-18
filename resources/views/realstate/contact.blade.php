@@ -2,7 +2,7 @@
 
 @section('mainsection')
 
-    <section class="module contact-details">
+    <!-- <section class="module contact-details">
   <div class="container">
 
     <div class="row">
@@ -37,10 +37,10 @@
           </ul>
         </div>
       </div>
-    </div><!-- end row -->
+    </div>
 
   </div>
-</section>
+</section> -->
 
 
 <section class="module">
@@ -72,10 +72,10 @@
                 </div>
               </div>
             </div>
-            <div class="form-block">
+            <!-- <div class="form-block">
                 <label>Subject</label>
                 <input id="contact-subject" type="text" placeholder="Subject" name="subject" />
-            </div>
+            </div> -->
             <div class="form-block">
               <label>Message *</label>
               <textarea id="contact-message" class="requiredField" placeholder="Your message..." name="message"></textarea>
@@ -101,7 +101,7 @@
       <div class="col-lg-4 col-md-4 sidebar">
 
 
-            <!-- PROPERY BLOGS -->
+
 
       </div>
 
