@@ -100,7 +100,66 @@
 
       <div class="col-lg-4 col-md-4 sidebar">
 
-
+        <div class="widget widget-sidebar recent-properties">
+          <h4><span>Recent Properties</span> <img src="/realstate/images/divider-half.png" alt="" /></h4>
+          <div class="widget-content">
+            @foreach($recent_properties as $property)
+              <div class="recent-property">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <a href="/property/{{$property->alias}}">
+                      <div class="recent-img">
+                        <img src="{{ $property->imageByStatus }}" alt="" />
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-8">
+                    <h5>
+                      <a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a>
+                    </h5>
+                    @if($property->sales == 1 && $property->rentals == 1)
+                      <p><strong>₤{{ $property->prices['price'] }}</strong> Price</p>
+                      <p><strong>₤{{ $property->prices['week'] }}</strong> Per Week</p>
+                      <p><strong>₤{{ $property->prices['month'] }}</strong> Per Month</p>
+                    @elseif($property->rentals == 1)
+                      <p><strong>₤{{ $property->prices['week'] }}</strong> Per Week</p>
+                      <p><strong>₤{{ $property->prices['month'] }}</strong> Per Month</p>
+                    @elseif($property->sales == 1)
+                      <p><strong>₤{{ $property->prices['price'] }}</strong> Price</p>
+                    @endif					
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div><!-- end widget content -->
+        </div><!-- end widget -->
+    
+        <div class="widget widget-sidebar recent-posts">
+          <h4>
+            <span>Recent Blog Posts</span> <img src="/realstate/images/divider-half.png" alt="" />
+          </h4>
+          <div class="widget-content">
+            @foreach($last_posts as $last_post)
+              <div class="recent-property">
+                      <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                    <a href="{{url('/blog/post').'/'.$last_post->alias}}">
+                       <div class="recent-img">
+                         <img src="{{ isset($last_post->image) ? url('/').$last_post->image : URL::asset('images/no_image.jpg')}}" alt="" />
+                       </div>
+                    </a>
+                  </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <h5>
+                      <a href="{{url('/blog/post').'/'.$last_post->alias}}">{{ $last_post->contentload->title }}</a>
+                    </h5>
+                            <p><i class="fa fa-calendar-o"></i> {{ \Carbon\Carbon::parse($last_post['created_at'])->format('M') }}, {{ \Carbon\Carbon::parse($last_post['created_at'])->format('j') }}th {{ \Carbon\Carbon::parse($last_post['created_at'])->format('Y') }}</p>
+                        </div>
+                      </div>
+                    </div>
+            @endforeach
+                </div><!-- end widget content -->
+            </div><!-- end widget -->
 
 
       </div>

@@ -147,9 +147,29 @@ class HomeController extends Controller
     public function contact(){
         // Get Static Data
         $static_data = $this->static_data;
+
         $default_language = $this->default_language;
+
+        $last_posts = Blog::with(['contentload' => function($query) use($default_language){
+            $query->where('language_id', $default_language->id);
+        }])->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        $recent_properties = Property::orderBy('created_at', 'desc')
+                                ->where('status', 1)
+                                ->take(Property::RECENT_PROPERTIES)
+                                ->get();
+
         $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
-        return view('realstate.contact', compact('static_data', 'default_language', 'pages'));
+        return view('realstate.contact', compact(
+            'static_data', 
+            'default_language', 
+            'pages',
+            'recent_properties',
+            'last_posts'
+        ));
     }
 
     public function reCaptcha(Request $request){
