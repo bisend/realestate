@@ -572,7 +572,7 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 /*====================================================================================*/
 .subheader {
 	/* background:#787c8a url(../images/1920x250.png) no-repeat center; */
-	background:#787c8a url(../images/contact-bg.png) no-repeat center;
+	background:#6d458a  url(../images/contact-bg.png) no-repeat center;
 	background-size:cover;
 	color:white;
 	padding-top:160px;

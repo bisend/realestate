@@ -86,7 +86,7 @@
                 <a href="{{ route('blog') }}">Blogs</a>
             </li>
             <li>
-                <a href="{{ route('contact') }}">Contact</a>
+                <a href="{{ route('contact') }}">Contact Us</a>
             </li>
             @if(isset($pages) && count($pages) > 0)
                 @foreach($pages as $page)

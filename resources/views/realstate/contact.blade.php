@@ -1,7 +1,13 @@
 @extends('realstate.layout')
 
 @section('mainsection')
-
+<section class="subheader subheader-listing-sidebar">
+  <div class="container">
+    <h1>Contact Us</h1>
+    <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="#" class="current">Contact Us</a></div>
+    <div class="clear"></div>
+  </div>
+</section>
     <!-- <section class="module contact-details">
   <div class="container">
 
