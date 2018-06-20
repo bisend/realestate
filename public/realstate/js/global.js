@@ -176,16 +176,41 @@ jQuery(document).ready(function($) {
 	var rentMinPricePerMonth = parseInt($('[data-rent-min-price-per-month]').val());
 	var rentMaxPricePerMonth = parseInt($('[data-rent-max-price-per-month]').val());
 
-	for ( var i = 0; i < sliders.length; i++ ) {
+	if (sliders) {
+		for ( var i = 0; i < sliders.length; i++ ) {
 
-		noUiSlider.create(sliders[i], {
+			noUiSlider.create(sliders[i], {
+				connect: true,
+				start: [saleMinPrice, saleMaxPrice],
+				// step: 1000,
+				// margin: 1000,
+				range: {
+					'min': [saleMinPrice],
+					'max': [saleMaxPrice]
+				},
+				tooltips: true,
+				format: wNumb({
+					decimals: 0,
+					thousand: ',',
+					prefix: '₤',
+				})
+			});
+	
+			count = count + 1;
+		}
+	}
+
+	var sliderRentPerWeek = document.getElementById('price-slider-rent-per-week');
+
+	if (sliderRentPerWeek) {
+		noUiSlider.create(sliderRentPerWeek, {
 			connect: true,
-			start: [saleMinPrice, saleMaxPrice],
-			// step: 1000,
+			start: [rentMinPricePerWeek, rentMaxPricePerWeek],
+			// step: 10,
 			// margin: 1000,
 			range: {
-				'min': [saleMinPrice],
-				'max': [saleMaxPrice]
+				'min': [rentMinPricePerWeek],
+				'max': [rentMaxPricePerWeek]
 			},
 			tooltips: true,
 			format: wNumb({
@@ -194,48 +219,28 @@ jQuery(document).ready(function($) {
 				prefix: '₤',
 			})
 		});
-
-		count = count + 1;
 	}
-
-	var sliderRentPerWeek = document.getElementById('price-slider-rent-per-week');
-
-	noUiSlider.create(sliderRentPerWeek, {
-		connect: true,
-		start: [rentMinPricePerWeek, rentMaxPricePerWeek],
-		// step: 10,
-		// margin: 1000,
-		range: {
-			'min': [rentMinPricePerWeek],
-			'max': [rentMaxPricePerWeek]
-		},
-		tooltips: true,
-		format: wNumb({
-			decimals: 0,
-			thousand: ',',
-			prefix: '₤',
-		})
-	});
 
 	var sliderRentPerMonth = document.getElementById('price-slider-rent-per-month');
 
-	noUiSlider.create(sliderRentPerMonth, {
-		connect: true,
-		start: [rentMinPricePerMonth, rentMaxPricePerMonth],
-		// step: 10,
-		// margin: 1000,
-		range: {
-			'min': [rentMinPricePerMonth],
-			'max': [rentMaxPricePerMonth]
-		},
-		tooltips: true,
-		format: wNumb({
-			decimals: 0,
-			thousand: ',',
-			prefix: '₤',
-		})
-	});
-
+	if (sliderRentPerMonth) {
+		noUiSlider.create(sliderRentPerMonth, {
+			connect: true,
+			start: [rentMinPricePerMonth, rentMaxPricePerMonth],
+			// step: 10,
+			// margin: 1000,
+			range: {
+				'min': [rentMinPricePerMonth],
+				'max': [rentMaxPricePerMonth]
+			},
+			tooltips: true,
+			format: wNumb({
+				decimals: 0,
+				thousand: ',',
+				prefix: '₤',
+			})
+		});
+	}
 
 	/***************************************************************************/
 	//FILTER TOGGLE (ON GOOGLE MAPS)

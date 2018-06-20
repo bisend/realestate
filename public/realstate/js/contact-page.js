@@ -10,44 +10,12 @@ $("#contact-phone").keypress(function (e) {
     }
 });
 
-
-// var contactRecaptchaError = true;
-
-// var contactResponse = function (response) {
-//     $('#contact-recaptcha').hide();
-//     if (response == '') {
-//         contactRecaptchaError = true;
-//     } else {
-//         contactRecaptchaError = false;
-//     }
-// };
-
-
-// var widgetId12;
-// var onloadCallback12 = function () {
-
-//     widgetId12 = grecaptcha.render('contact-recaptcha', {
-//         'sitekey': '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj',
-//         'callback': contactResponse
-//     });
-
-// };
-
-// contact-name
-// contact-email
-// contact-phone
-// contact-subject
-// contact-message
-
-// submit-contact-form
-
 $('#submit-contact-form').on('click', function (e) {
     e.preventDefault();
 
     var name = $('#contact-name').val();
     var email = $('#contact-email').val();
     var phone = $('#contact-phone').val();
-    // var subject = $('#contact-subject').val();
     var subject = 'New feedback';
     var message = $('#contact-message').val();
     var token = $('[name="_token"]').val();
@@ -55,10 +23,6 @@ $('#submit-contact-form').on('click', function (e) {
     var saveEmail = $('#contact-email').val();
 
     var error = false;
-
-    // console.log(saveEmail);
-
-    // console.log(name, email, phone, subject, message)
 
     $('#contact-email').on('focus', function () {
         $('#contact-email').attr('placeholder', '');
@@ -147,8 +111,6 @@ $('#submit-contact-form').on('click', function (e) {
                     saveEmail = '';
                     $('#successModal').modal('show');
                 }
-
-                console.log(data);
 
             },
             error: function (error) {
