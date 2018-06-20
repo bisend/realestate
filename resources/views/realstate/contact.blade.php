@@ -60,6 +60,7 @@
           <h4><span>Quick Contact</span> <img src="/realstate/images/divider-half.png" alt="" /></h4>
           <!-- <p><b>Fill out the form below.</b> Morbi accumsan ipsum velit Nam nec tellus a odio tincidunt auctor a ornare odio sedlon maurisvitae erat consequat auctor</p> -->
           <form method="post" id="contact-us">
+            <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
             <div class="form-block">
               <label>Name *</label>
               <input id="contact-name" class="requiredField" type="text" placeholder="Your Name" name="name" />

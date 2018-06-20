@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Mail\ContactMail;
 
 class EmailController extends Controller
 {
@@ -21,27 +22,29 @@ class EmailController extends Controller
 
         if ($request->ajax()) {
             // Validate request
-            $validation = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'name' => 'required',
-                'subject' => 'required',
-                'body' => 'required'
-            ], [
-                'email.required' => $static_data['strings']['required_field'],
-                'email.email' => $static_data['strings']['email_invalid'],
-                'name.required' => $static_data['strings']['required_field'],
-                'subject.required' => $static_data['strings']['required_field'],
-                'body.required' => $static_data['strings']['required_field'],
-            ]);
-            if ($validation->fails()) {
-                $errors = $validation->errors()->toArray();
-                return response()->json(['status' => false, 'errors' => $errors]);
-            } else {
+            // $validation = Validator::make($request->all(), [
+            //     'email' => 'required|email',
+            //     'name' => 'required',
+            //     'subject' => 'required',
+            //     'body' => 'required'
+            // ], [
+            //     'email.required' => $static_data['strings']['required_field'],
+            //     'email.email' => $static_data['strings']['email_invalid'],
+            //     'name.required' => $static_data['strings']['required_field'],
+            //     'subject.required' => $static_data['strings']['required_field'],
+            //     'body.required' => $static_data['strings']['required_field'],
+            // ]);
+            // if ($validation->fails()) {
+            //     $errors = $validation->errors()->toArray();
+            //     return response()->json(['success' => false, 'errors' => $errors]);
+            // } else {
                 // Generate helper data
+                
                 $mail_data['email'] = $request->email;
                 $mail_data['name'] = $request->name;
                 $mail_data['subject'] = $request->subject;
-                $mail_data['message'] = $request->body;
+                $mail_data['message'] = $request->message;
+                $mail_data['phone'] = $request->phone;
                 $mail_data['contact_msg'] = $static_data['strings']['contact_email_msg'];
                 $mail_data['site_name'] = $static_data['site_settings']['site_name'];
                 $mail_data['from'] = $static_data['strings']['from'];
@@ -52,12 +55,24 @@ class EmailController extends Controller
                 $mail_data['regards'] = $static_data['strings']['regards'];
                 $mail_data['reply'] = $static_data['strings']['reply'];
                 // Create the mail and send it
-                Mail::send('emails.contact', ['data' => $mail_data], function ($m) use ($mail_data) {
-                    $m->from($mail_data['email'], $mail_data['name']);
-                    $m->to($mail_data['admin_email'], $mail_data['site_name'])->subject($mail_data['subject']);
-                });
-                return response()->json(['status' => true, 'msg' => $static_data['strings']['email_sent_success']], 200);
-            }
+                try {
+                    Mail::to($mail_data['admin_email'])->send(new ContactMail($mail_data));
+                    // Mail::send('emails.contact', ['data' => $mail_data], function ($m) use ($mail_data) {
+                        // $m->from($mail_data['email'], $mail_data['name']);
+                        // $m->to($mail_data['admin_email'], $mail_data['site_name'])->subject($mail_data['subject']);
+                    // });
+                    return response()->json([
+                        'success' => true, 
+                        'msg' => $static_data['strings']['email_sent_success'],
+                        'dd' => $mail_data,
+                    ],
+                        200
+                    );
+                } catch (\Exception $e) {
+                    return response()->json(['success' => false, 'message' => $e->getMessage()]);
+                }
+                
+            // }
         } else {
             return response()->json($static_data['strings']['something_happened'], 400);
         }

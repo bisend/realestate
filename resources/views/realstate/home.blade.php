@@ -8,7 +8,7 @@
         <div class="fix-form-header">
             Call Back
         </div>
-        <form action="" id="coll-back-form" methods="post">
+        <form action="" id="coll-back-form" method="post">
             <input type="hidden" name="_token" class="token" value="{{ csrf_token() }}">
             <label for="name">Name:</label>
             <input id="call-back-name" type="text" placeholder="Name" name="name">

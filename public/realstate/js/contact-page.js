@@ -44,16 +44,17 @@ $("#contact-phone").keypress(function (e) {
 $('#submit-contact-form').on('click', function (e) {
     e.preventDefault();
 
-    let name = $('#contact-name').val();
-    let email = $('#contact-email').val();
-    let phone = $('#contact-phone').val();
-    let subject = $('#contact-subject').val();
-    let message = $('#contact-message').val();
-    let token = $('[name="_token"]').val();
+    var name = $('#contact-name').val();
+    var email = $('#contact-email').val();
+    var phone = $('#contact-phone').val();
+    // var subject = $('#contact-subject').val();
+    var subject = 'New feedback';
+    var message = $('#contact-message').val();
+    var token = $('[name="_token"]').val();
 
-    let saveEmail = $('#contact-email').val();
+    var saveEmail = $('#contact-email').val();
 
-    let error = false;
+    var error = false;
 
     // console.log(saveEmail);
 
@@ -108,57 +109,52 @@ $('#submit-contact-form').on('click', function (e) {
         $('#contact-message').removeClass('incorect-input');
     }
 
-    if( contactRecaptchaError == true){
-        error == true;
-    }
-
     if(error == false){
 
-        // $.ajax({
-        //     url: '',
-        //     type: 'POST',
-        //     data: {
-        //         _token: token,
-        //         name: name,
-        //         email: email,
-        //         phone: phone,
-        //         subject: subject,
-        //         message: message
-        //     },
-        //     success: function (data) {
-        //         if (data.status == 'success') {
-        //             $('#contact-name').val('');
-        //             $('#contact-name').attr('placeholder', 'Name');
-        //             $('#contact-name').removeClass('incorect-input');
+        $.ajax({
+            url: '/mail/sendcontact',
+            type: 'POST',
+            data: {
+                _token: token,
+                name: name,
+                email: email,
+                phone: phone,
+                subject: subject,
+                message: message
+            },
+            success: function (data) {
+                if (data.success) {
+                    $('#contact-name').val('');
+                    $('#contact-name').attr('placeholder', 'Name');
+                    $('#contact-name').removeClass('incorect-input');
 
-        //             $('#contact-email').val('');
-        //             $('#contact-email').attr('placeholder', 'Email');
-        //             $('#contact-email').removeClass('incorect-input');
+                    $('#contact-email').val('');
+                    $('#contact-email').attr('placeholder', 'Email');
+                    $('#contact-email').removeClass('incorect-input');
 
-        //             $('#contact-phone').val('');
-        //             $('#contact-phone').attr('placeholder', 'Phone Number');
-        //             $('#contact-phone').removeClass('incorect-input');
+                    $('#contact-phone').val('');
+                    $('#contact-phone').attr('placeholder', 'Phone Number');
+                    $('#contact-phone').removeClass('incorect-input');
 
-        //             $('#contact-subject').val('');
-        //             $('#contact-subject').attr('placeholder', 'Subject');
-        //             $('#contact-subject').removeClass('incorect-input');
+                    $('#contact-subject').val('');
+                    $('#contact-subject').attr('placeholder', 'Subject');
+                    $('#contact-subject').removeClass('incorect-input');
 
-        //             $('#contact-message').val('');
-        //             $('#contact-message').attr('placeholder', 'Message');
-        //             $('#contact-message').removeClass('incorect-input');
+                    $('#contact-message').val('');
+                    $('#contact-message').attr('placeholder', 'Message');
+                    $('#contact-message').removeClass('incorect-input');
 
-        //             saveEmail = '';
-        //             $('#successModal').modal('show')
+                    saveEmail = '';
+                    $('#successModal').modal('show');
+                }
 
-        //         }
+                console.log(data);
 
-        //     },
-        //     error: function (error) {
-        //         console.log(error);
-        //     }
-        // });
-    console.log('Name='+name+'-- Email='+email+'--, phone='+phone+'--, subject+'+subject+'--, message='+message)
-    $('#successModal').modal('show')
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     }
 
 
