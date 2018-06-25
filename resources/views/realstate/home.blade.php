@@ -57,7 +57,7 @@
 
           <div class="slide-content">
             <h1>{{ $slide->contentload->name }}</h1>
-            <p class="slide-text">{{ str_limit($slide->contentload->description, 200, ' ...') }}</p>
+            <p class="slide-text">{!! str_limit($slide->contentload->description, 200, ' ...') !!}</p>
             <table>
               <tr>
                 <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $slide->category->contentDefault->name }}</td>

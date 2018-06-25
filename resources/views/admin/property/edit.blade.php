@@ -407,7 +407,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col l6 m6 s12">
+                    {{-- <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('guest_number') ? 'has-error' : ''}}">
                             {{Form::text('guest_number', $property->guest_number, ['class' => 'form-control', 'placeholder' => get_string('guest_number')])}}
                             {{Form::label('guest_number', get_string('guest_number'))}}
@@ -415,8 +415,8 @@
                                 <span class="wrong-error">* {{$errors->first('guest_number')}}</span>
                             @endif
                         </div>
-                    </div>
-                    <div class="col l6 m6 s12">
+                    </div> --}}
+                    {{-- <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('rooms') ? 'has-error' : ''}}">
                             {{Form::text('rooms', $property->rooms, ['class' => 'form-control', 'placeholder' => get_string('property_rooms')])}}
                             {{Form::label('rooms', get_string('property_rooms'))}}
@@ -424,7 +424,7 @@
                                 <span class="wrong-error">* {{$errors->first('rooms')}}</span>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('property_info.bedrooms') ? 'has-error' : ''}}">
                             {{Form::text('property_info[bedrooms]', $property->property_info['bedrooms'], ['class' => 'form-control', 'placeholder' => get_string('property_bedrooms')])}}

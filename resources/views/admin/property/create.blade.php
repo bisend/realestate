@@ -428,7 +428,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col l6 m6 s12">
+                    {{-- <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('guest_number') ? 'has-error' : ''}}">
                             {{Form::text('guest_number', null, ['class' => 'form-control', 'placeholder' => get_string('guest_number')])}}
                             {{Form::label('guest_number', get_string('guest_number'))}} *
@@ -436,8 +436,8 @@
                                 <span class="wrong-error">* {{$errors->first('guest_number')}}</span>
                             @endif
                         </div>
-                    </div>
-                    <div class="col l6 m6 s12">
+                    </div> --}}
+                    {{-- <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('rooms') ? 'has-error' : ''}}">
                             {{Form::text('rooms', null, ['class' => 'form-control', 'placeholder' => get_string('property_rooms')])}}
                             {{Form::label('rooms', get_string('property_rooms'))}} *
@@ -445,7 +445,7 @@
                                 <span class="wrong-error">* {{$errors->first('rooms')}}</span>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col l6 m6 s12">
                         <div class="form-group  {{$errors->has('property_info.bedrooms') ? 'has-error' : ''}}">
                             {{Form::text('property_info[bedrooms]', null, ['class' => 'form-control', 'placeholder' => get_string('property_bedrooms')])}}
@@ -1325,15 +1325,15 @@ if (URL) {
             if(typeof google !== 'undefined' && google){
                 var map = new google.maps.Map(document.getElementById('google-map'), {
                     center:{
-                        lat: 40.416775,
-                        lng: -3.703790
+                        lat: 36.14474,
+                        lng: -5.35257
                     },
-                    zoom:5
+                    zoom: 15
                 });
                 var marker = new google.maps.Marker({
                     position: {
-                        lat: 40.416775,
-                        lng: -3.703790
+                        lat: 36.14474,
+                        lng: -5.35257
                     },
                     map: map,
                     draggable: true
