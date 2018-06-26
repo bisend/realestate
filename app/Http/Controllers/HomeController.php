@@ -43,20 +43,29 @@ class HomeController extends Controller
         // Get the properties (Eager Load)
         $number_of_properties = get_setting('fp_properties_count', 'design');;
         if($static_data['design_settings']['fp_show_featured_only']){
-            $properties = Property::with(['images', 'contentload' => function($query) use($default_language){
-                $query->where('language_id', $default_language->id);
+            $properties = Property::with([
+                'currency',
+                'images', 
+                'contentload' => function($query) use($default_language){
+                    $query->where('language_id', $default_language->id);
             }])->where('status', 1)->where('featured', 1)->inRandomOrder()->take($number_of_properties)->get();
         }else{
-            $properties = Property::with(['images', 'contentload' => function($query) use($default_language){
+            $properties = Property::with([
+                'currency',
+                'images', 'contentload' => function($query) use($default_language){
                 $query->where('language_id', $default_language->id);
             }])->where('status', 1)->inRandomOrder()->take($number_of_properties)->get();
         }
 
-        $sales_properties = Property::with(['images', 'contentload' => function($query) use($default_language){
+        $sales_properties = Property::with([
+            'currency',
+            'images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('sales', 1)->where('featured_sale', 1)->orderBy('position_sale', 'asc')->take(Property::FEATURED_COUNT)->get();
 
-        $rentals_properties = Property::with(['images', 'contentload' => function($query) use($default_language){
+        $rentals_properties = Property::with([
+            'currency',
+            'images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('rentals', 1)->where('featured_rent', 1)->orderBy('position_rent', 'asc')->take(Property::FEATURED_COUNT)->get();
 
@@ -67,7 +76,9 @@ class HomeController extends Controller
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->orderBy('created_at', 'desc')->take(3)->get();
 
-        $slider = Property::with(['images', 'contentload' => function($query) use($default_language){
+        $slider = Property::with([
+            'currency',
+            'images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('slider', 1)->take(5)->get();
         $countries = Country::all();

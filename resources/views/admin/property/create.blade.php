@@ -247,7 +247,7 @@
                             <input type="text" class="form-control" readonly data-file-name>
                         </div>
                     </div>
-                    <div class="col s12">
+                    {{-- <div class="col s12">
                         <ul class="collapsible collapsible-accordion">
                             <li>
                                 <div class="collapsible-header"><span>{{get_string('contact')}}</span><i class="material-icons small accordion-active">remove_circle</i><i class="material-icons small accordion-disabled">add_circle</i>
@@ -302,7 +302,7 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <div class="col s12">
                         <ul class="collapsible collapsible-accordion">
                             <li>
@@ -461,6 +461,29 @@
                             {{Form::label('property_info[bathrooms]', get_string('property_bathrooms'))}} *
                             @if($errors->has('property_info.bathrooms'))
                                 <span class="wrong-error">* {{$errors->first('property_info.bathrooms')}}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col s12 clearfix">
+                        <h5 class="section-title">{{get_string('Currency')}}</h5>
+                    </div>
+                    <div class="col l6 m6 s12">
+                        <div class="form-group  {{$errors->has('currency_id') ? 'has-error' : ''}}">
+                            @php($currencyCounter = 0)
+                            @foreach($currencies as $currency)
+                                <p>
+                                <label for="currency_id_{{ $currency->id }}">
+                                    <input type="radio" 
+                                        id="currency_id_{{ $currency->id }}"
+                                        name="currency_id" 
+                                        value="{{ $currency->id }}" {{ $currencyCounter == 0 ? 'checked' : ''}}>
+                                        {{ $currency->code}}
+                                </label>
+                                </p>
+                                @php($currencyCounter++)
+                            @endforeach
+                            @if($errors->has('prices.price'))
+                                <span class="wrong-error">* {{$errors->first('currency_id')}}</span>
                             @endif
                         </div>
                     </div>

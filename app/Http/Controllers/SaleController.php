@@ -33,10 +33,13 @@ class SaleController extends Controller
 
         $categories = Category::get();
 
-        $recent_properties = Property::orderBy('created_at', 'desc')
-                                ->take(Property::RECENT_PROPERTIES)
-                                ->where('status', 1)
-                                ->get();
+        $recent_properties = Property::with([
+                'currency'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->take(Property::RECENT_PROPERTIES)
+            ->where('status', 1)
+            ->get();
         
         if (isset($request->search) && $request->search) {
             $ids = [];
@@ -175,18 +178,24 @@ class SaleController extends Controller
                 }
             }
 
-            $properties = Property::where('sales', 1)
-                        ->where('status', 1)
-                        ->whereIn('id', $ids)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(Property::GET_PROPERTIES);
+            $properties = Property::with([
+                    'currency'
+                ])
+                ->where('sales', 1)
+                ->where('status', 1)
+                ->whereIn('id', $ids)
+                ->orderBy('created_at', 'desc')
+                ->paginate(Property::GET_PROPERTIES);
             $properties->appends(request()->all());
             
         } else {
-            $properties = Property::where('sales', 1)
-                        ->where('status', 1)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(Property::GET_PROPERTIES);
+            $properties = Property::with([
+                    'currency'
+                ])
+                ->where('sales', 1)
+                ->where('status', 1)
+                ->orderBy('created_at', 'desc')
+                ->paginate(Property::GET_PROPERTIES);
         }
 
         $salePrices = Property::select("prices")

@@ -52,10 +52,10 @@
 								<div class="property-tag lable-rent featured">Rent</div>
 								<div class="property-price">
 									<div>
-											₤ {{ isset($property->prices['week']) ? $property->prices['week'] : 0 }} <span>Per Week</span> 
+										{{ $property->currency->symbol}} {{ isset($property->prices['week']) ? $property->prices['week'] : 0 }} <span>Per Week</span> 
 									</div>
 									<div>
-											₤ {{ isset($property->prices['month']) ? $property->prices['month'] : 0 }} <span>Per Month</span>
+										{{ $property->currency->symbol}} {{ isset($property->prices['month']) ? $property->prices['month'] : 0 }} <span>Per Month</span>
 									</div>
 								</div>
 								<div class="property-color-bar"></div>
@@ -69,10 +69,10 @@
 								</div>
 								<table class="property-details property-details-grid">
 								<tr>
-										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->category->contentDefault->name }}</td>
 										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
 										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
-										<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
+										{{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td> --}}
 								</tr>
 								</table>
 							</div>
@@ -191,14 +191,14 @@
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
 						@if($property->rentals == 1)
 							<p>
-								<strong>₤{{ $property->prices['week'] }}</strong> Per Week
+								<strong>{{ $property->currency->symbol}}{{ $property->prices['week'] }}</strong> Per Week
 							</p>
 							<p>
-								<strong>₤{{ $property->prices['month'] }}</strong> Per Month
+								<strong>{{ $property->currency->symbol}}{{ $property->prices['month'] }}</strong> Per Month
 							</p>
 						@elseif($property->sales == 1)
 							<p>
-								<strong>₤ {{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
+								<strong>{{ $property->currency->symbol}} {{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
 							</p>
 						@endif
 					</div>

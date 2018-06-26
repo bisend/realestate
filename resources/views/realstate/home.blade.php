@@ -44,14 +44,14 @@
         <div class="container">
             <div class="slide-price">
                 @if($slide->sales == 1 && $slide->rentals == 1)
-                    <div>₤ {{ $slide->prices['price'] }} Price</div>
-                    <div>₤ {{ $slide->prices['week'] }} Per Week</div>
-                    <div>₤ {{ $slide->prices['month'] }} Per Month</div>
+                    <div>{{ $slide->currency->symbol}} {{ $slide->prices['price'] }} Price</div>
+                    <div>{{ $slide->currency->symbol}} {{ $slide->prices['week'] }} Per Week</div>
+                    <div>{{ $slide->currency->symbol}} {{ $slide->prices['month'] }} Per Month</div>
                 @elseif($slide->rentals == 1)
-                    <div>₤ {{ $slide->prices['week'] }} Per Week</div>
-                    <div>₤ {{ $slide->prices['month'] }} Per Month</div>
+                    <div>{{ $slide->currency->symbol}} {{ $slide->prices['week'] }} Per Week</div>
+                    <div>{{ $slide->currency->symbol}} {{ $slide->prices['month'] }} Per Month</div>
                 @elseif($slide->sales == 1)
-                    <div>₤ {{ $slide->prices['price'] }} Price</div>
+                    <div>{{ $slide->currency->symbol}} {{ $slide->prices['price'] }} Price</div>
                 @endif
             </div>
 
@@ -61,9 +61,9 @@
             <table>
               <tr>
                 <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $slide->category->contentDefault->name }}</td>
-                <td><i class="fa fa-bed"></i>{{ $slide->rooms }}</td>
+                <td><i class="fa fa-bed"></i>{{ $slide->property_info['bedrooms'] }}</td>
                 <td><i class="fa fa-expand"></i>{{ $slide->property_info['internal_area'] }}</td>
-                <td><i class="fa fa-user" aria-hidden="true"></i>{{ $slide->guest_number }}</td>
+                {{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $slide->guest_number }}</td> --}}
               </tr>
             </table>
             @if($slide->sales == 1 && $slide->rentals == 1)
@@ -324,14 +324,14 @@
                             <div class="property-tag lable-sale featured">Sale</div>
                             <div class="property-price">
                                 @if($sales_property->sales == 1 && $sales_property->rentals == 1)
-                                    <div>₤ {{ $sales_property->prices['price'] }} Price</div>
-                                    <div>₤ {{ $sales_property->prices['week'] }} Per Week</div>
-                                    <div>₤ {{ $sales_property->prices['month'] }} Per Month</div>
+                                    <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['price'] }} Price</div>
+                                    <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['week'] }} Per Week</div>
+                                    <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['month'] }} Per Month</div>
                                 @elseif($sales_property->rentals == 1)
-                                    <div>₤ {{ $sales_property->prices['week'] }} Per Week</div>
-                                    <div>₤ {{ $sales_property->prices['month'] }} Per Month</div>
+                                    <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['week'] }} Per Week</div>
+                                    <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['month'] }} Per Month</div>
                                 @elseif($sales_property->sales == 1)
-                                    <div>₤ {{ $sales_property->prices['price'] }} Price</div>
+                                    <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['price'] }} Price</div>
                                 @endif
                             </div>
                             <div class="property-color-bar"></div>
@@ -346,9 +346,9 @@
                             <table class="property-details">
                             <tr>
                                 <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $sales_property->category->contentDefault->name }}</td>
-                                <td><i class="fa fa-bed"></i>{{ $sales_property->rooms }}</td>
+                                <td><i class="fa fa-bed"></i>{{ $sales_property->property_info['bedrooms'] }}</td>
                                 <td><i class="fa fa-expand"></i>{{ $sales_property->property_info['internal_area'] }}</td>
-                                <td><i class="fa fa-user" aria-hidden="true"></i>{{ $sales_property->guest_number }}</td>
+                                {{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $sales_property->guest_number }}</td> --}}
                             </tr>
                             </table>
                         </div>
@@ -372,18 +372,15 @@
                         <div class="img-fade"></div>
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
-                            ₤ {{ isset($rentals_property->prices['price']) ? $rentals_property->prices['price'] : 0 }}
-                        </div>
-                        <div class="property-price">
                             @if($rentals_property->sales == 1 && $rentals_property->rentals == 1)
-                                <div>₤ {{ $rentals_property->prices['price'] }} Price</div>
-                                <div>₤ {{ $rentals_property->prices['week'] }} Per Week</div>
-                                <div>₤ {{ $rentals_property->prices['month'] }} Per Month</div>
+                                <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['price'] }} Price</div>
+                                <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['week'] }} Per Week</div>
+                                <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['month'] }} Per Month</div>
                             @elseif($rentals_property->rentals == 1)
-                                <div>₤ {{ $rentals_property->prices['week'] }} Per Week</div>
-                                <div>₤ {{ $rentals_property->prices['month'] }} Per Month</div>
+                                <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['week'] }} Per Week</div>
+                                <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['month'] }} Per Month</div>
                             @elseif($rentals_property->sales == 1)
-                                <div>₤ {{ $rentals_property->prices['price'] }} Price</div>
+                                <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['price'] }} Price</div>
                             @endif
                         </div>
                         <div class="property-color-bar"></div>
@@ -401,15 +398,15 @@
                                     <i class="fa fa-home" aria-hidden="true"></i></i>
                                     {{ $rentals_property->category->contentDefault->name }}
                                 </td>
-                                <td><i class="fa fa-bed"></i>{{ $rentals_property->rooms }}</td>
+                                <td><i class="fa fa-bed"></i>{{ $rentals_property->property_info['bedrooms'] }}</td>
                                 <td>
                                     <i class="fa fa-expand"></i>
                                     {{ $rentals_property->property_info['internal_area'] }}
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     {{ $rentals_property->guest_number }}
-                                </td>
+                                </td> --}}
                             </tr>
                         </table>
                         </div>

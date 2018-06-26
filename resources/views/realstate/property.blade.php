@@ -69,18 +69,18 @@
 						</div>
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
 							<div class="property-price-single right">
-								<div>₤{{ $mainProperty->prices['price'] }}<span> Price</span></div>
-								<div>₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-								<div>₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
+								<div>{{ $mainProperty->currency->symbol}}{{ $mainProperty->prices['price'] }}<span> Price</span></div>
+								<div>{{ $mainProperty->currency->symbol}}{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
+								<div>{{ $mainProperty->currency->symbol}}{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
 							</div>
 						@elseif($mainProperty->rentals == 1)
 							<div class="property-price-single right">
-								<div>₤{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
-								<div>₤{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
+								<div>{{ $mainProperty->currency->symbol}}{{ $mainProperty->prices['week'] }}<span> Per Week</span></div>
+								<div>{{ $mainProperty->currency->symbol}}{{ $mainProperty->prices['month'] }}<span> Per Month</span></div>
 							</div>
 						@elseif($mainProperty->sales == 1)
 							<div class="property-price-single right">
-								<div>₤{{ $mainProperty->prices['price'] }}<span> Price</span></div>
+								<div>{{ $mainProperty->currency->symbol}}{{ $mainProperty->prices['price'] }}<span> Price</span></div>
 							</div>
 						@endif
             		<div class="clear"></div>
@@ -100,16 +100,16 @@
 
 				<table class="property-details-single">
 					<tr>
-						<td><i class="fa fa-home" aria-hidden="true"></i> <span>{{ $mainProperty->rooms }}</span> Rooms</td>
+						<td><i class="fa fa-home" aria-hidden="true"></i> <span>{{ $mainProperty->category->contentDefault->name }}</span></td>
 						<td><i class="fa fa-bed"></i></i> <span>{{ $mainProperty->property_info['bedrooms'] }}</span> Beds</td>
 						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq Ft</td>
 						{{-- <td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PDF</td> --}}
-						<td>
+						{{-- <td>
 							<a href="{{public_path('/files/' . $mainProperty->pdfFile['file_name'] . '.pdf')}}" 
 								target="_blank" class="pdf-down-prop">
 								<i class="fa fa-file-text-o" aria-hidden="true"></i><span>PDF</span>
 							</a>
-						</td>
+						</td> --}}
 					</tr>
 				</table>
 
@@ -163,18 +163,18 @@
 						<li>Bathrooms: <span>{{ $mainProperty->property_info['bathrooms'] }}</span></li>
 						<li>Bedrooms: <span>{{ $mainProperty->property_info['bedrooms'] }}</span></li>
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
-							<li>Price <span>₤ {{ $mainProperty->prices['price'] }}</span></li>
-							<li>Per Week: <span>₤ {{ $mainProperty->prices['week'] }}</span></li>
-							<li>Per Month: <span>₤ {{ $mainProperty->prices['month'] }}</span></li>
-							<li>Service Charge: <span>₤ {{ $mainProperty->prices['service_charge'] }}</span></li>
-							<li>Rates: <span>₤ {{ $mainProperty->prices['rates'] }}</span></li>
+							<li>Price <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['price'] }}</span></li>
+							<li>Per Week: <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['week'] }}</span></li>
+							<li>Per Month: <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['month'] }}</span></li>
+							<li>Service Charge: <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['service_charge'] }}</span></li>
+							<li>Rates: <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['rates'] }}</span></li>
 						@elseif($mainProperty->rentals == 1)
-							<li>Per Week: <span>₤ {{ $mainProperty->prices['week'] }}</span></li>
-							<li>Per Month: <span>₤ {{ $mainProperty->prices['month'] }}</span></li>
+							<li>Per Week: <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['week'] }}</span></li>
+							<li>Per Month: <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['month'] }}</span></li>
 						@elseif($mainProperty->sales == 1)
-							<li>Price <span>₤ {{ $mainProperty->prices['price'] }}</span></li>
-							<li>Service Charge: <span>₤ {{ $mainProperty->prices['service_charge'] }}</span></li>
-							<li>Rates: <span>₤ {{ $mainProperty->prices['rates'] }}</span></li>
+							<li>Price <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['price'] }}</span></li>
+							<li>Service Charge: <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['service_charge'] }}</span></li>
+							<li>Rates: <span>{{ $mainProperty->currency->symbol}} {{ $mainProperty->prices['rates'] }}</span></li>
 						@endif
 			          </ul>
 			        </div>
@@ -247,24 +247,24 @@
 								<div class="property-price">
 									@if($property->sales == 1 && $property->rentals == 1)
 										<div>
-											₤{{ $property->prices['price'] }} <span>Price</span>
+											{{ $property->currency->symbol}}{{ $property->prices['price'] }} <span>Price</span>
 										</div>
 										<div>
-											₤{{ $property->prices['week'] }} <span>Per Week</span>
+											{{ $property->currency->symbol}}{{ $property->prices['week'] }} <span>Per Week</span>
 										</div>
 										<div class="price-perWeek">
-											₤{{ $property->prices['month'] }} <span>Per Month</span>
+											{{ $property->currency->symbol}}{{ $property->prices['month'] }} <span>Per Month</span>
 										</div>
 									@elseif($property->rentals == 1)
 										<div>
-											₤{{ $property->prices['week'] }} <span>Per Week</span>
+											{{ $property->currency->symbol}}{{ $property->prices['week'] }} <span>Per Week</span>
 										</div>
 										<div class="price-perWeek">
-											₤{{ $property->prices['month'] }} <span>Per  Month</span>
+											{{ $property->currency->symbol}}{{ $property->prices['month'] }} <span>Per  Month</span>
 										</div>
 									@elseif($property->sales == 1)
 										<div>
-											₤{{ $property->prices['price'] }} <span>Price</span>
+											{{ $property->currency->symbol}}{{ $property->prices['price'] }} <span>Price</span>
 										</div>
 									@endif
 									
@@ -280,10 +280,10 @@
 								</div>
 								<table class="property-details property-details-grid">
 								<tr>
-										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->category->contentDefault->name }}</td>
 										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
 										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
-										<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
+										{{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td> --}}
 								</tr>
 								</table>
 							</div>
@@ -491,14 +491,14 @@
 									<a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a>
 								</h5>
 								@if($property->sales == 1 && $property->rentals == 1)
-									<p><strong>₤{{ $property->prices['price'] }}</strong> Price</p>
-									<p><strong>₤{{ $property->prices['week'] }}</strong> Per Week</p>
-									<p><strong>₤{{ $property->prices['month'] }}</strong> Per Month</p>
+									<p><strong>{{ $property->currency->symbol}}{{ $property->prices['price'] }}</strong> Price</p>
+									<p><strong>{{ $property->currency->symbol}}{{ $property->prices['week'] }}</strong> Per Week</p>
+									<p><strong>{{ $property->currency->symbol}}{{ $property->prices['month'] }}</strong> Per Month</p>
 								@elseif($property->rentals == 1)
-									<p><strong>₤{{ $property->prices['week'] }}</strong> Per Week</p>
-									<p><strong>₤{{ $property->prices['month'] }}</strong> Per Month</p>
+									<p><strong>{{ $property->currency->symbol}}{{ $property->prices['week'] }}</strong> Per Week</p>
+									<p><strong>{{ $property->currency->symbol}}{{ $property->prices['month'] }}</strong> Per Month</p>
 								@elseif($property->sales == 1)
-									<p><strong>₤{{ $property->prices['price'] }}</strong> Price</p>
+									<p><strong>{{ $property->currency->symbol}}{{ $property->prices['price'] }}</strong> Price</p>
 								@endif					
 							</div>
 						</div>

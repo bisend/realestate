@@ -36,12 +36,16 @@ class PropertyController extends Controller
         $countries = Country::all();
         $locations = Location::all();
         $categories = Category::get();
-        $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
+        $property = Property::with([
+            'currency',
+            'images', 'contentload' => function ($query) use ($default_language) {
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('alias', $alias)->first();
 
         if ( ! $property) {
-            $property = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
+            $property = Property::with([
+                'currency',
+                'images', 'contentload' => function ($query) use ($default_language) {
                 $query->where('language_id', $default_language->id);
             }])->where('status', 1)->get()->filter(function($value) use($alias) {
                 return $value->property_info['property_reference'] == $alias;
@@ -75,7 +79,9 @@ class PropertyController extends Controller
 
             $reviews = Review::where('property_id', $property->id)->where('status', 1)->take(3)->get();
 
-            $similar = Property::with(['images', 'contentload' => function ($query) use ($default_language) {
+            $similar = Property::with([
+                'currency',
+                'images', 'contentload' => function ($query) use ($default_language) {
                 $query->where('language_id', $default_language->id);
             }])->where('id', '!=', $property->id)->where(function ($query) use ($property) {
                 $query->where('category_id', $property->category->id);
@@ -83,10 +89,13 @@ class PropertyController extends Controller
 
             $mainProperty = $property;
 
-            $recent_properties = Property::orderBy('created_at', 'desc')
-                                    ->where('status', 1)
-                                    ->take(Property::RECENT_PROPERTIES)
-                                    ->get();
+            $recent_properties = Property::with([
+                    'currency'
+                ])
+                ->orderBy('created_at', 'desc')
+                ->where('status', 1)
+                ->take(Property::RECENT_PROPERTIES)
+                ->get();
 
             $last_posts = Blog::with(['contentload' => function($query) use($default_language){
                 $query->where('language_id', $default_language->id);
@@ -95,9 +104,12 @@ class PropertyController extends Controller
             ->take(3)
             ->get();
             
-            $properties = Property::where('status', 1)
-                            ->where('id', '!=', $mainProperty->id)
-                            ->get();
+            $properties = Property::with([
+                    'currency'
+                ])
+                ->where('status', 1)
+                ->where('id', '!=', $mainProperty->id)
+                ->get();
 
             $related_properties = $properties->each(function ($value) use($mainProperty) {
                 return (int) $value->prices['service_charge'] < ((int)$mainProperty->prices['service_charge'] + Property::PRICE_RANGE) && 

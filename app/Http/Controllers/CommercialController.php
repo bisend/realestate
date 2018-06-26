@@ -31,24 +31,30 @@ class CommercialController extends Controller
 
         $categories = Category::get();
 
-        $recent_properties = Property::orderBy('created_at', 'desc')
-                                ->where('status', 1)
-                                ->take(Property::RECENT_PROPERTIES)
-                                ->get();
+        $recent_properties = Property::with([
+                'currency'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->where('status', 1)
+            ->take(Property::RECENT_PROPERTIES)
+            ->get();
         
-        $properties = Property::whereHas('category', function ($query) {
-            $query->whereHas('contentDefault', function ($q) {
-                $q->where('name', 'Commercial');
-            });
-        })
-                    ->where('status', 1)
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(Property::GET_PROPERTIES);
+        $properties = Property::with([
+                'currency'
+            ])
+            ->whereHas('category', function ($query) {
+                $query->whereHas('contentDefault', function ($q) {
+                    $q->where('name', 'Commercial');
+                });
+            })
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->paginate(Property::GET_PROPERTIES);
 
         $salePrices = Property::select("prices")
-                        ->where('sales', '=', 1)
-                        ->where('status', 1)
-                        ->get();
+            ->where('sales', '=', 1)
+            ->where('status', 1)
+            ->get();
 
         $p = [];
         $saleMinPrice = 0;
@@ -64,9 +70,9 @@ class CommercialController extends Controller
         }
 
         $rentPrices = Property::select("prices")
-                        ->where('rentals', '=', 1)
-                        ->where('status', 1)
-                        ->get();
+            ->where('rentals', '=', 1)
+            ->where('status', 1)
+            ->get();
 
         $perWeek = [];
         $perMonth = [];

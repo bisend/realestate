@@ -33,10 +33,13 @@ class RentController extends Controller
 
         $categories = Category::get();
 
-        $recent_properties = Property::orderBy('created_at', 'desc')
-                                ->where('status', 1)
-                                ->take(Property::RECENT_PROPERTIES)
-                                ->get();
+        $recent_properties = Property::with([
+                'currency'
+            ])
+            ->orderBy('created_at', 'desc')
+            ->where('status', 1)
+            ->take(Property::RECENT_PROPERTIES)
+            ->get();
         
         if (isset($request->search) && $request->search) {
             $ids = [];
@@ -182,18 +185,24 @@ class RentController extends Controller
                 }
             }
 
-            $properties = Property::where('rentals', 1)
-                        ->where('status', 1)
-                        ->whereIn('id', $ids)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(Property::GET_PROPERTIES);
+            $properties = Property::with([
+                    'currency'
+                ])
+                ->where('rentals', 1)
+                ->where('status', 1)
+                ->whereIn('id', $ids)
+                ->orderBy('created_at', 'desc')
+                ->paginate(Property::GET_PROPERTIES);
             $properties->appends(request()->all());
             
         } else {
-            $properties = Property::where('rentals', 1)
-                        ->where('status', 1)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(Property::GET_PROPERTIES);
+            $properties = Property::with([
+                    'currency'
+                ])
+                ->where('rentals', 1)
+                ->where('status', 1)
+                ->orderBy('created_at', 'desc')
+                ->paginate(Property::GET_PROPERTIES);
         }
 
         $rentPrices = Property::select("prices")

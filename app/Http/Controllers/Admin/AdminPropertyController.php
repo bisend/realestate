@@ -14,6 +14,7 @@ use App\Models\Admin\PropertyDate;
 use App\Models\Admin\Feature;
 use App\Models\Admin\PropertyFile;
 use App\Models\Admin\PropertyPdfFile;
+use App\Models\Admin\Currency;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -37,6 +38,7 @@ class AdminPropertyController extends Controller
             // 'business_hours.sat'      => 'business_hours',
             // 'business_hours.week'     => 'business_hours',
             // 'business_hours.sun'      => 'business_hours',
+            'currency_id'               => 'required',
             'category_id'             => 'required',
             'sale_rent'             => 'required',
             // 'type_id'              => 'required',
@@ -52,8 +54,8 @@ class AdminPropertyController extends Controller
             'contact.fax'             => 'phone_number',
             'contact.email'           => 'email',
             'contact.web'             => 'website',
-            'rooms'                   => 'required|integer',
-            'guest_number'            => 'required|integer',
+            // 'rooms'                   => 'required|integer',
+            // 'guest_number'            => 'required|integer',
             'property_info.internal_area' => 'required|integer',
             'property_info.external_area' => 'required|integer',
             'property_info.bedrooms'  => 'required|integer',
@@ -78,6 +80,7 @@ class AdminPropertyController extends Controller
         }
 
         $this->validation_messages = [
+            'currency_id'                        => get_string('required_field'),
             'business_hours.sat.business_hours'  => get_string('business_hours_validation'),
             'business_hours.week.business_hours' => get_string('business_hours_validation'),
             'business_hours.sun.business_hours'  => get_string('business_hours_validation'),
@@ -142,7 +145,16 @@ class AdminPropertyController extends Controller
         $countries = CountryContent::where('language_id', $default_language->id)->get()->pluck('location', 'location_id');
         $languages = $this->languages;
         $features = Feature::all();
-        return view('admin.property.create', compact('categories', 'languages', 'features', 'default_language', 'locations', 'countries'));
+        $currencies = Currency::all();
+        return view('admin.property.create', compact(
+            'categories', 
+            'languages', 
+            'features', 
+            'default_language', 
+            'locations', 
+            'countries',
+            'currencies'
+        ));
     }
 
     /**
@@ -261,7 +273,17 @@ class AdminPropertyController extends Controller
         $countries = CountryContent::where('language_id', $default_language->id)->get()->pluck('location', 'location_id');
         $features = Feature::all();
         $property = Property::findOrFail($id);
-        return view('admin.property.edit', compact('property', 'categories', 'default_language', 'languages', 'features', 'locations', 'countries'));
+        $currencies = Currency::all();
+        return view('admin.property.edit', compact(
+            'property', 
+            'categories', 
+            'default_language', 
+            'languages', 
+            'features', 
+            'locations', 
+            'countries',
+            'currencies'
+        ));
     }
 
     /**

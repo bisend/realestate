@@ -52,20 +52,20 @@
 								<div class="property-tag lable-sale lable-sale-to-left featured">Sale</div>
 								<div class="property-tag lable-rent featured">Rent</div>
 								<div class="property-price property-price-com">
-									<div>₤{{ $property->prices['price'] }} <span>Price</span></div>	
-									<div>₤{{ $property->prices['week'] }} <span>Per Week</span></div>
-									<div>₤{{ $property->prices['month'] }} <span>Per Month</span></div>
+									<div>{{ $property->currency->symbol}}{{ $property->prices['price'] }} <span>Price</span></div>	
+									<div>{{ $property->currency->symbol}}{{ $property->prices['week'] }} <span>Per Week</span></div>
+									<div>{{ $property->currency->symbol}}{{ $property->prices['month'] }} <span>Per Month</span></div>
 								</div>
                             @elseif($property->rentals == 1)
 								<div class="property-tag lable-rent featured">Rent</div>
 								<div class="property-price property-price-com">
-									<div>₤{{ $property->prices['week'] }} <span>Per Week</span></div>
-									<div>₤{{ $property->prices['month'] }} <span>Per Month</span></div>
+									<div>{{ $property->currency->symbol}}{{ $property->prices['week'] }} <span>Per Week</span></div>
+									<div>{{ $property->currency->symbol}}{{ $property->prices['month'] }} <span>Per Month</span></div>
 								</div>
                             @elseif($property->sales == 1)
 								<div class="property-tag lable-sale featured">Sale</div>
 								<div class="property-price property-price-com">
-									<div>₤{{ $property->prices['price'] }} <span>Price</span></div>
+									<div>{{ $property->currency->symbol}}{{ $property->prices['price'] }} <span>Price</span></div>
 								</div>
                             @endif
 							<div class="property-color-bar"></div>
@@ -79,10 +79,10 @@
 								</div>
 								<table class="property-details property-details-grid">
 								<tr>
-									<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->rooms }}</td>
+									<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->category->contentDefault->name }}</td>
 									<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
 									<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
-									<td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td>
+									{{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td> --}}
 								</tr>
 								</table>
 							</div>
@@ -286,24 +286,24 @@
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
 					  @if($property->sales == 1 && $property->rentals == 1)
 					  	<p>
-							<strong>₤{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
+							<strong>{{ $property->currency->symbol}}{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
 						</p>
 					  	<p>
-							<strong>₤{{ $property->prices['week'] }}</strong> Per Week
+							<strong>{{ $property->currency->symbol}}{{ $property->prices['week'] }}</strong> Per Week
 						</p>
 						<p>
-							<strong>₤{{ $property->prices['month'] }}</strong> Per Month
+							<strong>{{ $property->currency->symbol}}{{ $property->prices['month'] }}</strong> Per Month
 						</p>
 					  @elseif($property->sales == 1)
 						<p>
-							<strong>₤{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
+							<strong>{{ $property->currency->symbol}}{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
 						</p>
 					  @elseif($property->rentals == 1)
 						<p>
-							<strong>₤{{ $property->prices['week'] }}</strong> Per Week
+							<strong>{{ $property->currency->symbol}}{{ $property->prices['week'] }}</strong> Per Week
 						</p>
 						<p>
-							<strong>₤{{ $property->prices['month'] }}</strong> Per Month
+							<strong>{{ $property->currency->symbol}}{{ $property->prices['month'] }}</strong> Per Month
 						</p>
 					  @endif
 					</div>
