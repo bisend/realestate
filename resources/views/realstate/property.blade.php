@@ -7,8 +7,8 @@
 					<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 			</a>
 				<ul class="tabs-form-nav">
-					<li><a class="open-tab-forms" href="#tab-form-callback"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></a></li>
 					<li><a class="open-tab-forms" href="#tab-form-register"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+					<li><a class="open-tab-forms" href="#tab-form-callback"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></a></li>
 				</ul>
 			<div class="forms-div">
 			<div id="tab-form-callback" class="ui-tabs-hide">
@@ -86,7 +86,7 @@
             		<div class="clear"></div>
 					</div>
 					<div class="property-single-tags">
-						<div>
+						<div class="label-actv">
 							{{ $mainProperty->property_status->name }}
 						</div>
 						@if($mainProperty->sales == 1 && $mainProperty->rentals == 1)
@@ -239,7 +239,7 @@
 						<div class="property shadow-hover">
 						<a href="/property/{{$property->alias}}" class="property-img">
 								<div class="img-fade"></div>
-								<div>
+								<div class="label-actv">
 									{{ $property->property_status->name }}
 								</div>
 								@if($property->sales == 1 && $property->rentals == 1)

@@ -73,7 +73,7 @@
     <!-- main menu -->
     <div class="navbar-collapse collapse">
         <div class="main-menu-wrap">
-        <div class="container-fixed">
+        <div class="container-fixed container-header-flex">
         <ul class="nav navbar-nav right">
             <li>
                 <a href="/">Home</a>
@@ -104,7 +104,12 @@
             </li>
 
         </ul>
-        <div class="clear"></div>
+        <div class="facebook-link">
+            @if($static_data['site_settings']['social_facebook'])
+                <a href="{{ $static_data['site_settings']['social_facebook'] }}" target="_blank"><i class="fa fa-facebook"></i></a>
+            @endif
+        </div>
+        <!-- <div class="clear"></div> -->
 
         </div>
 

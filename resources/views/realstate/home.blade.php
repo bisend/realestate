@@ -25,11 +25,231 @@
     </div>
 
 
+<section class="module no-padding-top filter search-home-section">
+
+<div class="tabs">
+
+  <div class="filter-header">
+    <div class="container">
+        <ul>
+          <li><a class="tbs-sale" href="#tabs-2">For Sale</a></li>
+          <li><a class="tbs-rent" href="#tabs-3">For Rent</a></li>
+        </ul>
+    </div><!-- end container -->
+  </div><!-- end filter header -->
+
+  <div class="container">
+    <input type="hidden" data-sale-min-price value="{{ $saleMinPrice ? $saleMinPrice : 0 }}">
+    <input type="hidden" data-sale-max-price value="{{ $saleMaxPrice ? $saleMaxPrice : 0 }}">
+    <input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek ? $rentMinPricePerWeek : 0 }}">
+    <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek ? $rentMaxPricePerWeek : 0 }}">
+    <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth ? $rentMinPricePerMonth : 0 }}">
+    <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth ? $rentMaxPricePerMonth : 0 }}">
+    <div id="tabs-2" class="ui-tabs-hide">
+        <form id="search-sale" class="select-search-form">
+            <div class="filter-item filter-item-7">
+                <label>Property Type</label>
+                <select id="search_sale-type" name="property-type">
+                    <option value="">All</option>
+                    @if(isset($categories))
+                      @foreach($categories as $category)
+                          <option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
+                      @endforeach
+                    @endif
+                </select>
+              </div>
+
+              <div class="filter-item filter-item-7">
+                <label>Country</label>
+                <select id="search_sale-country" name="property-country">
+                  <option class="country-any" value="">Any</option>
+                  @foreach($countries as $country)
+                  <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+                  @endforeach
+                </select>
+              </div>
+    
+              <div class="filter-item filter-item-7">
+                <label>Location</label>
+                <select class="location-select" id="search_sale-location" name="location">
+                      <option class="location-any" value="">Any</option>
+                      @foreach($locations as $location)
+                          <option class="country-{{$location->country_id}}" 
+                              value="{{$location->id}}">
+                              {{$location->contentDefault->location}}
+                          </option>                        
+                      @endforeach
+                </select>
+              </div>
+    
+              <div class="filter-item filter-item-7 filter-item-sale beds-item-sale rooms-filter">
+                  <label>Beds</label>
+                  <div class="beds-radio">
+                      <p>
+                          <input value="1" type="radio" id="1-plus-sale" name="radio-group-sale">
+                          <label for="1-plus-sale"></label>
+                          <span>1+</span>
+                      </p>
+                      <p>
+                          <input value="2" type="radio" id="2-plus-sale" name="radio-group-sale">
+                          <label for="2-plus-sale"></label>
+                          <span>2+</span>
+                      </p>
+                      <p>
+                          <input value="3" type="radio" id="3-plus-sale" name="radio-group-sale">
+                          <label for="3-plus-sale"></label>
+                          <span>3+</span>
+                      </p>
+                      <p>
+                          <input value="4" type="radio" id="4-plus-sale" name="radio-group-sale">
+                          <label for="4-plus-sale"></label>
+                          <span>4+</span>
+                      </p>
+                      <p>
+                          <input value="5" type="radio" id="5-plus-sale" name="radio-group-sale">
+                          <label for="5-plus-sale"></label>
+                          <span>5+</span>
+                      </p>
+                  </div>
+              </div>
+    
+              <div class="filter-item filter-item-7">
+                  <label>Price</label>
+                  <div id="slider-price-sale" class="slider-price">
+                      <div class="price-slider" id="price-slider"></div>
+                      <div class="price-slider-values">
+                        <span class="price-range-num" id="price-low-value-1"></span>
+                        <span class="price-range-num right" id="price-high-value-1"></span>
+                    </div>
+                    <span class="low-price"></span>
+                  </div>
+              </div>
+
+              <div class="filter-item filter-item-7">
+                <label>Search By Reference:</label>
+                <input id="refer-val-sale" 
+                class="reference" 
+                type="text" 
+                name="reference-search" 
+                placeholder="Search By Reference:">
+              </div>
+              
+
+              <div class="filter-item filter-item-7">
+                <label class="label-submit">Submit</label><br/>
+                <input type="submit" id="find-sale" class="button alt" value="Find Properties">
+              </div>
+
+          
+        </form>
+    </div><!-- end tab 2 -->
+
+    <div id="tabs-3" class="ui-tabs-hide">
+        <form id="search-rent" class="select-search-form" method="post">
+            <div class="filter-item filter-item-7">
+                <label>Property Type</label>
+                <select id="search_rent-type" name="property-type">
+                    <option value="">All</option>
+                    @if(isset($categories))
+                      @foreach($categories as $category)
+                          <option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
+                      @endforeach
+                    @endif
+                </select>
+              </div> 
+
+              <div class="filter-item filter-item-7 filter-item-rent">
+                <label>Country</label>
+                <select id="search_rent-country" name="property-country">
+                      <option class="country-any" value="">Any</option>
+                      @foreach($countries as $country)
+                      <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+                      @endforeach
+                </select>
+              </div>
+    
+              <div class="filter-item filter-item-7 filter-item-rent">
+                <label>Location</label>
+                <select class="location-select" id="search_rent-location" name="location">
+                      <option class="location-any" value="">Any</option>
+                      @foreach($locations as $location)
+                          <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+                      @endforeach
+                </select>
+              </div>
+    
+              <div class="filter-item filter-item-7 filter-item-rent beds-item-rent rooms-filter">
+                  <label>Beds</label>
+                  <div class="beds-radio">
+                      <p>
+                          <input value="1" type="radio" id="1-plus-rent" name="radio-group-rent">
+                          <label for="1-plus-rent"></label>
+                          <span>1+</span>
+                      </p>
+                      <p>
+                          <input value="2" type="radio" id="2-plus-rent" name="radio-group-rent">
+                          <label for="2-plus-rent"></label>
+                          <span>2+</span>
+                      </p>
+                      <p>
+                          <input value="3" type="radio" id="3-plus-rent" name="radio-group-rent">
+                          <label for="3-plus-rent"></label>
+                          <span>3+</span>
+                      </p>
+                      <p>
+                          <input value="4" type="radio" id="4-plus-rent" name="radio-group-rent">
+                          <label for="4-plus-rent"></label>
+                          <span>4+</span>
+                      </p>
+                      <p>
+                          <input value="5" type="radio" id="5-plus-rent" name="radio-group-rent">
+                          <label for="5-plus-rent"></label>
+                          <span>5+</span>
+                      </p>
+                  </div>
+              </div>
+    
+              <div class="filter-item filter-item-7 filter-item-rent">
+                  <label>Price per week</label>
+                  <div id="price-rent-pw" class="slider-price">
+                      <div class="price-slider-rent" id="price-slider-rent-per-week"></div>
+                      <div class="price-slider-rent-values">
+                        <span class="price-range-num" id="price-low-value-1"></span>
+                        <span class="price-range-num right" id="price-high-value-1"></span>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="filter-item filter-item-7 filter-item-rent">
+                  <label>Price per month</label>
+                  <div id="price-rent-pm" class="slider-price">
+                      <div class="price-slider-rent" id="price-slider-rent-per-month"></div>
+                      <div class="price-slider-rent-values">
+                          <span class="price-range-num" id="price-low-value-1"></span>
+                          <span class="price-range-num right" id="price-high-value-1"></span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="filter-item filter-item-7 filter-item-rent">
+                <label>Search By Reference:</label>
+                <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
+              </div>
+    
+              <div class="filter-item filter-item-7 filter-item-rent">
+                <label class="label-submit">Submit</label><br/>
+                <input id="find-rent-btn" type="submit" class="button alt" value="Find Properties" />
+              </div>
+        </form>
+    </div><!-- end tab 3 -->
+
+  </div><!-- end container -->
+</div><!-- end tabs -->
+</section>
 
 
 
-
-    <section class="subheader subheader-slider">
+<section class="subheader subheader-slider">
   <div class="slider-wrap">
 
     <div class="slider-nav slider-nav-simple-slider">
@@ -82,9 +302,10 @@
                 {{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $slide->guest_number }}</td> --}}
               </tr>
             </table>
-            <div>
+            <!-- <div class="label-actv">
                 {{ $slide->property_status->name }}
-            </div>
+            </div> -->
+            <span class="lable-sale right mobile-lable-flout label-actv-slider">{{ $slide->property_status->name }}</span>
             @if($slide->sales == 1 && $slide->rentals == 1)
                 <span class="lable-sale right mobile-lable-flout">Sale</span>
                 <span class="lable-rent right mobile-lable-flout">Rent</span>
@@ -103,228 +324,6 @@
   </div><!-- end slider wrap -->
 </section>
 
-<section class="module no-padding-top filter">
-
-  <div class="tabs">
-
-    <div class="filter-header">
-      <div class="container">
-          <ul>
-            <li><a class="tbs-sale" href="#tabs-2">For Sale</a></li>
-            <li><a class="tbs-rent" href="#tabs-3">For Rent</a></li>
-          </ul>
-      </div><!-- end container -->
-    </div><!-- end filter header -->
-
-    <div class="container">
-      <input type="hidden" data-sale-min-price value="{{ $saleMinPrice ? $saleMinPrice : 0 }}">
-      <input type="hidden" data-sale-max-price value="{{ $saleMaxPrice ? $saleMaxPrice : 0 }}">
-      <input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek ? $rentMinPricePerWeek : 0 }}">
-      <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek ? $rentMaxPricePerWeek : 0 }}">
-      <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth ? $rentMinPricePerMonth : 0 }}">
-      <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth ? $rentMaxPricePerMonth : 0 }}">
-      <div id="tabs-2" class="ui-tabs-hide">
-          <form id="search-sale" class="select-search-form">
-              <div class="filter-item filter-item-7">
-                  <label>Property Type</label>
-                  <select id="search_sale-type" name="property-type">
-                      <option value="">All</option>
-                      @if(isset($categories))
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
-                        @endforeach
-                      @endif
-                  </select>
-                </div>
-
-                <div class="filter-item filter-item-7">
-                  <label>Country</label>
-                  <select id="search_sale-country" name="property-country">
-                    <option class="country-any" value="">Any</option>
-                    @foreach($countries as $country)
-                    <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
-                    @endforeach
-                  </select>
-                </div>
-      
-                <div class="filter-item filter-item-7">
-                  <label>Location</label>
-                  <select class="location-select" id="search_sale-location" name="location">
-                        <option class="location-any" value="">Any</option>
-                        @foreach($locations as $location)
-                            <option class="country-{{$location->country_id}}" 
-                                value="{{$location->id}}">
-                                {{$location->contentDefault->location}}
-                            </option>                        
-                        @endforeach
-                  </select>
-                </div>
-      
-                <div class="filter-item filter-item-7 filter-item-sale beds-item-sale rooms-filter">
-                    <label>Beds</label>
-                    <div class="beds-radio">
-                        <p>
-                            <input value="1" type="radio" id="1-plus-sale" name="radio-group-sale">
-                            <label for="1-plus-sale"></label>
-                            <span>1+</span>
-                        </p>
-                        <p>
-                            <input value="2" type="radio" id="2-plus-sale" name="radio-group-sale">
-                            <label for="2-plus-sale"></label>
-                            <span>2+</span>
-                        </p>
-                        <p>
-                            <input value="3" type="radio" id="3-plus-sale" name="radio-group-sale">
-                            <label for="3-plus-sale"></label>
-                            <span>3+</span>
-                        </p>
-                        <p>
-                            <input value="4" type="radio" id="4-plus-sale" name="radio-group-sale">
-                            <label for="4-plus-sale"></label>
-                            <span>4+</span>
-                        </p>
-                        <p>
-                            <input value="5" type="radio" id="5-plus-sale" name="radio-group-sale">
-                            <label for="5-plus-sale"></label>
-                            <span>5+</span>
-                        </p>
-                    </div>
-                </div>
-      
-                <div class="filter-item filter-item-7">
-                    <label>Price</label>
-                    <div id="slider-price-sale" class="slider-price">
-                        <div class="price-slider" id="price-slider"></div>
-                        <div class="price-slider-values">
-                          <span class="price-range-num" id="price-low-value-1"></span>
-                          <span class="price-range-num right" id="price-high-value-1"></span>
-                      </div>
-                      <span class="low-price"></span>
-                    </div>
-                </div>
-
-                <div class="filter-item filter-item-7">
-                  <label>Search By Reference:</label>
-                  <input id="refer-val-sale" 
-                  class="reference" 
-                  type="text" 
-                  name="reference-search" 
-                  placeholder="Search By Reference:">
-                </div>
-                
-
-                <div class="filter-item filter-item-7">
-                  <label class="label-submit">Submit</label><br/>
-                  <input type="submit" id="find-sale" class="button alt" value="Find Properties">
-                </div>
-
-            
-          </form>
-      </div><!-- end tab 2 -->
-
-      <div id="tabs-3" class="ui-tabs-hide">
-          <form id="search-rent" class="select-search-form" method="post">
-              <div class="filter-item filter-item-7">
-                  <label>Property Type</label>
-                  <select id="search_rent-type" name="property-type">
-                      <option value="">All</option>
-                      @if(isset($categories))
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->contentDefault->name}}</option>
-                        @endforeach
-                      @endif
-                  </select>
-                </div> 
-
-                <div class="filter-item filter-item-7 filter-item-rent">
-                  <label>Country</label>
-                  <select id="search_rent-country" name="property-country">
-                        <option class="country-any" value="">Any</option>
-                        @foreach($countries as $country)
-                        <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
-                        @endforeach
-                  </select>
-                </div>
-      
-                <div class="filter-item filter-item-7 filter-item-rent">
-                  <label>Location</label>
-                  <select class="location-select" id="search_rent-location" name="location">
-                        <option class="location-any" value="">Any</option>
-                        @foreach($locations as $location)
-                            <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
-                        @endforeach
-                  </select>
-                </div>
-      
-                <div class="filter-item filter-item-7 filter-item-rent beds-item-rent rooms-filter">
-                    <label>Beds</label>
-                    <div class="beds-radio">
-                        <p>
-                            <input value="1" type="radio" id="1-plus-rent" name="radio-group-rent">
-                            <label for="1-plus-rent"></label>
-                            <span>1+</span>
-                        </p>
-                        <p>
-                            <input value="2" type="radio" id="2-plus-rent" name="radio-group-rent">
-                            <label for="2-plus-rent"></label>
-                            <span>2+</span>
-                        </p>
-                        <p>
-                            <input value="3" type="radio" id="3-plus-rent" name="radio-group-rent">
-                            <label for="3-plus-rent"></label>
-                            <span>3+</span>
-                        </p>
-                        <p>
-                            <input value="4" type="radio" id="4-plus-rent" name="radio-group-rent">
-                            <label for="4-plus-rent"></label>
-                            <span>4+</span>
-                        </p>
-                        <p>
-                            <input value="5" type="radio" id="5-plus-rent" name="radio-group-rent">
-                            <label for="5-plus-rent"></label>
-                            <span>5+</span>
-                        </p>
-                    </div>
-                </div>
-      
-                <div class="filter-item filter-item-7 filter-item-rent">
-                    <label>Price per week</label>
-                    <div id="price-rent-pw" class="slider-price">
-                        <div class="price-slider-rent" id="price-slider-rent-per-week"></div>
-                        <div class="price-slider-rent-values">
-                          <span class="price-range-num" id="price-low-value-1"></span>
-                          <span class="price-range-num right" id="price-high-value-1"></span>
-                      </div>
-                    </div>
-                </div>
-
-                <div class="filter-item filter-item-7 filter-item-rent">
-                    <label>Price per month</label>
-                    <div id="price-rent-pm" class="slider-price">
-                        <div class="price-slider-rent" id="price-slider-rent-per-month"></div>
-                        <div class="price-slider-rent-values">
-                            <span class="price-range-num" id="price-low-value-1"></span>
-                            <span class="price-range-num right" id="price-high-value-1"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="filter-item filter-item-7 filter-item-rent">
-                  <label>Search By Reference:</label>
-                  <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
-                </div>
-      
-                <div class="filter-item filter-item-7 filter-item-rent">
-                  <label class="label-submit">Submit</label><br/>
-                  <input id="find-rent-btn" type="submit" class="button alt" value="Find Properties" />
-                </div>
-          </form>
-      </div><!-- end tab 3 -->
-
-    </div><!-- end container -->
-  </div><!-- end tabs -->
-</section>
-
 
 <section class="module properties">
   <div class="container">
@@ -340,7 +339,7 @@
                         <div class="property shadow-hover">
                         <a href="/property/{{$sales_property->alias}}" class="property-img">
                             <div class="img-fade"></div>
-                            <div>
+                            <div class="label-actv">
                                 {{ $sales_property->property_status->name }}
                             </div>
                             <div class="property-tag lable-sale featured">Sale</div>
@@ -408,7 +407,7 @@
                     <div class="property shadow-hover">
                         <a href="/property/{{$rentals_property->alias}}" class="property-img">
                         <div class="img-fade"></div>
-                        <div>
+                        <div class="label-actv">
                             {{ $rentals_property->property_status->name }}
                         </div>
                         <div class="property-tag lable-rent featured">Rent</div>

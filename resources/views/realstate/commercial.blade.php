@@ -48,7 +48,7 @@
 						<div class="property shadow-hover">
 						<a href="/property/{{$property->alias}}" class="property-img">
 							<div class="img-fade"></div>
-							<div>
+							<div class="label-actv">
 								{{ $property->property_status->name }}
 							</div>
 							@if($property->sales == 1 && $property->rentals == 1)
