@@ -19,7 +19,6 @@ class AdminSiteSettingsController extends Controller
 
     // Inserting the keys
     public function insert(Request $request){
-
         if($request->logo){
             $file = $request->file('logo');
             if(isset($file) && $file->isValid()){
@@ -50,10 +49,13 @@ class AdminSiteSettingsController extends Controller
         }
 
         $settings = Setting::where('type', 'site')->get();
+        $arr = [
+            'site_logo'
+        ];
         foreach($settings as $setting){
             $key = $setting->key;
-            if(($request->$key != '') || ($request->$key == '' && strpos($key, 'social_') !== false)){
-                $setting->value = $request->$key;
+            $setting->value = $request->$key;
+            if ( ! in_array($key, $arr)) {
                 $setting->save();
             }
         }

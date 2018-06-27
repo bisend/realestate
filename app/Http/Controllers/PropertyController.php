@@ -37,6 +37,7 @@ class PropertyController extends Controller
         $locations = Location::all();
         $categories = Category::get();
         $property = Property::with([
+            'property_status',
             'currency',
             'images', 'contentload' => function ($query) use ($default_language) {
             $query->where('language_id', $default_language->id);
@@ -44,6 +45,7 @@ class PropertyController extends Controller
 
         if ( ! $property) {
             $property = Property::with([
+                'property_status',
                 'currency',
                 'images', 'contentload' => function ($query) use ($default_language) {
                 $query->where('language_id', $default_language->id);
@@ -80,6 +82,7 @@ class PropertyController extends Controller
             $reviews = Review::where('property_id', $property->id)->where('status', 1)->take(3)->get();
 
             $similar = Property::with([
+                'property_status',
                 'currency',
                 'images', 'contentload' => function ($query) use ($default_language) {
                 $query->where('language_id', $default_language->id);
@@ -90,6 +93,7 @@ class PropertyController extends Controller
             $mainProperty = $property;
 
             $recent_properties = Property::with([
+                    'property_status',
                     'currency'
                 ])
                 ->orderBy('created_at', 'desc')
@@ -105,6 +109,7 @@ class PropertyController extends Controller
             ->get();
             
             $properties = Property::with([
+                    'property_status',
                     'currency'
                 ])
                 ->where('status', 1)
@@ -160,7 +165,7 @@ class PropertyController extends Controller
                 $rentMaxPricePerMonth = max($perMonth);
             }
 
-            $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+            $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
 
             return view('realstate.property', compact(
                 'mainProperty', 

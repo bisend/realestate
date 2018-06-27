@@ -8,7 +8,7 @@ class Page extends Model
 {
     // Allow columns to be filled with data
     protected $fillable = [
-        'user_id', 'status', 'alias'
+        'user_id', 'status', 'alias', 'position'
     ];
 
     // Returning the post's user

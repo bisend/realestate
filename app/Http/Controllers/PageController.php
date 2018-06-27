@@ -17,7 +17,7 @@ class PageController extends Controller
         }])->where('alias', $alias)->first();
 
         if($page){
-            $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+            $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
         	return view('home.page', compact(
                 'page', 
                 'static_data',

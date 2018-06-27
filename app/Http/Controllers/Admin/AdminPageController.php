@@ -57,6 +57,7 @@ class AdminPageController extends Controller
         $data['user_id'] = $request->user_id;
         $default_language = Language::where('default', 1)->first();
         $data['alias'] = Utility::alias($request->title[$default_language->id], [], 'page');
+        $data['position'] = empty($request->position) ? 1 : $request->position;
         $page = Page::create($data);
         foreach($languages as $language) {
             // dd($data);
@@ -192,6 +193,10 @@ class AdminPageController extends Controller
                     $data['alias'] = $alias;
                 }
             }
+        }
+
+        if (isset($request->position)) {
+            $data['position'] = empty($request->position) ? 1 : $request->position;
         }
 
         $page->update($data);

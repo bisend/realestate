@@ -48,24 +48,39 @@
 						<div class="property shadow-hover">
 						<a href="/property/{{$property->alias}}" class="property-img">
 							<div class="img-fade"></div>
+							<div>
+								{{ $property->property_status->name }}
+							</div>
 							@if($property->sales == 1 && $property->rentals == 1)
 								<div class="property-tag lable-sale lable-sale-to-left featured">Sale</div>
 								<div class="property-tag lable-rent featured">Rent</div>
 								<div class="property-price property-price-com">
+									@if($property->prices['price'])
 									<div>{{ $property->currency->symbol}}{{ $property->prices['price'] }} <span>Price</span></div>	
+									@endif
+									@if($property->prices['week'])
 									<div>{{ $property->currency->symbol}}{{ $property->prices['week'] }} <span>Per Week</span></div>
+									@endif
+									@if($property->prices['month'])
 									<div>{{ $property->currency->symbol}}{{ $property->prices['month'] }} <span>Per Month</span></div>
+									@endif
 								</div>
                             @elseif($property->rentals == 1)
 								<div class="property-tag lable-rent featured">Rent</div>
 								<div class="property-price property-price-com">
+									@if($property->prices['week'])
 									<div>{{ $property->currency->symbol}}{{ $property->prices['week'] }} <span>Per Week</span></div>
+									@endif
+									@if($property->prices['month'])
 									<div>{{ $property->currency->symbol}}{{ $property->prices['month'] }} <span>Per Month</span></div>
+									@endif
 								</div>
                             @elseif($property->sales == 1)
 								<div class="property-tag lable-sale featured">Sale</div>
 								<div class="property-price property-price-com">
+									@if($property->prices['price'])
 									<div>{{ $property->currency->symbol}}{{ $property->prices['price'] }} <span>Price</span></div>
+									@endif
 								</div>
                             @endif
 							<div class="property-color-bar"></div>
@@ -80,8 +95,12 @@
 								<table class="property-details property-details-grid">
 								<tr>
 									<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->category->contentDefault->name }}</td>
+									@if($property->property_info['bedrooms'])
 									<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
+									@endif
+									@if($property->property_info['internal_area'])
 									<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
+									@endif
 									{{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td> --}}
 								</tr>
 								</table>
@@ -285,26 +304,38 @@
 					<div class="col-lg-8 col-md-8 col-sm-8">
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
 					  @if($property->sales == 1 && $property->rentals == 1)
+					  	@if($property->prices['price'])
 					  	<p>
 							<strong>{{ $property->currency->symbol}}{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
 						</p>
-					  	<p>
+						@endif
+						@if($property->prices['week'])  
+						<p>
 							<strong>{{ $property->currency->symbol}}{{ $property->prices['week'] }}</strong> Per Week
 						</p>
+						@endif
+						@if($property->prices['month'])
 						<p>
 							<strong>{{ $property->currency->symbol}}{{ $property->prices['month'] }}</strong> Per Month
 						</p>
+						@endif
 					  @elseif($property->sales == 1)
-						<p>
+						@if($property->prices['price'])	
+					  	<p>
 							<strong>{{ $property->currency->symbol}}{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
 						</p>
+						@endif
 					  @elseif($property->rentals == 1)
-						<p>
+						@if($property->prices['week'])	
+					  	<p>
 							<strong>{{ $property->currency->symbol}}{{ $property->prices['week'] }}</strong> Per Week
 						</p>
+						@endif
+						@if($property->prices['month'])
 						<p>
 							<strong>{{ $property->currency->symbol}}{{ $property->prices['month'] }}</strong> Per Month
 						</p>
+						@endif
 					  @endif
 					</div>
 				  </div>

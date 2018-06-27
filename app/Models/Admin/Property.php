@@ -16,7 +16,7 @@ class Property extends Model
 
     // Allow columns to be filled with data
     protected $fillable = [
-        'user_id', 'currency_id', 'status', 'images', 'category_id', 'location', 'contact',
+        'user_id', 'status_id', 'currency_id', 'status', 'images', 'category_id', 'location', 'contact',
         'social', 'business_hours', 'featured', 'video', 'features', 'type_id', 'location_id',
         'property_info', 'fees', 'prices', 'alias', 'rooms', 'guest_number', 'price_per_night', 'meta_keywords', 'meta_description', 'meta_title',
         'sales', 'rentals', 'slider', 'position','country_id',
@@ -38,6 +38,11 @@ class Property extends Model
     // Returning the post's user
     public function user(){
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function property_status ()
+    {
+        return $this->belongsTo('App\Models\Admin\PropertyStatus', 'status_id', 'id');
     }
 
     // Return the currency of property

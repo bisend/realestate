@@ -285,7 +285,7 @@
                             </li>
                         </ul>
                     </div> --}}
-                    <div class="col s12">
+                    {{-- <div class="col s12">
                         <ul class="collapsible collapsible-accordion">
                             <li>
                                 <div class="collapsible-header"><span>{{get_string('social_networks')}}</span><i class="material-icons small accordion-active">remove_circle</i><i class="material-icons small accordion-disabled">add_circle</i></div>
@@ -347,7 +347,7 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <div class="hidden-fields hidden">
                     </div>
                 </div>

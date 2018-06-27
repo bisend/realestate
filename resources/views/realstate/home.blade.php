@@ -44,14 +44,26 @@
         <div class="container">
             <div class="slide-price">
                 @if($slide->sales == 1 && $slide->rentals == 1)
+                    @if($slide->prices['price'])
                     <div>{{ $slide->currency->symbol}} {{ $slide->prices['price'] }} Price</div>
+                    @endif
+                    @if($slide->prices['week'])
                     <div>{{ $slide->currency->symbol}} {{ $slide->prices['week'] }} Per Week</div>
+                    @endif
+                    @if($slide->prices['month'])
                     <div>{{ $slide->currency->symbol}} {{ $slide->prices['month'] }} Per Month</div>
+                    @endif
                 @elseif($slide->rentals == 1)
+                    @if($slide->prices['week'])
                     <div>{{ $slide->currency->symbol}} {{ $slide->prices['week'] }} Per Week</div>
+                    @endif
+                    @if($slide->prices['month'])
                     <div>{{ $slide->currency->symbol}} {{ $slide->prices['month'] }} Per Month</div>
+                    @endif
                 @elseif($slide->sales == 1)
+                    @if($slide->prices['price'])
                     <div>{{ $slide->currency->symbol}} {{ $slide->prices['price'] }} Price</div>
+                    @endif
                 @endif
             </div>
 
@@ -61,11 +73,18 @@
             <table>
               <tr>
                 <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $slide->category->contentDefault->name }}</td>
+                @if($slide->property_info['bedrooms'])
                 <td><i class="fa fa-bed"></i>{{ $slide->property_info['bedrooms'] }}</td>
+                @endif
+                @if($slide->property_info['internal_area'])
                 <td><i class="fa fa-expand"></i>{{ $slide->property_info['internal_area'] }}</td>
+                @endif
                 {{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $slide->guest_number }}</td> --}}
               </tr>
             </table>
+            <div>
+                {{ $slide->property_status->name }}
+            </div>
             @if($slide->sales == 1 && $slide->rentals == 1)
                 <span class="lable-sale right mobile-lable-flout">Sale</span>
                 <span class="lable-rent right mobile-lable-flout">Rent</span>
@@ -321,17 +340,32 @@
                         <div class="property shadow-hover">
                         <a href="/property/{{$sales_property->alias}}" class="property-img">
                             <div class="img-fade"></div>
+                            <div>
+                                {{ $sales_property->property_status->name }}
+                            </div>
                             <div class="property-tag lable-sale featured">Sale</div>
                             <div class="property-price">
                                 @if($sales_property->sales == 1 && $sales_property->rentals == 1)
+                                    @if($sales_property->prices['price'])
                                     <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['price'] }} Price</div>
+                                    @endif
+                                    @if($sales_property->prices['week'])
                                     <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['week'] }} Per Week</div>
+                                    @endif
+                                    @if($sales_property->prices['month'])
                                     <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['month'] }} Per Month</div>
+                                    @endif
                                 @elseif($sales_property->rentals == 1)
+                                    @if($sales_property->prices['week'])
                                     <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['week'] }} Per Week</div>
+                                    @endif
+                                    @if($sales_property->prices['month'])
                                     <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['month'] }} Per Month</div>
+                                    @endif
                                 @elseif($sales_property->sales == 1)
+                                    @if($sales_property->prices['price'])
                                     <div>{{ $sales_property->currency->symbol}} {{ $sales_property->prices['price'] }} Price</div>
+                                    @endif
                                 @endif
                             </div>
                             <div class="property-color-bar"></div>
@@ -346,8 +380,12 @@
                             <table class="property-details">
                             <tr>
                                 <td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $sales_property->category->contentDefault->name }}</td>
+                                @if($sales_property->property_info['bedrooms'])
                                 <td><i class="fa fa-bed"></i>{{ $sales_property->property_info['bedrooms'] }}</td>
+                                @endif
+                                @if($sales_property->property_info['internal_area'])
                                 <td><i class="fa fa-expand"></i>{{ $sales_property->property_info['internal_area'] }}</td>
+                                @endif
                                 {{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $sales_property->guest_number }}</td> --}}
                             </tr>
                             </table>
@@ -370,17 +408,32 @@
                     <div class="property shadow-hover">
                         <a href="/property/{{$rentals_property->alias}}" class="property-img">
                         <div class="img-fade"></div>
+                        <div>
+                            {{ $rentals_property->property_status->name }}
+                        </div>
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
                             @if($rentals_property->sales == 1 && $rentals_property->rentals == 1)
+                                @if($rentals_property->prices['price'])
                                 <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['price'] }} Price</div>
+                                @endif
+                                @if($rentals_property->prices['week'])
                                 <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['week'] }} Per Week</div>
+                                @endif
+                                @if($rentals_property->prices['month'])
                                 <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['month'] }} Per Month</div>
+                                @endif
                             @elseif($rentals_property->rentals == 1)
+                                @if($rentals_property->prices['week'])
                                 <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['week'] }} Per Week</div>
+                                @endif
+                                @if($rentals_property->prices['month'])
                                 <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['month'] }} Per Month</div>
+                                @endif
                             @elseif($rentals_property->sales == 1)
+                                @if($rentals_property->prices['price'])
                                 <div>{{ $rentals_property->currency->symbol}} {{ $rentals_property->prices['price'] }} Price</div>
+                                @endif
                             @endif
                         </div>
                         <div class="property-color-bar"></div>
@@ -398,11 +451,15 @@
                                     <i class="fa fa-home" aria-hidden="true"></i></i>
                                     {{ $rentals_property->category->contentDefault->name }}
                                 </td>
+                                @if($rentals_property->property_info['bedrooms'])
                                 <td><i class="fa fa-bed"></i>{{ $rentals_property->property_info['bedrooms'] }}</td>
+                                @endif
+                                @if($rentals_property->property_info['internal_area'])
                                 <td>
                                     <i class="fa fa-expand"></i>
                                     {{ $rentals_property->property_info['internal_area'] }}
                                 </td>
+                                @endif
                                 {{-- <td>
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     {{ $rentals_property->guest_number }}

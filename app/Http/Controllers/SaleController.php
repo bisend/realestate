@@ -34,6 +34,7 @@ class SaleController extends Controller
         $categories = Category::get();
 
         $recent_properties = Property::with([
+                'property_status',
                 'currency'
             ])
             ->orderBy('created_at', 'desc')
@@ -179,6 +180,7 @@ class SaleController extends Controller
             }
 
             $properties = Property::with([
+                    'property_status',
                     'currency'
                 ])
                 ->where('sales', 1)
@@ -190,6 +192,7 @@ class SaleController extends Controller
             
         } else {
             $properties = Property::with([
+                    'property_status',
                     'currency'
                 ])
                 ->where('sales', 1)
@@ -216,7 +219,7 @@ class SaleController extends Controller
             $saleMaxPrice = max($p);
         }
         
-        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
         return view('realstate.sale', compact(
             'static_data', 
             'properties', 

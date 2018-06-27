@@ -32,6 +32,7 @@ class CommercialController extends Controller
         $categories = Category::get();
 
         $recent_properties = Property::with([
+                'property_status',
                 'currency'
             ])
             ->orderBy('created_at', 'desc')
@@ -40,6 +41,7 @@ class CommercialController extends Controller
             ->get();
         
         $properties = Property::with([
+                'property_status',
                 'currency'
             ])
             ->whereHas('category', function ($query) {
@@ -96,7 +98,7 @@ class CommercialController extends Controller
             $rentMaxPricePerMonth = max($perMonth);
         }
 
-        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
 
         return view('realstate.commercial', compact(
             'static_data', 

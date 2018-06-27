@@ -231,7 +231,7 @@ class RentController extends Controller
             $rentMaxPricePerMonth = max($perMonth);
         }
         
-        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
 
         return view('realstate.rent', compact(
             'static_data', 

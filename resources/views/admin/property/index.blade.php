@@ -46,6 +46,7 @@
                     <th>{{get_string('featured')}}</th>
                     <th>Position</th>
                     <th>Slider</th>
+                    <th>Active</th>
                     <th>Status</th>
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
@@ -91,7 +92,16 @@
                         <td>
                             <select name="status_sale" class="form-control status-sale" data-id="{{$property->id}}">
                                 <option value="1" class="activate-button" {{ $property->status == 1 ? 'selected' : '' }}>active</option>
-                                <option value="0" class="deactivate-button" {{ $property->status == 0 ? 'selected' : '' }}>sold</option>
+                                <option value="0" class="deactivate-button" {{ $property->status == 0 ? 'selected' : '' }}>non active</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="status_id_sale" class="form-control status-id-sale" data-id="{{$property->id}}">
+                                @foreach($statuses as $status)
+                                <option value="{{$status->id}}" class="activate-button" {{ $property->status_id == $status->id ? 'selected' : '' }}>
+                                    {{$status->name}}
+                                </option>
+                                @endforeach
                             </select>
                         </td>
                         <td>
@@ -133,6 +143,7 @@
                     <th>{{get_string('featured')}}</th>
                     <th>Position</th>
                     <th>Slider</th>
+                    <th>Active</th>
                     <th>Status</th>
                     <th class="icon-options">{{get_string('options')}}</th>
                 </tr>
@@ -179,6 +190,15 @@
                             <select name="status_sale" class="form-control status-rent" data-id="{{$property->id}}">
                                 <option value="1" {{ $property->status == 1 ? 'selected' : '' }}>active</option>
                                 <option value="0" {{ $property->status == 0 ? 'selected' : '' }}>sold</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="status_id_sale" class="form-control status-id-rent" data-id="{{$property->id}}">
+                                @foreach($statuses as $status)
+                                <option value="{{$status->id}}" class="activate-button" {{ $property->status_id == $status->id ? 'selected' : '' }}>
+                                    {{$status->name}}
+                                </option>
+                                @endforeach
                             </select>
                         </td>
                         <td>
@@ -464,6 +484,104 @@
                     }
                 });
                 }
+                
+            });
+
+            $('.status-id-sale').on('change', function(event){
+                event.preventDefault();
+                var id = $(this).data('id');
+                var selector = $(this).parents('tr');
+                var thisBtn = $(this).parents('.icon-options');
+                var status = selector.children('.page-status');
+                var token = $('[name="_token"]').val();
+                var _this = $(this);
+                
+                    bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: 'Do you want to change status?',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/property/set-status/') }}/'+id,
+                                type: 'post',
+                                data: {
+                                    _token :token,
+                                    status_id: _this.val()
+                                },
+                                success:function(msg) {
+                                    thisBtn.children('.activate-button').addClass('hidden');
+                                    thisBtn.children('.deactivate-button').removeClass('hidden');
+                                    status.html('{{get_string('active')}}');
+                                    toastr.success(msg);
+                                },
+                                error:function(msg){
+                                    toastr.error(msg.responseJSON);
+                                }
+                            });
+                        }
+                    }
+                });
+                
+            });
+            
+            $('.status-id-rent').on('change', function(event){
+                event.preventDefault();
+                var id = $(this).data('id');
+                var selector = $(this).parents('tr');
+                var thisBtn = $(this).parents('.icon-options');
+                var status = selector.children('.page-status');
+                var token = $('[name="_token"]').val();
+                var _this = $(this);
+                
+                    bootbox.confirm({
+                    title: '{{get_string('confirm_action')}}',
+                    message: 'Do you want to change status?',
+                    onEscape: true,
+                    backdrop: true,
+                    buttons: {
+                        cancel: {
+                            label: '{{get_string('no')}}',
+                            className: 'btn waves-effect'
+                        },
+                        confirm: {
+                            label: '{{get_string('yes')}}',
+                            className: 'btn waves-effect'
+                        }
+                    },
+                    callback: function (result) {
+                        if(result){
+                            $.ajax({
+                                url: '{{ url('/admin/property/set-status/') }}/'+id,
+                                type: 'post',
+                                data: {
+                                    _token :token,
+                                    status_id: _this.val()
+                                },
+                                success:function(msg) {
+                                    thisBtn.children('.activate-button').addClass('hidden');
+                                    thisBtn.children('.deactivate-button').removeClass('hidden');
+                                    status.html('{{get_string('active')}}');
+                                    toastr.success(msg);
+                                },
+                                error:function(msg){
+                                    toastr.error(msg.responseJSON);
+                                }
+                            });
+                        }
+                    }
+                });
                 
             });
 

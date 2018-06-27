@@ -53,6 +53,7 @@ Route::group(['middleware' => 'admin'], function(){
     // Additional Property Routes
     Route::post('/admin/property/activate/{id}', 'Admin\AdminPropertyController@activate');
     Route::post('/admin/property/deactivate/{id}', 'Admin\AdminPropertyController@deactivate');
+    Route::post('/admin/property/set-status/{id}', 'Admin\AdminPropertyController@setStatus');
     Route::post('/admin/property/makefeaturedsale/{id}', 'Admin\AdminPropertyController@makeFeaturedSale');
     Route::post('/admin/property/makedefaultsale/{id}', 'Admin\AdminPropertyController@makeDefaultSale');
     Route::post('/admin/property/makefeaturedrent/{id}', 'Admin\AdminPropertyController@makeFeaturedRent');

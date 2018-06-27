@@ -4,14 +4,9 @@
     <div class="container">
         <div class="top-bar-left left">
             <ul class="top-bar-item right social-icons">
-                @if($static_data['site_settings']['social_facebook']) <li><a href="{{ $static_data['site_settings']['social_facebook'] }}" target="_blank"><i class="fa fa-facebook"></i></a></li> @endif
-                @if($static_data['site_settings']['social_twitter']) <li><a href="{{ $static_data['site_settings']['social_twitter'] }}"  target="_blank"><i class="fa fa-twitter"></i></a></li>@endif
-                @if($static_data['site_settings']['social_youtube'])  <li><a href="{{ $static_data['site_settings']['social_youtube'] }}"  target="_blank"><i class="fa fa-youtube"></i></a></li>@endif
-                @if($static_data['site_settings']['social_instagram'])  <li><a href="{{ $static_data['site_settings']['social_instagram'] }}" target="_blank"><i class="fa fa-instagram"></i></a></li>@endif
-                @if($static_data['site_settings']['social_google_plus'])  <li><a href="{{ $static_data['site_settings']['social_google_plus'] }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>@endif
-                @if($static_data['site_settings']['social_pinterest'])  <li><a href="{{ $static_data['site_settings']['social_pinterest'] }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>@endif
-                @if($static_data['site_settings']['social_linkedin'])  <li><a href="{{ $static_data['site_settings']['social_linkedin'] }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>@endif
-                @if($static_data['site_settings']['social_tripadvisor'])  <li><a href="{{ $static_data['site_settings']['social_tripadvisor'] }}" target="_blank"><i class="fa fa-tripadvisor"></i></a></li>@endif            
+                @if($static_data['site_settings']['social_facebook'])
+                <li><a href="{{ $static_data['site_settings']['social_facebook'] }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                @endif
             </ul>
             <div class="clear"></div>
         </div>
@@ -31,11 +26,21 @@
                 <td><i class="fa fa-phone"></i></td>
                 <td class="header-item-text mobile-phone-text">
                 Call us anytime<br/>
+                @if($static_data['site_settings']['contact_tel1'])
                 <span class="firs-phone">{{ $static_data['site_settings']['contact_tel1'] }}</span>
+                @endif
+                @if($static_data['site_settings']['contact_tel2'])
                 <span>{{ $static_data['site_settings']['contact_tel2'] }}</span>
+                @endif
+                @if($static_data['site_settings']['contact_tel3'])
                 <span>{{ $static_data['site_settings']['contact_tel3'] }}</span>
+                @endif
+                @if($static_data['site_settings']['contact_tel4'])
                 <span>{{ $static_data['site_settings']['contact_tel4'] }}</span>
+                @endif
+                @if($static_data['site_settings']['contact_tel5'])
                 <span>{{ $static_data['site_settings']['contact_tel5'] }}</span>
+                @endif
                 </td>
             </tr>
             </table>
@@ -85,9 +90,6 @@
             <li>
                 <a href="{{ route('blog') }}">Blogs</a>
             </li>
-            <li>
-                <a href="{{ route('contact') }}">Contact Us</a>
-            </li>
             @if(isset($pages) && count($pages) > 0)
                 @foreach($pages as $page)
                     <li>
@@ -97,6 +99,9 @@
                     </li>
                 @endforeach
             @endif
+            <li>
+                <a href="{{ route('contact') }}">Contact Us</a>
+            </li>
 
         </ul>
         <div class="clear"></div>

@@ -14,6 +14,7 @@ use App\Models\Admin\PropertyDate;
 use App\Models\Admin\Feature;
 use App\Models\Admin\PropertyFile;
 use App\Models\Admin\PropertyPdfFile;
+use App\Models\Admin\PropertyStatus;
 use App\Models\Admin\Currency;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,7 +39,7 @@ class AdminPropertyController extends Controller
             // 'business_hours.sat'      => 'business_hours',
             // 'business_hours.week'     => 'business_hours',
             // 'business_hours.sun'      => 'business_hours',
-            'currency_id'               => 'required',
+            // 'currency_id'               => 'required',
             'category_id'             => 'required',
             'sale_rent'             => 'required',
             // 'type_id'              => 'required',
@@ -49,17 +50,17 @@ class AdminPropertyController extends Controller
             // 'location.country'        => 'required',
             // 'location.geo_lon'        => 'required',
             // 'location.geo_lat'        => 'required',
-            'contact.tel1'            => 'phone_number',
-            'contact.tel2'            => 'phone_number',
-            'contact.fax'             => 'phone_number',
-            'contact.email'           => 'email',
-            'contact.web'             => 'website',
+            // 'contact.tel1'            => 'phone_number',
+            // 'contact.tel2'            => 'phone_number',
+            // 'contact.fax'             => 'phone_number',
+            // 'contact.email'           => 'email',
+            // 'contact.web'             => 'website',
             // 'rooms'                   => 'required|integer',
             // 'guest_number'            => 'required|integer',
-            'property_info.internal_area' => 'required|integer',
-            'property_info.external_area' => 'required|integer',
-            'property_info.bedrooms'  => 'required|integer',
-            'property_info.bathrooms' => 'required|integer',
+            // 'property_info.internal_area' => 'required|integer',
+            // 'property_info.external_area' => 'required|integer',
+            // 'property_info.bedrooms'  => 'required|integer',
+            // 'property_info.bathrooms' => 'required|integer',
             'property_info.property_reference' => 'required',
             // 'prices.d_5'              => 'integer|required',
             // 'prices.d_15'             => 'integer|required',
@@ -68,16 +69,16 @@ class AdminPropertyController extends Controller
             // 'fees.cleaning_fee'       => 'integer',
         ];
 
-        if (isset($request['sale_rent']) && in_array('rentals', $request['sale_rent'])) {
-            $this->validation_rules['prices.week'] = 'required|integer';
-            $this->validation_rules['prices.month'] = 'required|integer';
-        }
+        // if (isset($request['sale_rent']) && in_array('rentals', $request['sale_rent'])) {
+        //     $this->validation_rules['prices.week'] = 'required|integer';
+        //     $this->validation_rules['prices.month'] = 'required|integer';
+        // }
 
-        if (isset($request['sale_rent']) && in_array('sales', $request['sale_rent'])) {
-            $this->validation_rules['prices.price'] = 'required|integer';
-            $this->validation_rules['prices.service_charge'] = 'required|integer';
-            $this->validation_rules['prices.rates'] = 'required|integer';
-        }
+        // if (isset($request['sale_rent']) && in_array('sales', $request['sale_rent'])) {
+        //     $this->validation_rules['prices.price'] = 'required|integer';
+        //     $this->validation_rules['prices.service_charge'] = 'required|integer';
+        //     $this->validation_rules['prices.rates'] = 'required|integer';
+        // }
 
         $this->validation_messages = [
             'currency_id'                        => get_string('required_field'),
@@ -129,7 +130,15 @@ class AdminPropertyController extends Controller
         $sale_properties_count = Property::where('sales', 1)->where('featured_sale', 1)->count();
         $rent_properties = Property::where('rentals', 1)->orderBy('featured_rent','desc')->orderBy('created_at','desc')->paginate(10);
         $rent_properties_count = Property::where('rentals', 1)->where('featured_rent', 1)->count();
-        return view('admin.property.index', compact('properties', 'sale_properties', 'rent_properties', 'sale_properties_count', 'rent_properties_count'));
+        $statuses = PropertyStatus::all();
+        return view('admin.property.index', compact(
+            'properties', 
+            'sale_properties', 
+            'rent_properties', 
+            'sale_properties_count', 
+            'rent_properties_count',
+            'statuses'
+        ));
     }
 
     /**
@@ -825,5 +834,18 @@ class AdminPropertyController extends Controller
             ])
             ->loadView('realstate.pdf.property', compact('property', 'features', 'default_language', 'static_data'))
             ->save(public_path('/files/'.$fileName.'.pdf'));
+    }
+
+    public function setStatus (Request $request, $id)
+    {
+        if($request->ajax()) {
+            $property = Property::findOrFail($id);
+            $property->status_id = request('status_id');
+            $property->touch();
+            $property->save();
+            return response()->json('status changed', 200);
+        }else{
+            return response()->json(get_string('something_happened'), 400);
+        }
     }
 }

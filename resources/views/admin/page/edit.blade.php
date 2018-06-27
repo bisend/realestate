@@ -44,6 +44,15 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <div class="col l6 m6 s12">
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" placeholder="Position" value="{{$page->position}}" name="position">
+                                                <label>Position</label>
+                                                {{-- @if($errors->has('title.'.$language->id.''))
+                                                    <span class="wrong-error">* {{$errors->first('title.'.$language->id.'')}}</span>
+                                                @endif --}}
+                                            </div>
+                                        </div>
                                         <div class="col s12">
                                             {{Form::textarea('body['.$language->id.']', $page->content($language->id)->getResults()->content, ['class' => 'hidden desc-content'])}}
                                             @if($errors->has('body.'.$language->id.''))

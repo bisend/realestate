@@ -34,6 +34,7 @@
                 <th>{{get_string('user')}}</th>
                 <th>{{get_string('title')}}</th>
                 <th>{{get_string('status')}}</th>
+                <th>Positon</th>  
                 <th class="icon-options">{{get_string('options')}}</th>
             </tr>
             </thead>
@@ -47,6 +48,7 @@
                         <td>{{$page->user->username}}</td>
                         <td>{{$page->contentDefault->title}}</td>
                         <td class="page-status">{{$page->status ? get_string('active') : get_string('pending')}}</td>
+                        <td>{{$page->position}}</td>
                         <td>
                             <div class="icon-options">
                                 <a href="{{url('page').'/'.$page->alias}}" title="{{get_string('view_page')}}"><i class="small material-icons color-primary">visibility</i></a>

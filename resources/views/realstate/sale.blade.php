@@ -48,10 +48,15 @@
 						<div class="property shadow-hover">
 						<a href="/property/{{$property->alias}}" class="property-img">
 								<div class="img-fade"></div>
-								<div class="property-tag lable-sale featured">Sale</div>
-								<div class="property-price">
-									{{ $property->currency->symbol}} {{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}
+								<div>
+									{{ $property->property_status->name }}
 								</div>
+								<div class="property-tag lable-sale featured">Sale</div>
+								@if($property->prices['price'])
+									<div class="property-price">
+										{{ $property->currency->symbol}} {{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}
+									</div>
+								@endif
 								<div class="property-color-bar"></div>
 								<div class="prop-img-home prop-img-home-rent-sale">
 										<img src="{{ isset($property->images->first()->image) ? URL::asset('images/data').'/'.$property->images->first()->image : URL::asset('images/no_image.jpg')}}" alt="" />
@@ -64,8 +69,12 @@
 								<table class="property-details property-details-grid">
 								<tr>
 										<td><i class="fa fa-home" aria-hidden="true"></i></i>{{ $property->category->contentDefault->name }}</td>
-										<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
-										<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
+										@if($property->property_info['bedrooms'])
+											<td><i class="fa fa-bed"></i>{{ $property->property_info['bedrooms'] }}</td>
+										@endif
+										@if($property->property_info['internal_area'])
+											<td><i class="fa fa-expand"></i>{{ $property->property_info['internal_area'] }}</td>
+										@endif
 										{{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $property->guest_number }}</td> --}}
 								</tr>
 								</table>
@@ -182,16 +191,22 @@
 					<div class="col-lg-8 col-md-8 col-sm-8">
 					  <h5><a href="/property/{{$property->alias}}">{{ $property->contentload->name }}</a></h5>
 						@if($property->sales == 1)
+							@if($property->prices['price'])
 							<p>
 								<strong>{{ $property->currency->symbol}}{{ isset($property->prices['price']) ? $property->prices['price'] : 0 }}</strong> Price
 							</p>
+							@endif
 						@elseif($property->rentals == 1)
+							@if($property->prices['week'])
 							<p>
 								<strong>{{ $property->currency->symbol}}{{ $property->prices['week'] }}</strong> Per Week
 							</p>
+							@endif
+							@if($property->prices['month'])
 							<p>
 								<strong>{{ $property->currency->symbol}}{{ $property->prices['month'] }}</strong> Per Month
 							</p>
+							@endif
 						@endif
 					</div>
 				  </div>

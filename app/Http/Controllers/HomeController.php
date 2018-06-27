@@ -44,6 +44,7 @@ class HomeController extends Controller
         $number_of_properties = get_setting('fp_properties_count', 'design');;
         if($static_data['design_settings']['fp_show_featured_only']){
             $properties = Property::with([
+                'property_status',
                 'currency',
                 'images', 
                 'contentload' => function($query) use($default_language){
@@ -51,6 +52,7 @@ class HomeController extends Controller
             }])->where('status', 1)->where('featured', 1)->inRandomOrder()->take($number_of_properties)->get();
         }else{
             $properties = Property::with([
+                'property_status',
                 'currency',
                 'images', 'contentload' => function($query) use($default_language){
                 $query->where('language_id', $default_language->id);
@@ -58,12 +60,14 @@ class HomeController extends Controller
         }
 
         $sales_properties = Property::with([
+            'property_status',
             'currency',
             'images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
         }])->where('status', 1)->where('sales', 1)->where('featured_sale', 1)->orderBy('position_sale', 'asc')->take(Property::FEATURED_COUNT)->get();
 
         $rentals_properties = Property::with([
+            'property_status',
             'currency',
             'images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
@@ -77,6 +81,7 @@ class HomeController extends Controller
         }])->where('status', 1)->orderBy('created_at', 'desc')->take(3)->get();
 
         $slider = Property::with([
+            'property_status',
             'currency',
             'images', 'contentload' => function($query) use($default_language){
             $query->where('language_id', $default_language->id);
@@ -129,7 +134,7 @@ class HomeController extends Controller
             $rentMaxPricePerMonth = max($perMonth);
         }
 
-        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
         // Returning the View
         return view('realstate.home', compact(
             'posts', 
@@ -173,7 +178,7 @@ class HomeController extends Controller
                                 ->take(Property::RECENT_PROPERTIES)
                                 ->get();
 
-        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('created_at','desc')->get();
+        $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
         return view('realstate.contact', compact(
             'static_data', 
             'default_language', 
