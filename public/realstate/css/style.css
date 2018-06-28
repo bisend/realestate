@@ -2971,4 +2971,13 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	opacity: 0.8;
 }
 
+.navbar-nav .facebook-li{
+	display: none;
+}
+
+.facebook-li a{ 
+	font-size: 17px;
+	font-weight: 600;
+}
+
 

@@ -687,7 +687,7 @@
 @media screen and (max-width: 991px) {
 
   .top-bar{
-    display: block;
+    display: none;
   }
 
   .container-header-flex{
@@ -700,8 +700,17 @@
     display: none;
   }
 
+  .navbar-nav .facebook-li{
+    display: block;
+  }
+  
+
   .navbar-brand img {
-    max-width: 172px;
+    max-width: 300px;
+}
+
+.navbar-toggle{
+  margin-top: 35px;
 }
 
 	.prop-img-home{
@@ -834,6 +843,14 @@
   .img-fade{
     height: 100px;
   }
+  .navbar-brand img {
+    max-width: 250px;
+}
+
+.navbar-toggle {
+  margin-top: 25px;
+}
+
 	
 }
 
@@ -858,6 +875,14 @@
 		width: 100%;
 		height: 38px;
 	}
-	
+  
+  .navbar-brand img {
+    max-width: 230px;
+}
+
+.navbar-toggle {
+  margin-top: 25px;
+}
+
 }
 

@@ -102,6 +102,10 @@
             <li>
                 <a href="{{ route('contact') }}">Contact Us</a>
             </li>
+            
+            <li class="facebook-li">
+                <a href="{{ $static_data['site_settings']['social_facebook'] }}" target="_blank"><i class="fa fa-facebook"></i></a>
+            </li>
 
         </ul>
         <div class="facebook-link">
