@@ -105,7 +105,7 @@
 					<tr>
 						<td><i class="fa fa-home" aria-hidden="true"></i> <span>{{ $mainProperty->category->contentDefault->name }}</span></td>
 						<td><i class="fa fa-bed"></i></i> <span>{{ $mainProperty->property_info['bedrooms'] }}</span> Beds</td>
-						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq Ft</td>
+						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq mt</td>
 						{{-- <td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PDF</td> --}}
 						{{-- <td>
 							<a href="{{public_path('/files/' . $mainProperty->pdfFile['file_name'] . '.pdf')}}" 
