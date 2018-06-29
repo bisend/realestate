@@ -840,7 +840,7 @@ class AdminPropertyController extends Controller
     {
         if($request->ajax()) {
             $property = Property::findOrFail($id);
-            $property->status_id = request('status_id');
+            $property->status_id = request('status_id') ? request('status_id') : null;
             $property->touch();
             $property->save();
             return response()->json('status changed', 200);

@@ -49,9 +49,11 @@
 						<div class="property shadow-hover">
 						<a href="/property/{{$property->alias}}" class="property-img">
 								<div class="img-fade"></div>
+								@if($property->property_status)
 								<div class="label-actv">
 									{{ $property->property_status->name }}
 								</div>
+								@endif
 								<div class="property-tag lable-rent featured">Rent</div>
 								<div class="property-price">
 									@if($property->prices['week'])

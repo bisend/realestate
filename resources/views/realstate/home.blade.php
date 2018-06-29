@@ -302,10 +302,9 @@
                 {{-- <td><i class="fa fa-user" aria-hidden="true"></i>{{ $slide->guest_number }}</td> --}}
               </tr>
             </table>
-            <!-- <div class="label-actv">
-                {{ $slide->property_status->name }}
-            </div> -->
+            @if($slide->property_status)
             <span class="lable-sale right mobile-lable-flout label-actv-slider">{{ $slide->property_status->name }}</span>
+            @endif
             @if($slide->sales == 1 && $slide->rentals == 1)
                 <span class="lable-sale right mobile-lable-flout">Sale</span>
                 <span class="lable-rent right mobile-lable-flout">Rent</span>
@@ -339,9 +338,11 @@
                         <div class="property shadow-hover">
                         <a href="/property/{{$sales_property->alias}}" class="property-img">
                             <div class="img-fade"></div>
+                            @if($sales_property->property_status)
                             <div class="label-actv">
                                 {{ $sales_property->property_status->name }}
                             </div>
+                            @endif
                             <div class="property-tag lable-sale featured">Sale</div>
                             <div class="property-price">
                                 @if($sales_property->sales == 1 && $sales_property->rentals == 1)
@@ -407,9 +408,11 @@
                     <div class="property shadow-hover">
                         <a href="/property/{{$rentals_property->alias}}" class="property-img">
                         <div class="img-fade"></div>
+                        @if($rentals_property->property_status)
                         <div class="label-actv">
                             {{ $rentals_property->property_status->name }}
                         </div>
+                        @endif
                         <div class="property-tag lable-rent featured">Rent</div>
                         <div class="property-price">
                             @if($rentals_property->sales == 1 && $rentals_property->rentals == 1)

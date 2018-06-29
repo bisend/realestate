@@ -62,7 +62,7 @@
                         <!-- <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td> -->
                         <td>{{$property->category->contentDefault->name}}</td>
                         
-                        <!-- <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td> -->
+                        
                         <td class="page-featured">{{$property->featured_sale ? get_string('yes') : get_string('no')}}</td>
                         <td>
                             @if($property->featured_sale)
@@ -97,6 +97,9 @@
                         </td>
                         <td>
                             <select name="status_id_sale" class="form-control status-id-sale" data-id="{{$property->id}}">
+                                <option value="" class="activate-button" {{ ! $property->status_id ? 'selected' : '' }}>
+                                    None
+                                </option>
                                 @foreach($statuses as $status)
                                 <option value="{{$status->id}}" class="activate-button" {{ $property->status_id == $status->id ? 'selected' : '' }}>
                                     {{$status->name}}
@@ -194,10 +197,15 @@
                         </td>
                         <td>
                             <select name="status_id_sale" class="form-control status-id-rent" data-id="{{$property->id}}">
+                                <option value="" class="activate-button" {{ ! $property->status_id ? 'selected' : '' }}>
+                                    None
+                                </option>
                                 @foreach($statuses as $status)
+                                @if($status->name != 'Sold')
                                 <option value="{{$status->id}}" class="activate-button" {{ $property->status_id == $status->id ? 'selected' : '' }}>
                                     {{$status->name}}
                                 </option>
+                                @endif
                                 @endforeach
                             </select>
                         </td>

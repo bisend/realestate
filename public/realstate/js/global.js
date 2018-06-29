@@ -50,6 +50,8 @@ jQuery(document).ready(function($) {
 		prevArrow: $('.slider-nav-simple-slider .slider-prev'),
 		nextArrow: $('.slider-nav-simple-slider .slider-next'),
 		adaptiveHeight: true,
+		autoplay: true,
+  		autoplaySpeed: 2000,
 		fade: true
 	});
 
