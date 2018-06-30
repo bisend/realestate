@@ -1,10 +1,3 @@
-// search-sale
-// search_sale-type
-// search_sale-location
-// search_sale-beds
-
-
-
 $('#find-sale').on('click', function (e) {
     e.preventDefault();
     var type = $('#search_sale-type').val();
@@ -20,8 +13,13 @@ $('#find-sale').on('click', function (e) {
 
     var country = $('#search_sale-country').val()
 
-    var lower = $('#slider-price-sale .noUi-handle-lower .noUi-tooltip').html();
-    var upper = $('#slider-price-sale .noUi-handle-upper .noUi-tooltip').html();
+    if (saleSelectedCountryId == 1) {
+        var lower = $('#price-slider-pound .noUi-handle-lower .noUi-tooltip').html();
+        var upper = $('#price-slider-pound .noUi-handle-upper .noUi-tooltip').html();
+    } else {
+        var lower = $('#price-slider .noUi-handle-lower .noUi-tooltip').html();
+        var upper = $('#price-slider .noUi-handle-upper .noUi-tooltip').html();
+    }
 
     var urlFilters = '/sale?search=true&';
 
@@ -73,38 +71,20 @@ $('#find-sale').on('click', function (e) {
        if(lower !== ''){
            var lprice = {
             name: 'lower',
-            val: lower.replace('₤', '').replace(/,/g , '')
+            val: lower.replace('₤', '').replace('€', '').replace(/,/g , '')
         }
         urlFilters += lprice.name + '=' + lprice.val + '&';
         }
         if(upper !== ''){
             var uprice = {
                 name: 'upper',
-                val: upper.replace('₤', '').replace(/,/g , '')
+                val: upper.replace('₤', '').replace('€', '').replace(/,/g , '')
             }
             urlFilters += uprice.name + '=' + uprice.val;
         }
+
+        urlFilters += '&currency-id=' + (saleSelectedCountryId == 1 ? 2 : 1);
        
        window.location.href = urlFilters;
     }
-})
-
-// refer-sale-search
-// refer-val-sale
-//refer-find-btn
-
-// $('#refer-find-btn').on('click', function (e) {
-//     e.preventDefault();
-
-//     var referValSale = $('#refer-val-sale').val();
-//     console.log(referValSale)
-
-//     var urlFiltersRef = '/property/';
-
-//     if(referValSale !== ''){
-//         urlFiltersRef += referValSale
-//         console.log(urlFiltersRef)
-//         window.location.href = urlFiltersRef;
-//     }
-    
-// })
+});

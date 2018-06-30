@@ -93,7 +93,7 @@
                     </div>
                     <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('country_id') ? 'has-error' : ''}}">
-                            {{Form::select('country_id', $countries, null, ['class' => 'country-select form-control', 'placeholder' => 'Select country'])}}
+                            {{Form::select('country_id', $countries, 'Gibraltar', ['class' => 'country-select form-control', 'placeholder' => 'Select country'])}}
                             {{Form::label('country_id', 'Country')}} *
                             @if($errors->has('country_id'))
                                 <span class="wrong-error">* {{$errors->first('country_id')}}</span>
@@ -102,11 +102,13 @@
                     </div>
                     <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('location_id') ? 'has-error' : ''}}">
-                            <!-- {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control country-', 'placeholder' => get_string('choose_location')])}} -->
+                            {{-- {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control country-', 'placeholder' => get_string('choose_location')])}} --}}
                             <select name="location_id" id="select_location_id" class="location-select form-control" placeholder="Select location">
                             <option value="" selected disabled hidden>Select location</option>
                             @foreach($locations as $location)
-                                <option class="country-{{$location->country_id}}" value="{{$location->id}}">{{$location->contentDefault->location}}</option>                        
+                                <option class="country-{{$location->country_id}}" value="{{$location->id}}">
+                                    {{$location->contentDefault->location}}
+                                </option>    
                             @endforeach
                             </select>
                             {{Form::label('location_id', 'Location')}} *
@@ -1071,7 +1073,36 @@ if (URL) {
 
 
     <script>
-        $(document).ready(function(){
+        var selectedCountryId = 0;
+
+        selectedCountryId = $('.country-select') ? $('.country-select').val() : 0;
+
+        function checkCountry () {
+            var country_id = selectedCountryId;
+
+            $('#select_location_id').val('');
+
+            if (country_id == '') {
+                $(".location-select option" ).each(function() {
+                    $(this).show();
+                });
+            } else {
+                $(".location-select option").each(function() {
+                    if($(this).hasClass('country-' + country_id)) {
+                        $(this).show();
+                        $('.location-any').show();
+                    } else {
+                        $(this).hide();
+                        $('.location-any').show();
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function() {
+
+            checkCountry();
+
             $(document).on('change', 'input[name="files[]"]', function () {
                 var input = $(this)[0];
                 if (input.files && input.files[0])
@@ -1324,7 +1355,7 @@ if (URL) {
             $('.country-select').on('change', function () {
                 var country_id = $(this).val();
                 $('#select_location_id').val('');
-                if(country_id == ''){
+                if(country_id == '') {
                 $(".location-select option" ).each(function() {
                         $(this).show();
                     });

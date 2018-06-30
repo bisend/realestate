@@ -8,12 +8,14 @@
     <h3 class="page-title mbot10">{{get_string('properties')}}</h3>
 @endsection
 <div class="col l6 m8 s12 left left-align mbot10">
-    {{Form::open(['method' => 'post', 'url' => route('admin_property_search')])}}
+    {{ csrf_field() }}
+    {{Form::open(['method' => 'get', 'url' => route('admin_property_search')])}}
     <div class="form-group col s8 autocomplete-fix">
         {{Form::text('term', null, ['class' => 'form-control', 'id' => 'term', 'placeholder' => get_string('search_properties')])}}
     </div>
     <div class="col l4 m4 s4">
-        <button class="btn waves-effect" type="submit" name="action">{{get_string('filter')}}</button>
+        <button class="btn waves-effect" type="submit">{{get_string('filter')}}</button>
+        {{-- <button class="btn waves-effect" type="submit" name="action">{{get_string('filter')}}</button> --}}
     </div>
     {{Form::close()}}
 </div>
@@ -25,7 +27,7 @@
     <div class="panel-heading">
         <ul class="nav nav-tabs">
             <li class="tab active"><a href="#sale-body" data-toggle="tab">Sale</a></li>
-            <li class="tab"><a href="#rent-body" data-toggle="tab">Rent</a></li>
+            <li class="tab"><a href="#rent-body" data-toggle="tab">Rental</a></li>
         </ul>
     </div>
     <div class="tab-content">

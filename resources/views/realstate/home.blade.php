@@ -33,7 +33,7 @@
     <div class="container">
         <ul>
           <li><a class="tbs-sale" href="#tabs-2">For Sale</a></li>
-          <li><a class="tbs-rent" href="#tabs-3">For Rent</a></li>
+          <li><a class="tbs-rent" href="#tabs-3">For Rental</a></li>
         </ul>
     </div><!-- end container -->
   </div><!-- end filter header -->
@@ -45,6 +45,14 @@
     <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek ? $rentMaxPricePerWeek : 0 }}">
     <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth ? $rentMinPricePerMonth : 0 }}">
     <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth ? $rentMaxPricePerMonth : 0 }}">
+    
+    <input type="hidden" data-sale-min-price-pound value="{{ $saleMinPricePound ? $saleMinPricePound : 0 }}">
+    <input type="hidden" data-sale-max-price-pound value="{{ $saleMaxPricePound ? $saleMaxPricePound : 0 }}">
+    <input type="hidden" data-rent-min-price-per-week-pound value="{{ $rentMinPricePerWeekPound ? $rentMinPricePerWeekPound : 0 }}">
+    <input type="hidden" data-rent-max-price-per-week-pound value="{{ $rentMaxPricePerWeekPound ? $rentMaxPricePerWeekPound : 0 }}">
+    <input type="hidden" data-rent-min-price-per-month-pound value="{{ $rentMinPricePerMonthPound ? $rentMinPricePerMonthPound : 0 }}">
+    <input type="hidden" data-rent-max-price-per-month-pound value="{{ $rentMaxPricePerMonthPound ? $rentMaxPricePerMonthPound : 0 }}">
+    
     <div id="tabs-2" class="ui-tabs-hide">
         <form id="search-sale" class="select-search-form">
             <div class="filter-item filter-item-7">
@@ -62,9 +70,11 @@
               <div class="filter-item filter-item-7">
                 <label>Country</label>
                 <select id="search_sale-country" name="property-country">
-                  <option class="country-any" value="">Any</option>
+                  {{-- <option class="country-any" value="">Any</option> --}}
                   @foreach($countries as $country)
-                  <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+                    <option value="{{$country->id}}" {{$country->contentDefault->location == 'Gibraltar' ? 'selected' : ''}}>
+                    {{$country->contentDefault->location}}
+                  </option>
                   @endforeach
                 </select>
               </div>
@@ -115,8 +125,18 @@
     
               <div class="filter-item filter-item-7">
                   <label>Price</label>
+                  
                   <div id="slider-price-sale" class="slider-price">
                       <div class="price-slider" id="price-slider"></div>
+                      <div class="price-slider-values">
+                        <span class="price-range-num" id="price-low-value-1"></span>
+                        <span class="price-range-num right" id="price-high-value-1"></span>
+                    </div>
+                    <span class="low-price"></span>
+                  </div>
+
+                  <div id="slider-price-sale-pound" class="slider-price">
+                      <div class="price-slider-pound" id="price-slider-pound"></div>
                       <div class="price-slider-values">
                         <span class="price-range-num" id="price-low-value-1"></span>
                         <span class="price-range-num right" id="price-high-value-1"></span>
@@ -161,9 +181,11 @@
               <div class="filter-item filter-item-7 filter-item-rent">
                 <label>Country</label>
                 <select id="search_rent-country" name="property-country">
-                      <option class="country-any" value="">Any</option>
+                      {{-- <option class="country-any" value="">Any</option> --}}
                       @foreach($countries as $country)
-                      <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+                      <option value="{{$country->id}}" {{$country->contentDefault->location == 'Gibraltar' ? 'selected' : ''}}>
+                        {{$country->contentDefault->location}}
+                      </option>
                       @endforeach
                 </select>
               </div>
@@ -218,12 +240,28 @@
                         <span class="price-range-num right" id="price-high-value-1"></span>
                     </div>
                   </div>
+                  
+                  <div id="price-rent-pw" class="slider-price">
+                      <div class="price-slider-rent" id="price-slider-rent-per-week-pound"></div>
+                      <div class="price-slider-rent-values">
+                        <span class="price-range-num" id="price-low-value-1"></span>
+                        <span class="price-range-num right" id="price-high-value-1"></span>
+                    </div>
+                  </div>
               </div>
 
               <div class="filter-item filter-item-7 filter-item-rent">
                   <label>Price per month</label>
                   <div id="price-rent-pm" class="slider-price">
                       <div class="price-slider-rent" id="price-slider-rent-per-month"></div>
+                      <div class="price-slider-rent-values">
+                          <span class="price-range-num" id="price-low-value-1"></span>
+                          <span class="price-range-num right" id="price-high-value-1"></span>
+                      </div>
+                  </div>
+                  
+                  <div id="price-rent-pm" class="slider-price">
+                      <div class="price-slider-rent" id="price-slider-rent-per-month-pound"></div>
                       <div class="price-slider-rent-values">
                           <span class="price-range-num" id="price-low-value-1"></span>
                           <span class="price-range-num right" id="price-high-value-1"></span>
@@ -307,9 +345,9 @@
             @endif
             @if($slide->sales == 1 && $slide->rentals == 1)
                 <span class="lable-sale right mobile-lable-flout">Sale</span>
-                <span class="lable-rent right mobile-lable-flout">Rent</span>
+                <span class="lable-rent right mobile-lable-flout">Rental</span>
             @elseif($slide->rentals == 1)
-                <span class="lable-rent right mobile-lable-flout">Rent</span>
+                <span class="lable-rent right mobile-lable-flout">Rental</span>
             @elseif($slide->sales == 1)
                 <span class="lable-sale right mobile-lable-flout">Sale</span>
             @endif
@@ -413,7 +451,7 @@
                             {{ $rentals_property->property_status->name }}
                         </div>
                         @endif
-                        <div class="property-tag lable-rent featured">Rent</div>
+                        <div class="property-tag lable-rent featured">Rental</div>
                         <div class="property-price">
                             @if($rentals_property->sales == 1 && $rentals_property->rentals == 1)
                                 @if($rentals_property->prices['price'])

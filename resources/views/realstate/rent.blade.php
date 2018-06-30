@@ -30,8 +30,8 @@
 
 <section class="subheader subheader-listing-sidebar">
   <div class="container">
-    <h1>Rent</h1>
-    <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="#" class="current">Rent</a></div>
+    <h1>Rental</h1>
+    <div class="breadcrumb right">Home <i class="fa fa-angle-right"></i> <a href="#" class="current">Rental</a></div>
     <div class="clear"></div>
   </div>
 </section>
@@ -54,7 +54,7 @@
 									{{ $property->property_status->name }}
 								</div>
 								@endif
-								<div class="property-tag lable-rent featured">Rent</div>
+								<div class="property-tag lable-rent featured">Rental</div>
 								<div class="property-price">
 									@if($property->prices['week'])
 									<div>
@@ -105,7 +105,12 @@
 			<input type="hidden" data-rent-min-price-per-week value="{{ $rentMinPricePerWeek }}">
       <input type="hidden" data-rent-max-price-per-week value="{{ $rentMaxPricePerWeek }}">
       <input type="hidden" data-rent-min-price-per-month value="{{ $rentMinPricePerMonth }}">
-      <input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth }}">
+			<input type="hidden" data-rent-max-price-per-month value="{{ $rentMaxPricePerMonth }}">
+
+			<input type="hidden" data-rent-min-price-per-week-pound value="{{ $rentMinPricePerWeekPound ? $rentMinPricePerWeekPound : 0 }}">
+    	<input type="hidden" data-rent-max-price-per-week-pound value="{{ $rentMaxPricePerWeekPound ? $rentMaxPricePerWeekPound : 0 }}">
+    	<input type="hidden" data-rent-min-price-per-month-pound value="{{ $rentMinPricePerMonthPound ? $rentMinPricePerMonthPound : 0 }}">
+    	<input type="hidden" data-rent-max-price-per-month-pound value="{{ $rentMaxPricePerMonthPound ? $rentMaxPricePerMonthPound : 0 }}">
 			<div class="widget widget-sidebar sidebar-properties advanced-search">
 			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
 			  <div class="widget-content box">
@@ -126,9 +131,11 @@
 					  <div class="form-block border">
                   <label>Country</label>
                   <select class="border" id="search_rent-country" name="property-country">
-                    <option value="">Any</option>
+                    {{-- <option value="">Any</option> --}}
                     		@foreach($countries as $country)
-                        <option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+												<option value="{{$country->id}}" {{ $country->contentDefault->location == 'Gibraltar' ? 'selected' : ''}}>
+													{{$country->contentDefault->location}}
+												</option>
                         @endforeach
                   </select>
                 </div>
@@ -177,10 +184,12 @@
 						<div id="price-rent-pw">
 							<label>Price Per Week</label>
 							<div id="price-slider-rent-per-week"></div>
+							<div id="price-slider-rent-per-week-pound"></div>
 						</div>
 						<div id="price-rent-pm">
 							<label>Price Per Month</label>
 							<div id="price-slider-rent-per-month"></div>
+							<div id="price-slider-rent-per-month-pound"></div>
 						</div>
 				  </div>
 

@@ -57,6 +57,8 @@ class SaleController extends Controller
 
             $bedIds = [];
 
+            $currencyId = request('currency-id');
+
             if (isset($request->property)) {
                 $saleProperties = Property::select([
                     "id",
@@ -185,6 +187,7 @@ class SaleController extends Controller
                 ])
                 ->where('sales', 1)
                 ->where('status', 1)
+                ->where('currency_id', $currencyId)
                 ->whereIn('id', $ids)
                 ->orderBy('created_at', 'desc')
                 ->paginate(Property::GET_PROPERTIES);
@@ -202,21 +205,39 @@ class SaleController extends Controller
         }
 
         $salePrices = Property::select("prices")
-                        ->where('sales', '=', 1)
-                        ->where('status', 1)
-                        ->get();
+            ->where('sales', '=', 1)
+            ->where('status', 1)
+            ->get();
+
+        $salePricesPound = Property::select("prices")
+            ->where('sales', '=', 1)
+            ->where('currency_id', 2)
+            ->where('status', 1)
+            ->get();
 
         $p = [];
+        $pPound = [];
         $saleMinPrice = 0;
         $saleMaxPrice = 0;
+        $saleMinPricePound = 0;
+        $saleMaxPricePound = 0;
 
         foreach ($salePrices as $price) {
             $p[] = $price['prices']['price'];
         }
 
-        if (count($p) > 0) {
+        if ( ! empty($p) > 0) {
             $saleMinPrice = min($p);
             $saleMaxPrice = max($p);
+        }
+
+        foreach ($salePricesPound as $price) {
+            $pPound[] = $price['prices']['price'];
+        }
+
+        if ( ! empty($pPound) > 0) {
+            $saleMinPricePound = min($pPound);
+            $saleMaxPricePound = max($pPound);
         }
         
         $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
@@ -230,6 +251,8 @@ class SaleController extends Controller
             'locations',
             'saleMinPrice',
             'saleMaxPrice',
+            'saleMinPricePound',
+            'saleMaxPricePound',
             'pages'
         ));
     }

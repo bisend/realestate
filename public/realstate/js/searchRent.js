@@ -18,10 +18,19 @@ $('#find-rent-btn').on('click', function (e) {
         }
     })
 
-    var lowerRentPerWeek = $('#price-rent-pw .noUi-handle-lower .noUi-tooltip').html();
-    var upperRentPerWeek = $('#price-rent-pw .noUi-handle-upper .noUi-tooltip').html();
-    var lowerRentPerMonth = $('#price-rent-pm .noUi-handle-lower .noUi-tooltip').html();
-    var upperRentPerMonth = $('#price-rent-pm .noUi-handle-upper .noUi-tooltip').html();
+    if (parseInt(countryRent) == 1) {
+        var lowerRentPerWeek = $('#price-slider-rent-per-week-pound .noUi-handle-lower .noUi-tooltip').html();
+        var upperRentPerWeek = $('#price-slider-rent-per-week-pound .noUi-handle-upper .noUi-tooltip').html();
+        var lowerRentPerMonth = $('#price-slider-rent-per-month-pound .noUi-handle-lower .noUi-tooltip').html();
+        var upperRentPerMonth = $('#price-slider-rent-per-month-pound .noUi-handle-upper .noUi-tooltip').html();
+    } else {
+        var lowerRentPerWeek = $('#price-slider-rent-per-week .noUi-handle-lower .noUi-tooltip').html();
+        var upperRentPerWeek = $('#price-slider-rent-per-week .noUi-handle-upper .noUi-tooltip').html();
+        var lowerRentPerMonth = $('#price-slider-rent-per-month .noUi-handle-lower .noUi-tooltip').html();
+        var upperRentPerMonth = $('#price-slider-rent-per-month .noUi-handle-upper .noUi-tooltip').html();
+    }
+
+    
 
     var urlFilters = '/rent?search=true&';
     var referValrent = $('#refer-val-rent').val();
@@ -69,10 +78,10 @@ $('#find-rent-btn').on('click', function (e) {
            urlFilters += item.name+'='+item.val+'&';
        });
        
-       if(lowerRentPerWeek !== ''){
+       if(lowerRentPerWeek){
            var lpricePw = {
             name: 'lower-per-week',
-            val: lowerRentPerWeek.replace('₤', '').replace(/,/g , '')
+            val: lowerRentPerWeek.replace('₤', '').replace('€', '').replace(/,/g , '')
         }
         urlFilters += lpricePw.name + '=' + lpricePw.val + '&';
         }
@@ -80,7 +89,7 @@ $('#find-rent-btn').on('click', function (e) {
         if(upperRentPerWeek !== ''){
             var upricePw = {
                 name: 'upper-per-week',
-                val: upperRentPerWeek.replace('₤', '').replace(/,/g , '')
+                val: upperRentPerWeek.replace('₤', '').replace('€', '').replace(/,/g , '')
             }
             urlFilters += upricePw.name + '=' + upricePw.val + '&';
         }
@@ -88,7 +97,7 @@ $('#find-rent-btn').on('click', function (e) {
         if(lowerRentPerMonth !== ''){
             var lpricePm = {
              name: 'lower-per-month',
-             val: lowerRentPerMonth.replace('₤', '').replace(/,/g , '')
+             val: lowerRentPerMonth.replace('₤', '').replace('€', '').replace(/,/g , '')
          }
          urlFilters += lpricePm.name + '=' + lpricePm.val + '&';
          }
@@ -96,33 +105,13 @@ $('#find-rent-btn').on('click', function (e) {
          if(upperRentPerMonth !== ''){
              var upricePm = {
                  name: 'upper-per-month',
-                 val: upperRentPerMonth.replace('₤', '').replace(/,/g , '')
+                 val: upperRentPerMonth.replace('₤', '').replace('€', '').replace(/,/g , '')
              }
              urlFilters += upricePm.name + '=' + upricePm.val;
          }
+
+        urlFilters += '&currency-id=' + (rentSelectedCountryId == 1 ? 2 : 1);
        
        window.location.href = urlFilters;
     }
-})
-
-// refer-rent-search
-// refer-val-rent
-//refer-find-btn-rent
-
-// $('#refer-find-btn-rent').on('click', function (e) {
-//     e.preventDefault();
-
-//     var referValrent = $('#refer-val-rent').val();
-//     console.log(referValrent)
-
-//     var urlFiltersRefRent = '/property/';
-
-//     if(referValrent !== ''){
-//         urlFiltersRefRent += referValrent
-//         console.log(urlFiltersRefRent)
-//         window.location.href = urlFiltersRefRent;
-//     }
-
-
-// })
-
+});

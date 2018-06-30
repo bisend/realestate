@@ -36,10 +36,7 @@ class HomeController extends Controller
         $default_language = $this->default_language;
 
         $title = 'Home | Findaproperty';
-
-        $minPrice = 0;
-        $maxPrice = 0;
-
+        
         // Get the properties (Eager Load)
         $number_of_properties = get_setting('fp_properties_count', 'design');;
         if($static_data['design_settings']['fp_show_featured_only']){
@@ -91,27 +88,54 @@ class HomeController extends Controller
         $categories = Category::get();
 
         $salePrices = Property::select("prices")
-                        ->where('sales', '=', 1)
-                        ->where('status', 1)
-                        ->get();
+            ->where('sales', '=', 1)
+            ->where('currency_id', 1)
+            ->where('status', 1)
+            ->get();
         
+        $salePricesPound = Property::select("prices")
+            ->where('sales', '=', 1)
+            ->where('currency_id', 2)
+            ->where('status', 1)
+            ->get();
+
         $p = [];
+        $pPound = [];
         $saleMinPrice = 0;
         $saleMaxPrice = 0;
+        $saleMinPricePound = 0;
+        $saleMaxPricePound = 0;
 
         foreach ($salePrices as $price) {
             $p[] = $price['prices']['price'];
         }
 
-        if (count($p) > 0) {
+        if ( ! empty($p) > 0) {
             $saleMinPrice = min($p);
             $saleMaxPrice = max($p);
         }
 
+        foreach ($salePricesPound as $price) {
+            $pPound[] = $price['prices']['price'];
+        }
+
+        if ( ! empty($pPound) > 0) {
+            $saleMinPricePound = min($pPound);
+            $saleMaxPricePound = max($pPound);
+        }
+
         $rentPrices = Property::select("prices")
                         ->where('rentals', '=', 1)
+                        ->where('currency_id', 1)
                         ->where('status', 1)
                         ->get();
+        
+        $rentPricesPound = Property::select("prices")
+            ->where('rentals', '=', 1)
+            ->where('currency_id', 2)
+            ->where('status', 1)
+            ->get();
+
         $perWeek = [];
         $perMonth = [];
         $rentMinPricePerWeek = 0;
@@ -119,19 +143,42 @@ class HomeController extends Controller
         $rentMinPricePerMonth = 0;
         $rentMaxPricePerMonth = 0;
 
+        $perWeekPound = [];
+        $perMonthPound = [];
+        $rentMinPricePerWeekPound = 0;
+        $rentMaxPricePerWeekPound = 0;
+        $rentMinPricePerMonthPound = 0;
+        $rentMaxPricePerMonthPound = 0;
+
         foreach ($rentPrices as $price) {
             $perWeek[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
             $perMonth[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
         }
 
-        if (count($perWeek) > 0) {
+        if ( ! empty($perWeek) > 0) {
             $rentMinPricePerWeek = min($perWeek);
             $rentMaxPricePerWeek = max($perWeek);
         }
 
-        if (count($perMonth) > 0) {
+        if ( ! empty($perMonth) > 0) {
             $rentMinPricePerMonth = min($perMonth);
             $rentMaxPricePerMonth = max($perMonth);
+        }
+
+        //
+        foreach ($rentPricesPound as $price) {
+            $perWeekPound[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
+            $perMonthPound[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
+        }
+
+        if ( ! empty($perWeekPound) > 0) {
+            $rentMinPricePerWeekPound = min($perWeekPound);
+            $rentMaxPricePerWeekPound = max($perWeekPound);
+        }
+
+        if ( ! empty($perMonthPound) > 0) {
+            $rentMinPricePerMonthPound = min($perMonthPound);
+            $rentMaxPricePerMonthPound = max($perMonthPound);
         }
 
         $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
@@ -155,6 +202,12 @@ class HomeController extends Controller
             'rentMaxPricePerWeek',
             'rentMinPricePerMonth',
             'rentMaxPricePerMonth',
+            'saleMinPricePound',
+            'saleMaxPricePound',
+            'rentMinPricePerWeekPound',
+            'rentMaxPricePerWeekPound',
+            'rentMinPricePerMonthPound',
+            'rentMaxPricePerMonthPound',
             'pages'
         ));
     }

@@ -1,27 +1,81 @@
+$(document).ready(function () {
+    checkSaleCountries();
+    checkRentCountries();
+});
+
+function checkSaleCountries () {
+    $('.location-any').attr('selected', false);
+    
+    $( "#search_sale-location option" ).each(function() {
+        if($(this).hasClass('location-any')){
+            $(this).attr('selected', true);
+        }else{
+            $(this).attr('selected', false);
+        }
+    });
+    
+    $('#search_sale_location_chosen .chosen-single span').html('Any')
+
+    $('style[id=style-select-sale]').remove();
+
+    $('head').append('<style>#search_sale_location_chosen .chosen-results li{display:none;}</style>');
+    
+    var classSelect = saleSelectedCountryId;
+    if(classSelect == '') {
+        $('head').append('<style id="style-select-sale">#search_sale_location_chosen .chosen-results li{display:block;}</style>')
+    }else{
+        $('head').append('<style id="style-select-sale">#search_sale_location_chosen .chosen-results .country-'+classSelect+'{display:block;}</style>')
+    }
+}
+
+function checkRentCountries () {
+    $('.location-any').attr('selected', false);
+
+    $( "#search_rent-location option" ).each(function() {
+        if($(this).hasClass('location-any')){
+            $(this).attr('selected', true);
+        }else{
+            $(this).attr('selected', false);
+        }
+    });
+
+    $('#search_rent_location_chosen .chosen-single span').html('Any')
+
+    $('style[id=style-select-rent]').remove();
+
+    $('head').append('<style>#search_rent_location_chosen .chosen-results li{display:none;}</style>')
+
+    var classSelect = rentSelectedCountryId;
+    if(classSelect == ''){
+        $('head').append('<style id="style-select-rent">#search_rent_location_chosen .chosen-results li{display:block;}</style>')
+    }else{
+        $('head').append('<style id="style-select-rent">#search_rent_location_chosen .chosen-results .country-'+classSelect+'{display:block;}</style>')
+    }
+}
 
 $('#search_sale-country').on('change', function () {
 
-       $('.location-any').attr('selected', false);
+    $('.location-any').attr('selected', false);
 
-        $( "#search_sale-location option" ).each(function() {
-            if($(this).hasClass('location-any')){
-                $(this).attr('selected', true);
-            }else{
-                $(this).attr('selected', false);
-            }
-        });
+    $( "#search_sale-location option" ).each(function() {
+        if($(this).hasClass('location-any')){
+            $(this).attr('selected', true);
+        }else{
+            $(this).attr('selected', false);
+        }
+    });
 
     $('#search_sale_location_chosen .chosen-single span').html('Any')
 
-    $('style[id=style-select]').remove();
+    $('style[id=style-select-sale]').remove();
 
     $('head').append('<style>#search_sale_location_chosen .chosen-results li{display:none;}</style>')
     
-    let classSelect = $(this).val();
+    var classSelect = $(this).val();
     if(classSelect == ''){
-        $('head').append('<style id="style-select">#search_sale_location_chosen .chosen-results li{display:block;}</style>')
+        $('head').append('<style id="style-select-sale">#search_sale_location_chosen .chosen-results li{display:block;}</style>')
     }else{
-        $('head').append('<style id="style-select">#search_sale_location_chosen .chosen-results .country-'+classSelect+'{display:block;}</style>')
+        $('head').append('<style id="style-select-sale">#search_sale_location_chosen .chosen-results .country-'+classSelect+'{display:block;}</style>')
     }
 
 })
@@ -42,15 +96,15 @@ $('#search_rent-country').on('change', function () {
 
     $('#search_rent_location_chosen .chosen-single span').html('Any')
 
-    $('style[id=style-select]').remove();
+    $('style[id=style-select-rent]').remove();
 
     $('head').append('<style>#search_rent_location_chosen .chosen-results li{display:none;}</style>')
 
-    let classSelect = $(this).val();
+    var classSelect = $(this).val();
     if(classSelect == ''){
-        $('head').append('<style id="style-select">#search_rent_location_chosen .chosen-results li{display:block;}</style>')
+        $('head').append('<style id="style-select-rent">#search_rent_location_chosen .chosen-results li{display:block;}</style>')
     }else{
-        $('head').append('<style id="style-select">#search_rent_location_chosen .chosen-results .country-'+classSelect+'{display:block;}</style>')
+        $('head').append('<style id="style-select-rent">#search_rent_location_chosen .chosen-results .country-'+classSelect+'{display:block;}</style>')
     }
 
 });

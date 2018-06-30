@@ -1,6 +1,61 @@
+var saleSelectedCountryId = 0;
+var rentSelectedCountryId = 0;
+
+function checkSaleSelectedCountry(id) {
+	var slider = $('#price-slider');
+	var sliderPound = $('#price-slider-pound');
+	if (id == 1) {
+		slider.hide();
+		sliderPound.show();
+	} else {
+		slider.show();
+		sliderPound.hide();
+	}
+}
+
+function checkRentSelectedCountry(id) {
+	var sliderPerWeek = $('#price-slider-rent-per-week');
+	var sliderPerMonth = $('#price-slider-rent-per-month');
+	var sliderPerWeekPound = $('#price-slider-rent-per-week-pound');
+	var sliderPerMonthPound = $('#price-slider-rent-per-month-pound');
+	if (id == 1) {
+		sliderPerWeek.hide();
+		sliderPerMonth.hide();
+		sliderPerWeekPound.show();
+		sliderPerMonthPound.show();
+	} else {
+		sliderPerWeek.show();
+		sliderPerMonth.show();
+		sliderPerWeekPound.hide();
+		sliderPerMonthPound.hide();
+	}
+}
+
 jQuery(document).ready(function($) {
 
 "use strict";
+
+	saleSelectedCountryId = $('#search_sale-country') ? $('#search_sale-country').val() : 0;
+
+	rentSelectedCountryId = $('#search_rent-country') ? $('#search_rent-country').val() : 0;
+
+	checkSaleSelectedCountry(saleSelectedCountryId);
+	checkRentSelectedCountry(rentSelectedCountryId);
+
+	$('body').on('change', '#search_sale-country', function () {
+		saleSelectedCountryId = $('#search_sale-country').val();
+		checkSaleSelectedCountry(saleSelectedCountryId);
+		// console.log(saleSelectedCountryId, rentSelectedCountryId);
+	});
+	$('body').on('change', '#search_rent-country', function () {
+		rentSelectedCountryId = $('#search_rent-country').val();
+		checkRentSelectedCountry(rentSelectedCountryId);
+		// console.log(saleSelectedCountryId, rentSelectedCountryId);
+	});
+	
+
+
+	// console.log(saleSelectedCountryId, rentSelectedCountryId);
 
 	/***************************************************************************/
 	//MAIN MENU SUB MENU TOGGLE
@@ -169,37 +224,62 @@ jQuery(document).ready(function($) {
 	/***************************************************************************/
 	//INITIALIZE PRICE RANGE SLIDER
 	/***************************************************************************/
-	var sliders = document.getElementsByClassName('price-slider');
-	var count = 0;
+	// var sliders = document.getElementsByClassName('price-slider');
+	// var count = 0;
+	
 	var saleMinPrice = parseInt($('[data-sale-min-price]').val());
 	var saleMaxPrice = parseInt($('[data-sale-max-price]').val());
 	var rentMinPricePerWeek = parseInt($('[data-rent-min-price-per-week]').val());
 	var rentMaxPricePerWeek = parseInt($('[data-rent-max-price-per-week]').val());
 	var rentMinPricePerMonth = parseInt($('[data-rent-min-price-per-month]').val());
 	var rentMaxPricePerMonth = parseInt($('[data-rent-max-price-per-month]').val());
-
-	if (sliders) {
-		for ( var i = 0; i < sliders.length; i++ ) {
-
-			noUiSlider.create(sliders[i], {
-				connect: true,
-				start: [saleMinPrice, saleMaxPrice],
-				// step: 1000,
-				// margin: 1000,
-				range: {
-					'min': [saleMinPrice],
-					'max': [saleMaxPrice]
-				},
-				tooltips: true,
-				format: wNumb({
-					decimals: 0,
-					thousand: ',',
-					prefix: '₤',
-				})
-			});
 	
-			count = count + 1;
-		}
+	var saleMinPricePound = parseInt($('[data-sale-min-price-pound]').val());
+	var saleMaxPricePound = parseInt($('[data-sale-max-price-pound]').val());
+	var rentMinPricePerWeekPound = parseInt($('[data-rent-min-price-per-week-pound]').val());
+	var rentMaxPricePerWeekPound = parseInt($('[data-rent-max-price-per-week-pound]').val());
+	var rentMinPricePerMonthPound = parseInt($('[data-rent-min-price-per-month-pound]').val());
+	var rentMaxPricePerMonthPound = parseInt($('[data-rent-max-price-per-month-pound]').val());
+
+	var saleSliderPrice = document.getElementById('price-slider');
+	var saleSliderPricePound = document.getElementById('price-slider-pound');
+
+	if (saleSliderPrice) {
+		noUiSlider.create(saleSliderPrice, {
+			connect: true,
+			start: [saleMinPrice, saleMaxPrice],
+			// step: 1000,
+			// margin: 1000,
+			range: {
+				'min': [saleMinPrice],
+				'max': [saleMaxPrice]
+			},
+			tooltips: true,
+			format: wNumb({
+				decimals: 0,
+				thousand: ',',
+				prefix: '€',
+			})
+		});
+	}
+	
+	if (saleSliderPricePound) {
+		noUiSlider.create(saleSliderPricePound, {
+			connect: true,
+			start: [saleMinPricePound, saleMaxPricePound],
+			// step: 1000,
+			// margin: 1000,
+			range: {
+				'min': [saleMinPricePound],
+				'max': [saleMaxPricePound]
+			},
+			tooltips: true,
+			format: wNumb({
+				decimals: 0,
+				thousand: ',',
+				prefix: '₤',
+			})
+		});
 	}
 
 	var sliderRentPerWeek = document.getElementById('price-slider-rent-per-week');
@@ -218,7 +298,7 @@ jQuery(document).ready(function($) {
 			format: wNumb({
 				decimals: 0,
 				thousand: ',',
-				prefix: '₤',
+				prefix: '€',
 			})
 		});
 	}
@@ -234,6 +314,48 @@ jQuery(document).ready(function($) {
 			range: {
 				'min': [rentMinPricePerMonth],
 				'max': [rentMaxPricePerMonth]
+			},
+			tooltips: true,
+			format: wNumb({
+				decimals: 0,
+				thousand: ',',
+				prefix: '€',
+			})
+		});
+	}
+
+	var sliderRentPerWeekPound = document.getElementById('price-slider-rent-per-week-pound');
+
+	if (sliderRentPerWeekPound) {
+		noUiSlider.create(sliderRentPerWeekPound, {
+			connect: true,
+			start: [rentMinPricePerWeekPound, rentMaxPricePerWeekPound],
+			// step: 10,
+			// margin: 1000,
+			range: {
+				'min': [rentMinPricePerWeekPound],
+				'max': [rentMaxPricePerWeekPound]
+			},
+			tooltips: true,
+			format: wNumb({
+				decimals: 0,
+				thousand: ',',
+				prefix: '₤',
+			})
+		});
+	}
+
+	var sliderRentPerMonthPound = document.getElementById('price-slider-rent-per-month-pound');
+
+	if (sliderRentPerMonthPound) {
+		noUiSlider.create(sliderRentPerMonthPound, {
+			connect: true,
+			start: [rentMinPricePerMonthPound, rentMaxPricePerMonthPound],
+			// step: 10,
+			// margin: 1000,
+			range: {
+				'min': [rentMinPricePerMonthPound],
+				'max': [rentMaxPricePerMonthPound]
 			},
 			tooltips: true,
 			format: wNumb({
@@ -334,7 +456,7 @@ jQuery(document).ready(function($) {
 	/***************************************************************************/
 	//AJAX CONTACT FORM
 	/***************************************************************************/
-	<!--//--><![CDATA[//><!--
+	
     $(document).on('submit', 'form#contact-us', function() {
             $('form#contact-us .error').remove();
             var hasError = false;
@@ -363,7 +485,7 @@ jQuery(document).ready(function($) {
             
             return false;   
     });
-    //-->!]]>
+    
 
 });
 

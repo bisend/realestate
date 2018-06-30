@@ -125,12 +125,33 @@ class AdminPropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::orderBy('featured','desc')->orderBy('created_at','desc')->paginate(10);
-        $sale_properties = Property::where('sales', 1)->orderBy('featured_sale','desc')->orderBy('created_at','desc')->paginate(10);
-        $sale_properties_count = Property::where('sales', 1)->where('featured_sale', 1)->count();
-        $rent_properties = Property::where('rentals', 1)->orderBy('featured_rent','desc')->orderBy('created_at','desc')->paginate(10);
-        $rent_properties_count = Property::where('rentals', 1)->where('featured_rent', 1)->count();
+        $properties = Property::orderBy('featured','desc')
+            ->orderBy('slider', 'desc')
+            ->orderBy('created_at','desc')
+            ->paginate(10);
+        
+        $sale_properties = Property::where('sales', 1)
+            ->orderBy('featured_sale','desc')
+            ->orderBy('slider', 'desc')
+            ->orderBy('created_at','desc')
+            ->paginate(10);
+        
+        $sale_properties_count = Property::where('sales', 1)
+            ->where('featured_sale', 1)
+            ->count();
+
+        $rent_properties = Property::where('rentals', 1)
+            ->orderBy('featured_rent','desc')
+            ->orderBy('slider', 'desc')
+            ->orderBy('created_at','desc')
+            ->paginate(10);
+        
+        $rent_properties_count = Property::where('rentals', 1)
+            ->where('featured_rent', 1)
+            ->count();
+        
         $statuses = PropertyStatus::all();
+
         return view('admin.property.index', compact(
             'properties', 
             'sale_properties', 
@@ -478,7 +499,6 @@ class AdminPropertyController extends Controller
     // Make Default
     public function makeDefaultSale(Request $request, $id)
     {
-
         if($request->ajax()) {
             $property = Property::findOrFail($id);
             $property->featured_sale = 0;
@@ -700,13 +720,20 @@ class AdminPropertyController extends Controller
     // Searching for Properties
     public function search(Request $request)
     {
-        $term = $request->get('term') ? $request->get('term') : '';
-
+        $term = request('term') ? request('term') : '';
+        
         $property_ids = PropertyContent::where('name', 'LIKE', '%'.$term.'%')->get()->pluck('property_id');
 
-        $properties = Property::whereIn('id', $property_ids)->orderBy('created_at','desc')->paginate(10);
+        $properties = Property::whereIn('id', $property_ids)
+            ->orderBy('featured','desc')
+            ->orderBy('slider', 'desc')
+            ->orderBy('created_at','desc')
+            ->paginate(10);
+        $properties->appends(request()->only('term'));
 
-        return view('admin.property.search', compact('properties'));
+        $statuses = PropertyStatus::all();
+
+        return view('admin.property.search', compact('properties', 'statuses'));
     }
 
     // Helper function for delete

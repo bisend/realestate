@@ -96,8 +96,10 @@
 		</div><!-- end listing -->
 		
 		<div class="col-lg-4 col-md-4 sidebar">
-				<input type="hidden" data-sale-min-price value="{{ $saleMinPrice }}">
-				<input type="hidden" data-sale-max-price value="{{ $saleMaxPrice }}">
+				<input type="hidden" data-sale-min-price value="{{ $saleMinPrice ? $saleMinPrice : 0 }}">
+				<input type="hidden" data-sale-max-price value="{{ $saleMaxPrice ? $saleMaxPrice : 0 }}">
+				<input type="hidden" data-sale-min-price-pound value="{{ $saleMinPricePound ? $saleMinPricePound : 0 }}">
+				<input type="hidden" data-sale-max-price-pound value="{{ $saleMaxPricePound ? $saleMaxPricePound : 0 }}">
 		
 			<div class="widget widget-sidebar sidebar-properties advanced-search">
 			  <h4><span>Advanced Search</span> <img src="/realstate/images/divider-half-white.png" alt="" /></h4>
@@ -119,9 +121,11 @@
 						<div class="form-block border">
 							<label>Country</label>
 							<select class="border" id="search_sale-country" name="property-country">
-										<option class="country-any" value="">Any</option>
+										{{-- <option class="country-any" value="">Any</option> --}}
 										@foreach($countries as $country)
-										<option value="{{$country->id}}">{{$country->contentDefault->location}}</option>
+										<option value="{{$country->id}}" {{$country->contentDefault->location == 'Gibraltar' ? 'selected' : ''}}>
+											{{$country->contentDefault->location}}
+										</option>
 										@endforeach
 							</select>
 						</div>
@@ -170,7 +174,8 @@
 				  
 				  <div class="form-block">
 						<label>Price</label>
-						<div id="slider-price-sale" class="price-slider"></div>
+						<div id="price-slider" class="price-slider"></div>
+						<div id="price-slider-pound" class="price-slider"></div>
 				  </div>
 
 					<input type="hidden" id="refer-val-sale">

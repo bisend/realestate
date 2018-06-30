@@ -25,7 +25,7 @@ class RentController extends Controller
 
         $default_language = $this->default_language;
 
-        $title = 'Rent | Findaproperty';
+        $title = 'Rental | Findaproperty';
 
         $countries = Country::all();
 
@@ -57,6 +57,8 @@ class RentController extends Controller
             $locationIds = [];
 
             $bedIds = [];
+
+            $currencyId = request('currency-id');
 
             if (isset($request->property)) {
                 $saleProperties = Property::select([
@@ -191,6 +193,7 @@ class RentController extends Controller
                 ->where('rentals', 1)
                 ->where('status', 1)
                 ->whereIn('id', $ids)
+                ->where('currency_id', $currencyId)
                 ->orderBy('created_at', 'desc')
                 ->paginate(Property::GET_PROPERTIES);
             $properties->appends(request()->all());
@@ -207,8 +210,16 @@ class RentController extends Controller
 
         $rentPrices = Property::select("prices")
                         ->where('rentals', '=', 1)
+                        ->where('currency_id', 1)
                         ->where('status', 1)
                         ->get();
+        
+        $rentPricesPound = Property::select("prices")
+            ->where('rentals', '=', 1)
+            ->where('currency_id', 2)
+            ->where('status', 1)
+            ->get();
+
         $perWeek = [];
         $perMonth = [];
         $rentMinPricePerWeek = 0;
@@ -216,19 +227,42 @@ class RentController extends Controller
         $rentMinPricePerMonth = 0;
         $rentMaxPricePerMonth = 0;
 
+        $perWeekPound = [];
+        $perMonthPound = [];
+        $rentMinPricePerWeekPound = 0;
+        $rentMaxPricePerWeekPound = 0;
+        $rentMinPricePerMonthPound = 0;
+        $rentMaxPricePerMonthPound = 0;
+
         foreach ($rentPrices as $price) {
             $perWeek[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
             $perMonth[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
         }
 
-        if (count($perWeek) > 0) {
+        if ( ! empty($perWeek) > 0) {
             $rentMinPricePerWeek = min($perWeek);
             $rentMaxPricePerWeek = max($perWeek);
         }
 
-        if (count($perMonth) > 0) {
+        if ( ! empty($perMonth) > 0) {
             $rentMinPricePerMonth = min($perMonth);
             $rentMaxPricePerMonth = max($perMonth);
+        }
+
+        //
+        foreach ($rentPricesPound as $price) {
+            $perWeekPound[] = $price['prices']['week'] != '' ? $price['prices']['week'] : 0;
+            $perMonthPound[] = $price['prices']['month'] != '' ? $price['prices']['month'] : 0;
+        }
+
+        if ( ! empty($perWeekPound) > 0) {
+            $rentMinPricePerWeekPound = min($perWeekPound);
+            $rentMaxPricePerWeekPound = max($perWeekPound);
+        }
+
+        if ( ! empty($perMonthPound) > 0) {
+            $rentMinPricePerMonthPound = min($perMonthPound);
+            $rentMaxPricePerMonthPound = max($perMonthPound);
         }
         
         $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
@@ -245,6 +279,10 @@ class RentController extends Controller
             'rentMaxPricePerWeek',
             'rentMinPricePerMonth',
             'rentMaxPricePerMonth',
+            'rentMinPricePerWeekPound',
+            'rentMaxPricePerWeekPound',
+            'rentMinPricePerMonthPound',
+            'rentMaxPricePerMonthPound',
             'pages'
         ));
     }

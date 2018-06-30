@@ -82,7 +82,7 @@
                 <a href="{{ route('sale') }}">Sale</a>
             </li>
             <li>
-                <a href="{{ route('rent') }}">Rent</a>
+                <a href="{{ route('rent') }}">Rental</a>
             </li>
             <li>
                 <a href="{{ route('commercial') }}">Сommercial</a>
