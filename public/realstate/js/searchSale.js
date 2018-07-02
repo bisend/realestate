@@ -14,11 +14,11 @@ $('#find-sale').on('click', function (e) {
     var country = $('#search_sale-country').val()
 
     if (saleSelectedCountryId == 1) {
-        var lower = $('#price-slider-pound .noUi-handle-lower .noUi-tooltip').html();
-        var upper = $('#price-slider-pound .noUi-handle-upper .noUi-tooltip').html();
+        var lower = $('#price-slider-pound .low-pr').html();
+        var upper = $('#price-slider-pound .high-pr').html();
     } else {
-        var lower = $('#price-slider .noUi-handle-lower .noUi-tooltip').html();
-        var upper = $('#price-slider .noUi-handle-upper .noUi-tooltip').html();
+        var lower = $('#price-slider .low-pr').html();
+        var upper = $('#price-slider .high-pr').html();
     }
 
     var urlFilters = '/sale?search=true&';

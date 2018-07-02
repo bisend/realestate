@@ -67,7 +67,7 @@ class SaleController extends Controller
                 ->where('status', 1)
                 ->get();
 
-                if (count($saleProperties) > 0) {
+                if ( ! empty($saleProperties)) {
                     foreach ($saleProperties as $prop) {
                         if ($prop['property_info']['property_reference'] == $request->property) {
                             $propIds[] = $prop['id'];
@@ -79,18 +79,23 @@ class SaleController extends Controller
             } else {
                 $salePrices = Property::select([
                     "id",
-                    "prices"
-                ])->where('sales', '=', 1)
+                    "prices",
+                    "currency_id"
+                ])->where('sales', 1)
+                ->where('currency_id', $currencyId)
                 ->where('status', 1)
                 ->get();
-
+                
                 foreach ($salePrices as $price) {
-                    if ($price['prices']['price'] >= $request->lower && $price['prices']['price'] <= $request->upper)
-                    $priceIds[] = $price['id'];
+                    if ($price['prices']['price'] && $price['prices']['price'] >= $request->lower && $price['prices']['price'] <= $request->upper)
+                    {
+                        $priceIds[] = $price['id'];
+                    }
                 }
-
+                
+                
                 $ids = $priceIds;
-
+                
                 if (isset($request->type)) {
                     $saleCategories = Property::select([
                         "id",
@@ -100,40 +105,46 @@ class SaleController extends Controller
                     ->where('category_id', '=', $request->type)
                     ->get();
 
-                    if (count($saleCategories) > 0) {
+                    if (! empty($saleCategories)) {
                         foreach ($saleCategories as $cat) {
                             $categoryIds[] = $cat['id'];
                         }
                     }
 
-                    if (count($ids < 1)) {
+                    if (empty($ids)) {
                         $ids = $categoryIds;
                     } else {
                         $ids = array_intersect($ids, $categoryIds);
                     }
                 }
 
-                if (isset($request->country)) {
-                    $saleCountries = Property::select([
-                        "id",
-                        "country_id"
-                    ])->where('sales', '=', 1)
-                    ->where('status', 1)
-                    ->where('country_id', '=', $request->country)
-                    ->get();
+                // if (isset($request->country)) {
+                    // $saleCountries = Property::select([
+                    //     "id",
+                    //     "country_id",
+                    //     'currency_id'
+                    // ])->where('sales', 1)
+                    // ->where('country_id', $request->country)
+                    // ->where('currency_id', $currencyId)
+                    // ->where('status', 1)
+                    // ->get();
 
-                    if (count($saleCountries) > 0) {
-                        foreach ($saleCountries as $saleCountry) {
-                            $countryIds[] = $saleCountry['id'];
-                        }
-                    }
+                    // $saleCountries = Property::whereIn('id', $ids)->get();
 
-                    if (count($ids < 1)) {
-                        $ids = $countryIds;
-                    } else {
-                        $ids = array_intersect($ids, $countryIds);
-                    }
-                }
+                    // if ( ! empty($saleCountries)) {
+                    //     foreach ($saleCountries as $saleCountry) {
+                    //         $countryIds[] = $saleCountry['id'];
+                    //     }
+                    // }
+
+                    // if (empty($ids)) {
+                    //     $ids = $countryIds;
+                        // dd($ids, $countryIds);
+                    // } else {
+                        // $temp = array_intersect($ids, $countryIds);
+                        // $ids = $temp;
+                    // }
+                // }
 
                 if (isset($request->location)) {
                     $saleLocations = Property::select([
@@ -144,19 +155,19 @@ class SaleController extends Controller
                     ->where('location_id', '=', $request->location)
                     ->get();
 
-                    if (count($saleLocations) > 0) {
+                    if ( ! empty($saleLocations)) {
                         foreach ($saleLocations as $saleLocation) {
                             $locationIds[] = $saleLocation['id'];
                         }
                     }
 
-                    if (count($ids < 1)) {
+                    if (empty($ids)) {
                         $ids = $locationIds;
                     } else {
                         $ids = array_intersect($ids, $locationIds);
                     }
                 }
-            
+
                 if (isset($request->beds)) {
                     $saleBeds = Property::select([
                         "id",
@@ -165,7 +176,7 @@ class SaleController extends Controller
                     ->where('sales', '=', 1)
                     ->get();
 
-                    if (count($saleBeds) > 0) {
+                    if ( !empty($saleBeds)) {
                         foreach ($saleBeds as $bed) {
                             if ($bed['property_info']['bedrooms'] >= $request->beds) {
                                 $bedIds[] = $bed['id'];
@@ -173,24 +184,37 @@ class SaleController extends Controller
                         }
                     }
                     
-                    if (count($ids < 1)) {
+                    if (empty($ids)) {
                         $ids = $bedIds;
                     } else {
                         $ids = array_intersect($ids, $bedIds);
                     }
                 }
             }
-
-            $properties = Property::with([
+            
+            if (isset($request->property)) {
+                $properties = Property::with([
                     'property_status',
                     'currency'
                 ])
                 ->where('sales', 1)
                 ->where('status', 1)
-                ->where('currency_id', $currencyId)
                 ->whereIn('id', $ids)
                 ->orderBy('created_at', 'desc')
                 ->paginate(Property::GET_PROPERTIES);
+            } else {
+                $properties = Property::with([
+                        'property_status',
+                        'currency'
+                    ])
+                    ->where('sales', 1)
+                    ->where('status', 1)
+                    ->where('currency_id', $currencyId)
+                    ->whereIn('id', $ids)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(Property::GET_PROPERTIES);
+            }
+
             $properties->appends(request()->all());
             
         } else {
@@ -241,6 +265,7 @@ class SaleController extends Controller
         }
         
         $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
+        
         return view('realstate.sale', compact(
             'static_data', 
             'properties', 

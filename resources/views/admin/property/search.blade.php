@@ -80,11 +80,11 @@
                                 </td>
                                 <td>
                                     <select name="status_id_sale" class="form-control status-id-sale" data-id="{{$property->id}}">
-                                        <option value="" class="activate-button" {{ ! $property->status_id ? 'selected' : '' }}>
+                                        <option value="" {{ ! $property->status_id ? 'selected' : '' }}>
                                             None
                                         </option>
                                         @foreach($statuses as $status)
-                                        <option value="{{$status->id}}" class="activate-button" {{ $property->status_id == $status->id ? 'selected' : '' }}>
+                                        <option value="{{$status->id}}" {{ $property->status_id == $status->id ? 'selected' : '' }}>
                                             {{$status->name}}
                                         </option>
                                         @endforeach
@@ -94,10 +94,10 @@
                                     <div class="icon-options">
                                         <a href="{{url('property').'/'.$property->alias}}" title="{{get_string('view_property')}}"><i class="small material-icons color-primary">visibility</i></a>
                                         <a href="{{route('admin.property.edit', $property->id)}}" title="{{get_string('edit_property')}}"><i class="small material-icons color-primary">mode_edit</i></a>
-                                        <!-- <a href="{{route('admin_property_date', $property->id)}}" title="{{get_string('property_availability')}}"><i class="small material-icons color-blue">date_range</i></a> -->
+                                        {{-- <a href="{{route('admin_property_date', $property->id)}}" title="{{get_string('property_availability')}}"><i class="small material-icons color-blue">date_range</i></a> --}}
                                         <a href="#" class="delete-button" data-id="{{$property->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>
-                                        <!-- <a href="#" class="activate-button {{$property->status ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('activate_property')}}"><i class="small material-icons color-primary">done</i></a>
-                                        <a href="#" class="deactivate-button {{$property->status ? '': 'hidden'}}" data-id="{{$property->id}}" title="{{get_string('deactivate_property')}}"><i class="small material-icons color-primary">close</i></a> -->
+                                        {{-- <a href="#" class="activate-button {{$property->status ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('activate_property')}}"><i class="small material-icons color-primary">done</i></a> --}}
+                                        {{-- <a href="#" class="deactivate-button {{$property->status ? '': 'hidden'}}" data-id="{{$property->id}}" title="{{get_string('deactivate_property')}}"><i class="small material-icons color-primary">close</i></a> --}}
                                         <a href="#" class="make-featured-button make-featured-sale-button  {{$property->featured_sale ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('make_featured')}}"><i class="small material-icons color-primary">grade</i></a>
                                         <a href="#" class="make-default-button make-default-sale-button {{$property->featured_sale ? '': 'hidden'}}" data-id="{{$property->id}}" title="{{get_string('make_default')}}"><i class="small material-icons color-yellow">grade</i></a>
                                     </div>
@@ -148,12 +148,12 @@
                                 </td>
                                 <td>
                                     <select name="status_id_sale" class="form-control status-id-rent" data-id="{{$property->id}}">
-                                        <option value="" class="activate-button" {{ ! $property->status_id ? 'selected' : '' }}>
+                                        <option value="" {{ ! $property->status_id ? 'selected' : '' }}>
                                             None
                                         </option>
                                         @foreach($statuses as $status)
                                         @if($status->name != 'Sold')
-                                        <option value="{{$status->id}}" class="activate-button" {{ $property->status_id == $status->id ? 'selected' : '' }}>
+                                        <option value="{{$status->id}}" {{ $property->status_id == $status->id ? 'selected' : '' }}>
                                             {{$status->name}}
                                         </option>
                                         @endif
@@ -168,8 +168,8 @@
                                         <a href="{{route('admin_property_date', $property->id)}}" title="{{get_string('property_availability')}}"><i class="small material-icons color-blue">date_range</i></a>
                                         
                                         <a href="#" class="delete-button" data-id="{{$property->id}}" title="{{get_string('delete_property')}}"><i class="small material-icons color-red">delete</i></a>
-                                        <!-- <a href="#" class="activate-button {{$property->status ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('activate_property')}}"><i class="small material-icons color-primary">done</i></a>
-                                        <a href="#" class="deactivate-button {{$property->status ? '': 'hidden'}}" data-id="{{$property->id}}" title="{{get_string('deactivate_property')}}"><i class="small material-icons color-primary">close</i></a> -->
+                                        {{-- <a href="#" class="activate-button {{$property->status ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('activate_property')}}"><i class="small material-icons color-primary">done</i></a> --}}
+                                        {{-- <a href="#" class="deactivate-button {{$property->status ? '': 'hidden'}}" data-id="{{$property->id}}" title="{{get_string('deactivate_property')}}"><i class="small material-icons color-primary">close</i></a> --}}
                                         <a href="#" class="make-featured-button make-featured-rent-button {{$property->featured_rent ? 'hidden': ''}}" data-id="{{$property->id}}" title="{{get_string('make_featured')}}"><i class="small material-icons color-primary">grade</i></a>
                                         <a href="#" class="make-default-button make-default-rent-button {{$property->featured_rent ? '': 'hidden'}}" data-id="{{$property->id}}" title="{{get_string('make_default')}}"><i class="small material-icons color-yellow">grade</i></a>
                                     </div>
@@ -230,48 +230,48 @@
                 });
             });
 
-            $('.activate-button').click(function(event){
-                event.preventDefault();
-                var id = $(this).data('id');
-                var selector = $(this).parents('tr');
-                var thisBtn = $(this).parents('.icon-options');
-                var status = selector.children('.page-status');
-                var token = $('[name="_token"]').val();
-                bootbox.confirm({
-                    title: '{{get_string('confirm_action')}}',
-                    message: '{{get_string('activate_property_confirm')}}',
-                    onEscape: true,
-                    backdrop: true,
-                    buttons: {
-                        cancel: {
-                            label: '{{get_string('no')}}',
-                            className: 'btn waves-effect'
-                        },
-                        confirm: {
-                            label: '{{get_string('yes')}}',
-                            className: 'btn waves-effect'
-                        }
-                    },
-                    callback: function (result) {
-                        if(result){
-                            $.ajax({
-                                url: '{{ url('/admin/property/activate/') }}/'+id,
-                                type: 'post',
-                                data: {_token :token},
-                                success:function(msg) {
-                                    thisBtn.children('.activate-button').addClass('hidden');
-                                    thisBtn.children('.deactivate-button').removeClass('hidden');
-                                    status.html('{{get_string('active')}}');
-                                    toastr.success(msg);
-                                },
-                                error:function(msg){
-                                    toastr.error(msg.responseJSON);
-                                }
-                            });
-                        }
-                    }
-                });
-            });
+            // $('.activate-button').click(function(event){
+            //     event.preventDefault();
+            //     var id = $(this).data('id');
+            //     var selector = $(this).parents('tr');
+            //     var thisBtn = $(this).parents('.icon-options');
+            //     var status = selector.children('.page-status');
+            //     var token = $('[name="_token"]').val();
+            //     bootbox.confirm({
+            //         title: '{{get_string('confirm_action')}}',
+            //         message: '{{get_string('activate_property_confirm')}}',
+            //         onEscape: true,
+            //         backdrop: true,
+            //         buttons: {
+            //             cancel: {
+            //                 label: '{{get_string('no')}}',
+            //                 className: 'btn waves-effect'
+            //             },
+            //             confirm: {
+            //                 label: '{{get_string('yes')}}',
+            //                 className: 'btn waves-effect'
+            //             }
+            //         },
+            //         callback: function (result) {
+            //             if(result){
+            //                 $.ajax({
+            //                     url: '{{ url('/admin/property/activate/') }}/'+id,
+            //                     type: 'post',
+            //                     data: {_token :token},
+            //                     success:function(msg) {
+            //                         thisBtn.children('.activate-button').addClass('hidden');
+            //                         thisBtn.children('.deactivate-button').removeClass('hidden');
+            //                         status.html('{{get_string('active')}}');
+            //                         toastr.success(msg);
+            //                     },
+            //                     error:function(msg){
+            //                         toastr.error(msg.responseJSON);
+            //                     }
+            //                 });
+            //             }
+            //         }
+            //     });
+            // });
 
             $('.status-sale').on('change', function(event){
                 event.preventDefault();
@@ -313,6 +313,8 @@
                                     toastr.error(msg.responseJSON);
                                 }
                             });
+                        } else {
+                            _this.val(0);
                         }
                     }
                 });
@@ -352,6 +354,8 @@
                                     toastr.error(msg.responseJSON);
                                 }
                             });
+                        } else {
+                            _this.val(1);
                         }
                     }
                 });
@@ -399,6 +403,8 @@
                                     toastr.error(msg.responseJSON);
                                 }
                             });
+                        } else {
+                            _this.val(0);
                         }
                     }
                 });
@@ -438,6 +444,8 @@
                                     toastr.error(msg.responseJSON);
                                 }
                             });
+                        } else {
+                            _this.val(1);
                         }
                     }
                 });
@@ -448,13 +456,15 @@
             $('.status-id-sale').on('change', function(event){
                 event.preventDefault();
                 var id = $(this).data('id');
-                var selector = $(this).parents('tr');
-                var thisBtn = $(this).parents('.icon-options');
-                var status = selector.children('.page-status');
+                // var selector = $(this).parents('tr');
+                // var thisBtn = $(this).parents('.icon-options');
+                // var status = selector.children('.page-status');
                 var token = $('[name="_token"]').val();
                 var _this = $(this);
+
+                console.log(_this.val());
                 
-                    bootbox.confirm({
+                bootbox.confirm({
                     title: '{{get_string('confirm_action')}}',
                     message: 'Do you want to change status?',
                     onEscape: true,
@@ -470,7 +480,7 @@
                         }
                     },
                     callback: function (result) {
-                        if(result){
+                        if(result) {
                             $.ajax({
                                 url: '{{ url('/admin/property/set-status/') }}/'+id,
                                 type: 'post',
@@ -479,9 +489,9 @@
                                     status_id: _this.val()
                                 },
                                 success:function(msg) {
-                                    thisBtn.children('.activate-button').addClass('hidden');
-                                    thisBtn.children('.deactivate-button').removeClass('hidden');
-                                    status.html('{{get_string('active')}}');
+                                    // thisBtn.children('.activate-button').addClass('hidden');
+                                    // thisBtn.children('.deactivate-button').removeClass('hidden');
+                                    // status.html('{{get_string('active')}}');
                                     toastr.success(msg);
                                 },
                                 error:function(msg){

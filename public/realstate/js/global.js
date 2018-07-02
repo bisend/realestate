@@ -249,17 +249,26 @@ jQuery(document).ready(function($) {
 			connect: true,
 			start: [saleMinPrice, saleMaxPrice],
 			// step: 1000,
-			// margin: 1000,
+			margin: saleMinPrice == saleMaxPrice ? saleMinPrice : 0,
 			range: {
 				'min': [saleMinPrice],
 				'max': [saleMaxPrice]
 			},
-			tooltips: true,
+			tooltips: false,
 			format: wNumb({
 				decimals: 0,
 				thousand: ',',
 				prefix: '€',
 			})
+		}).set(saleMinPrice - 1, saleMaxPrice + 1);
+
+		$(saleSliderPrice).append("<div class='low-pr noUi-tooltip'>€" + saleMinPrice + "</div>");
+
+		$(saleSliderPrice).append("<div class='high-pr noUi-tooltip'>€" + saleMaxPrice + "</div>");
+
+		saleSliderPrice.noUiSlider.on('update', function ( values, handle ) {
+			$(saleSliderPrice).find('.low-pr').text(values[0]);
+			$(saleSliderPrice).find('.high-pr').text(values[1]);
 		});
 	}
 	
@@ -268,17 +277,26 @@ jQuery(document).ready(function($) {
 			connect: true,
 			start: [saleMinPricePound, saleMaxPricePound],
 			// step: 1000,
-			// margin: 1000,
+			margin: saleMinPricePound == saleMaxPricePound ? saleMinPricePound : 0,
 			range: {
 				'min': [saleMinPricePound],
 				'max': [saleMaxPricePound]
 			},
-			tooltips: true,
+			tooltips: false,
 			format: wNumb({
 				decimals: 0,
 				thousand: ',',
 				prefix: '₤',
 			})
+		}).set(saleMinPricePound - 1, saleMaxPricePound + 1);
+
+		$(saleSliderPricePound).append("<div class='low-pr noUi-tooltip'>₤" + saleMinPricePound + "</div>");
+
+		$(saleSliderPricePound).append("<div class='high-pr noUi-tooltip'>₤" + saleMaxPricePound + "</div>");
+
+		saleSliderPricePound.noUiSlider.on('update', function ( values, handle ) {
+			$(saleSliderPricePound).find('.low-pr').text(values[0]);
+			$(saleSliderPricePound).find('.high-pr').text(values[1]);
 		});
 	}
 
@@ -289,17 +307,26 @@ jQuery(document).ready(function($) {
 			connect: true,
 			start: [rentMinPricePerWeek, rentMaxPricePerWeek],
 			// step: 10,
-			// margin: 1000,
+			margin: rentMinPricePerWeek == rentMaxPricePerWeek ? rentMinPricePerWeek : 0,
 			range: {
 				'min': [rentMinPricePerWeek],
 				'max': [rentMaxPricePerWeek]
 			},
-			tooltips: true,
+			tooltips: false,
 			format: wNumb({
 				decimals: 0,
 				thousand: ',',
 				prefix: '€',
 			})
+		}).set(rentMinPricePerWeek - 1, rentMaxPricePerWeek + 1);
+
+		$(sliderRentPerWeek).append("<div class='low-pr noUi-tooltip'>€" + rentMinPricePerWeek + "</div>");
+
+		$(sliderRentPerWeek).append("<div class='high-pr noUi-tooltip'>€" + rentMaxPricePerWeek + "</div>");
+
+		sliderRentPerWeek.noUiSlider.on('update', function ( values, handle ) {
+			$(sliderRentPerWeek).find('.low-pr').text(values[0]);
+			$(sliderRentPerWeek).find('.high-pr').text(values[1]);
 		});
 	}
 
@@ -310,17 +337,26 @@ jQuery(document).ready(function($) {
 			connect: true,
 			start: [rentMinPricePerMonth, rentMaxPricePerMonth],
 			// step: 10,
-			// margin: 1000,
+			margin: rentMinPricePerMonth == rentMaxPricePerMonth ? rentMinPricePerMonth : 0,
 			range: {
 				'min': [rentMinPricePerMonth],
 				'max': [rentMaxPricePerMonth]
 			},
-			tooltips: true,
+			tooltips: false,
 			format: wNumb({
 				decimals: 0,
 				thousand: ',',
 				prefix: '€',
 			})
+		}).set(rentMinPricePerMonth - 1, rentMaxPricePerMonth + 1);
+
+		$(sliderRentPerMonth).append("<div class='low-pr noUi-tooltip'>€" + rentMinPricePerMonth + "</div>");
+
+		$(sliderRentPerMonth).append("<div class='high-pr noUi-tooltip'>€" + rentMaxPricePerMonth + "</div>");
+
+		sliderRentPerMonth.noUiSlider.on('update', function ( values, handle ) {
+			$(sliderRentPerMonth).find('.low-pr').text(values[0]);
+			$(sliderRentPerMonth).find('.high-pr').text(values[1]);
 		});
 	}
 
@@ -331,17 +367,26 @@ jQuery(document).ready(function($) {
 			connect: true,
 			start: [rentMinPricePerWeekPound, rentMaxPricePerWeekPound],
 			// step: 10,
-			// margin: 1000,
+			margin: rentMinPricePerWeekPound == rentMaxPricePerWeekPound ? rentMinPricePerWeekPound : 0,
 			range: {
 				'min': [rentMinPricePerWeekPound],
 				'max': [rentMaxPricePerWeekPound]
 			},
-			tooltips: true,
+			tooltips: false,
 			format: wNumb({
 				decimals: 0,
 				thousand: ',',
 				prefix: '₤',
 			})
+		}).set(rentMinPricePerWeekPound - 1, rentMaxPricePerWeekPound + 1);
+
+		$(sliderRentPerWeekPound).append("<div class='low-pr noUi-tooltip'>€" + rentMinPricePerWeekPound + "</div>");
+
+		$(sliderRentPerWeekPound).append("<div class='high-pr noUi-tooltip'>€" + rentMaxPricePerWeekPound + "</div>");
+
+		sliderRentPerWeekPound.noUiSlider.on('update', function ( values, handle ) {
+			$(sliderRentPerWeekPound).find('.low-pr').text(values[0]);
+			$(sliderRentPerWeekPound).find('.high-pr').text(values[1]);
 		});
 	}
 
@@ -352,17 +397,26 @@ jQuery(document).ready(function($) {
 			connect: true,
 			start: [rentMinPricePerMonthPound, rentMaxPricePerMonthPound],
 			// step: 10,
-			// margin: 1000,
 			range: {
 				'min': [rentMinPricePerMonthPound],
 				'max': [rentMaxPricePerMonthPound]
 			},
-			tooltips: true,
+			margin: rentMinPricePerMonthPound == rentMaxPricePerMonthPound ? rentMinPricePerMonthPound : 0,
+			tooltips: false,
 			format: wNumb({
 				decimals: 0,
 				thousand: ',',
 				prefix: '₤',
 			})
+		}).set(rentMinPricePerMonthPound - 1, rentMaxPricePerMonthPound + 1);
+
+		$(sliderRentPerMonthPound).append("<div class='low-pr noUi-tooltip'>€" + rentMinPricePerMonthPound + "</div>");
+
+		$(sliderRentPerMonthPound).append("<div class='high-pr noUi-tooltip'>€" + rentMaxPricePerMonthPound + "</div>");
+
+		sliderRentPerMonthPound.noUiSlider.on('update', function ( values, handle ) {
+			$(sliderRentPerMonthPound).find('.low-pr').text(values[0]);
+			$(sliderRentPerMonthPound).find('.high-pr').text(values[1]);
 		});
 	}
 

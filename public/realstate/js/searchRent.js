@@ -19,15 +19,15 @@ $('#find-rent-btn').on('click', function (e) {
     })
 
     if (parseInt(countryRent) == 1) {
-        var lowerRentPerWeek = $('#price-slider-rent-per-week-pound .noUi-handle-lower .noUi-tooltip').html();
-        var upperRentPerWeek = $('#price-slider-rent-per-week-pound .noUi-handle-upper .noUi-tooltip').html();
-        var lowerRentPerMonth = $('#price-slider-rent-per-month-pound .noUi-handle-lower .noUi-tooltip').html();
-        var upperRentPerMonth = $('#price-slider-rent-per-month-pound .noUi-handle-upper .noUi-tooltip').html();
+        var lowerRentPerWeek = $('#price-slider-rent-per-week-pound .low-pr').html();
+        var upperRentPerWeek = $('#price-slider-rent-per-week-pound .high-pr').html();
+        var lowerRentPerMonth = $('#price-slider-rent-per-month-pound .low-pr').html();
+        var upperRentPerMonth = $('#price-slider-rent-per-month-pound .high-pr').html();
     } else {
-        var lowerRentPerWeek = $('#price-slider-rent-per-week .noUi-handle-lower .noUi-tooltip').html();
-        var upperRentPerWeek = $('#price-slider-rent-per-week .noUi-handle-upper .noUi-tooltip').html();
-        var lowerRentPerMonth = $('#price-slider-rent-per-month .noUi-handle-lower .noUi-tooltip').html();
-        var upperRentPerMonth = $('#price-slider-rent-per-month .noUi-handle-upper .noUi-tooltip').html();
+        var lowerRentPerWeek = $('#price-slider-rent-per-week .low-pr').html();
+        var upperRentPerWeek = $('#price-slider-rent-per-week .high-pr').html();
+        var lowerRentPerMonth = $('#price-slider-rent-per-month .low-pr').html();
+        var upperRentPerMonth = $('#price-slider-rent-per-month .high-pr').html();
     }
 
     

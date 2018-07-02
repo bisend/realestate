@@ -64,11 +64,11 @@ class RentController extends Controller
                 $saleProperties = Property::select([
                     "id",
                     "property_info"
-                ])->where('rentals', '=', 1)
+                ])->where('rentals', 1)
                 ->where('status', 1)
                 ->get();
 
-                if (count($saleProperties) > 0) {
+                if ( ! empty($saleProperties)) {
                     foreach ($saleProperties as $prop) {
                         if ($prop['property_info']['property_reference'] == $request->property) {
                             $propIds[] = $prop['id'];
@@ -81,7 +81,7 @@ class RentController extends Controller
                 $rentPrices = Property::select([
                     "id",
                     "prices"
-                ])->where('rentals', '=', 1)
+                ])->where('rentals', 1)
                 ->where('status', 1)
                 ->get();
 
@@ -101,62 +101,62 @@ class RentController extends Controller
                     $rentCategories = Property::select([
                         "id",
                         "category_id"
-                    ])->where('rentals', '=', 1)
-                    ->where('category_id', '=', $request->type)
+                    ])->where('rentals', 1)
+                    ->where('category_id', $request->type)
                     ->where('status', 1)
                     ->get();
 
-                    if (count($rentCategories) > 0) {
+                    if ( ! empty($rentCategories)) {
                         foreach ($rentCategories as $cat) {
                             $categoryIds[] = $cat['id'];
                         }
                     }
 
-                    if (count($ids < 1)) {
+                    if (empty($ids)) {
                         $ids = $categoryIds;
                     } else {
                         $ids = array_intersect($ids, $categoryIds);
                     }
                 }
 
-                if (isset($request->country)) {
-                    $rentCountries = Property::select([
-                        "id",
-                        "country_id"
-                    ])->where('rentals', '=', 1)
-                    ->where('country_id', '=', $request->country)
-                    ->where('status', 1)
-                    ->get();
+                // if (isset($request->country)) {
+                //     $rentCountries = Property::select([
+                //         "id",
+                //         "country_id"
+                //     ])->where('rentals', '=', 1)
+                //     ->where('country_id', '=', $request->country)
+                //     ->where('status', 1)
+                //     ->get();
 
-                    if (count($rentCountries) > 0) {
-                        foreach ($rentCountries as $saleCountry) {
-                            $countryIds[] = $saleCountry['id'];
-                        }
-                    }
+                //     if (count($rentCountries) > 0) {
+                //         foreach ($rentCountries as $saleCountry) {
+                //             $countryIds[] = $saleCountry['id'];
+                //         }
+                //     }
 
-                    if (count($ids < 1)) {
-                        $ids = $countryIds;
-                    } else {
-                        $ids = array_intersect($ids, $countryIds);
-                    }
-                }
+                //     if (count($ids < 1)) {
+                //         $ids = $countryIds;
+                //     } else {
+                //         $ids = array_intersect($ids, $countryIds);
+                //     }
+                // }
 
                 if (isset($request->location)) {
                     $rentLocations = Property::select([
                         "id",
                         "location_id"
-                    ])->where('rentals', '=', 1)
-                    ->where('location_id', '=', $request->location)
+                    ])->where('rentals', 1)
+                    ->where('location_id', $request->location)
                     ->where('status', 1)
                     ->get();
 
-                    if (count($rentLocations) > 0) {
+                    if (! empty($rentLocations)) {
                         foreach ($rentLocations as $saleLocation) {
                             $locationIds[] = $saleLocation['id'];
                         }
                     }
 
-                    if (count($ids < 1)) {
+                    if (empty($ids)) {
                         $ids = $locationIds;
                     } else {
                         $ids = array_intersect($ids, $locationIds);
@@ -167,11 +167,11 @@ class RentController extends Controller
                     $rentBeds = Property::select([
                         "id",
                         "property_info"
-                    ])->where('rentals', '=', 1)
+                    ])->where('rentals', 1)
                     ->where('status', 1)
                     ->get();
 
-                    if (count($rentBeds) > 0) {
+                    if ( ! empty($rentBeds)) {
                         foreach ($rentBeds as $bed) {
                             if ($bed['property_info']['bedrooms'] >= $request->beds) {
                                 $bedIds[] = $bed['id'];
@@ -179,7 +179,7 @@ class RentController extends Controller
                         }
                     }
                     
-                    if (count($ids < 1)) {
+                    if (empty($ids)) {
                         $ids = $bedIds;
                     } else {
                         $ids = array_intersect($ids, $bedIds);
@@ -187,15 +187,29 @@ class RentController extends Controller
                 }
             }
 
-            $properties = Property::with([
+            if (isset($request->property)) {
+                $properties = Property::with([
+                    'property_status',
                     'currency'
                 ])
                 ->where('rentals', 1)
                 ->where('status', 1)
                 ->whereIn('id', $ids)
-                ->where('currency_id', $currencyId)
                 ->orderBy('created_at', 'desc')
                 ->paginate(Property::GET_PROPERTIES);
+            } else {
+                $properties = Property::with([
+                        'property_status',
+                        'currency'
+                    ])
+                    ->where('rentals', 1)
+                    ->where('status', 1)
+                    ->where('currency_id', $currencyId)
+                    ->whereIn('id', $ids)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(Property::GET_PROPERTIES);
+            }
+            
             $properties->appends(request()->all());
             
         } else {
