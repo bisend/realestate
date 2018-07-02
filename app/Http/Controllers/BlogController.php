@@ -33,7 +33,8 @@ class BlogController extends Controller
         }])->where('status', 1)->where('id', '!=', $post->id)->orderBy('created_at', 'desc')->take(3)->get();
         if($post){
             $title = $post->contentDefault->title;
-            return view('realstate.blog.blog-single', compact('post', 'last_posts', 'static_data', 'title'));
+            $pages = Page::with('contentDefault')->where('status', 1)->orderBy('position','asc')->get();
+            return view('realstate.blog.blog-single', compact('post', 'last_posts', 'static_data', 'title', 'pages'));
         }else{
             abort(404);
         }
