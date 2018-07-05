@@ -115,8 +115,9 @@
                                 
                                 <!-- <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td> -->
                                 <td class="page-featured">{{$property->featured_rent ? get_string('yes') : get_string('no')}}</td>
+                                @if($property->featured_rent)
                                 <td>
-                                    @if($property->featured_rent)
+                                   
                                     <div id="position-checkboxes-rent{{$property->id}}" class="checkbox-group-rent">
                                         @for($i = 1; $i <= 5; $i++)
                                         <input type="checkbox" id="{{ $i }}position-rent{{$property->id}}" class="filled-in primary-color change-position-rent" data-id="{{$property->id}}" name="first" value="{{ $i }}" {{ $property->position_rent == $i ? 'checked' : ''}}>
@@ -134,8 +135,9 @@
                                         <br>
                                         @endfor
                                     </div>
-                                    @endif
+                                   
                                 </td>
+                                @endif
                                 <td class="icon-options">
                                     <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider-rent{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>
                                     <label for="slider-rent{{$property->id}}"></label>
