@@ -48,7 +48,7 @@ body {
 	color:#464646;
 	width:100%; 
 	height:100%; 
-	background:#ebf1f5;
+	background: rgba(203, 216, 227, .5);
 }
 
 .container { position:relative; }
@@ -435,7 +435,7 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 	min-height:83px;
 	padding-left:0px;
 }
-.navbar-brand img { max-width:370px; }
+.navbar-brand img { max-width:415px; }
 
 /* MENU TOGGLE */
 .navbar-toggle { 
@@ -523,7 +523,7 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 .header-default .header-item td > .fa { color:#6d458a; font-size:36px; margin-right:10px; }
 .header-default .header-item span { font-family:'Open Sans'; font-weight:700; font-size:18px; }
 .header-default .navbar-brand { padding:20px 15px; padding-left:0px; }
-.header-default .main-menu-wrap { height:60px; top:0px; width:100%; background:#323746; }
+.header-default .main-menu-wrap { height:60px; top:0px; width:100%; background:#6d458a; }
 .header-default .navbar-toggle.fixed { position:fixed; top:0; left:0; margin-top:0; width:100%; background:#323746; border-radius:0px; padding:15px;}
 .header-default .main-menu-wrap.fixed { position:fixed; }
 .header-default .main-menu-wrap .container-fixed { max-width:1140px; margin:0 auto; }
@@ -570,7 +570,7 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 /*====================================================================================*/
 .subheader {
 	/* background:#787c8a url(../images/1920x250.png) no-repeat center; */
-	background:#6d458a  url(../images/contact-bg.png) no-repeat center;
+	background: rgb(109, 69, 138, .4) url(../images/contact-bg.png) no-repeat center;
 	background-size:cover;
 	color:white;
 	padding-top:160px;
@@ -755,7 +755,7 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 .filter { min-height:300px; background:#cbd8e3; padding-bottom:40px; }
 
 .filter-header { background:#6d458a; }
-.filter .ui-tabs .ui-tabs-panel { padding:50px 0px 0px 0px; background:transparent; }
+.filter .ui-tabs .ui-tabs-panel { padding:20px 0px 0px 0px; background:transparent; }
 .filter .ui-tabs .ui-tabs-nav { 
 	box-shadow:none;
     width: 100%;
@@ -2033,7 +2033,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
     padding: 10px;
     position: fixed;
 	z-index: 9998;
-	top: 200px;
+	top: 220px;
 	/* top: 35%; */
 	/* bottom: 0; */
 	right: -300px;
@@ -2944,7 +2944,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 }
 
 .search-home-section{
-	padding-top: 50px!important;
+	padding-top: 60px!important;
 }
 
 .search-home-section .filter-header{
@@ -2993,6 +2993,14 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 .facebook-li a{ 
 	font-size: 17px;
 	font-weight: 600;
+	
 }
 
+.home-form-call{
+	display: none;
+}
+
+.showhomeCall{
+	display: block;
+}
 

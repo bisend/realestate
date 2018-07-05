@@ -45,6 +45,10 @@
   .property-price-com div{
     width: 100%;
   }
+
+  .navbar-brand img {
+    width: 370px;
+  }
 }
 
 @media screen and (min-width: 767px) and (max-width: 990px) {
@@ -342,6 +346,9 @@
 }
 
 @media only screen and (max-width: 991px) {
+  .navbar-toggle{
+    margin-top: 45px;
+  }
   .beds-radio{
     margin-top: -10px;
     margin-bottom: 35px;
@@ -710,7 +717,7 @@
 }
 
 .navbar-toggle{
-  margin-top: 35px;
+  margin-top: 45px;
 }
 
 	.prop-img-home{
@@ -848,7 +855,7 @@
 }
 
 .navbar-toggle {
-  margin-top: 25px;
+  margin-top: 45px;
 }
 
 	
@@ -881,7 +888,7 @@
 }
 
 .navbar-toggle {
-  margin-top: 25px;
+  margin-top: 45px;
 }
 
 }

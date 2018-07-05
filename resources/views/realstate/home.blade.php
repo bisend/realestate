@@ -1,7 +1,7 @@
 @extends('realstate.layout')
 
 @section('mainsection')
-<div class="contact-form-fix Call-Back-wrap form-active">
+<div class="contact-form-fix Call-Back-wrap form-active home-form-call">
         <div class="show-btn-wrapper">
             <button class="show-collback"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></button>
         </div>
@@ -362,7 +362,7 @@
 </section>
 
 
-<section class="module properties">
+<section class="module properties home-properties">
   <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 sale-home-list">

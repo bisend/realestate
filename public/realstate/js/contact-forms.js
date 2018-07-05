@@ -1,22 +1,3 @@
-/* CONTACT FORM FIX */
-// $.ajaxSetup({
-//     headers: {
-//         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//     }
-// });
-// var onloadCallback = function() {
-//     alert("grecaptcha is ready!");
-//     grecaptcha.render('call-back-captcha', {
-//       'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj'
-//     });
-//   };
-
-//   var onloadReg = function() {
-//     alert("grecaptcha is ready!");
-//     grecaptcha.render('reg-back-captcha', {
-//       'sitekey' : '6Le6d1oUAAAAAALuQXyL6Z1oqWd2qg2Er2tp1iPj'
-//     });
-//   };
 
 
 /* -- TABS FORM  -- */
