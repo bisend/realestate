@@ -48,7 +48,8 @@ body {
 	color:#464646;
 	width:100%; 
 	height:100%; 
-	background: rgba(203, 216, 227, .5);
+	/* background: rgba(203, 216, 227, .5); */
+	background: rgba(109, 69, 138, .1);
 }
 
 .container { position:relative; }
@@ -2944,7 +2945,7 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 }
 
 .search-home-section{
-	padding-top: 60px!important;
+	padding-top: 50px!important;
 }
 
 .search-home-section .filter-header{
@@ -3004,3 +3005,19 @@ footer .divider { background:rgba(255, 255, 255, 0.1); }
 	display: block;
 }
 
+
+.tabs-home{
+	margin-bottom: 0;
+}
+
+.filter-home{
+	padding-bottom: 20px;
+}
+
+.home-filter-btn{
+	margin-top: -22px;
+}
+
+.home-filter-btn .button{
+	margin-bottom: 0;
+}

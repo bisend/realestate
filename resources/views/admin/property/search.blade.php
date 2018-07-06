@@ -45,8 +45,7 @@
                                 {{-- <td>@if($property->user){{$property->user->username}}@else <i class="small material-icons color-red">clear</i> @endif</td> --}}
                                 <td>{{$property->category->contentDefault->name}}</td>
                                 
-                                
-                                {{-- <td class="page-featured">{{$property->featured_sale ? get_string('yes') : get_string('no')}}</td> --}}
+                                <!-- {{-- <td class="page-featured">{{$property->featured_sale ? get_string('yes') : get_string('no')}}</td> --}} -->
                                 <td>
                                     @if($property->featured_sale)
                                     <div id="position-checkboxes-sale{{$property->id}}" class="checkbox-group-sale">
@@ -114,7 +113,14 @@
                                 <td>{{$property->category->contentDefault->name}}</td>
                                 
                                 <!-- <td class="page-status">{{ $property->sales == 1 ? 'Sales' : ''}} {{ $property->rentals == 1 ? 'Rentals' : '' }}</td> -->
+                                
+                                @if($property->featured_rent == 'no')
+                                
                                 <td class="page-featured">{{$property->featured_rent ? get_string('yes') : get_string('no')}}</td>
+                                
+                                @else
+
+
                                 @if($property->featured_rent)
                                 <td>
                                    
@@ -137,6 +143,7 @@
                                     </div>
                                    
                                 </td>
+                                @endif
                                 @endif
                                 <td class="icon-options">
                                     <input type="checkbox" class="filled-in primary-color slider-checkbox" id="slider-rent{{$property->id}}" data-id="{{$property->id}}" {{ $property->slider == 1 ? 'checked' : '' }}>

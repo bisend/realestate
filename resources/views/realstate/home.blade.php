@@ -25,9 +25,9 @@
     </div>
 
 
-<section class="module no-padding-top filter search-home-section">
+<section class="module no-padding-top filter search-home-section filter-home">
 
-<div class="tabs">
+<div class="tabs tabs-home">
 
   <div class="filter-header">
     <div class="container">
@@ -145,7 +145,7 @@
                   </div>
               </div>
 
-              <div class="filter-item filter-item-7">
+              <div class="filter-item filter-item-7 ">
                 <label>Search By Reference:</label>
                 <input id="refer-val-sale" 
                 class="reference" 
@@ -155,7 +155,7 @@
               </div>
               
 
-              <div class="filter-item filter-item-7">
+              <div class="filter-item filter-item-7 home-filter-btn">
                 <label class="label-submit">Submit</label><br/>
                 <input type="submit" id="find-sale" class="button alt" value="Find Properties">
               </div>
@@ -274,7 +274,7 @@
                 <input id="refer-val-rent" class="reference" name="reference-search-rent" type="text" placeholder="Search By Reference:">
               </div>
     
-              <div class="filter-item filter-item-7 filter-item-rent">
+              <div class="filter-item filter-item-7 filter-item-rent home-filter-btn">
                 <label class="label-submit">Submit</label><br/>
                 <input id="find-rent-btn" type="submit" class="button alt" value="Find Properties" />
               </div>
