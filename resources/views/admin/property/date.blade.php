@@ -91,8 +91,11 @@
         var dates = [];
         @if( ! empty($property->prop_dates) && $property->prop_dates->dates)
             @foreach($property->prop_dates->dates as $date)
-                var start_date = new Date('{{ $date }}');
-                dates.push(start_date);
+                @if( ! empty($date)) 
+                    var start_date = new Date('{{ $date }}');
+                    console.log(start_date);
+                    dates.push(start_date);
+                @endif
             @endforeach
         @endif
 

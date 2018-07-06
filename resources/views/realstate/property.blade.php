@@ -160,7 +160,7 @@
 				<div class="tabs">
 			        <ul>
 			          <li><a href="#tabs-1"><i class="fa fa-pencil icon"></i>Additional Details</a></li>
-			          <li><a href="#tabs-2"><i class="fa fa-files-o icon"></i>Attachments</a></li>
+					  <li><a href="#tabs-2"><i class="fa fa-files-o icon"></i>Attachments</a></li>
 					  @if($property->rentals == 1 && $property->prop_dates->dates)
 						<li><a href="#tabs-3"><i class="fa fa-calendar" aria-hidden="true"></i></i>Calendar</a></li>
 					  @endif
