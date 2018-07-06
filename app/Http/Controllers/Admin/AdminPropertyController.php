@@ -722,7 +722,28 @@ class AdminPropertyController extends Controller
     {
         $term = request('term') ? request('term') : '';
         
-        $property_ids = PropertyContent::where('name', 'LIKE', '%'.$term.'%')->get()->pluck('property_id');
+        $property_ids = PropertyContent::where('name', 'LIKE', '%'.$term.'%')
+            ->get()
+            ->pluck('property_id');
+
+        $ref_ids = [];
+        
+        $props = Property::get([
+            'id', 
+            'property_info'
+        ]);
+        
+        foreach ($props as $prop) {
+            if ($prop->property_info['property_reference'] == $term) {
+                $ref_ids[] = $prop->id;
+            }
+        }
+
+        if ( ! empty($ref_ids)) {
+            foreach ($ref_ids as $id) {
+                $property_ids[] = $id;
+            }
+        }
 
         $properties = Property::whereIn('id', $property_ids)
             ->orderBy('featured','desc')
@@ -790,10 +811,19 @@ class AdminPropertyController extends Controller
     public function updateDates(Request $request)
     {
         // Update available days
+        $today = date("m-d-Y");
         $property_dates = PropertyDate::where('property_id', $request->property_id)->first();
-        $data['dates'] = explode(',', $request->dates);
-        $data['dates'] = array_map('trim', $data['dates']);
+        $allDates = explode(',', $request->dates);
+        $allDates = array_map('trim', $allDates);
+        $validDates = [];
+        foreach ($allDates as $date) {
+            if ($date > $today) {
+                $validDates[] = $date;
+            }
+        }
+        $data['dates'] = $validDates;
         $property_dates->update($data);
+
         return redirect('admin/property');
     }
 
