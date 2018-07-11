@@ -231,7 +231,15 @@ class AdminPropertyController extends Controller
                 $watermarkPath = public_path('/images/watermark.png');
                 if(File::exists($watermarkPath)) {
                     $watermark = InterventionImage::make($watermarkPath);
-                    $img->insert($watermark, 'center');
+                    $watermarkWidth = $watermark->width();
+                    $imgWidth = $img->width();
+                    if ($watermarkWidth > $imgWidth) {
+                        // resize the image to a width and constrain aspect ratio (auto height)
+                        $watermark->resize($imgWidth - 20, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        });
+                    }
+                    $img->insert($watermark, 'center', 10, 10);
                 }
                 $img->save();
             }
@@ -390,6 +398,14 @@ class AdminPropertyController extends Controller
                     $watermarkPath = public_path('/images/watermark.png');
                     if(File::exists($watermarkPath)) {
                         $watermark = InterventionImage::make($watermarkPath);
+                        $watermarkWidth = $watermark->width();
+                        $imgWidth = $img->width();
+                        if ($watermarkWidth > $imgWidth) {
+                            // resize the image to a width and constrain aspect ratio (auto height)
+                            $watermark->resize($imgWidth - 20, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                            });
+                        }
                         $img->insert($watermark, 'center');
                     }
                     $img->save();
