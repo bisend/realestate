@@ -1527,6 +1527,26 @@ if (URL) {
                 $(this).parent('.input-group').next('br').remove();
                 $(this).parent('.input-group').remove();
             });
+
+            $('body').on("input", "[data-prices-price] input", function() {
+                this.value = this.value.replace(/\D/g,'');
+            });
+
+            $('body').on("input", "[data-prices-sc-sale] input", function() {
+                this.value = this.value.replace(/\D/g,'');
+            });
+
+            $('body').on("input", "[data-prices-rate-sale] input", function() {
+                this.value = this.value.replace(/\D/g,'');
+            });
+
+            $('body').on("input", "[data-prices-pw-rent] input", function() {
+                this.value = this.value.replace(/\D/g,'');
+            });
+            
+            $('body').on("input", "[data-prices-pm-rent] input", function() {
+                this.value = this.value.replace(/\D/g,'');
+            });
         });
 
     </script>
