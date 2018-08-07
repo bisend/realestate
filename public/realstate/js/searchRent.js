@@ -79,11 +79,13 @@ $('#find-rent-btn').on('click', function (e) {
        });
        
        if(lowerRentPerWeek){
-           var lpricePw = {
-            name: 'lower-per-week',
-            val: lowerRentPerWeek.replace('₤', '').replace('€', '').replace(/,/g , '')
-        }
-        urlFilters += lpricePw.name + '=' + lpricePw.val + '&';
+            var lpricePw = {
+                name: 'lower-per-week',
+                val: lowerRentPerWeek.replace('₤', '').replace('€', '').replace(/,/g , '')
+            }
+            if (parseInt(lpricePw.val) != 0) {
+                urlFilters += lpricePw.name + '=' + lpricePw.val + '&';
+            }
         }
 
         if(upperRentPerWeek !== ''){
@@ -91,24 +93,30 @@ $('#find-rent-btn').on('click', function (e) {
                 name: 'upper-per-week',
                 val: upperRentPerWeek.replace('₤', '').replace('€', '').replace(/,/g , '')
             }
-            urlFilters += upricePw.name + '=' + upricePw.val + '&';
+            if (parseInt(upricePw.val) != 0) {
+                urlFilters += upricePw.name + '=' + upricePw.val + '&';
+            }
         }
 
         if(lowerRentPerMonth !== ''){
             var lpricePm = {
-             name: 'lower-per-month',
-             val: lowerRentPerMonth.replace('₤', '').replace('€', '').replace(/,/g , '')
-         }
-         urlFilters += lpricePm.name + '=' + lpricePm.val + '&';
+                name: 'lower-per-month',
+                val: lowerRentPerMonth.replace('₤', '').replace('€', '').replace(/,/g , '')
+            }
+            if (parseInt(lpricePm.val) != 0) {
+                urlFilters += lpricePm.name + '=' + lpricePm.val + '&';
+            }
          }
          
-         if(upperRentPerMonth !== ''){
-             var upricePm = {
-                 name: 'upper-per-month',
-                 val: upperRentPerMonth.replace('₤', '').replace('€', '').replace(/,/g , '')
-             }
-             urlFilters += upricePm.name + '=' + upricePm.val;
-         }
+        if(upperRentPerMonth !== ''){
+            var upricePm = {
+                name: 'upper-per-month',
+                val: upperRentPerMonth.replace('₤', '').replace('€', '').replace(/,/g , '')
+            }
+            if (parseInt(upricePm.val) != 0) {
+                urlFilters += upricePm.name + '=' + upricePm.val;
+            }
+        }
 
         urlFilters += '&currency-id=' + (rentSelectedCountryId == 1 ? 2 : 1);
        
