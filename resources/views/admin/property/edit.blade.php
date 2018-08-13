@@ -107,7 +107,16 @@
                     </div>
                     <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('country_id') ? 'has-error' : ''}}">
-                            {{Form::select('country_id', $countries, $property->country_id, ['class' => 'country-select form-control', 'placeholder' => 'Select country'])}}
+                            <select class="country-select form-control" 
+                                name="country_id">
+                                <option disabled="disabled" hidden="hidden" value="">Select country</option>
+                                @foreach($countries as $key => $country)
+                                    <option value="{{$key}}" 
+                                        {{$property->country_id == $key ? 'selected' : ''}}
+                                    >{{$country}}</option>
+                                @endforeach
+                            </select>
+                            {{-- {{Form::select('country_id', $countries, $property->country_id, ['class' => 'country-select form-control', 'placeholder' => 'Select country'])}} --}}
                             {{Form::label('country_id', 'Country')}} *
                             @if($errors->has('country_id'))
                                 <span class="wrong-error">* {{$errors->first('country_id')}}</span>
@@ -116,11 +125,15 @@
                     </div>  
                     <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('location_id') ? 'has-error' : ''}}">
-                            <!-- {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control country-', 'placeholder' => get_string('choose_location')])}} -->
+                            {{-- {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control country-', 'placeholder' => get_string('choose_location')])}} --}}
                             <select name="location_id" id="select_location_id" class="location-select form-control" placeholder="Select location">
                             <option value="" selected disabled hidden>Select location</option>
                             @foreach($locations as $location)
-                                <option class="country-{{$location->country_id}}" value="{{$location->id}}" {{$property->location_id == $location->id ? 'selected' : ''}}>{{$location->contentDefault->location}}</option>                        
+                                <option class="country-{{$location->country_id}}" 
+                                    value="{{$location->id}}" 
+                                    {{$property->location_id == $location->id ? 'selected' : ''}}
+                                >{{$location->contentDefault->location}}</option>
+                                
                             @endforeach
                             </select>
                             {{Form::label('location_id', 'Location')}} *

@@ -54,6 +54,8 @@ jQuery(document).ready(function($) {
 
 "use strict";
 
+	$('.property-content').matchHeight();
+
 	saleSelectedCountryId = $('#search_sale-country') ? $('#search_sale-country').val() : 0;
 
 	rentSelectedCountryId = $('#search_rent-country') ? $('#search_rent-country').val() : 0;

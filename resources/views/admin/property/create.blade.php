@@ -103,14 +103,20 @@
                     <div class="col m6 s6">
                         <div class="form-group  {{$errors->has('location_id') ? 'has-error' : ''}}">
                             {{-- {{Form::select('location_id', $locations, null, ['class' => 'location-select form-control country-', 'placeholder' => get_string('choose_location')])}} --}}
-                            <select name="location_id" id="select_location_id" class="location-select form-control" placeholder="Select location">
-                            <option value="" selected disabled hidden>Select location</option>
+                            <select name="location_id" id="select_location_id" 
+                                class="location-select form-control" 
+                                placeholder="Select location">
+                            <option value="" disabled="disabled" hidden="hidden" selected>Select location</option>
                             @foreach($locations as $location)
-                                <option class="country-{{$location->country_id}}" value="{{$location->id}}">
+                                <option class="country-{{$location->country_id}}" 
+                                    value="{{$location->id}}" 
+                                    {{ $location->id == old('location_id') ? 'selected' : ''}}
+                                    >
                                     {{$location->contentDefault->location}}
                                 </option>    
                             @endforeach
                             </select>
+                            {{-- {{ old('location_id')}} --}}
                             {{Form::label('location_id', 'Location')}} *
                             @if($errors->has('location_id'))
                                 <span class="wrong-error">* {{$errors->first('location_id')}}</span>
@@ -475,10 +481,21 @@
                             @foreach($currencies as $currency)
                                 <p>
                                 <label for="currency_id_{{ $currency->id }}">
-                                    <input type="radio" 
-                                        id="currency_id_{{ $currency->id }}"
-                                        name="currency_id" 
-                                        value="{{ $currency->id }}" {{ $currencyCounter == 0 ? 'checked' : ''}}>
+                                    @if(old('currency_id'))
+                                        <input type="radio" 
+                                            id="currency_id_{{ $currency->id }}"
+                                            name="currency_id" 
+                                            value="{{ $currency->id }}" 
+                                            {{ old('currency_id') == $currency->id ? 'checked' : ''}}
+                                        >
+                                    @else
+                                        <input type="radio" 
+                                            id="currency_id_{{ $currency->id }}"
+                                            name="currency_id" 
+                                            value="{{ $currency->id }}" 
+                                            {{ $currencyCounter == 0 ? 'checked' : ''}}
+                                        >
+                                    @endif
                                         {{ $currency->code}}
                                 </label>
                                 </p>
@@ -1073,6 +1090,7 @@ if (URL) {
 
 
     <script>
+        
         var selectedCountryId = 0;
 
         selectedCountryId = $('.country-select') ? $('.country-select').val() : 0;
@@ -1080,7 +1098,7 @@ if (URL) {
         function checkCountry () {
             var country_id = selectedCountryId;
 
-            $('#select_location_id').val('');
+            // $('#select_location_id').val('');
 
             if (country_id == '') {
                 $(".location-select option" ).each(function() {
@@ -1144,6 +1162,7 @@ if (URL) {
         var checkCount = 0;
         var cropImg = 0;
         var lastImg = 0;
+        var cropImgEdit = 0;
 
         $(document).ready(function(){
             Dropzone.autoDiscover = false;
@@ -1158,6 +1177,168 @@ if (URL) {
                 parallelUploads: 1,
                 maxFiles: 10,
                 init: function() {
+
+                   @if(old('images'))
+                        @foreach(old('images') as $image)
+                            var mockFile = { name: '{{ $image }}', size: 100000 };
+                            this.emit("addedfile", mockFile);
+                            this.createThumbnailFromUrl(mockFile, '/images/data/{{ $image }}');
+                            this.emit("success", mockFile);
+                            $('[data-dz-name]').each(function (index, elem) {
+                                if ($(elem).text() == '{{$image}}') {
+                                    $(elem).closest('.dz-preview').find('a.dz-remove').attr('data-dz-remove', '{{$image}}')
+                                }
+                            })
+                        
+                        $('.hidden-fields').append('<input type="hidden" name="images[]" value="{{ $image }}">');
+
+                        //  let lastUploadImg = $($('.dz-image img').get(lastImg++))
+                        
+
+                        var cropbtn = $($('.open-cropper').get(cropImgEdit++))
+                        cropbtn.last().append('<input type="hidden" value="{{ $image }}">');
+
+                            var checkboxList = $($('.checkboxList').get(checkCount++))
+                            checkboxList.last().append('<input type="checkbox" id="{{ $image }}" class="filled-in primary-color" name="general photo" value="{{ $image }}" ><label for="{{ $image }}"></label><span>Main photo</span>');
+                            
+                            // checkboxList.find('input').on('change', function(){
+                            //     if(this.checked) {
+                            //     var mainPhoto = $(this).val();
+                            //     $('#main-photo').val(mainPhoto);
+                            //     console.log($('#main-photo').val())
+                            //     console.log(mainPhoto)
+                            //     $.ajax({
+                            //         url: '{{url('/image_handler/status')}}',
+                            //         type: 'POST',
+                            //         data: {
+                            //             _token: $('[name="_token"]').val(),
+                            //             mainPhoto: mainPhoto
+                            //         },
+                            //         success: function(msg){
+                            //             //toastr.success(msg);
+                            //         },
+                            //         error:function(msg){
+                            //             toastr.error(msg.responseJSON);
+                            //         }
+                            //     });
+                            // } else {
+                            //     $('#main-photo').val('');
+                            //     console.log($('#main-photo').val())
+                            // }
+                            // });
+
+                            $( ".checkboxList input[type=checkbox]" ).each(function(  ) {
+                            if(this.checked){
+                                var current = $(this);
+                                var parent = current.parent();
+                                var index = current.index();
+                                var checked = current.prop('checked');
+
+                                // disable others in current div
+                            current.siblings().each(function () {
+                                    var other = $(this);
+
+                                    if (checked){
+                                            other.attr('disabled', true);
+                                            other.addClass('disable-by-current');
+                                    }else {
+                                            other.removeClass('disable-by-current');
+                                            if (other.hasClass('disable-by-others')){
+                                                    // can not disabled
+                                            }else{
+                                                    other.attr('disabled', false);
+                                            }
+                                    }
+
+                            });
+
+                            $('.checkboxList input[type=checkbox]').each(function () {
+                                    var tmpCurrent = $(this);
+                                    var tmpParent = tmpCurrent.parent();
+                                    var tmpIndex = tmpCurrent.index();
+                                    var tmpChecked = tmpCurrent.prop('checked');
+
+                                    // if not current div
+                                    if (tmpParent.get(0) !== parent.get(0)) {
+                                            // common in other div
+                                            if (tmpIndex === index) {
+                                                    if (checked){
+                                                            tmpCurrent.attr('disabled', true);
+                                                            tmpCurrent.addClass('disable-by-others');
+                                                    }else{
+                                                            tmpCurrent.removeClass('disable-by-others');
+                                                            if (tmpCurrent.hasClass('disable-by-current')){
+                                                                    // can not disable
+                                                            }else {
+                                                                    tmpCurrent.attr('disabled', false);
+                                                            }
+                                                    }
+                                            }
+                                    }
+
+                            });
+                        }
+                    });
+                            
+
+
+            $(function () {
+                var groups = $('.checkboxList');
+                $('body').on('change', '.checkboxList input[type=checkbox]', function () {
+
+                    var current = $(this);
+                    var parent = current.parent();
+                    var index = current.index();
+                    var checked = current.prop('checked');
+
+                    // disable others in current div
+                    current.siblings().each(function () {
+                        var other = $(this);
+
+                        if (checked){
+                            other.attr('disabled', true);
+                            other.addClass('disable-by-current');
+                        }else {
+                            other.removeClass('disable-by-current');
+                            if (other.hasClass('disable-by-others')){
+                                // can not disabled
+                            }else{
+                                other.attr('disabled', false);
+                            }
+                        }
+
+                    });
+
+                    $('.checkboxList input[type=checkbox]').each(function () {
+                        var tmpCurrent = $(this);
+                        var tmpParent = tmpCurrent.parent();
+                        var tmpIndex = tmpCurrent.index();
+                        var tmpChecked = tmpCurrent.prop('checked');
+
+                        // if not current div
+                        if (tmpParent.get(0) !== parent.get(0)) {
+                            // common in other div
+                            if (tmpIndex === index) {
+                                if (checked){
+                                    tmpCurrent.attr('disabled', true);
+                                    tmpCurrent.addClass('disable-by-others');
+                                }else{
+                                    tmpCurrent.removeClass('disable-by-others');
+                                    if (tmpCurrent.hasClass('disable-by-current')){
+                                        // can not disable
+                                    }else {
+                                        tmpCurrent.attr('disabled', false);
+                                    }
+                                }
+                            }
+                        }
+
+                    })
+                })
+            });
+
+                        @endforeach
+                    @endif
                     
                     this.on('success', function(file, json) {
                         var selector = file._removeLink;
@@ -1176,37 +1357,6 @@ if (URL) {
 
                         checkboxList.last().append('<input type="checkbox" id="'+ json.data +'" class="filled-in primary-color" name="general photo" value="'+ json.data +'" ><label for="'+ json.data +'"></label><span>Main photo</span>');
                                                
-                        // rot.last().append('<input type="hidden" value="'+ json.data +'">');
-                        // var rotateImg = 0;
-
-                        // rot.on('click', function () {
-                        // if(rotateImg == 360){
-                        //     rotateImg = 0;
-                        //     }
-                        // rotateImg += 90;
-                        // var imgSrc = $(this).find('input').val();
-                        // $(this).next('img').css("transform", " rotate(" + rotateImg + "deg)")
-                        // console.log(imgSrc)
-                        // console.log(rotateImg);
-                        // rot.hide();
-                        // $.ajax({
-                        //     url: '{{url('/image_handler/rotate')}}',
-                        //     type: 'POST',
-                        //     data: {
-                        //         _token: $('[name="_token"]').val(),
-                        //         imgSrc: imgSrc,
-                        //         rotateImg: rotateImg
-                        //     },
-                        //     success: function(msg){
-                        //         rot.show();
-                        //         toastr.success(msg);
-                        //     },
-                        //     error:function(msg){
-                        //         toastr.error(msg.responseJSON);
-                        //     }
-                        // });
-                        // });
-
                         checkboxList.find('input').on('change', function(){
                             if(this.checked) {
                                 
@@ -1339,6 +1489,10 @@ if (URL) {
                     this.on("removedfile", function(file) {
                         var selector = file._removeLink;
                         var data = $(selector).attr('data-dz-remove');
+                        // if (!data) {
+                            // data = file.name;
+                        // }
+                        console.log('removed', file)
                         $.ajax({
                             type: 'POST',
                             url: '{{url('/image_handler/delete')}}',
@@ -1346,6 +1500,9 @@ if (URL) {
                             dataType: 'html',
                             success: function(msg){
                                 $('.hidden-fields').find('[value="'+ data +'"]').remove();
+                            },
+                            error: function(error) {
+                                console.log(error);
                             }
                         });
                     });
@@ -1379,15 +1536,15 @@ if (URL) {
             if(typeof google !== 'undefined' && google){
                 var map = new google.maps.Map(document.getElementById('google-map'), {
                     center:{
-                        lat: 36.14474,
-                        lng: -5.35257
+                        lat: {{ old('location.geo_lon') ? old('location.geo_lon') : 36.14474 }},
+                        lng: {{ old('location.geo_lat') ? old('location.geo_lat') : -5.35257 }}
                     },
                     zoom: 15
                 });
                 var marker = new google.maps.Marker({
                     position: {
-                        lat: 36.14474,
-                        lng: -5.35257
+                        lat: {{ old('location.geo_lon') ? old('location.geo_lon') : 36.14474 }},
+                        lng: {{ old('location.geo_lat') ? old('location.geo_lat') : -5.35257 }}
                     },
                     map: map,
                     draggable: true

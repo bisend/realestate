@@ -203,6 +203,8 @@ class AdminPropertyController extends Controller
 
         // Store to base
         $data = $request->except('markers', '_token', 'action', 'images', 'name', 'description');
+        $notTrimmed = $data['property_info']['property_reference'];
+        $data['property_info']['property_reference'] = trim($notTrimmed);
         $data['status'] = 1;
         $data['featured'] = isset($request->featured) ? 1 : 0;
         $default_language = Language::where('default', 1)->first();
@@ -341,6 +343,8 @@ class AdminPropertyController extends Controller
         }
 
         $data = $request->except('markers', '_token', 'action', 'images', 'name', 'description');
+        $notTrimmed = $data['property_info']['property_reference'];
+        $data['property_info']['property_reference'] = trim($notTrimmed);
         $property = Property::findOrFail($id);
         $property->touch();
         $default_language = Language::where('default', 1)->first();
@@ -634,14 +638,14 @@ class AdminPropertyController extends Controller
         $validator = Validator::make($request->all(), $this->validation_rules, $this->validation_messages);
 
         if($validator->fails()){
-            if(isset($request->images)){
-                foreach($request->images as $image){
-                    $path = public_path('images/data/'.$image);
-                    if(File::exists($path)){
-                        File::delete($path);
-                    }
-                }
-            }
+            // if(isset($request->images)){
+            //     foreach($request->images as $image){
+            //         $path = public_path('images/data/'.$image);
+            //         if(File::exists($path)){
+            //             File::delete($path);
+            //         }
+            //     }
+            // }
             return Redirect::back()->withInput()->withErrors($validator);
         }else{
             foreach($languages as $language) {
@@ -655,14 +659,14 @@ class AdminPropertyController extends Controller
                     'description.'.$language->id.'.min'         => get_string('min_100'),
                 ]);
                 if($validator->fails()) {
-                    if (isset($request->images)) {
-                        foreach ($request->images as $image) {
-                            $path = public_path('images/data/' . $image);
-                            if (File::exists($path)) {
-                                File::delete($path);
-                            }
-                        }
-                    }
+                    // if (isset($request->images)) {
+                    //     foreach ($request->images as $image) {
+                    //         $path = public_path('images/data/' . $image);
+                    //         if (File::exists($path)) {
+                    //             File::delete($path);
+                    //         }
+                    //     }
+                    // }
                     return Redirect::back()->withInput()->withErrors($validator);
                 }
             }
