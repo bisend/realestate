@@ -28,8 +28,12 @@ class ImageHandler extends Controller
             $date = date('M-Y');
 
             $path = public_path('/images/data/'. $date .'/'. $name);
-            if(!File::exists(public_path() . '/images/data/'. $date)){
+            if( ! File::exists(public_path() . '/images/data/'. $date)) {
                 File::makeDirectory(public_path() . '/images/data/'. $date, 0755, true);
+            }
+
+            if ( ! File::exists(public_path() . '/images/data/'. $date . '/.gitignore')) {
+                File::put(public_path() . '/images/data/'. $date . '/.gitignore', "*\n\r!.gitignore\n\r");
             }
             // $watermarkPath = public_path('/images/watermark.png');
             // if(File::exists($watermarkPath)) {
