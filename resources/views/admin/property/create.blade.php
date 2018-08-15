@@ -493,7 +493,7 @@
                                             id="currency_id_{{ $currency->id }}"
                                             name="currency_id" 
                                             value="{{ $currency->id }}" 
-                                            {{ $currencyCounter == 0 ? 'checked' : ''}}
+                                            {{ $currencyCounter == 1 ? 'checked' : ''}}
                                         >
                                     @endif
                                         {{ $currency->code}}
