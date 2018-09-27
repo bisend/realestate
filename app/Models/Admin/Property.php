@@ -76,6 +76,11 @@ class Property extends Model
         return $this->hasOne('App\Models\Admin\PropertyContent')->where('language_id', $default->id);
     }
 
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Admin\Country');
+    }
+
     // Getting the content all Languages
     public function content($language_id = 1){
         return $this->hasOne('App\Models\Admin\PropertyContent')->where('language_id', $language_id)->first();
