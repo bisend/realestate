@@ -93,7 +93,7 @@ class SitemapController extends Controller
         // }
 
         // $xml = Sitemap::xml();
-        $filename = public_path('sitemap.xml');
+        $filename = public_path('feed.xml');
         if (File::exists($filename)) {
             File::delete($filename);
         }
