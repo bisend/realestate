@@ -165,6 +165,7 @@ return [
          * Package Service Providers...
          */
         Barryvdh\DomPDF\ServiceProvider::class,
+        Watson\Sitemap\SitemapServiceProvider::class,
         //
 
         /*
@@ -239,5 +240,6 @@ return [
         'Currency' => Torann\Currency\Facades\Currency::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Sitemap' => Watson\Sitemap\Facades\Sitemap::class,
     ],
 ];

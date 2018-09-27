@@ -15,6 +15,7 @@ Auth::routes();
 |--------------------------------------------------------------------------
 */
 Route::get('/pdf/{alias}', 'PropertyController@indexPDF');
+Route::get('sitemap', 'SitemapController@index');
 Route::group(['middleware' => 'admin'], function(){
 
     // Admin routes
@@ -320,7 +321,7 @@ Route::post('/filter/services', 'FilterController@services');
 Route::get('/service/{alias}', 'ServiceController@index');
 
 // Properties
-Route::get('/property/{alias}', 'PropertyController@index');
+Route::get('/property/{alias}', 'PropertyController@index')->name('property.show');
 Route::post('/bookproperty', 'PropertyController@book');
 
 // Categories

@@ -19,7 +19,8 @@
         "torann/currency": "1.0.10",
         "laravel/socialite": "*",
         "doctrine/dbal": "^2.7",
-        "barryvdh/laravel-dompdf": "^0.8.2"
+        "barryvdh/laravel-dompdf": "^0.8.2",
+        "watson/sitemap": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
