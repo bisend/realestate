@@ -27,7 +27,8 @@
 
         .other-image {
             width: 100%;
-            max-height: 33%;
+            /* max-height: 100%; */
+            height: 150px;
         }
 
         .other-image-container::after {
