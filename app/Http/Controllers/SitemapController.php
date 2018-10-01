@@ -41,6 +41,10 @@ class SitemapController extends Controller
             $t = strip_tags(trim($property->contentLoad->description));
             $t = htmlspecialchars($t, ENT_XML1 | ENT_COMPAT, 'UTF-8');
             $desc = $t ? strip_tags($t) : '';
+            $price = $property->sales ? $property->prices['price'] : $property->prices['month'];
+            if (empty($price)) {
+                $price = 0;
+            }
             if ( ! empty($property->images)) {
                 foreach ($property->images as $image) {
                     if ($image) {
@@ -54,11 +58,9 @@ class SitemapController extends Controller
                 <id>{$property->id}</id>
                 <date></date>
                 <ref>{$property->property_info['property_reference']}</ref>
-                <price>{$property->prices['price']}</price>
+                <price>$price</price>
                 <service_charge>{$property->prices['service_charge']}</service_charge>
                 <rates>{$property->prices['rates']}</rates>
-                <price_per_week>{$property->prices['week']}</price_per_week>
-                <price_per_month>{$property->prices['month']}</price_per_month>
                 <type>
                     <en>{$property->category->contentDefault->name}</en>
                 </type>

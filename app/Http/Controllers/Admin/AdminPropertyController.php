@@ -282,7 +282,7 @@ class AdminPropertyController extends Controller
 
         // Create available dates
         PropertyDate::create(['dates' => null, 'property_id' => $property->id]);
-        // $this->createPdfFile($property);
+        $this->createPdfFile($property);
         // Redirect after saving
         return redirect('admin/property');
     }
@@ -441,7 +441,7 @@ class AdminPropertyController extends Controller
             $category_content = PropertyContent::where(['language_id' => $language->id, 'property_id' => $id])->first();
             $category_content->update($data);
         }
-        // $this->createPdfFile($property);
+        $this->createPdfFile($property);
 
         // Redirect after saving
         return redirect('admin/property');

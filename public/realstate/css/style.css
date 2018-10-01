@@ -1526,6 +1526,10 @@ header { background:white; width:100%; position:relative; z-index:1000; }
 	color: #fff;
 }
 
+.pdf-down-prop:focus {
+	color: #fff;
+}
+
 .pdf-down-prop span{
 	font-size: 17px!important;
     padding-top: 6px;

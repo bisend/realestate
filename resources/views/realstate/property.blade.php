@@ -121,12 +121,15 @@
 						<td><i class="fa fa-bed"></i></i> <span>{{ $mainProperty->property_info['bedrooms'] }}</span> Beds</td>
 						<td><i class="fa fa-expand"></i> <span>{{ $mainProperty->property_info['internal_area'] }}</span> Sq mt</td>
 						{{-- <td><i class="fa fa-user" aria-hidden="true"></i> <span>{{ $mainProperty->guest_number }}</span> PDF</td> --}}
-						{{-- <td>
-							<a href="{{public_path('/files/' . $mainProperty->pdfFile['file_name'] . '.pdf')}}" 
-								target="_blank" class="pdf-down-prop">
-								<i class="fa fa-file-text-o" aria-hidden="true"></i><span>PDF</span>
-							</a>
-						</td> --}}
+						@if( ! empty($mainProperty->pdfFile['file_name']))
+							<td>
+								{{-- <a href="{{public_path('files/' . $mainProperty->pdfFile['file_name'] . '.pdf')}}"  --}}
+								<a href="{{'/files/' . $mainProperty->pdfFile['file_name'] . '.pdf'}}" 
+									target="_blank" class="pdf-down-prop">
+									<i class="fa fa-file-text-o" aria-hidden="true"></i><span>PDF</span>
+								</a>
+							</td>
+						@endif
 					</tr>
 				</table>
 
