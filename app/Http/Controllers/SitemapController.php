@@ -67,6 +67,7 @@ class SitemapController extends Controller
                 <type>
                     <en>{$property->category->contentDefault->name}</en>
                 </type>
+                <town>{$property->prop_location->contentDefault->location}</town>
                 <country>{$property->country->contentload->location}</country>
                 <sale>{$property->sales}</sale>
                 <rental>{$property->rentals}</rental>
