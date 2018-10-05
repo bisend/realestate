@@ -24,7 +24,7 @@ class SitemapController extends Controller
         $properties = Property::with([
             'property_status',
             'images',
-            'contentLoad' => function ($query) use ($default_language) {
+            'contentload' => function ($query) use ($default_language) {
                 $query->where('language_id', $default_language->id);
             },
         ])->get();
@@ -41,10 +41,11 @@ class SitemapController extends Controller
             $t = strip_tags(trim($property->contentLoad->description));
             $t = htmlspecialchars($t, ENT_XML1 | ENT_COMPAT, 'UTF-8');
             $desc = $t ? strip_tags($t) : '';
-            $price = $property->sales ? $property->prices['price'] : $property->prices['month'];
-            if (empty($price)) {
-                $price = 0;
-            }
+            $price = $property->prices['price'];
+            $rentPrice = $property->prices['month'];
+            $price = empty($price) ? 0 : $price;
+            $rentPrice = empty($rentPrice) ? 0 : $rentPrice;
+
             if ( ! empty($property->images)) {
                 foreach ($property->images as $image) {
                     if ($image) {
@@ -54,11 +55,13 @@ class SitemapController extends Controller
                     }
                 }
             }
+
             $xml .= "<property>
                 <id>{$property->id}</id>
                 <date></date>
                 <ref>{$property->property_info['property_reference']}</ref>
                 <price>$price</price>
+                <rent_price>$rentPrice</rent_price>
                 <service_charge>{$property->prices['service_charge']}</service_charge>
                 <rates>{$property->prices['rates']}</rates>
                 <type>
