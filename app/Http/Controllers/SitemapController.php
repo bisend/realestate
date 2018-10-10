@@ -38,9 +38,7 @@ class SitemapController extends Controller
             $pool = ! empty($property->features) && in_array('8', $property->features) ? 1 : 0;
             $parking = ! empty($property->features) && in_array('2', $property->features) ? 1 : 0;
             $images_text = "";
-            $t = strip_tags(trim($property->contentLoad->description));
-            $t = htmlspecialchars($t, ENT_XML1 | ENT_COMPAT, 'UTF-8');
-            $desc = $t ? strip_tags($t) : '';
+            $desc = htmlspecialchars(strip_tags(str_replace(['&amp;nbsp;', 'Â','·Â', '&amp;', '&nbsp;'], ['', '', '', '', ''], $property->contentload->description)), null, 'UTF-8');
             $price = $property->prices['price'];
             $rentPrice = $property->prices['month'];
             $price = empty($price) ? 0 : $price;
@@ -80,7 +78,7 @@ class SitemapController extends Controller
                 <internal_size>{$property->property_info['internal_area']}</internal_size>
                 <external_size>{$property->property_info['external_area']}</external_size>
                 <desc>
-                    <en>$desc</en>
+                    <en>{$desc}</en>
                 </desc>
                 <images>
                     $images_text
