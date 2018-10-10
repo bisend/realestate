@@ -29,9 +29,9 @@ class SitemapController extends Controller
             },
         ])->get();
 
-        header("Content-type: text/xml;charset=ISO-8859-1");
+        header("Content-type: text/xml;charset=UTF-8");
         $xml = "";
-        $xml .= '<?xml version="1.0" encoding="ISO-8859-1"?><root>';
+        $xml .= '<?xml version="1.0" encoding="UTF-8"?><root>';
         foreach ($properties as $property) {
             $status = $property->status == 1 ? 'Available' : 'Not available';
             $cat2 = $property->category_id == 2 ? 1 : 0;
